@@ -2,10 +2,10 @@
 # to your pages. You can add as many areas as you like, still only those that are rendered in your TypoScript and
 # Template are visible on your page.
 ---
-#'TYPO3.Neos.NodeTypes:Page':
+#'Neos.NodeTypes:Page':
 #  childNodes:
 #    'sidebar':
-#      type: 'TYPO3.Neos:ContentCollection'
+#      type: 'Neos.Neos:ContentCollection'
 
 
 ##
@@ -13,7 +13,7 @@
 #
 'schule.signalwerkCh:Upload':
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'Neos.Neos:Content': TRUE
   ui:
     label: Upload
     icon: 'icon-file'
@@ -24,7 +24,7 @@
           position: 50
   properties:
     'files':
-      type: 'array<TYPO3\Media\Domain\Model\Asset>'
+      type: 'array<Neos\Media\Domain\Model\Asset>'
       ui:
         label: 'Files'
         reloadIfChanged: TRUE

@@ -4,6 +4,11 @@
   position: relative;
   // height: 140px;
   margin: 0 30px;
+
+  .neos-backend & {
+    margin-left: 0;
+  }
+
   z-index: 4;
   max-width: 1130px;
 
@@ -30,6 +35,9 @@
       position: fixed;
       top: 75px;
       left: 143px;
+
+
+
       z-index: 5;
       transform: translateZ(0);
 
@@ -57,6 +65,11 @@
     left: auto;
     height: auto;
     margin: 70px 0 0 148px;
+
+    .neos-backend & {
+      margin-left: 1rem;
+    }
+
     position: static;
 
 

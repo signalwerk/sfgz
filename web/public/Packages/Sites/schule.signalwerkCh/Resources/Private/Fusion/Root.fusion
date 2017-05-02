@@ -4,14 +4,14 @@
 
 include: NodeTypes/*
 
-page = TYPO3.Neos:Page {
+page = Page {
   head {
-    stylesheets.site = TYPO3.TypoScript:Template {
+    stylesheets.site = Neos.Fusion:Template {
       templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
       sectionName = 'stylesheets'
     }
 
-    javascripts.site = TYPO3.TypoScript:Template {
+    javascripts.site = Neos.Fusion:Template {
       templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
       sectionName = 'headScripts'
     }
@@ -28,7 +28,7 @@ page = TYPO3.Neos:Page {
       //   entryLevel = 1
       // }
       menu1 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/TypoScriptObjects/DefaultMenu.html'
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
         maximumLevels = 1
@@ -36,14 +36,14 @@ page = TYPO3.Neos:Page {
       }
 
       menu2 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/TypoScriptObjects/DefaultMenu.html'
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 3
         maximumLevels = 1
       }
 
       metaMenu = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/TypoScriptObjects/DefaultMenu.html'
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
         maximumLevels = 1
@@ -55,12 +55,12 @@ page = TYPO3.Neos:Page {
     // These are your content areas, you can define as many as you want, just name them and the nodePath.
     content {
       // The default content section
-      main = TYPO3.Neos:PrimaryContent {
+      main = PrimaryContent {
         nodePath = 'main'
       }
     }
 
-    javascripts.site = TYPO3.TypoScript:Template {
+    javascripts.site = Neos.Fusion:Template {
       templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
       sectionName = 'bodyScripts'
     }

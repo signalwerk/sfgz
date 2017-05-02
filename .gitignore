@@ -1,2 +1,5 @@
 /Vagrant
 /node_modules
+/__PROD_SRV__
+/__Vagrant_SRV__
+/.vagrant

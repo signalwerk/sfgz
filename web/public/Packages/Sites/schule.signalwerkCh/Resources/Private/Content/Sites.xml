@@ -3,11 +3,11 @@
  <site name="gestaltungzh.ch" state="1" siteResourcesPackageKey="schule.signalwerkCh" siteNodeName="signalwerkch">
   <nodes formatVersion="2.0">
    <node nodeName="signalwerkch">
-    <variant workspace="live" nodeType="TYPO3.Neos.NodeTypes:Page" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
+    <variant workspace="live" nodeType="Neos.NodeTypes:Page" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
      <dimensions>
-     
+
       <language>en_US</language>
-     
+
      </dimensions>
      <accessRoles __type="array"/>
      <properties>
@@ -16,11 +16,11 @@
      </properties>
     </variant>
     <node nodeName="main">
-     <variant workspace="live" nodeType="TYPO3.Neos:ContentCollection" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
+     <variant workspace="live" nodeType="Neos:ContentCollection" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
       <dimensions>
-      
+
        <language>en_US</language>
-      
+
       </dimensions>
       <accessRoles __type="array"/>
      </variant>

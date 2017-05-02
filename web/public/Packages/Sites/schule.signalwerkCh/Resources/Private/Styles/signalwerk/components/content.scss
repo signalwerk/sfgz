@@ -1,8 +1,18 @@
 .content {
-  margin-left: 180px;
+  width: 100%;
   max-width: 1130px;
 
+  margin-left: 180px;
+
+  .neos-backend & {
+    margin-left: 1rem;
+  }
+
   &-inner {
-    width: 64.8% !important;
+    width: 64.8%;
+
+    .neos-backend & {
+      width: 100%;
+    }
   }
 }
