@@ -1,0 +1,53 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<nav{attributes -> f:format.raw()}>
+	<ul>
+		<f:render section="itemsList" arguments="{items: items}" />
+	</ul>
+</nav>
+
+<f:section name="itemsList">
+	<f:if condition="{items -> f:count()}">
+		<f:then>
+			<f:for each="{items}" as="item">
+			<li class="{item.state}<f:if condition="{item.node.nodeData.properties.menuSubmenuMobile}"> menuSubmenuMobile</f:if>">
+
+					<neos:link.node node="{item.node}" class="cID{item.node.identifier} cNodePath{item.node.nodePath} cPath{item.node.path}">
+						{item.label} 
+						<f:if condition="{item.node.nodeData.properties.menuPostfix}">
+							<f:then>
+								<f:if condition="{item.node.nodeData.properties.menuPostfixHTML}">
+									<f:then>
+										{item.node.nodeData.properties.menuPostfix -> f:format.raw()}
+									</f:then>
+									<f:else>
+										<span class="postfix">{item.node.nodeData.properties.menuPostfix}</span>
+									</f:else>
+								</f:if>
+							</f:then>
+						</f:if>
+					</neos:link.node>
+
+					<f:if condition="{item.subItems}">
+						<ul>
+							<f:if condition="{item.node.nodeData.properties.menuSubmenuMobile}">
+								<li class="menue--back">
+									<a class="" href="#">← zurück</a>
+								</li>
+							</f:if>
+							<f:render section="itemsList" arguments="{items: item.subItems}" />
+						</ul>
+					</f:if>
+
+				</li>
+			</f:for>
+		</f:then>
+		<f:else>
+			<f:security.ifAccess privilegeTarget="TYPO3.Neos:Backend.GeneralAccess">
+				<f:if condition="{node.context.workspace.name} != 'live'">
+					<li>Empty menu</li>
+				</f:if>
+			</f:security.ifAccess>
+		</f:else>
+	</f:if>
+</f:section>

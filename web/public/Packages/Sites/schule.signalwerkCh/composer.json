@@ -1,0 +1,22 @@
+{
+    "description": "Add description here",
+    "type": "typo3-flow-site",
+    "require": {
+        "typo3/neos": "*",
+        "typo3/neos-nodetypes": "*"
+    },
+    "suggest": {
+        "typo3/neos-seo": "*"
+    },
+    "name": "schule/signalwerkch",
+    "autoload": {
+        "psr-0": {
+            "schule\\signalwerkCh": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "schule.signalwerkCh"
+        }
+    }
+}

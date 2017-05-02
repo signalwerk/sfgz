@@ -1,0 +1,8 @@
+##
+# "Upload" element
+#
+
+prototype(Neos.Demo:Upload) < prototype(TYPO3.Neos:Content) {
+		attributes.class = 'Upload-items'
+		templatePath = 'resource://Neos.Demo/Private/Templates/NodeTypes/Upload.html'
+}

@@ -1,0 +1,36 @@
+@import '../variables';
+
+body.home {
+
+  h1 {
+    color: white;
+  }
+
+  .multiColumn__item--1 {
+    h1 {
+      @include font();
+    }
+    a {
+      color: white;
+      &:hover {
+        color: $cLogoGreen;
+      }
+    }
+    .typo3-neos-nodetypes-text {
+      margin-top: 15rem;
+      margin-left: 1rem;
+      width: 13rem;
+      padding-left: 2rem;
+      height: 14rem;
+      padding-top: 1rem;
+      background-color: $cLogoRed;
+      border-radius: 50%;
+    }
+  }
+
+
+   .typo3-neos-nodetypes-text {
+      position: absolute;
+      width: $contentWidth/5*4
+   }
+}

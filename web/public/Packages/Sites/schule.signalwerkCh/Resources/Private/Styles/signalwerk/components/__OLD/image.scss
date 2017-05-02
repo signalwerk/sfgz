@@ -1,0 +1,15 @@
+@import '../variables';
+
+.typo3-neos-nodetypes-image {
+
+
+  figure {
+    margin: 0;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+}

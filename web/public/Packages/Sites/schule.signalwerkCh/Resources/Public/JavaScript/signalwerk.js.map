@@ -1,0 +1,1 @@
+{"version":3,"sources":["signalwerk.js"],"names":["$","jQuery"],"mappings":";;AAAA;AACA,CAAC,UAASA,CAAT,EAAY;AACXA,IAAE,YAAW,CAGZ,CAHD;AAID,CALD,EAKGC,MALH","file":"signalwerk.js","sourcesContent":["// main\n(function($) {\n  $(function() {\n\n\n  });\n})(jQuery);\n"]}

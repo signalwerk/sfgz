@@ -1,0 +1,51 @@
+// ==================================================
+// $Variables
+// ==================================================
+// Supports
+// @media min-width
+// @media max-width
+// @media min-width and max-width
+$viewport-increment: 0.1px; // customize to suite
+
+
+// Wide-Desktop
+$wide-desktop: 1240px; // customize to suite
+$pre-wide-desktop: $wide-desktop - $viewport-increment;
+
+// Desktop
+$desktop: 1024px; // customize to suite
+$pre-desktop: $desktop - $viewport-increment;
+// Tablet
+$tablet: 768px; // customize to suite
+$pre-tablet: $tablet - $viewport-increment;
+// mobile
+$mobile: 560px; // customize to suite
+$post-mobile: $mobile + $viewport-increment;
+// Constraints
+$min: min-width;
+$max: max-width;
+@mixin mediaQuery($constraint, $viewport1, $viewport2: null) {
+     @if $constraint == $min{
+        @media screen and ($min: $viewport1) {
+             @content;
+        }
+    }
+    @else if $constraint == $max {
+         @media screen and ($max: $viewport1){
+            @content;
+        }
+    }
+    @else {
+         @media screen and ($min: $viewport1) and ($max: $viewport2){
+            @content;
+        }
+    }
+}
+@mixin clearfix {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}

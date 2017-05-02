@@ -1,0 +1,108 @@
+@import '../variables';
+
+html {
+  font-size: map-get($fontFactors, base);
+  @include mediaQuery($max, $desktop) {
+    font-size: map-get($fontFactors, base) * .8;
+  }
+  line-height: 1.5;
+  @include font(sans);
+  color: $cText;
+
+}
+
+a {
+  color: $cLink;
+  text-decoration: none;
+  &:hover {
+    color: $cLinkHover;
+  }
+}
+
+b, strong, span.strong {
+  @include font-bold(sans);
+}
+
+ul {
+  padding-left: 1rem;
+}
+
+p {
+  @include font(sans);
+}
+
+h1, h2, h3{
+  @include font-bold(sansblack);
+}
+
+p {
+  font-size: map-get($fontFactors, p);
+  margin-top: 0.7em;
+  margin-bottom: 0.8em;
+}
+h1 {
+  font-size: map-get($fontFactors, h1);
+  line-height: 1.25;
+}
+h2 {
+  font-size: map-get($fontFactors, h2);
+}
+h3 {
+  font-size: map-get($fontFactors, h3);
+}
+
+h1, h2, h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.7em;
+}
+
+// error! we only use 1-5
+h4, h5, h6, h7, h8 {
+  color: lime;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+// set the header always to bold
+table th, table th p {
+  @include font-bold();
+}
+
+// no extra space in p-tags in table
+table tr p, table th p {
+  margin: 0;
+  padding: 0;
+}
+// first line a border on top
+table tr:first-child {
+  border-top-width: 0.1rem;
+  border-top-style: solid;
+  border-top-color: $cText;
+}
+// all the other lines a border on bottom
+table tr {
+  border-bottom-width: 0.1rem;
+  border-bottom-style: solid;
+  border-bottom-color: $cText;
+}
+
+.widthError {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100;
+  height: 100%;
+  background-color: red;
+  @media (min-width: 1130px) {
+    display: none;
+  }
+}

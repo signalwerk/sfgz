@@ -1,0 +1,102 @@
+@import '../variables';
+@import './inPlaceGallery_img.scss';
+
+.dl-gallery {
+  user-select: none;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .dl-gallery__prefix {
+    $clickSize: 4rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+
+
+    &__pre, &__next {
+      position: absolute;
+      width: $clickSize;
+      height: $clickSize;
+      // background-color: gray;
+      top: calc(50% - #{$clickSize/2});
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-size: $clickSize $clickSize;
+      background-position: 50% 50%;
+      opacity: 0.6;
+    }
+    &__pre {
+      left: 0;
+      background-image: url("#{map-get($inPlaceGallery_img, back)}");
+      &:hover {
+        background-position: -5px 50%;
+      }
+    }
+    &__next {
+      right: 0;
+      background-image: url("#{map-get($inPlaceGallery_img, next)}");
+      &:hover {
+        background-position: 5px 50%;
+      }
+    }
+
+    &__img {
+      background: #ccc url("#{map-get($inPlaceGallery_img, spinner)}");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+    img.loading {
+      visibility: hidden;
+    }
+  }
+
+
+  .dl-gallery__main {
+    $imgCount: 20;
+    $gap: 0.5%;
+
+
+    // @include container();
+    //  white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    //justify-content: left;
+    flex-flow: row wrap;
+    // overflow: hidden;
+
+    &:after {
+      content: "";
+      flex: auto;
+    }
+
+
+    .dl-inPlaceGallery {
+
+
+      &__item {
+        flex-shrink: 0;
+        width: ((100%-$gap)/$imgCount)-$gap;
+        margin-left: $gap;
+        margin-bottom: 0.5rem;
+
+        figure {
+          margin: 0;
+        }
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      &__column {
+        // @include span(first 20%);
+      }
+    }
+  }
+
+}

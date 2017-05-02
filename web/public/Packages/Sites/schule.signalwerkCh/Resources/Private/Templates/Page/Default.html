@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<html>
+<head>
+  <f:section name="stylesheets">
+    <!-- Put your stylesheet inclusions here, they will be included in your website by TypoScript -->
+    <link rel="stylesheet" href="{f:uri.resource(path: 'Styles/signalwerk.css', package: 'schule.signalwerkCh')}" media="all" />
+  </f:section>
+  <f:section name="headScripts">
+    <!-- Put your scripts inclusions for the head here, they will be included in your website by TypoScript -->
+  </f:section>
+</head>
+<body>
+<f:section name="body">
+
+
+	<div class="header-lion">
+		<img src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'schule.signalwerkCh')}">
+	</div>
+
+	<header class="header">
+		<div class="header-logo">
+			<img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-black@2x.png', package: 'schule.signalwerkCh')}" class="header-logo-desktop">
+			<img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-white@2x.png', package: 'schule.signalwerkCh')}" class="header-logo-mobile">
+		</div>
+
+		<div class="header-navigation-wrap">
+
+			<div class="meta">
+				{parts.metaMenu -> f:format.raw()}
+			</div>
+
+			<h1 class="header-name">
+          <a href="/" tabindex="-1" class="header-name-link">Schule für Gestaltung Zürich</a>
+      </h1>
+
+			<nav class="menu menu1">
+				{parts.menu1 -> f:format.raw()}
+			</nav>
+
+			<nav class="menu menu2">
+				{parts.menu2 -> f:format.raw()}
+			</nav>
+
+
+		</div>
+
+	</header>
+
+
+  <div class="content">
+    <div class="content-inner">
+      {content.main -> f:format.raw()}
+    </div>
+  </div>
+</f:section>
+<f:section name="bodyScripts">
+  <!-- Put your scripts inclusions for the end of the body here, they will be included in your website by TypoScript -->
+  <script src="{f:uri.resource(path: 'Library/jquery/jquery-2.0.3.js')}"></script>
+  <script src="{f:uri.resource(path: 'JavaScript/signalwerk.js', package: 'schule.signalwerkCh')}"></script>
+</f:section>
+</body>
+</html>

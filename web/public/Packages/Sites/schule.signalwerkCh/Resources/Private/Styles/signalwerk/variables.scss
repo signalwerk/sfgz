@@ -1,0 +1,62 @@
+@import "./mixins";
+
+// are we in debug mode?
+$debug: true !default;
+$debug: false;
+
+$susySetup: (
+  columns: 10,
+  gutters: 1/5,
+  math: fluid,
+  output: float,
+
+);
+
+@if $debug == true {
+  $susy: map-merge($susySetup, (debug: (image: show)));
+}
+@else {
+  $susy: map-merge($susySetup, ());
+}
+
+
+// Colors
+// ==========================================================================
+$cWhite:            #ffffff	;
+$cText:             darken($cWhite, 94%);
+
+
+$cLink:             $cText;
+$cLinkHover:        #f06;
+
+$cBackgroundColor:  $cWhite;
+
+
+// Typography
+// ==========================================================================
+
+
+$font-name: (
+  sansblack: 'SFGZSansBlack'
+);
+
+$font-family: (
+  sans: #{Helvetica Neue,Helvetica,Arial,sans-serif},
+  sansblack: #{map-get($font-name, sansblack), sans-serif}
+);
+
+$font-weight-bold: (
+  sans: 700,
+  sansblack:800
+);
+
+$fontFactors: (
+  base: 14px,
+	p: 1rem,
+	h1: 2.375rem,
+	h2: 1.1rem,
+	h3: 1rem,
+);
+
+// Layout
+// ==========================================================================
