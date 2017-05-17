@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
 
   # Set a name so the VM can be more easily identified.
   config.vm.provider "virtualbox" do |v|
-    v.name = "schule"
+    v.name = "sfgz"
   end
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder "./", "/var/hostdata", id: "vagrant-root", :owner => "www-data", :group => "www-data"
 
     # lib
-    config.vm.synced_folder "/Users/glender/Dropbox/CODE/vagrant/Vagrant/", "/var/hostdata/VagrantLib", nfs:true
+    # config.vm.synced_folder "/Users/glender/Dropbox/CODE/vagrant/Vagrant/", "/var/hostdata/VagrantLib", nfs:true
 
 
   # Provider-specific configuration so you can fine-tune various
