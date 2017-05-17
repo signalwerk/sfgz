@@ -3,3 +3,11 @@
 /__PROD_SRV__
 /__Vagrant_SRV__
 /.vagrant
+
+creat_neos_db\.sh
+
+exportFromVagrant\.sh
+
+neosCopy\.sh
+
+pushSitePackageToBetaServer\.sh
