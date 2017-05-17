@@ -1,0 +1,7 @@
+
+roles:
+  'Neos.Neos:Editor':
+    privileges:
+      -
+        privilegeTarget: 'Neos.Media.Browser:ManageAssetCollections'
+        permission: GRANT
