@@ -5,11 +5,10 @@ $debug: true !default;
 $debug: false;
 
 $susySetup: (
-  columns: 10,
+  columns: 12,
   gutters: 1/5,
   math: fluid,
   output: float,
-
 );
 
 @if $debug == true {
@@ -60,3 +59,5 @@ $fontFactors: (
 
 // Layout
 // ==========================================================================
+
+$max-width: 1130px;

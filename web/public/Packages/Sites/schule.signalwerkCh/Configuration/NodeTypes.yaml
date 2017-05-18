@@ -140,3 +140,92 @@
           'formatlesspaste':
             'button': FALSE
             'formatlessPasteOption': TRUE
+
+
+
+
+
+
+
+
+
+
+
+'schule.signalwerkCh:Column':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  abstract: TRUE
+  ui:
+    group: 'structure'
+    label: 'SH Column'
+    icon: 'icon-columns'
+    inlineEditable: TRUE
+    inspector:
+      groups:
+        column:
+          label: 'Eigenschaften'
+          position: 10
+          icon: 'icon-columns'
+  properties:
+    layout:
+      type: string
+      ui:
+        label: 'Layout'
+        inspector:
+          group: 'column'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
+
+
+'schule.signalwerkCh:TwoColumn':
+  superTypes:
+    'schule.signalwerkCh:Column': TRUE
+  ui:
+    label: 'SH two column'
+    position: 200
+  childNodes:
+    column0:
+      type: 'Neos.Neos:ContentCollection'
+    column1:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: '50-50'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              '50-50':
+                label: '50% / 50%'
+              '75-25':
+                label: '75% / 25%'
+              '25-75':
+                label: '25% / 75%'
+              '66-33':
+                label: '66% / 33%'
+              '33-66':
+                label: '33% / 66%'
+
+
+
+'schule.signalwerkCh:OneColumn':
+  superTypes:
+    'schule.signalwerkCh:Column': TRUE
+  ui:
+    label: 'SH BOX column'
+    position: 200
+  childNodes:
+    column0:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: 'default'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              'default':
+                label: 'default'
+              'masonry':
+                label: 'masonry'

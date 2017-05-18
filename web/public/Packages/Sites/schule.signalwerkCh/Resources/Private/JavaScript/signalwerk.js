@@ -2,10 +2,11 @@
 (function($) {
   $(function() {
 
-    var $grid = $('.neos-contentcollection').masonry({
-      // options
-      itemSelector: '.schule-signalwerkch-newsitem',
+    var $grid = $('.columns-masonry > .column').masonry({
+      horizontalOrder: true,
+      itemSelector: '.news-item',
       columnWidth: '.news-item__sizer',
+      gutter: '.news-item__gutter',
       percentPosition: true
     });
 

@@ -4,6 +4,8 @@
 
 include: NodeTypes/*
 
+
+
 page = Page {
   head {
     stylesheets.site = Neos.Fusion:Template {
