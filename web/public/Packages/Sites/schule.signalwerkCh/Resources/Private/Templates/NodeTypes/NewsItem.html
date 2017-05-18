@@ -1,0 +1,19 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+<div class="news-item__sizer">	
+</div>
+<div{attributes -> f:format.raw()}>
+	<div class="news-item">
+		<f:if condition="{teaserImage}">
+				<f:then>
+						<!--  http://neos.readthedocs.io/en/stable/References/ViewHelpers/Media.html#neos-media-image -->
+						<neos.media:image image="{teaserImage}" class="teaser-image" alt="{teaserImage.alternativeText}" title="{teaserImage.title}"/>
+				</f:then>
+				<f:else>
+				</f:else>
+		</f:if>
+		<img class="teaser-image__overlay" src="http://beta.d2p.ch/vue/logo.py?savename=Default&speed=8&fade=1&fadespeed=4&fadestart=1.5&fadeadd=0.14&mindist=8&maxdist=18&minwidth=2&growth=0.1&stretch=3" alt="abstract art">
+		<neos:contentElement.editable class="news-item__date" property="date" tag="p" />
+		<neos:contentElement.editable class="news-item__title" property="title" tag="h2" />
+		<neos:contentElement.editable class="news-item__text" property="text" tag="div" />
+	</div>
+</div>
