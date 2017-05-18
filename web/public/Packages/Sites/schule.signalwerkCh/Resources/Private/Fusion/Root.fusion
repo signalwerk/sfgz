@@ -42,6 +42,13 @@ page = Page {
         maximumLevels = 1
       }
 
+      menu3 = Menu {
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+
+        entryLevel = 4
+        maximumLevels = 1
+      }
+
       metaMenu = Menu {
         templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
 
