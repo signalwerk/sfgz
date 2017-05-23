@@ -11,7 +11,7 @@ const ignore = require('gulp-ignore');
 
 var base = './web/public/Packages/Sites/schule.signalwerkCh/Resources';
 
-var inputJS = base + '/Private/JavaScript/signalwerk.js';
+var inputJS = base + '/Private/JavaScript/*.js';
 var outputJS = base + '/Public/JavaScript';
 var observeJS = base + '/Private/JavaScript/**/*.js';
 

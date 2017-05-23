@@ -4,6 +4,8 @@
 
 include: NodeTypes/*
 
+
+
 page = Page {
   head {
     stylesheets.site = Neos.Fusion:Template {
@@ -39,6 +41,13 @@ page = Page {
         templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 3
+        maximumLevels = 1
+      }
+
+      menu3 = Menu {
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+
+        entryLevel = 4
         maximumLevels = 1
       }
 

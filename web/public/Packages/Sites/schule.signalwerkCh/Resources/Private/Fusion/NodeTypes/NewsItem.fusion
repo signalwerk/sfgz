@@ -1,0 +1,3 @@
+prototype(schule.signalwerkCh:NewsItem) < prototype(Neos.Neos:Content) {
+	attributes.class = 'news-item'
+}
