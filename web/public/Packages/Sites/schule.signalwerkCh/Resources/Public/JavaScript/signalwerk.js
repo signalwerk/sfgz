@@ -12,8 +12,9 @@
       percentPosition: true
     });
 
-    $grid.imagesLoaded().progress(function () {
+    $grid.imagesLoaded().progress(function (instance, image) {
       $grid.masonry('layout');
+      $(image.img).closest('.news-item').addClass('news-item--image-loaded');
     });
   });
 })(jQuery);
