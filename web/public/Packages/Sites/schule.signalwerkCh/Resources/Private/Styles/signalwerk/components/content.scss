@@ -1,15 +1,18 @@
-.content {
-  width: 100%;
-  max-width: 1130px;
 
-  margin-left: 180px;
+
+.content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: $max-width;
+
+  padding-left: 180px;
 
   .neos-backend & {
     margin-left: 1rem;
   }
 
   &-inner {
-    width: 64.8%;
+    width: 100%;
 
     .neos-backend & {
       width: 100%;

@@ -30,3 +30,202 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'upload'
+
+
+
+##
+# News Item
+#
+'schule.signalwerkCh:NewsItem':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'News Item'
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'attr':
+          label: 'Properties'
+  properties:
+    teaserImage:
+      type: 'Neos\Media\Domain\Model\ImageInterface'
+      ui:
+        label: 'Tease Image'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+        help:
+          message: 'This image will also appear in the product menu.'
+    date:
+      validation: ~
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Enter date here'
+          'format':
+            'b': FALSE
+            'i': FALSE
+            'u': FALSE
+            'sub': FALSE
+            'sup': FALSE
+            'p': FALSE
+            'h1': FALSE
+            'h2': FALSE
+            'h3': FALSE
+            'pre': FALSE
+            'removeFormat': FALSE
+          'table': []
+          'list': []
+          'link':
+            'a': TRUE
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE
+    title:
+      validation: ~
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Enter title here'
+          'format':
+            'b': TRUE
+            'i': FALSE
+            'u': FALSE
+            'sub': FALSE
+            'sup': FALSE
+            'p': FALSE
+            'h1': FALSE
+            'h2': FALSE
+            'h3': FALSE
+            'pre': FALSE
+            'removeFormat': FALSE
+          'table': []
+          'list': []
+          'link':
+            'a': TRUE
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE
+    text:
+      validation: ~
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Enter Text here'
+          'format':
+            'b': TRUE
+            'i': FALSE
+            'u': FALSE
+            'sub': FALSE
+            'sup': FALSE
+            'p': TRUE
+            'h1': FALSE
+            'h2': FALSE
+            'h3': TRUE
+            'pre': FALSE
+            'removeFormat': FALSE
+          'table': []
+          'list': []
+          'link':
+            'a': TRUE
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE
+
+
+
+
+
+
+
+
+
+
+
+'schule.signalwerkCh:Column':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  abstract: TRUE
+  ui:
+    group: 'structure'
+    label: 'SH Column'
+    icon: 'icon-columns'
+    inlineEditable: TRUE
+    inspector:
+      groups:
+        column:
+          label: 'Eigenschaften'
+          position: 10
+          icon: 'icon-columns'
+  properties:
+    layout:
+      type: string
+      ui:
+        label: 'Layout'
+        inspector:
+          group: 'column'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
+
+
+'schule.signalwerkCh:TwoColumn':
+  superTypes:
+    'schule.signalwerkCh:Column': TRUE
+  ui:
+    label: 'SH two column'
+    position: 200
+  childNodes:
+    column0:
+      type: 'Neos.Neos:ContentCollection'
+    column1:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: '50-50'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              '50-50':
+                label: '50% / 50%'
+              '75-25':
+                label: '75% / 25%'
+              '25-75':
+                label: '25% / 75%'
+              '66-33':
+                label: '66% / 33%'
+              '33-66':
+                label: '33% / 66%'
+
+
+
+'schule.signalwerkCh:OneColumn':
+  superTypes:
+    'schule.signalwerkCh:Column': TRUE
+  ui:
+    label: 'SH BOX column'
+    position: 200
+  childNodes:
+    column0:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: 'default'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              'default':
+                label: 'default'
+              'masonry':
+                label: 'masonry'
