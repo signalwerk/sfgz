@@ -79,7 +79,7 @@
           'table': []
           'list': []
           'link':
-            'a': TRUE
+            'a': FALSE
           'alignment': []
           'formatlesspaste':
             'button': FALSE
@@ -93,21 +93,21 @@
         aloha:
           placeholder: 'Enter title here'
           'format':
-            'b': TRUE
+            'b': FALSE
             'i': FALSE
             'u': FALSE
             'sub': FALSE
             'sup': FALSE
             'p': FALSE
-            'h1': FALSE
-            'h2': FALSE
+            'h1': TRUE
+            'h2': TRUE
             'h3': FALSE
             'pre': FALSE
             'removeFormat': FALSE
           'table': []
           'list': []
           'link':
-            'a': TRUE
+            'a': FALSE
           'alignment': []
           'formatlesspaste':
             'button': FALSE
@@ -129,13 +129,13 @@
             'p': TRUE
             'h1': FALSE
             'h2': FALSE
-            'h3': TRUE
+            'h3': FALSE
             'pre': FALSE
             'removeFormat': FALSE
           'table': []
           'list': []
           'link':
-            'a': TRUE
+            'a': FALSE
           'alignment': []
           'formatlesspaste':
             'button': FALSE

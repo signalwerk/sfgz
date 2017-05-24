@@ -1,5 +1,5 @@
 /**
- * Root TypoScript template for the gestaltungzh.ch site
+ * Root TypoScript template for the sfgz.ch site
  */
 
 include: NodeTypes/*
