@@ -654,7 +654,9 @@ table tr {
 }
 
 .neos-backend .content {
-  margin-left: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2rem;
 }
 
 .content-inner {
