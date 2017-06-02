@@ -9,6 +9,9 @@
 
 
 ##
+# Adjust the "Page" node type:
+# Add two properties "layout" and "subpageLayout" to the default "Page" NodeType
+#
 'Neos.NodeTypes:Page':
   childNodes:
     'extra':
@@ -44,6 +47,36 @@
                 label: 'Normal'
               'noBackground':
                 label: 'kein Hintergrundbild'
+
+
+
+
+##
+# A "Space" content element
+#
+'schule.signalwerkCh:Space':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: Space
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'space':
+          label: 'Abstand'
+          position: 50
+    help:
+      message: 'bindet einen abstand ein'
+  properties:
+    'space':
+      type: integer
+      defaultValue: 1
+      ui:
+        label: 'Abstand'
+        inspector:
+          group: 'space'
+
+##
 # upload a file
 #
 'schule.signalwerkCh:Upload':
