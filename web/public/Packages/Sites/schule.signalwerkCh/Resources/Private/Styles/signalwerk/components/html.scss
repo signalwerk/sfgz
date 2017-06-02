@@ -89,6 +89,8 @@ h4, h5, h6, h7, h8 {
 table {
   border-collapse: collapse;
   width: 100%;
+  margin: $spaceArroundContent 0;
+
 }
 
 // set the header always to bold
