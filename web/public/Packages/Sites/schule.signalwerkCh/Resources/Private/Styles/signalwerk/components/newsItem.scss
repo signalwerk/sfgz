@@ -15,11 +15,6 @@
 
 .news-item {
 
-  // opacity: 0;
-  //
-  // .neos-backend & {
-  //   opacity: 1;
-  // }
   position: relative;
 
   cursor: pointer;
@@ -64,20 +59,17 @@
   }
 
 
-	&__date {
+  &__date {
 
-	}
-	&__title {
-    // h1 {
-    //   margin-top: 0;
-    //
-    // }
-	}
-	&__text {
+  }
+  &__title {
 
-	}
+  }
+  &__text {
 
-	.teaser-image {
+  }
+
+  .teaser-image {
     position: relative;
 
     &:after {
@@ -98,9 +90,9 @@
       position: relative;
 
       width: 100%;
-  		height: auto;
+      height: auto;
     }
 
-	}
+  }
 
 }

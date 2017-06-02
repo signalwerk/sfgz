@@ -3,29 +3,27 @@
 html {
   font-size: map-get($fontFactors, base);
   @include mediaQuery($max, $desktop) {
-    font-size: map-get($fontFactors, base) * .8;
+    font-size: map-get($fontFactors, base) * 0.8;
   }
   line-height: 1.5;
   @include font(sans);
   color: $cText;
 }
 
-
 body {
-    background-image: url("../Assets/Images/overlay.svg");
-    background-repeat: repeat-y;
-    background-size: 100% auto;
+  background-image: url("../Assets/Images/overlay.svg");
+  background-repeat: repeat-y;
+  background-size: 100% auto;
 }
 
 body.noBackground {
   background: none;
-
 }
-
 
 a {
   color: $cLink;
   text-decoration: none;
+
   &:hover {
     color: $cLinkHover;
   }
@@ -52,41 +50,43 @@ p {
   margin-top: 0.7em;
   margin-bottom: 0.8em;
 }
+
+h1,
+h2,
+h3 {
+  margin-top: 0.25em;
+  margin-bottom: 0;
+  line-height: 1.15;
+}
+
 h1 {
   font-size: map-get($fontFactors, h1);
   line-height: 1.25;
 }
+
 h2 {
   @include font(sans);
   font-size: map-get($fontFactors, h2);
 }
 
 h3 {
+  margin-top: 1em;
   font-size: map-get($fontFactors, h3);
 }
-
-h1, h2, h3 {
-  margin-top: .25em;
-  margin-bottom: 0;
-  line-height: 1.15;
-}
-
 // no margin top of h2 if following after h1
 h1 + h2 {
   margin-top: 0;
 }
 // no margin between h3 and p
-h3 + p, h3 + ul {
+h3 + p,
+h3 + ul {
   margin-top: 0;
 }
-
-
 
 p {
   margin-top: 0.5em;
   margin-bottom: 0.7em;
 }
-
 // error! we only use 1-5
 h4, h5, h6, h7, h8 {
   color: lime;
@@ -96,16 +96,15 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin: $spaceArroundContent 0;
-
 }
-
 // set the header always to bold
-table th, table th p {
+table th,
+table th p {
   @include font-bold();
 }
-
 // no extra space in p-tags in table
-table tr p, table th p {
+table th p,
+table tr p {
   margin: 0;
   padding: 0;
 }
