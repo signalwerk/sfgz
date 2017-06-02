@@ -22,6 +22,7 @@ body.noBackground {
 
 }
 
+
 a {
   color: $cLink;
   text-decoration: none;
@@ -74,6 +75,11 @@ h1, h2, h3 {
 h1 + h2 {
   margin-top: 0;
 }
+// no margin between h3 and p
+h3 + p, h3 + ul {
+  margin-top: 0;
+}
+
 
 
 p {
