@@ -1,0 +1,47 @@
+$mobile-nav--padding: 10px;
+$mobile-nav--height: 65px;
+
+.navigation {
+  &--mobile {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    position: absolute;
+
+    top: -$mobile-nav--height;
+    left: 0;
+    height: $mobile-nav--height;
+    width: 100%;
+    z-index: 4;
+    padding: $mobile-nav--padding;
+    background-color: black;
+    color: white;
+    transition: transform 200ms ease;
+
+    @include on-mobile {
+      transform: translateY(100%);
+    };
+  }
+
+  &__lion--mobile {
+    height: 100%;
+    margin-right: $mobile-nav--padding;
+  }
+
+  &__flag--mobile {
+    display: block;
+    height: 16px;
+    margin-bottom: 2px; /* slight nudge upwards */
+  }
+
+  &__toggle {
+    display: block;
+    height: 100%;
+    color: white;
+    background-color: transparent;
+    font-size: 22px;
+    border: none;
+    -webkit-appearance: none;
+    @include font-bold();
+  }
+}
