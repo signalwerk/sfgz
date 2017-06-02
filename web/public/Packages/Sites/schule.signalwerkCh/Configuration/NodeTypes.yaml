@@ -9,6 +9,41 @@
 
 
 ##
+'Neos.NodeTypes:Page':
+  childNodes:
+    'extra':
+      type: 'Neos.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          '*': FALSE
+          'Neos.NodeTypes:Headline': TRUE
+          'Neos.NodeTypes:Text': TRUE
+          'Neos.NodeTypes:Image': TRUE
+  properties:
+    'layout':
+      ui:
+        inspector:
+          group: 'layout'
+          editorOptions:
+            values:
+              'default':
+                label: 'Normal'
+              'wide':
+                label: 'wide'
+    'style':
+      type: string
+      ui:
+        label: 'Stiel'
+        inspector:
+          group: 'layout'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
+
+          editorOptions:
+            values:
+              'default':
+                label: 'Normal'
+              'noBackground':
+                label: 'kein Hintergrundbild'
 # upload a file
 #
 'schule.signalwerkCh:Upload':

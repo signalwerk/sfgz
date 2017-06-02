@@ -432,6 +432,16 @@ html {
   }
 }
 
+body {
+  background-image: url("../Assets/Images/overlay.svg");
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+
+body.noBackground {
+  background: none;
+}
+
 a {
   color: #0f0f0f;
   text-decoration: none;
