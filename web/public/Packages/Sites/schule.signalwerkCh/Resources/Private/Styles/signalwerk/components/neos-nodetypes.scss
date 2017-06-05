@@ -1,0 +1,18 @@
+.neos-nodetypes-menu,
+.neos-nodetypes-text,
+.neos-nodetypes-headline {
+  background-color: white;
+  padding: $spaceArroundContent;
+}
+
+.neos-nodetypes-image {
+
+  figure {
+    margin: 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

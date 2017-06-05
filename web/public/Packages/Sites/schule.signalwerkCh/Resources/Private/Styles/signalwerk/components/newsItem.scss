@@ -41,6 +41,21 @@
       visibility: hidden;
     }
   }
+  .neos-backend & {
+    &:hover {
+      .news-item__title_hover {
+        display: none;
+      }
+      .teaser-image,
+      .news-item__date,
+      .news-item__title,
+      .news-item__text {
+        visibility: visible;
+      }
+    }
+
+  }
+
 
 
   transition: opacity 300ms;

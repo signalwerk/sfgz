@@ -36,8 +36,6 @@
       top: 75px;
       left: 143px;
 
-
-
       z-index: 5;
       transform: translateZ(0);
 
@@ -78,10 +76,7 @@
     // z-index: 3;
     // color: #000;
 
-    h1 {
-      margin: 0 0 -0.05em;
-      padding-bottom: 1rem;
-    }
+
 
 
     .meta, .menu {
@@ -100,40 +95,60 @@
           color: gray;
         }
         // display: inline-block;
+        margin: 0 .75em 0 0;
+
         float: left;
-        margin: 0 .7em 0 0;
       }
     }
 
-    .menu1 {
-      font-size: 1.25rem;
-    }
-    .menu2 {
-      font-size: 1rem;
-    }
 
     .meta {
-      font-size: 1.15rem;
-      // top: -17px;
-      //
-      // position: absolute;
-      // // top: -22px;
-      // left: 0;
-      // right: 0;
-
-      top: -19px;
+      font-size: map-get($fontFactorsMenu, meta);
+      top: -1.8em;
       left: auto;
       margin-left: 0.15em;
       position: absolute;
+    }
 
+    .header-name {
+      // margin: 0 0 -0.3em;
+      margin: 0;
+      padding-bottom: 0;
+      font-size: map-get($fontFactorsMenu, name);
+    }
 
-
-      // padding-right: 8px;
-      // // font-family: HelveticaNeueLTStd-Blk,Helvetica,Arial,sans-serif;
-      // font-size: 16px;
-
+    .menu1 {
+      font-size: map-get($fontFactorsMenu, L1);
 
     }
+    .menu2 {
+      font-size: map-get($fontFactorsMenu, L2);
+      padding-top: 0.2rem;
+      padding-bottom: 1.6rem;
+      line-height: 1.2;
+      // @include span(first 9 of 12);
+
+      ul {
+        li {
+          margin: 0;
+        }
+
+        li:after {
+          content: "–";
+          display: inline-block;
+          margin-right: 0.35em; // keep that to compensate space
+
+          // only change here
+          padding-right: 0.1em;
+          padding-left: 0.1em;
+        }
+        li:last-child:after {
+          content: "";
+        }
+      }
+    }
+
+
   }
 
 }

@@ -1,10 +1,9 @@
-
+@import '../variables';
 
 .content {
   box-sizing: border-box;
   width: 100%;
   max-width: $max-width;
-
   padding-left: 180px;
 
   .neos-backend & {
@@ -13,8 +12,35 @@
     padding-top: 2rem;
   }
 
+  a {
+    padding-bottom: 0.1em;
+    border-bottom: black solid 0.15em;
+  }
+
   &-inner {
-    width: 100%;
+    // width: 100%;
+    @include container(12);
+
+    .content_main {
+      @include span(first 9 of 12);
+    }
+
+    .content_extra {
+      @include span(last 3 of 12);
+    }
+
+    .menu3 {
+      padding-bottom: 3rem;
+      word-wrap: break-word;
+
+      ul {
+        margin: 0;
+      }
+
+      li {
+        float: none;
+      }
+    }
 
     .neos-backend & {
       width: 100%;

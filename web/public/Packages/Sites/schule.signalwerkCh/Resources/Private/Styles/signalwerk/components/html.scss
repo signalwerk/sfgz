@@ -8,8 +8,20 @@ html {
   line-height: 1.5;
   @include font(sans);
   color: $cText;
+}
+
+
+body {
+    background-image: url("../Assets/Images/overlay.svg");
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+}
+
+body.noBackground {
+  background: none;
 
 }
+
 
 a {
   color: $cLink;
@@ -63,6 +75,11 @@ h1, h2, h3 {
 h1 + h2 {
   margin-top: 0;
 }
+// no margin between h3 and p
+h3 + p, h3 + ul {
+  margin-top: 0;
+}
+
 
 
 p {
@@ -78,6 +95,8 @@ h4, h5, h6, h7, h8 {
 table {
   border-collapse: collapse;
   width: 100%;
+  margin: $spaceArroundContent 0;
+
 }
 
 // set the header always to bold
