@@ -16,6 +16,13 @@
       $grid.masonry('layout');
       $(image.img).closest('.news-item').addClass('news-item--image-loaded');
     });
+
+    var navToggle = document.querySelector('.navigation__toggle');
+    var navContent = document.querySelector('.navigation__content');
+
+    navToggle.addEventListener('click', (e) => {
+      navContent.classList.toggle('navigation__content--open')
+    });
   });
 })(jQuery);
 //# sourceMappingURL=signalwerk.js.map
