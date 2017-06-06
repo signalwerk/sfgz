@@ -59,9 +59,12 @@
         <nav class="menu menu3">
           {parts.menu3 -> f:format.raw()}
         </nav>
-        <f:if condition="{hasExtras}">
-            {content.extra -> f:format.raw()}
-        </f:if>
+
+        <f:comment>
+          <f:if condition="{hasExtras}">
+          </f:if>
+        </f:comment>
+        {content.extra -> f:format.raw()}
       </div>
 
     </div>
