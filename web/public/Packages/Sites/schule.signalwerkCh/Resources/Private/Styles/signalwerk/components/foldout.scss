@@ -1,0 +1,49 @@
+@import '../variables';
+
+// see
+// https://codepen.io/echozone/pen/LwJCD
+// https://gist.github.com/plasticbrain/3983942
+
+$arrowSize: 1.5em;
+
+.foldout-wrapper {
+  overflow: hidden;
+}
+
+.foldout-content {
+  transition: transform .5s;
+  transform: translateY(-100%);
+  overflow: hidden;
+  height: 0;
+
+  &.show, .neos-backend & {
+    transform: translateY(0);
+    height: auto;
+  }
+}
+
+.foldout-title {
+
+  &:hover {
+    cursor: pointer;
+  }
+  &:before {
+    content:'';
+    display: inline-block;
+    position: relative;
+    left: $arrowSize / 4;
+    top: $arrowSize / 4;
+    border: $arrowSize / 2 solid transparent;
+    border-left-color: #000;
+  }
+  &.active {
+    .more {
+      display: none;
+    }
+  }
+  &.active:before {
+    left: 0;
+    top: $arrowSize / 4;
+    border-color: #000 transparent transparent;
+  }
+}
