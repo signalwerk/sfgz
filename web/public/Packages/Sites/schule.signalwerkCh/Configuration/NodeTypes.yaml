@@ -27,9 +27,13 @@
       constraints:
         nodeTypes:
           '*': FALSE
+          'schule.signalwerkCh:Space': TRUE
+          # 'schule.signalwerkCh:ContactItem': TRUE
+          'schule.signalwerkCh:Upload': TRUE
           'Neos.NodeTypes:Headline': TRUE
           'Neos.NodeTypes:Text': TRUE
           'Neos.NodeTypes:Image': TRUE
+          'Neos.NodeTypes:Menu': TRUE
   properties:
     'layout':
       ui:
@@ -55,6 +59,7 @@
                 label: 'Normal'
               'noBackground':
                 label: 'kein Hintergrundbild'
+
 
 
 
