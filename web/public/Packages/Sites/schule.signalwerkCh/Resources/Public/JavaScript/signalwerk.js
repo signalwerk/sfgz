@@ -4,6 +4,11 @@
 (function ($) {
   $(function () {
 
+    // foldout handling
+    $('.foldout-title').click(function () {
+      $(this).toggleClass('active').next().children('.foldout-content').toggleClass('show');
+    });
+
     var $grid = $('.columns-masonry > .column').masonry({
       horizontalOrder: true,
       itemSelector: '.news-item',
