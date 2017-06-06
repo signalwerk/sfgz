@@ -311,6 +311,55 @@
                 label: '33% / 66%'
 
 
+##
+# A "Youtube" content element
+#
+'schule.signalwerkCh:YouTube':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: YouTube
+    icon: 'icon-youtube'
+    inspector:
+      groups:
+        'video':
+          label: 'Film'
+          icon: 'icon-film'
+          position: 50
+    help:
+      message: 'Embeds a YouTube video as content defined by a video ID.'
+  properties:
+    'video':
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Video ID'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+        help:
+          message: |
+            The video identifier is visible in the URL to a youtube video
+            Eg. in the URL
+            `https://youtu.be/G6D1YI-41ao`
+            the video id is `G6D1YI-41ao`.
+    'width':
+      type: integer
+      defaultValue: 400
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+    'height':
+      type: integer
+      defaultValue: 300
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+
 
 'schule.signalwerkCh:OneColumn':
   superTypes:
