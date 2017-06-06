@@ -14,6 +14,14 @@
 #
 'Neos.NodeTypes:Page':
   childNodes:
+    'main':
+      type: 'Neos.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          'Neos.NodeTypes:TextWithImage': false
+          'Neos.NodeTypes:TwoColumn': false
+          'Neos.NodeTypes:ThreeColumn': false
+          'Neos.NodeTypes:FourColumn': false
     'extra':
       type: 'Neos.Neos:ContentCollection'
       constraints:
@@ -244,7 +252,35 @@
           editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
 
 
-'schule.signalwerkCh:TwoColumn':
+# 'schule.signalwerkCh:TwoColumn':
+#   superTypes:
+#     'schule.signalwerkCh:Column': TRUE
+#   ui:
+#     label: 'SH two column'
+#     position: 200
+#   childNodes:
+#     column0:
+#       type: 'Neos.Neos:ContentCollection'
+#     column1:
+#       type: 'Neos.Neos:ContentCollection'
+#   properties:
+#     layout:
+#       defaultValue: '50-50'
+#       ui:
+#         reloadIfChanged: TRUE
+#         inspector:
+#           editorOptions:
+#             values:
+#               '50-50':
+#                 label: '50% / 50%'
+#               '75-25':
+#                 label: '75% / 25%'
+#               '25-75':
+#                 label: '25% / 75%'
+#               '66-33':
+#                 label: '66% / 33%'
+#               '33-66':
+#                 label: '33% / 66%'
   superTypes:
     'schule.signalwerkCh:Column': TRUE
   ui:
