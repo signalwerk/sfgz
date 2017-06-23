@@ -54,6 +54,21 @@ page = Page {
         maximumLevels = 1
       }
 
+      mobileMenu1 = Menu {
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+
+        entryLevel = 2
+        maximumLevels = 1
+        startingPoint = ${q(site).children('[uriPathSegment="hauptnavigation"]').get(0)}
+      }
+
+      mobileMenu2 = Menu {
+        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+
+        entryLevel = 3
+        maximumLevels = 2
+      }
+
       metaMenu = Menu {
         templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
 

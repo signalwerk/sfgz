@@ -23,9 +23,11 @@ $susySetup: (
 // ==========================================================================
 $cWhite:            #ffffff	;
 $cText:             darken($cWhite, 94%);
-
+$cGrey--light:      darken($cWhite, 6%);
+$cGrey--dark:       darken($cWhite, 80%);
 
 $cLink:             $cText;
+$cLinkIsActive:     lighten($cText, 50%);
 $cLinkHover:        #f06;
 
 $cBackgroundColor:  $cWhite;
@@ -62,6 +64,13 @@ $fontFactorsMenu: (
 	name: 2.3rem,
 	L1: 1.65rem,
 	L2: 1.15rem,
+);
+
+$fontFactorsMenuMobile: (
+	meta: 1.15rem,
+	name: 2.3rem,
+	L1: 1.65rem,
+	L2: 1rem,
 );
 
 
