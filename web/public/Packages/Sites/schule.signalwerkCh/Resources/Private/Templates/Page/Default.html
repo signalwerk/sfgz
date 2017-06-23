@@ -25,6 +25,21 @@
 			<img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-white@2x.png', package: 'schule.signalwerkCh')}" class="header-logo-mobile">
 		</div>
 
+    <div class="header-navigation--mobile navigation navigation--mobile">
+      <div class="navigation__logos">
+        <img class="navigation__lion--mobile" src="{f:uri.resource(path: 'Assets/Images/logo/lion-white@2x.png', package: 'schule.signalwerkCh')}">
+        <img class="navigation__flag--mobile"  src="{f:uri.resource(path: 'Assets/Images/logo/wappen-white@2x.png', package: 'schule.signalwerkCh')}">
+      </div>
+      <div class="navigation__toggle">
+        <button class="navigation__toggle" type="button" name="navigation-toggle">Menu</button>
+      </div>
+      <div class="navigation__content">
+        <nav class="menu menu1 menu--mobile menu1--mobile">
+  				{parts.mobileMenu1 -> f:format.raw()}
+  			</nav>
+      </div>
+    </div>
+
 		<div class="header-navigation-wrap">
 
 			<div class="meta">
@@ -42,7 +57,9 @@
 			<nav class="menu menu2">
 				{parts.menu2 -> f:format.raw()}
 			</nav>
-
+      <nav class="menu menu--mobile menu2--mobile">
+        {parts.mobileMenu2 -> f:format.raw()}
+      </nav>
 
 		</div>
 
@@ -51,7 +68,22 @@
 
   <div class="content">
     <div class="content-inner">
-      {content.main -> f:format.raw()}
+      <div class="content_main">
+        {content.main -> f:format.raw()}
+      </div>
+
+      <div class="content_extra">
+        <nav class="menu menu3">
+          {parts.menu3 -> f:format.raw()}
+        </nav>
+
+        <f:comment>
+          <f:if condition="{hasExtras}">
+          </f:if>
+        </f:comment>
+        {content.extra -> f:format.raw()}
+      </div>
+
     </div>
   </div>
 </f:section>
@@ -59,6 +91,8 @@
   <!-- Put your scripts inclusions for the end of the body here, they will be included in your website by TypoScript -->
   <script src="{f:uri.resource(path: 'Library/jquery/jquery-2.0.3.js')}"></script>
   <script src="{f:uri.resource(path: 'JavaScript/signalwerk.js', package: 'schule.signalwerkCh')}"></script>
+  <script src="{f:uri.resource(path: 'JavaScript/imagesloaded.min.js', package: 'schule.signalwerkCh')}"></script>
+  <script src="{f:uri.resource(path: 'JavaScript/masonry.min.js', package: 'schule.signalwerkCh')}"></script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -113,6 +113,7 @@
     }
   }
 }
+
 @mixin arrow-next($innerselector, $size) {
   @include arrow-general($innerselector, $size);
   .#{$innerselector} {

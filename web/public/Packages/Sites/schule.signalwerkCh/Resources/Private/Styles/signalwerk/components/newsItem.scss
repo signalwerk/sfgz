@@ -1,0 +1,98 @@
+@import '../variables';
+
+.column {
+  @include container(12);
+}
+.news-item__gutter {
+  width: gutter(12);
+}
+
+.news-item__sizer,
+.news-item {
+  width: span(6 of 12);
+}
+
+.news-item {
+
+  position: relative;
+
+  cursor: pointer;
+
+  &__title_hover {
+    display: none;
+    text-align: right;
+    position: absolute;
+    width: 100%;
+  }
+  &:hover {
+    .news-item__title_hover {
+      display: block;
+    }
+    .teaser-image,
+    .news-item__date,
+    .news-item__title,
+    .news-item__text {
+      visibility: hidden;
+    }
+  }
+  .neos-backend & {
+    &:hover {
+      .news-item__title_hover {
+        display: none;
+      }
+      .teaser-image,
+      .news-item__date,
+      .news-item__title,
+      .news-item__text {
+        visibility: visible;
+      }
+    }
+
+  }
+
+
+  opacity: 0;
+  transition: opacity 300ms;
+  &--image-loaded { opacity: 1; }
+
+
+  &__date {
+
+  }
+	&__title {
+
+	}
+	&__text {
+
+  }
+  &__text {
+
+  }
+
+  .teaser-image {
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top:0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('../Assets/Images/overlay.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+    }
+
+    img {
+      display: block;
+      position: relative;
+
+      width: 100%;
+      height: auto;
+    }
+
+  }
+
+}

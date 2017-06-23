@@ -1,0 +1,141 @@
+$mobile-nav--padding: 10px;
+$mobile-nav--height: 70px;
+$mobile-nav--logo-width: 85px;
+
+$font-size--large: 22px;
+
+$color--light: $cWhite;
+$color--gray: rgba(0,0,0,.8);
+$color--dark: black;
+
+.navigation {
+  &--mobile {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    position: fixed;
+
+    top: -$mobile-nav--height;
+    left: 0;
+    height: $mobile-nav--height;
+    width: 100%;
+    z-index: 5;
+    background-color: $color--dark;
+    color: $color--light;
+    transition: transform 200ms ease;
+
+    @include mediaQuery($max, $tablet) {
+      transform: translateY(100%);
+    };
+  }
+
+  &__logos {
+    width: $mobile-nav--logo-width;
+    height: $mobile-nav--height;
+    padding: $mobile-nav--padding;
+    background-color: $color--dark;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+
+  &__lion--mobile {
+    height: 100%;
+    margin-right: $mobile-nav--padding;
+  }
+
+  &__flag--mobile {
+    display: inline-block;
+    height: 20px;
+    margin-bottom: 13px;
+  }
+
+  &__toggle {
+    box-sizing: border-box;
+    display: block;
+    flex-grow: 1;
+    height: 100%;
+    padding-left: 0;
+    padding-top: 5px;
+    color: $color--light;
+    background-color: $color--dark;
+    font-size: $font-size--large;
+    border: none;
+    -webkit-appearance: none;
+    @include font-bold();
+  }
+
+  &__content {
+    position: absolute;
+    display: block;
+    top: $mobile-nav--height;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    padding-left: $mobile-nav--logo-width;
+    background-color: black;
+
+
+    transform: translateY(-100%);
+    transition: transform 200ms ease;
+    &--open {
+      transform: translateY(0);
+    }
+  }
+}
+
+.menu {
+  &1--mobile {
+    font-size: $font-size--large;
+    @include font-bold();
+
+    ul { padding-left: 0; }
+    li { list-style: none; }
+    a { color: $cWhite; }
+
+  }
+  &2--mobile {
+    background-color: $cGrey--dark;
+    padding: 16px 0 16px $mobile-nav--logo-width;
+    font-size: 16px;
+    line-height: 1.25;
+
+    font-size: map-get($fontFactorsMenuMobile, L2);
+    line-height: 1.6;
+
+
+    display: none;
+    @include mediaQuery ($max, $tablet) {
+      display: block;
+    }
+
+    a { color: $cWhite; }
+
+    .normal > ul {
+      overflow: hidden;
+      height: 0;
+    }
+
+    ul, li {
+      @include mediaQuery($max, $tablet) {
+        float: none;
+        padding-left: 0;
+      }
+    }
+
+    li > ul {
+      padding-left: 20px;
+    }
+  }
+}
+
+.current a {
+  color: $cLinkIsActive;
+  border-bottom-color: $cLinkIsActive;
+}
+
+.menu3 {
+  @include mediaQuery($max, $tablet) {
+    display: none;
+  };
+}

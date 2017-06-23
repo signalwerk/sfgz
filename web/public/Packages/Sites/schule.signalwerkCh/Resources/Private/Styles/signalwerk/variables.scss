@@ -5,11 +5,10 @@ $debug: true !default;
 $debug: false;
 
 $susySetup: (
-  columns: 10,
-  gutters: 1/5,
+  columns: 12,
+  gutters: 1/2,
   math: fluid,
   output: float,
-
 );
 
 @if $debug == true {
@@ -24,9 +23,11 @@ $susySetup: (
 // ==========================================================================
 $cWhite:            #ffffff	;
 $cText:             darken($cWhite, 94%);
-
+$cGrey--light:      darken($cWhite, 6%);
+$cGrey--dark:       darken($cWhite, 80%);
 
 $cLink:             $cText;
+$cLinkIsActive:     lighten($cText, 50%);
 $cLinkHover:        #f06;
 
 $cBackgroundColor:  $cWhite;
@@ -51,12 +52,34 @@ $font-weight-bold: (
 );
 
 $fontFactors: (
-  base: 14px,
+  base: 17px,
 	p: 1rem,
-	h1: 2.375rem,
-	h2: 1.1rem,
+	h1: 2rem,
+	h2: 2rem,
 	h3: 1rem,
 );
 
+$fontFactorsMenu: (
+	meta: 1.15rem,
+	name: 2.3rem,
+	L1: 1.65rem,
+	L2: 1.15rem,
+);
+
+$fontFactorsMenuMobile: (
+	meta: 1.15rem,
+	name: 2.3rem,
+	L1: 1.65rem,
+	L2: 1rem,
+);
+
+
 // Layout
 // ==========================================================================
+
+$max-width: 1130px;
+
+
+
+// the spacing for the white cubes on the background
+$spaceArroundContent: 0.4em;
