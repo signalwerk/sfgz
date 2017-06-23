@@ -20,6 +20,15 @@ body.noBackground {
   background: none;
 }
 
+body.hideL3showL4 {
+  .menu3 {
+    display: none;
+  }
+  .menu4 {
+    display: block;
+  }
+}
+
 a {
   color: $cLink;
   text-decoration: none;
