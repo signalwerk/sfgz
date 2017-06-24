@@ -127,9 +127,6 @@ $color--dark: black;
       padding-left: 20px;
     }
   }
-  &4 {
-    display: none;
-  }
 }
 
 .current a {
@@ -141,4 +138,21 @@ $color--dark: black;
   @include mediaQuery($max, $tablet) {
     display: none;
   };
+
+  .hideL3showL4 & {
+    display: none;
+  }
+}
+
+.menu4 {
+  display: none;
+}
+
+.hideL3showL4 {
+  & .menu3 {
+    display: none;
+  }
+  & .menu4 {
+    display: block;
+  }
 }
