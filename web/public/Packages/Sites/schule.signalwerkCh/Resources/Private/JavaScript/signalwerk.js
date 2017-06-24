@@ -30,5 +30,18 @@
       navContent.classList.toggle('navigation__content--open')
     });
 
+    // give all anchor tags with href beginning with "http" a target attribute of "_blank"
+
+    var $extLinks = $('a[href^=http]');
+
+    $extLinks.each(function(index) {
+      var $this = $(this);
+      var isTargetBlank = $this.attr('target') === '_blank';
+
+      if (!isTargetBlank) {
+        $this.attr('target','_blank');
+      }
+    });
+
   });
 })(jQuery);

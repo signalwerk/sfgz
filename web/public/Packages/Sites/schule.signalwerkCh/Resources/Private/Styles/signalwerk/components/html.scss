@@ -37,7 +37,7 @@ a {
     color: $cLinkHover;
   }
 
-  &[target=_blank] {
+  &[href^="http"] {
     &:before {
       content: "";
       display: inline-block;
