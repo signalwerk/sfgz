@@ -1,4 +1,12 @@
+
 .schule-signalwerkch-upload {
   background-color: white;
   padding: $spaceArroundContent;
+
+  // get rid of external link icon
+  > .Upload-item > a:before { display: none; }
+}
+
+.uploadIcon {
+  @include inline-icon('icon_document.svg');
 }

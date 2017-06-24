@@ -2,7 +2,7 @@
 <div{attributes -> f:format.raw()}>
 	<f:for each="{files}" as="asset">
 		<div class="Upload-item">
-			<a href="{f:uri.resource(resource: asset.resource)}">{f:if(condition: asset.title, then: asset.title, else: asset.resource.filename)} ({asset.resource.fileSize -> f:format.bytes()})</a>
+			<a href="{f:uri.resource(resource: asset.resource)}">{f:if(condition: asset.title, then: asset.title, else: asset.resource.filename)} (<span class="uploadIcon"></span>{asset.resource.fileSize -> f:format.bytes()})</a>
 		</div>
 	</f:for>
 </div>

@@ -38,15 +38,7 @@ a {
   }
 
   &[href^="http"] {
-    &:before {
-      content: "";
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      background-image: url("../Assets/Images/icon_external-link.svg");
-      background-position: left;
-      background-repeat: no-repeat;
-    }
+    @include inline-icon('icon_external-link.svg');
   }
 
 }
