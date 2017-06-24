@@ -7,7 +7,6 @@
   width: gutter(12);
 }
 
-
 .news-item__sizer,
 .news-item {
   width: span(6 of 12);
@@ -52,17 +51,18 @@
   }
 
 
-
+  opacity: 0;
   transition: opacity 300ms;
-  &--image-loaded {
-    opacity: 1;
-  }
+  &--image-loaded { opacity: 1; }
 
 
   &__date {
 
   }
-  &__title {
+	&__title {
+
+	}
+	&__text {
 
   }
   &__text {

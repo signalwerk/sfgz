@@ -5,6 +5,11 @@
   // height: 140px;
   margin: 0 30px;
 
+  @include mediaQuery($max, $tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .neos-backend & {
     display: none;
   }
@@ -35,6 +40,10 @@
     z-index: 5;
     transform: translateZ(0);
 
+    @include mediaQuery($max, $tablet) {
+      display: none;
+    }
+
     img {
       width: 100%;
       height: 100%;
@@ -49,6 +58,12 @@
     }
   }
 
+  @include mediaQuery ($max, $tablet) {
+    &-lion,
+    &-logo { display: none; }
+  }
+
+
   &-navigation-wrap {
     // position: absolute;
     // top: 72px;
@@ -58,6 +73,11 @@
     left: auto;
     height: auto;
     margin: 70px 0 0 148px;
+
+    @include mediaQuery($max, $tablet) {
+      margin-left: 0;
+      margin-right: 0;
+    }
 
     .neos-backend & {
       margin-left: 1rem;
@@ -73,17 +93,34 @@
       ul {
         list-style: none;
         margin: 0;
-        padding: 0;
+
+        @include mediaQuery($min, $desktop) {
+          padding: 0;
+        }
       }
 
       li {
-        &.current a, &.active a {
-          color: gray;
+        &.current a,
+        &.active > a {
+          color: $cLinkIsActive;
         }
+        &.normal > a {
+          @include mediaQuery ($max, $tablet) {
+            color:  $cWhite;
+          }
+        }
+
         // display: inline-block;
         margin: 0 0.75em 0 0;
-        float: left;
+        @include mediaQuery($min, $tablet) {
+          float: left;
+        }
       }
+
+
+
+
+
     }
 
     .meta {
@@ -103,6 +140,7 @@
 
     .menu1 {
       font-size: map-get($fontFactorsMenu, L1);
+
     }
 
     .menu2 {
@@ -110,6 +148,7 @@
       padding-top: 0.2rem;
       padding-bottom: 1.6rem;
       line-height: 1.2;
+
       // @include span(first 9 of 12);
       ul {
         li {
@@ -129,6 +168,13 @@
           content: "";
         }
       }
+    }
+
+    @include mediaQuery ($max, $tablet) {
+      .meta,
+      .menu1,
+      .menu2,
+      .header-name { display: none; }
     }
   }
 }

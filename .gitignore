@@ -11,3 +11,8 @@ exportFromVagrant\.sh
 neosCopy\.sh
 
 pushSitePackageToBetaServer\.sh
+
+
+/web/public/Packages/Sites/schule.signalwerkCh/Resources/Public/Styles
+/web/public/Packages/Sites/schule.signalwerkCh/Resources/Public/JavaScript
+*.ai

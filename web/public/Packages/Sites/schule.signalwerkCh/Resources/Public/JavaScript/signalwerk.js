@@ -25,7 +25,7 @@
     var navToggle = document.querySelector('.navigation__toggle');
     var navContent = document.querySelector('.navigation__content');
 
-    navToggle.addEventListener('click', function (e) {
+    navToggle.addEventListener('click', function (event) {
       navContent.classList.toggle('navigation__content--open');
     });
   });
