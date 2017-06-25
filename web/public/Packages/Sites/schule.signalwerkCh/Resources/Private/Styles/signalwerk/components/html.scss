@@ -10,19 +10,6 @@ html {
   color: $cText;
 }
 
-body {
-  background-image: url("../Assets/Images/overlay.svg");
-  background-repeat: repeat-y;
-  background-size: 100% auto;
-}
-
-body.noBackground {
-  background: none;
-}
-
-body.hideL3showL4 {
-}
-
 
 a {
   color: $cLink;

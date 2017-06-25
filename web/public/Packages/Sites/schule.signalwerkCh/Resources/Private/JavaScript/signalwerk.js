@@ -43,5 +43,23 @@
       }
     });
 
+
+    // background animation queing
+    var store = localStorage;
+    var delta = 300000; // 5 min
+
+    var $body = $('body');
+    var isTimeToPlay = parseInt(store.animationLastPlayed, 10) + delta < Date.now();
+    console.log(isTimeToPlay);
+    
+    if(!isTimeToPlay) {
+      $body.addClass('noBackground')
+      console.log('wait for it!');
+    }
+
+    store.setItem('animationLastPlayed', Date.now());
+
+
+
   });
 })(jQuery);
