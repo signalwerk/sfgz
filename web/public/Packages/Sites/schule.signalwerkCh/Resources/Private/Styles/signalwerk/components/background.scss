@@ -24,7 +24,7 @@ body.noBackground {
       background: url($animation-url);
     }
   }
-  
+
   &.no-animation {
     background: none;
     &:after { content: none; }

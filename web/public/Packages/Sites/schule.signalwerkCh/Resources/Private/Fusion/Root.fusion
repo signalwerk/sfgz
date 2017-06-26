@@ -54,12 +54,13 @@ page = Page {
         maximumLevels = 1
       }
 
-      menu4 = Menu {
+      menuSiblings = Menu {
         templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
-
-        entryLevel = 5
+        entryLevel = ${q(node).property('_depth') - 2}
         maximumLevels = 1
       }
+
+      currentLevel = ${q(node).property('_depth') - 2}
 
       mobileMenu1 = Menu {
         templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
