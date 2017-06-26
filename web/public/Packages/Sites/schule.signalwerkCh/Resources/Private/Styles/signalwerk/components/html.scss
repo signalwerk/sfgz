@@ -26,7 +26,7 @@ a {
 }
 
 b, strong, span.strong {
-  @include font-bold(sans);
+  @include font-bold(sansblack);
 }
 
 ul {
