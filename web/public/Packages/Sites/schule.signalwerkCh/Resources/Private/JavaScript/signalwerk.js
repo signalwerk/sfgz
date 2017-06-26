@@ -45,21 +45,23 @@
 
 
     // background animation queing
-    var store = localStorage;
-    var delta = 300000; // 5 min
 
     var $body = $('body');
-    var isTimeToPlay = parseInt(store.animationLastPlayed, 10) + delta < Date.now();
-    console.log(isTimeToPlay);
-    
-    if(!isTimeToPlay) {
-      $body.addClass('noBackground')
-      console.log('wait for it!');
+    var store = localStorage;
+    var delta = 259200000; // 3 days -> ms
+
+    var lastPlayed = parseInt(store.animationLastPlayed, 10);
+    if (store.animationLastPlayed === undefined) {
+      lastPlayed = 0;
     }
+    var isTimeToPlay = lastPlayed + delta < Date.now();
 
-    store.setItem('animationLastPlayed', Date.now());
-
-
-
+    if ($body.hasClass('noBackground')) {
+      if(isTimeToPlay) {
+        store.setItem('animationLastPlayed', Date.now());
+      } else {
+        $body.addClass('no-animation');
+      }
+    }
   });
 })(jQuery);

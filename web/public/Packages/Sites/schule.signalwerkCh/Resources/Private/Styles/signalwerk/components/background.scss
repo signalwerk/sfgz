@@ -1,11 +1,31 @@
 $animation-url: "http://beta.d2p.ch/vue/logo.py?savename=Default&animate=1&speed=8&fade=1&fadespeed=4&fadestart=1.5&fadeadd=0.14&mindist=8&maxdist=18&minwidth=2&growth=0.1&stretch=3";
+$static-url: "../Assets/Images/overlay.svg";
+
 
 body {
-  background-image: url($animation-url);
+  background-image: url($static-url);
   background-repeat: repeat-y;
   background-size: 100% auto;
 }
 
 body.noBackground {
-  background: none;
+
+  &:not(.no-animation) {
+    position: relative;
+    background: none;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: url($animation-url);
+    }
+
+  &.no-animation {
+    background: none;
+    &:after { content: none; }
+  }
 }
