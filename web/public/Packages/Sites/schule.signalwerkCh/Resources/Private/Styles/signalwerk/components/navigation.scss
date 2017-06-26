@@ -138,21 +138,23 @@ $color--dark: black;
   @include mediaQuery($max, $tablet) {
     display: none;
   };
-
-  .hideL3showL4 & {
-    display: none;
-  }
 }
 
-.menu4 {
+.menuSiblings {
   display: none;
 }
 
-.hideL3showL4 {
+.hideL3 {
   & .menu3 {
     display: none;
   }
-  & .menu4 {
+}
+
+.showSiblings {
+  & .menu3 {
+    display: none;
+  }
+  & .menuSiblings {
     display: block;
   }
 }

@@ -59,8 +59,10 @@
                 label: 'Normal'
               'noBackground':
                 label: 'kein Hintergrundbild'
-              'hideL3showL4':
-                label: 'hide L3-Nav/show L4-Nav'
+              'hideL3':
+                label: 'Verstecke L3-Navigation'
+              'showSiblings':
+                label: 'Nur selbes Level zeigen'
 
 
 
