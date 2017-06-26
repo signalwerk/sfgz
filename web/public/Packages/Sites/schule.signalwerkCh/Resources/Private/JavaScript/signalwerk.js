@@ -3,10 +3,9 @@
   $(function() {
 
     // foldout handling
-      $('.foldout-title').click(function() {
-        $(this).toggleClass('active').next().children('.foldout-content').toggleClass('show');
-      });
-
+    $('.foldout-title').click(function() {
+      $(this).toggleClass('active').next().children('.foldout-content').toggleClass('show');
+    });
 
     var $grid = $('.columns-masonry > .column').masonry({
       horizontalOrder: true,
@@ -17,17 +16,16 @@
     });
 
     $grid.imagesLoaded()
-    .progress( function( instance, image ) {
+    .progress(function(instance, image) {
       $grid.masonry('layout');
       $(image.img).closest('.news-item').addClass('news-item--image-loaded');
     });
-
 
     var navToggle = document.querySelector('.navigation__toggle');
     var navContent = document.querySelector('.navigation__content');
 
     navToggle.addEventListener('click', function(event) {
-      navContent.classList.toggle('navigation__content--open')
+      navContent.classList.toggle('navigation__content--open');
     });
 
     // give all anchor tags with href beginning with "http" a target attribute of "_blank"
@@ -39,10 +37,9 @@
       var isTargetBlank = $this.attr('target') === '_blank';
 
       if (!isTargetBlank) {
-        $this.attr('target','_blank');
+        $this.attr('target', '_blank');
       }
     });
-
 
     // background animation queing
 
@@ -57,7 +54,7 @@
     var isTimeToPlay = lastPlayed + delta < Date.now();
 
     if ($body.hasClass('noBackground')) {
-      if(isTimeToPlay) {
+      if (isTimeToPlay) {
         store.setItem('animationLastPlayed', Date.now());
       } else {
         $body.addClass('no-animation');
