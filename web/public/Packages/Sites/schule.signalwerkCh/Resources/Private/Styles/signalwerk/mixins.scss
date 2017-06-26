@@ -124,13 +124,15 @@
   }
 }
 
-@mixin inline-icon($filename) {
+@mixin inline-icon($filename, $size) {
   &:before {
     content: "";
     display: inline-block;
     width: 1em;
     height: 1em;
+    background-size: $size;
     background-image: url("../Assets/Images/" + $filename);
     background-repeat: no-repeat;
+    background-position: center bottom;
   }
 }

@@ -10,7 +10,6 @@ html {
   color: $cText;
 }
 
-
 a {
   color: $cLink;
   text-decoration: none;
@@ -18,11 +17,13 @@ a {
   &:hover {
     color: $cLinkHover;
   }
+}
 
-  &[href^="http"] {
-    @include inline-icon('icon_external-link.svg');
+// only change stuff in the content
+.content {
+  a[href^="http"] {
+    @include inline-icon('icon_external-link.svg', 60%);
   }
-
 }
 
 b, strong, span.strong {

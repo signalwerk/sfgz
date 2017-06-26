@@ -8,5 +8,5 @@
 }
 
 .uploadIcon {
-  @include inline-icon('icon_document.svg');
+  @include inline-icon('icon_document.svg', 60%);
 }
