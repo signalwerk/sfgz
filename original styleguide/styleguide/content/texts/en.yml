@@ -1,0 +1,85 @@
+index:
+  header:
+    title: Project skeleton
+    subtitle: This is a project example
+    navigation:
+      - title: Philosophie
+        subnav:
+          - title: Leitbild
+          - title: Bildungsziele
+          - title: Qualitätsarbeit
+            subnav:
+              - title: Qualitätsleitsätze
+              - title: Qualitätskonzepte
+              - title: Qualitätsberichte
+          - title: Schlüsselstrategien
+            subnav:
+              - title: Kultur
+              - title: Gesundheit
+              - title: Umwelt
+              - title: Schulklima
+              - title: FokusMINT
+              - title: SOL
+              - title: iMedia
+              - title: Förderung
+      - title: Angebot
+        subnav:
+          - title: Bildungsweg
+            subnav:
+              - title: Langgymnasium
+              - title: Kurzgymnasium
+              - title: Profilbeschreibungen
+          - title: Bildungsangebot
+            subnav:
+              - title: Grundlagenfächer
+              - title: Schwerpunktfächer
+              - title: Wahlfächer
+              - title: Lernumfeld
+          - title: Aufnahme
+          - title: Beratung
+            subnav:
+              - title: Inhouse Beratung
+              - title: Netzwerk
+              - title: SOS
+      - title: Personen
+        subnav:
+          - title: Schulführung
+          - title: Lehrpersonen
+            subnav:
+              - title: Konvent
+              - title: Fachschaften
+              - title: Stabstellen
+              - title: Kommissionen
+          - title: Verwaltung
+          - title: Schülerorganisation
+          - title: Schulkommission
+      - title: Porträt
+        subnav:
+          - title: Parkschulcampus
+            subnav:
+              - title: Entstehung
+              - title: Architektur
+              - title: Kunst am Bau
+          - title: Geschichte
+          - title: Kenngrössen
+          - title: Publikationen
+            subnav:
+              - title: Presse
+              - title: Archiv
+      - title: Agenda
+        subnav:
+          - title: Kulturagenda
+          - title: Ferienplan
+  gallery:
+    - url: content/images/placeholder/gallery01.jpg
+      thb: content/images/placeholder/gallery01_thb.jpg
+      desc: Lorem Ipsum dolor sit amet
+    - url: content/images/placeholder/gallery02.jpg
+      thb: content/images/placeholder/gallery02_thb.jpg
+      desc: Lorem Ipsum dolor sit amet
+    - url: content/images/placeholder/gallery03.jpg
+      thb: content/images/placeholder/gallery03_thb.jpg
+      desc: Lorem Ipsum dolor sit amet
+    - url: content/images/placeholder/gallery04.jpg
+      thb: content/images/placeholder/gallery04_thb.jpg
+      desc: Lorem Ipsum dolor sit amet
