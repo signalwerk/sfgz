@@ -1,0 +1,9 @@
+// # Image Object
+// prototype(Neos.NodeTypes:Image) {
+// 	templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/Image.html'
+//
+// 	maximumWidth = 1100
+// }
+//
+// # TextWithImage Object
+// prototype(Neos.NodeTypes:TextWithImage) < prototype(Neos.NodeTypes:Image)

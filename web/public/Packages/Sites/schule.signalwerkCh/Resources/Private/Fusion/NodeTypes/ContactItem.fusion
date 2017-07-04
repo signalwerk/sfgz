@@ -1,0 +1,30 @@
+// prototype(schule.signalwerkCh:ContactItem) < prototype(Neos.Fusion:Template) {
+prototype(schule.signalwerkCh:ContactItem) < prototype(Neos.Neos:Content) {
+
+  templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/ContactItem.html'
+
+  // tttest = ${this.categories}
+//   /// .filterPropertiesFromArray('[identifier="'+node.identifier+'"]','categories')}
+
+
+//  classNames = Neos.Fusion:Collection {
+//    // collection = ${q(site).find('[instanceof schule.signalwerkCh:ContactCategory]')}
+//    collection = ${q(site).find('[instanceof schule.signalwerkCh:ContactCategory]').filterPropertiesFromArray('[identifier="'+node.identifier+'"]','categories')}
+//    itemName = 'node'
+//    itemRenderer = ${node.properties.title + ', '}
+//    /////itemRenderer = schule.signalwerkCh:ContentB
+//  }
+
+}
+
+
+// prototype(schule.signalwerkCh:ContentB) < prototype(Neos.Fusion:Template) {
+//   templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/CategoryItem.html'
+//   contentNode = ${node}
+//
+// 	subNode = TYPO3.TypoScript:Collection {
+//     collection = ${q(site).find('[instanceof schule.signalwerkCh:ContactCategory][identifier="'+node.identifier+'"]')}
+// 		itemName = 'childNodeB'
+// 		itemRenderer = ${childNodeB.properties.title + ' '}
+// 	}
+// }
