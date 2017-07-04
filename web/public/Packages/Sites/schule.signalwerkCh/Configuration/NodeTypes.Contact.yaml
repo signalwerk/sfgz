@@ -1,0 +1,82 @@
+
+'schule.signalwerkCh:ContactCategory':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'Kontakt Kategorie'
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'attr':
+          label: 'Eigenschaften'
+  properties:
+    title:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Titel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+
+
+'schule.signalwerkCh:ContactItem':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'Kontakt'
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'attr':
+          label: 'Eigenschaften'
+  properties:
+    title:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Titel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    firstname:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Vorname'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    familyname:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Familienname'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    categories:
+      type: references
+      ui:
+        label: 'Categories'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+          editorOptions:
+            nodeTypes: ['schule.signalwerkCh:ContactCategory']
+    email:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'E-Mail'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    tel:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Telefon (+41 44 ... .. ..)'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'

@@ -1,0 +1,9 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+<div {attributes -> f:format.raw()} >
+	<div class="contact-item__wrapper">
+    <h3>{firstname} {familyname}<br>
+    <f:for each="{categories}" as="category">{category.properties.title} </f:for></h3>
+    <f:if condition="{email}"><p class="compact"><a href="mailto:{email}">{email}</a></p></f:if>
+		<f:if condition="{tel}"><p class="compact">{tel}</p></f:if>
+	</div>
+</div>

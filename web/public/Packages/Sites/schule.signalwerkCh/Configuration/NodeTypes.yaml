@@ -120,50 +120,6 @@
 
 
 
-'schule.signalwerkCh:ContactItem':
-  superTypes:
-    'Neos.Neos:Content': TRUE
-  ui:
-    label: 'Contact Item'
-    icon: 'icon-book'
-    inspector:
-      groups:
-        'attr':
-          label: 'Properties'
-  properties:
-    firstname:
-      validation: ~
-      ui:
-        inlineEditable: TRUE
-        inspector:
-          group: ~
-        aloha:
-          placeholder: 'Enter firstname here'
-          'format':
-            'b': FALSE
-            'i': FALSE
-            'u': FALSE
-            'sub': FALSE
-            'sup': FALSE
-            'p': TRUE
-            'h1': FALSE
-            'h2': FALSE
-            'h3': FALSE
-            'pre': FALSE
-            'removeFormat': FALSE
-          'table': []
-          'list': []
-          'link':
-            'a': FALSE
-          'alignment': []
-          'formatlesspaste':
-            'button': FALSE
-            'formatlessPasteOption': TRUE
-
-
-
-
-
 ##
 # News Item
 #
