@@ -28,7 +28,7 @@
         nodeTypes:
           '*': FALSE
           'schule.signalwerkCh:Space': TRUE
-          # 'schule.signalwerkCh:ContactItem': TRUE
+          'schule.signalwerkCh:ContactItem': TRUE
           'schule.signalwerkCh:Upload': TRUE
           'Neos.NodeTypes:Headline': TRUE
           'Neos.NodeTypes:Text': TRUE
