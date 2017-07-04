@@ -108,6 +108,19 @@ page = Page {
       templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
       sectionName = 'bodyScripts'
     }
+
+
+    javascripts.backend = Neos.Fusion:Tag {
+  		tagName = 'script'
+  		attributes {
+  			src = Neos.Fusion:ResourceUri {
+  				package = 'schule.signalwerkCh'
+  				path = 'JavaScript/signalwerkBackend.js'
+  			}
+  			async = null
+  		}
+  		@if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name != 'live'}
+  	}
   }
 }
 
