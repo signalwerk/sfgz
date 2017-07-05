@@ -24,6 +24,22 @@ a {
   a[href^="http"] {
     @include inline-icon('icon_external-link.svg', 60%);
   }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    padding-left: 1.5em;
+
+    &:before {
+      content: "— ";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
 }
 
 b, strong, span.strong {
@@ -31,7 +47,7 @@ b, strong, span.strong {
 }
 
 ul {
-  padding-left: 1em;
+  padding-left: 0;
   margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
