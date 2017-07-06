@@ -52,6 +52,7 @@ page = Page {
 
         entryLevel = 4
         maximumLevels = 1
+        attributes.class = 'menu menu3'
       }
 
       menuSiblings = Menu {

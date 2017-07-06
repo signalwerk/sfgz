@@ -1,10 +1,12 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 {namespace ts=Neos\Fusion\ViewHelpers}
-<nav{attributes -> f:format.raw()}>
-	<ul>
-		<f:render section="itemsList" arguments="{items: items}" />
-	</ul>
-</nav>
+<f:if condition="{items -> f:count()}">
+	<nav{attributes -> f:format.raw()}>
+		<ul>
+			<f:render section="itemsList" arguments="{items: items}" />
+		</ul>
+	</nav>
+</f:if>
 
 <f:section name="itemsList">
 	<f:if condition="{items -> f:count()}">
