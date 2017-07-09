@@ -10,11 +10,14 @@ body {
 
 body.noBackground {
 
+
+
   &:not(.no-animation) {
     position: relative;
     background: none;
 
     &:after {
+      pointer-events: none;
       content: "";
       position: absolute;
       top: 0;

@@ -137,6 +137,9 @@ $color--dark: black;
 .menu3 {
   @include mediaQuery($max, $tablet) {
     display: none;
+    // background: white;
+    // padding-top: 0.5rem;
+    // margin-top: 2vw;
   };
 }
 
