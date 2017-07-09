@@ -25,21 +25,15 @@
     width: 100%;
   }
   &:hover {
-    .news-item__title_hover {
-      display: block;
-    }
+
     .teaser-image,
     .news-item__date,
-    .news-item__title,
     .news-item__text {
       visibility: hidden;
     }
   }
   .neos-backend & {
     &:hover {
-      .news-item__title_hover {
-        display: none;
-      }
       .teaser-image,
       .news-item__date,
       .news-item__title,
@@ -52,6 +46,9 @@
 
 
   opacity: 0;
+  .neos-backend & {
+    opacity: 1;
+  }
   transition: opacity 300ms;
   &--image-loaded { opacity: 1; }
 

@@ -122,6 +122,20 @@ page = Page {
   		}
   		@if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name != 'live'}
   	}
+
+    javascripts.frontend = Neos.Fusion:Tag {
+  		tagName = 'script'
+  		attributes {
+  			src = Neos.Fusion:ResourceUri {
+  				package = 'schule.signalwerkCh'
+  				path = 'JavaScript/signalwerkFrontend.js'
+  			}
+  			async = null
+  		}
+  		@if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name == 'live'}
+  	}
+
+
   }
 }
 
