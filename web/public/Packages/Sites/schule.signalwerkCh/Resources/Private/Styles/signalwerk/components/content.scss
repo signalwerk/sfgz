@@ -6,6 +6,10 @@
   max-width: $max-width;
   padding-left: 180px;
 
+  @include mediaQuery($max, $tablet) {
+    padding: 2%;
+  };
+
   .neos-backend & {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -21,13 +25,16 @@
     // width: 100%;
     @include container(12);
 
-    .content_main {
-      @include span(first 9 of 12);
+    @include mediaQuery($min, $tablet) {
+      .content_main {
+        @include span(first 9 of 12);
+      }
+
+      .content_extra {
+        @include span(last 3 of 12);
+      }
     }
 
-    .content_extra {
-      @include span(last 3 of 12);
-    }
 
     .menu3 {
       padding-bottom: 3rem;
