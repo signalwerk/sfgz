@@ -27,21 +27,28 @@ $arrowSize: 1.5em;
   &:hover {
     cursor: pointer;
   }
-  &:before {
-    content:'';
-    display: inline-block;
-    position: relative;
-    left: $arrowSize / 4;
-    top: $arrowSize / 4;
-    border: $arrowSize / 2 solid transparent;
-    border-left-color: #000;
-  }
-  &.active {
-    .more {
-      display: none;
+  h3 {
+    div {
+      display: inline-block;
+    }
+    &:before {
+      content:'';
+      display: inline-block;
+      position: relative;
+      left: $arrowSize / 4;
+      top: $arrowSize / 4;
+      border: $arrowSize / 2 solid transparent;
+      border-left-color: #000;
+      margin-right: 0.5rem;
     }
   }
-  &.active:before {
+
+  // &.active {
+  //   .more {
+  //     display: none;
+  //   }
+  // }
+  &.active h3:before {
     left: 0;
     top: $arrowSize / 4;
     border-color: #000 transparent transparent;

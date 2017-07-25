@@ -316,6 +316,23 @@
             values:
               'default':
                 label: 'default'
+    title:
+      type: string
+      defaultValue: 'mehr...'
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Titel für Foldout...'
+          'format': []
+          'table': []
+          'list': []
+          'link': []
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE
 
 
 

@@ -1,5 +1,12 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+
 <div{attributes -> f:format.raw()}>
-  <div class="foldout-title"><span class="more">mehr...</span></div>
+
+  <f:alias map="{title: node.properties.title}">
+    <div class="foldout-title"><h3><neos:contentElement.editable property="title" /></h3></div>
+  </f:alias>
+
+
   <div class="foldout-wrapper">
     <div class="foldout-content">
       {columns -> f:format.raw()}
