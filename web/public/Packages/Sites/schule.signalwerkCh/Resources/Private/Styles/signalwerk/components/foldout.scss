@@ -28,10 +28,14 @@ $arrowSize: 1.5em;
     cursor: pointer;
   }
   h3 {
+    position: relative;
+
     div {
       display: inline-block;
     }
     &:before {
+      position: absolute;
+      top: -0.3rem;
       content:'';
       display: inline-block;
       position: relative;
@@ -50,7 +54,8 @@ $arrowSize: 1.5em;
   // }
   &.active h3:before {
     left: 0;
-    top: $arrowSize / 4;
+    top: 0.8em;
+    // top: $arrowSize / 4;
     border-color: #000 transparent transparent;
   }
 }
