@@ -17,6 +17,11 @@ page = Page {
       templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
       sectionName = 'headScripts'
     }
+
+    meta = Neos.Fusion:Template {
+      templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
+      sectionName = 'meta'
+    }
   }
 
   bodyTag.attributes.class = ${q(node).property('style')}
