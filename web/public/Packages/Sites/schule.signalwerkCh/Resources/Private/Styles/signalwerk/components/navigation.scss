@@ -61,7 +61,7 @@ $color--dark: black;
     font-size: $font-size--large;
     border: none;
     -webkit-appearance: none;
-    @include font-bold();
+    @include font-bold(sansblack);
   }
 
   &__content {
@@ -87,8 +87,7 @@ $color--dark: black;
 .menu {
   &1--mobile {
     font-size: $font-size--large;
-    @include font-bold();
-
+    @include font-bold(sansblack);
     ul { padding-left: 0; }
     li { list-style: none; }
     a { color: $cWhite; }
