@@ -45,6 +45,8 @@
                 label: 'Normal'
               'wide':
                 label: 'wide'
+              'course':
+                label: 'course'
     'style':
       type: string
       ui:

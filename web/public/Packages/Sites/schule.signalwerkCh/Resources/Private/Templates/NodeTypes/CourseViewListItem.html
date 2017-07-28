@@ -1,0 +1,18 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+<div {attributes -> f:format.raw()} >
+  <a href="./angebot/detail.html?kurs={course.properties.coursid}">
+    <div class="courseview-listeitem">
+    	<div class="courseview-listeitem__nr">
+        <p>{course.properties.coursid}&nbsp;</p>
+    	</div>
+    	<div class="courseview-listeitem__title">
+        <h3>{course.properties.title}</h3>
+      </div>
+    	<div class="courseview-listeitem__date">
+        <p>
+          {executions -> f:format.raw()}
+        </p>
+      </div>
+  	</div>
+  </a>
+</div>

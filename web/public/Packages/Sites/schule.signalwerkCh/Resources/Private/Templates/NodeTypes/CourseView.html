@@ -1,0 +1,300 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+
+<div{attributes -> f:format.raw()}>
+
+
+  <f:if condition="{view} == list">
+    {courseItemRenderer -> f:format.raw()}
+  </f:if>
+
+  <f:if condition="{view} == show">
+    {course -> f:format.raw()}
+  </f:if>
+
+  <f:if condition="{view} == enroll">
+
+    <f:if condition="{currentCourse.properties.coursid} && {currentExecution.properties}">
+      <f:then>
+
+          <div class="course-root">
+            <div class="course-course course-form">
+              <h1>{currentCourse.properties.title}</h1>
+              <h2>Anmeldung</h2>
+
+                <h3>Teilnehmeradresse</h3>
+                <br>
+
+<form class="contact-form" id="contact-form" method="post" action="">
+              <fieldset>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-anrede">Anrede<span class="required">*</span></label>
+                  <div class="input">
+                    <select class="form-control" id="contact-form-anrede" name="--contact-form[anrede]">
+                      <option value="" selected="selected">bitte wählen</option>
+                      <option value="herr">Herr</option>
+                      <option value="frau">Frau</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Name">Name<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Name" type="text" name="--contact-form[Name]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Vorname">Vorname<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Vorname" type="text" name="--contact-form[Vorname]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-StrasseNr">Strasse/Nr.<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Strasse" type="text" name="--contact-form[Strasse]" value="">
+                    <input class="form-control" id="contact-form-StrasseNr" type="text" name="--contact-form[StrasseNr]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Postleitzahl">Postleitzahl<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Postleitzahl" type="text" name="--contact-form[Postleitzahl]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Ort">Ort<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Ort" type="text" name="--contact-form[Ort]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-E-Mail">E-Mail<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-E-Mail" type="text" name="--contact-form[E-Mail]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Geburtsdatum">Geburtsdatum<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Geburtsdatum" type="text" name="--contact-form[Geburtsdatum]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Berufstatigkeit">Berufstätigkeit<span class="required">*</span></label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-Berufstatigkeit" type="text" name="--contact-form[Berufstatigkeit]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-TelP">Telefon Privat</label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-TelP" type="text" name="--contact-form[TelP]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-TelP">Telefon Geschäft</label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-TelP" type="text" name="--contact-form[TelP]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-TelM">Mobile</label>
+                  <div class="input">
+                    <input class="form-control" id="contact-form-TelM" type="text" name="--contact-form[TelM]" value="">
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label for="contact-form-Comment">Kommentar</label>
+                  <div class="input">
+                    <textarea class="form-control" id="contact-form-Comment" name="--contact-form[Comment]"></textarea>
+                  </div>
+                </div>
+
+
+
+
+
+              </fieldset>
+
+<hr>
+                              <h3>Rechnungsadresse</h3>
+                              <br>
+
+<div class="switch-right-left">
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-separate"> Ich habe eine separate Rechnungsadresse</label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-separate" type="checkbox" name="--contact-form-bill[separate]">
+                                  </div>
+                                </div>
+</div>
+
+                                <fieldset class="contact-form-bill">
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-company">Firma</label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-company" type="text" name="--contact-form-bill[company]" value="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-anrede">Anrede</label>
+                                  <div class="input">
+                                    <select class="form-control" id="contact-form-bill-anrede" name="--contact-form-bill[anrede]">
+                                      <option value="" selected="selected">bitte wählen</option>
+                                      <option value="herr">Herr</option>
+                                      <option value="frau">Frau</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-Name">Name</label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-Name" type="text" name="--contact-form-bill[Name]" value="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-Vorname">Vorname</label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-Vorname" type="text" name="--contact-form-bill[Vorname]" value="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-StrasseNr">Strasse/Nr.<span class="required">*</span></label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-Strasse" type="text" name="--contact-form-bill[Strasse]" value="">
+                                    <input class="form-control" id="contact-form-bill-StrasseNr" type="text" name="--contact-form-bill[StrasseNr]" value="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-Postleitzahl">Postleitzahl<span class="required">*</span></label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-Postleitzahl" type="text" name="--contact-form-bill[Postleitzahl]" value="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                  <label for="contact-form-bill-Ort">Ort<span class="required">*</span></label>
+                                  <div class="input">
+                                    <input class="form-control" id="contact-form-bill-Ort" type="text" name="--contact-form-bill[Ort]" value="">
+                                  </div>
+                                </div>
+
+
+
+
+                            </fieldset>
+                            <br>
+                            <hr>
+
+                                          <fieldset>
+                                            <div class="switch-right-left">
+
+
+                                                            <div class="form-group clearfix">
+                                                              <label for="contact-form-ausbildung">Ich bin zum Zeitpunkt der Kursdruchführung in Ausbildung an der Schule für Gestaltung Zürich</label>
+                                                              <div class="input">
+                                                                <input class="form-control" id="contact-form-ausbildung" type="checkbox" name="--contact-form[ausbildung]">
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="contact-form-onSfGZ-group">
+                                                              <div class="form-group clearfix">
+                                                                <label for="contact-form-lernendeSfGZ">Lernende/r an der Schule für Gestaltung Zürich. <br> Ich habe das Einverständnis des Lehrbetriebes erhalten</label>
+                                                                <div class="input">
+                                                                  <input class="form-control" id="contact-form-lernendeSfGZ" type="radio" name="--contact-form[onSfGZ]" value="lernende">
+                                                                </div>
+                                                              </div>
+
+                                                              <div class="form-group clearfix">
+                                                                <label for="contact-form-lernendeBfGZ">Studierende/r an der Schule für Gestaltung Zürich   </label>
+                                                                <div class="input">
+                                                                  <input class="form-control" id="contact-form-studentBfGZ" type="radio" name="--contact-form[onSfGZ]" value="student">
+                                                                </div>
+                                                              </div>
+                                                            </div>
+
+                                                            <div class="form-group clearfix">
+                                                              <label for="contact-form-agb">Ich bin mit den Allgemeinen Geschäftsbedingungen einverstanden</label>
+                                                              <div class="input">
+                                                                <input class="form-control" id="contact-form-agb" type="checkbox" name="--contact-form[agb]">
+                                                              </div>
+                                                            </div>
+
+                                                          </div>
+
+                                                          <br>
+<br>
+                                                            <div class="form-group clearfix">
+                                                              <label for="contact-form-submit">&nbsp;</label>
+                                                              <div class="input">
+                                                                <button type="submit">Abschicken</button>
+                                                              </div>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+
+
+
+
+
+                                          </fieldset>
+                                        </form>
+
+
+            </div>
+
+            <div class="course-execution">
+
+              <p>Kursnummer: <strong>{currentExecution.properties.code}</strong><p>
+
+              <f:if condition="{currentExecution.properties.start}">
+                <p>Startdatum: <strong><f:format.date format="d.m.Y">{currentExecution.properties.start}</f:format.date></strong></p>
+              </f:if>
+              <f:if condition="{currentExecution.properties.end}">
+                <p>Enddatum: <strong><f:format.date format="d.m.Y">{currentExecution.properties.end}</f:format.date></strong></p>
+              </f:if>
+
+              <p>Kosten: <br>
+                <f:if condition="{currentExecution.properties.priceZH}">
+                  <strong>ZH</strong> {currentExecution.properties.priceZH}.– <br>
+                </f:if>
+                <f:if condition="{currentExecution.properties.priceNotZH}">
+                  <strong>AK</strong> {currentExecution.properties.priceNotZH}.– <br>
+                </f:if>
+                <f:if condition="{currentExecution.properties.priceSfGZ}">
+                  <strong>L</strong> {currentExecution.properties.priceSfGZ}.–<br>
+                </f:if>
+              </p>
+            </div>
+          </div>
+      </f:then>
+      <f:else>
+        <h1>Error! Puh... Sorrrryyy... 🙈</h1>
+      </f:else>
+    </f:if>
+
+
+
+  </f:if>
+
+
+</div>

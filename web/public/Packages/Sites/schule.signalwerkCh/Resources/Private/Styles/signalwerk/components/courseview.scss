@@ -1,0 +1,22 @@
+.courseview-listeitem {
+  @include container(12);
+
+
+  &__nr {
+    @include span(2 of 12);
+    p {
+      padding-top: 0.3rem;
+    }
+  }
+
+  &__title {
+    @include span(6 of 12);
+  }
+
+  &__date {
+    @include span(last 4 of 12);
+    p {
+      padding-top: 0.3rem;
+    }
+  }
+}

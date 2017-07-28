@@ -35,6 +35,28 @@
       }
     }
 
+    // for course
+    .course & .content_main  {
+      @include span(12 of 12);
+
+      .course-root{
+        @include container(12);
+
+        @include mediaQuery($min, $tablet) {
+          .course-course {
+            @include span(first 9 of 12);
+          }
+          .course-execution {
+            @include span(last 3 of 12);
+          }
+        }
+      }
+    }
+
+    .course & .content_extra {
+      display: none;
+    }
+
 
     .menu3 {
       padding-bottom: 3rem;

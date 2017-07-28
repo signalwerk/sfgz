@@ -1,0 +1,359 @@
+'schule.signalwerkCh:CourseExecution':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'Kurs Durchfuehrung'
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'attr':
+          label: 'Eigenschaften'
+  properties:
+    code:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Code'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    start:
+      type: DateTime
+      defaultValue: ''
+      ui:
+        label: 'Start'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    end:
+      type: DateTime
+      defaultValue: ''
+      ui:
+        label: 'End'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    von:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kursdauer'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    bis:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kursdauer'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    duration:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kursdauer'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    teacher:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kursleitung'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    priceZH:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kosten Teiln. Kt. ZH'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    priceNotZH:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kosten ausserkantonal'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    priceSfGZ:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kosten Lernende SfGZ'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    maxTeilnehmer:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Max. Teilnehmer'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    anmeldeschluss:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Anmeldeschluss'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    ort:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Kursort'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    ecoMandant:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'eco_mandant'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    ecoAngebotId:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'eco_angebot_id'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    ecoFachId:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'eco_fach_id'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    status:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Status'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    ort:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Ort'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+
+
+
+
+
+'schule.signalwerkCh:Course':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: Kurs
+    icon: 'icon-bookmark'
+    inspector:
+      groups:
+        'course':
+          label: 'Details'
+          position: 50
+  childNodes:
+    executions:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    coursid:
+      type: string
+      ui:
+        label: 'ID'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    title:
+      type: string
+      ui:
+        label: 'Titel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    subtitle:
+      type: string
+      ui:
+        label: 'Untertitel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    ziel:
+      type: string
+      ui:
+        label: 'Ziel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    inhalt:
+      type: string
+      ui:
+        label: 'Inhalt'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    stufe:
+      type: string
+      ui:
+        label: 'Kursniveau'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    zielgruppe:
+      type: string
+      ui:
+        label: 'Zielgruppe'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    voraussetzungen:
+      type: string
+      ui:
+        label: 'Voraussetzungen'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    methode:
+      type: string
+      ui:
+        label: 'Arbeitsweise'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    kursmittel:
+      type: string
+      ui:
+        label: 'Kursmittel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    hinweis:
+      type: string
+      ui:
+        label: 'Hinweis'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    zertifikat:
+      type: string
+      ui:
+        label: 'Abschluss'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    # text:
+    #   validation: ~
+    #   ui:
+    #     inlineEditable: TRUE
+    #     inspector:
+    #       group: ~
+    #     aloha:
+    #       placeholder: 'Text'
+    #       'format':
+    #         'b': TRUE
+    #         'i': TRUE
+    #         'u': TRUE
+    #         'sub': TRUE
+    #         'sup': TRUE
+    #         'p': FALSE
+    #         'h1': FALSE
+    #         'h2': FALSE
+    #         'h3': TRUE
+    #         'pre': FALSE
+    #         'removeFormat': FALSE
+    #       'table': []
+    #       'list': []
+    #       'link':
+    #         'a': TRUE
+    #       'alignment': []
+    #       'formatlesspaste':
+    #         'button': FALSE
+    #         'formatlessPasteOption': TRUE
+    'startdate':
+      type: DateTime
+      ui:
+        label: 'Start'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    'enddate':
+      type: DateTime
+      ui:
+        label: 'End'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    'duration':
+      type: string
+      ui:
+        label: 'Umfang'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    'instructor':
+      type: string
+      ui:
+        label: 'Kursleitung'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    # executions:
+    #   type: references
+    #   ui:
+    #     label: 'Durchfuehrungen'
+    #     reloadIfChanged: TRUE
+    #     inspector:
+    #       group: 'course'
+    #       editorOptions:
+    #         nodeTypes: ['schule.signalwerkCh:CourseExecution']
+    #
+
+
+##
+# Kurs
+#
+'schule.signalwerkCh:CourseView':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'Kursansicht'
+    icon: 'icon-bookmark'
+    inspector:
+      groups:
+        'view':
+          label: 'Details'
+          position: 50
+  properties:
+    view:
+      type: string
+      defaultValue: 'list'
+      ui:
+        label: 'View'
+        inspector:
+          group: 'view'
+          editor: Content/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            values:
+              'list':
+                label: 'Liste'
+              'show':
+                label: 'Details'
+              'enroll':
+                label: 'Anmelden'
+        reloadIfChanged: TRUE

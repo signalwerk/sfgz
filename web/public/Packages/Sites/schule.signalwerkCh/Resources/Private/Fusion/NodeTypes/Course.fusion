@@ -1,0 +1,13 @@
+prototype(schule.signalwerkCh:Course) < prototype(Neos.Neos:Content) {
+	node = ${node}
+
+	# Render the main ContentCollection of the Post like a page would
+	main = Neos.Neos:ContentCollection {
+		nodePath = 'main'
+	}
+
+	# Render an additional ContentCollection for comments
+	executions = Neos.Neos:ContentCollection {
+		nodePath = 'executions'
+	}
+}

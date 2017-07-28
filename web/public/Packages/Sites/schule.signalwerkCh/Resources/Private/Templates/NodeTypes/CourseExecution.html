@@ -1,0 +1,72 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+
+<f:if condition="{node.properties.status} == 3">
+  <f:then>
+    <div class="course-complete">
+  </f:then>
+  <f:else>
+    <div class="course-not-complete">
+  </f:else>
+</f:if>
+<p>Kurs:<strong> {node.properties.code}</strong></p>
+
+<f:if condition="{node.properties.start}">
+  <p>Startdatum: <strong><f:format.date format="d.m.Y">{node.properties.start}</f:format.date></strong></p>
+</f:if>
+<f:if condition="{node.properties.end}">
+  <p>Enddatum: <strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></strong></p>
+</f:if>
+<f:if condition="{node.properties.von}">
+  <p>Tag/Zeit:<strong><f:format.date format="l">{node.properties.start}</f:format.date> <f:format.date format="d.m.Y - H:i:s">{node.properties.start}</f:format.date> {node.properties.von}–{node.properties.bis}</strong></p>
+</f:if>
+
+<f:if condition="{node.properties.duration}">
+  <p>Daten:<strong> {node.properties.duration}</strong></p>
+</f:if>
+
+<f:if condition="{node.properties.teacher}">
+  <p>Kursleitung:<strong> {node.properties.teacher}</strong></p>
+</f:if>
+<p>Kosten: <br>
+  <f:if condition="{node.properties.priceZH}">
+    <strong>ZH</strong> {node.properties.priceZH}.– <br>
+  </f:if>
+  <f:if condition="{node.properties.priceNotZH}">
+    <strong>AK</strong> {node.properties.priceNotZH}.– <br>
+  </f:if>
+  <f:if condition="{node.properties.priceSfGZ}">
+    <strong>L</strong> {node.properties.priceSfGZ}.–<br>
+  </f:if>
+</p>
+
+<f:if condition="{node.properties.ort}">
+ <p>
+   <strong>Ort:</strong>
+   <f:if condition="{node.properties.ort} == Lp">
+     Ausstellungsstrasse 104, CH-8005 Zürich
+   </f:if>
+   <f:if condition="{node.properties.ort} == Jo">
+     Josefstrasse 53-59, CH-8005 Zürich
+   </f:if>
+   <f:if condition="{node.properties.ort} == Extern">
+     Extern
+   </f:if>
+ </p>
+</f:if>
+
+
+</div>
+
+<f:if condition="{node.properties.status} == 0">
+  <a href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
+    <h3 class="button">Anmelden</h3>
+  </a>
+  <br>
+</f:if>
+
+<f:if condition="{node.properties.status} == 3">
+  <h3>Ausgebucht</h3>
+  <br>
+</f:if>
+
+<hr>

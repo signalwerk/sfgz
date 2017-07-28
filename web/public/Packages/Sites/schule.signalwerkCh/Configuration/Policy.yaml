@@ -1,7 +1,16 @@
+privilegeTargets:
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+    'schule.signalwerkCh:Course':
+      matcher: 'method(schule\signalwerkCh\Controller\CourseController->(.*)Action())'
 
 roles:
   'Neos.Neos:Editor':
     privileges:
       -
         privilegeTarget: 'Neos.Media.Browser:ManageAssetCollections'
+        permission: GRANT
+  'Neos.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: 'schule.signalwerkCh:Course'
         permission: GRANT

@@ -1,0 +1,58 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+{namespace ts=Neos\Fusion\ViewHelpers}
+<div{attributes -> f:format.raw()}>
+
+  <div class="course-root">
+    <div class="course-course">
+      <h1>{node.properties.title}</h1>
+      <f:if condition="{node.properties.subtitle}">
+        <h2>{node.properties.subtitle}</h2>
+      </f:if>
+
+      <f:if condition="{node.properties.ziel}">
+          <h3>Kursziel</h3>
+          <f:format.raw>{node.properties.ziel}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.inhalt}">
+          <h3>Inhalt</h3>
+          <f:format.raw>{node.properties.inhalt}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.stufe}">
+          <h3>Kursniveau</h3>
+          <f:format.raw>{node.properties.stufe}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.zielgruppe}">
+          <h3>Zielgruppe</h3>
+          <f:format.raw>{node.properties.zielgruppe}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.voraussetzungen}">
+          <h3>Voraussetzungen</h3>
+          <f:format.raw>{node.properties.voraussetzungen}</f:format.raw>
+      </f:if>
+
+      <f:if condition="{node.properties.methode}">
+          <h3>Arbeitsweise</h3>
+          <f:format.raw>{node.properties.methode}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.kursmittel}">
+          <h3>Kursmittel</h3>
+          <f:format.raw>{node.properties.kursmittel}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.hinweis}">
+          <h3>Hinweis</h3>
+          <f:format.raw>{node.properties.hinweis}</f:format.raw>
+      </f:if>
+      <f:if condition="{node.properties.zertifikat}">
+          <h3>Abschluss</h3>
+          <f:format.raw>{node.properties.zertifikat}</f:format.raw>
+      </f:if>
+
+    </div>
+
+    <div class="course-execution">
+      {executions -> f:format.raw()}
+    </div>
+  </div>
+
+
+</div>

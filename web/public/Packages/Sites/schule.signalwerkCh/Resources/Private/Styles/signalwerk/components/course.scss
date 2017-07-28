@@ -1,0 +1,82 @@
+.course-root {
+  a {
+    border-bottom: none;
+
+  }
+  h3.button {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+
+    padding-bottom: 0.15em;
+    border-bottom: black solid 0.15em;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .course-complete {
+    opacity: 0.3;
+  }
+  .course-form {
+    fieldset {
+        width: 100%;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    span.required {
+      color: red;
+    }
+
+    .form-group {
+      @include container(9);
+      padding-bottom: 0.5rem;
+
+      label {
+        @include span(first 3 of 9);
+      }
+
+      .input {
+        @include span(last 6 of 9);
+        @include container(6);
+
+        #contact-form-Strasse {
+          @include span(first 5 of 6);
+        }
+        #contact-form-StrasseNr {
+          @include span(last 1 of 6);
+        }
+
+        label.error {
+          font-size: 0.8rem;
+          color: red;
+        }
+        input,
+        select,
+        textarea,
+        button {
+          box-sizing: border-box;
+          width: 100%;
+        }
+      }
+    }
+
+
+    .switch-right-left .form-group {
+      label {
+        @include span(last 6 of 9);
+      }
+      .input {
+        @include span(first 3 of 9);
+        @include container(3);
+        text-align: right;
+        input[type='radio'],
+        input[type='checkbox'] {
+          right: 0;
+          width: auto;
+        }
+      }
+    }
+
+
+  }
+}

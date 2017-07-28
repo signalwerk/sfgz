@@ -151,3 +151,33 @@ wide < page
 wide {
 	bodyTag.attributes.class = 'wide'
 }
+
+
+
+// https://discuss.neos.io/t/how-can-i-pass-an-variable-via-url-parameters/994/6
+
+course < page
+course {
+  bodyTag.attributes.class = 'course'
+  @cache.entryIdentifier.courseId = ${request.arguments.kurs}
+  @cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+}
+
+
+
+#
+# Add the paginator's "current page" value to cache entry identifiers in cache layers above the blog posts index.
+# Depending on your actual page structure you will have to add this identifier part to further TypoScript object
+# cache configurations.
+#
+root.@cache.entryIdentifier.courseId = ${request.arguments.kurs}
+root.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+
+// prototype(Neos.Neos:Page) {
+// 	@cache.entryIdentifier.courseId = ${request.arguments.kurs}
+// }
+
+prototype(Neos.Neos:PrimaryContent).default {
+  renderer.@cache.entryIdentifier.courseId = ${request.arguments.kurs}
+	renderer.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+}
