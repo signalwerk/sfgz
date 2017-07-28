@@ -2,6 +2,9 @@
 <div {attributes -> f:format.raw()} >
 	<div class="contact-item__wrapper">
     <h3>{firstname} {familyname}<br>
+			<f:if condition="{function}">
+				{function}<br>
+			</f:if>
 	    <f:for each="{categories}" as="category" iteration="itemIterator">
 				{category.properties.title}{f:if(condition: itemIterator.isLast, then: '', else: ', ')}
 			</f:for>
