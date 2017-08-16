@@ -35,7 +35,7 @@
       type: string
       defaultValue: ''
       ui:
-        label: 'Titel'
+        label: 'Titel (wird nicht angezeigt)'
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
@@ -55,10 +55,18 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
+    function:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Funktion'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
     categories:
       type: references
       ui:
-        label: 'Categories'
+        label: 'Kategorie'
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
