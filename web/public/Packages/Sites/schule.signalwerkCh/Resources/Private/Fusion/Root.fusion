@@ -42,7 +42,7 @@ page = Page {
 
         entryLevel = 2
         maximumLevels = 1
-        startingPoint = ${q(site).children('[uriPathSegment="hauptnavigation"]').get(0)}
+        startingPoint = ${q(site).children('[uriPathSegment="angebot"]').get(0)}
       }
 
       menu2 = Menu {
@@ -73,7 +73,7 @@ page = Page {
 
         entryLevel = 2
         maximumLevels = 1
-        startingPoint = ${q(site).children('[uriPathSegment="hauptnavigation"]').get(0)}
+        startingPoint = ${q(site).children('[uriPathSegment="angebot"]').get(0)}
       }
 
       mobileMenu2 = Menu {
@@ -88,7 +88,7 @@ page = Page {
 
         entryLevel = 2
         maximumLevels = 1
-        startingPoint = ${q(site).children('[uriPathSegment="meta-navigation-top"]').get(0)}
+        startingPoint = ${q(site).children('[uriPathSegment="schule"]').get(0)}
       }
 
     }
