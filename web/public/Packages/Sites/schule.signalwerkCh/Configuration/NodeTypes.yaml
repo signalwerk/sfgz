@@ -145,6 +145,14 @@
           group: 'attr'
         help:
           message: 'This image will also appear in the product menu.'
+    link:
+      type: string
+      ui:
+        label: 'Link'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+          editor: 'Neos.Neos/Inspector/Editors/LinkEditor'
     date:
       validation: ~
       ui:
