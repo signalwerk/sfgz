@@ -22,7 +22,7 @@
     position: fixed;
     left: 30px;
     top: 20px;
-    // z-index: 3;
+    z-index: 999;
     // display: none;
     img {
       width: 100%;
@@ -125,7 +125,7 @@
 
     .meta {
       font-size: map-get($fontFactorsMenu, meta);
-      top: -1.8em;
+      top: -1.5em;
       left: auto;
       margin-left: 0.15em;
       position: absolute;
