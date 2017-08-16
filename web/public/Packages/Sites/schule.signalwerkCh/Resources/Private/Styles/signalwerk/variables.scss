@@ -28,7 +28,8 @@ $cGrey--dark:       darken($cWhite, 80%);
 
 $cLink:             $cText;
 $cLinkIsActive:     lighten($cText, 50%);
-$cLinkHover:        #f06;
+// $cLinkHover:        rgb(255, 199, 61);
+$cLinkHover:        rgb(219, 0, 0);
 
 $cBackgroundColor:  $cWhite;
 
