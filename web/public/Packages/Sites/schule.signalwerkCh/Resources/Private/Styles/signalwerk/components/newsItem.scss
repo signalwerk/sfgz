@@ -10,62 +10,105 @@
 .news-item__sizer,
 .news-item {
   width: span(6 of 12);
+
+  @include mediaQuery($max, $tablet) {
+    width: span(12 of 12);
+  }
 }
 
 .news-item {
 
   position: relative;
-
-  cursor: pointer;
-
-  &__title_hover {
-    display: none;
-    text-align: right;
-    position: absolute;
-    width: 100%;
+  padding-bottom: 1rem;
+  font-size: 1.15rem;
+  p {
+    font-size: 1.15rem;
   }
-  &:hover {
 
-    .teaser-image,
-    .news-item__date,
-    .news-item__text {
-      visibility: hidden;
-    }
-  }
-  .neos-backend & {
-    &:hover {
-      .teaser-image,
-      .news-item__date,
-      .news-item__title,
-      .news-item__text {
-        visibility: visible;
+  a {
+    color: black;
+    h1, h2 {
+      border-bottom: transparent solid 0.1em;
+      transition: border-bottom 400ms ease;
+      padding-top: 0.1em;
+      line-height: 1.1;
+      padding-bottom: 0em;
+      // box-sizing: border-box;
+      // transition: color 500ms ease, border-bottom 400ms ease;
+
+          display: inline;
+          position: relative;
+
+        @include mediaQuery($max, $tablet) {
+          border-bottom: black solid 0.1em;
+        }
+        &:after {
+        clear: both;
+        display: block;
+        content: "";
+        width: 100%;
       }
     }
 
+    &:hover {
+
+      h1, h2 {
+        border-bottom: $cLinkHover solid 0.1em;
+        color: $cLinkHover
+      }
+
+      .teaser-image,
+      .news-item__date,
+      // .news-item__title,
+      .news-item__text {
+        opacity: 0.65;
+      }
+    }
+
+    // no special icons for external links
+    &[href^="http"]:before {
+      display: none;
+    }
+
   }
 
 
-  opacity: 0;
-  .neos-backend & {
-    opacity: 1;
-  }
+
+  // .neos-backend & {
+  //   &:hover {
+  //     .teaser-image,
+  //     .news-item__date,
+  //     .news-item__title,
+  //     .news-item__text {
+  //       visibility: visible;
+  //     }
+  //   }
+  //
+  // }
+
+  // opacity: 0;
+  // .neos-backend & {
+  //   opacity: 1;
+  // }
+
   transition: opacity 300ms;
   &--image-loaded { opacity: 1; }
 
 
   &__date {
+    @include font-bold(sansblack);
 
+      margin-top: 0;
   }
 	&__title {
 
 	}
 	&__text {
-
+    padding-top: 0.5rem;
+    p {
+      margin-top: 0;
+    }
   }
-  &__text {
-
-  }
-
   .teaser-image {
     position: relative;
 
@@ -76,11 +119,37 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('../Assets/Images/overlay.svg');
+      // background: url('../Assets/Images/overlay.svg');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: left bottom;
     }
+
+
+    $backgroundURL:'../Assets/Images/logo/generated/small/background';
+
+    &.background01:after {background-image: url('#{$backgroundURL}01_s.svg')};
+    &.background02:after {background-image: url('#{$backgroundURL}02_s.svg')};
+    &.background03:after {background-image: url('#{$backgroundURL}03_s.svg')};
+    &.background04:after {background-image: url('#{$backgroundURL}04_s.svg')};
+    &.background05:after {background-image: url('#{$backgroundURL}05_s.svg')};
+    &.background06:after {background-image: url('#{$backgroundURL}06_s.svg')};
+    &.background07:after {background-image: url('#{$backgroundURL}07_s.svg')};
+    &.background08:after {background-image: url('#{$backgroundURL}08_s.svg')};
+    &.background09:after {background-image: url('#{$backgroundURL}09_s.svg')};
+    &.background10:after {background-image: url('#{$backgroundURL}10_s.svg')};
+    &.background11:after {background-image: url('#{$backgroundURL}11_s.svg')};
+    &.background12:after {background-image: url('#{$backgroundURL}12_s.svg')};
+    &.background13:after {background-image: url('#{$backgroundURL}13_s.svg')};
+    &.background14:after {background-image: url('#{$backgroundURL}14_s.svg')};
+    &.background15:after {background-image: url('#{$backgroundURL}15_s.svg')};
+    &.background16:after {background-image: url('#{$backgroundURL}16_s.svg')};
+    &.background17:after {background-image: url('#{$backgroundURL}17_s.svg')};
+    &.background18:after {background-image: url('#{$backgroundURL}18_s.svg')};
+    &.background19:after {background-image: url('#{$backgroundURL}19_s.svg')};
+    &.background20:after {background-image: url('#{$backgroundURL}20_s.svg')};
+
+
 
     img {
       display: block;
