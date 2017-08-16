@@ -29,13 +29,13 @@
 </f:if>
 <p>Kosten: <br>
   <f:if condition="{node.properties.priceZH}">
-    <strong>ZH</strong> {node.properties.priceZH}.– <br>
+    <strong>Teiln. Kanton ZH</strong>{node.properties.priceZH}.– <br>
   </f:if>
   <f:if condition="{node.properties.priceNotZH}">
-    <strong>AK</strong> {node.properties.priceNotZH}.– <br>
+    <strong>Teiln. ausserkantonal</strong>{node.properties.priceNotZH}.– <br>
   </f:if>
   <f:if condition="{node.properties.priceSfGZ}">
-    <strong>L</strong> {node.properties.priceSfGZ}.–<br>
+    <strong>Lernende SfGZ</strong>{node.properties.priceSfGZ}.–<br>
   </f:if>
 </p>
 
@@ -58,7 +58,7 @@
 </div>
 
 <f:if condition="{node.properties.status} == 0">
-  <a href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
+  <a class="noLine" href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
     <h3 class="button">Anmelden</h3>
   </a>
   <br>
