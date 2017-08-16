@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder "./", "/var/hostdata", id: "vagrant-root", :owner => "www-data", :group => "www-data"
 
     # lib
-    # config.vm.synced_folder "/Users/glender/Dropbox/CODE/vagrant/Vagrant/", "/var/hostdata/VagrantLib", nfs:true
+	config.vm.synced_folder "/Users/glender/Dropbox/CODE/vagrant/Vagrant/", "/var/VagrantLib", nfs:true
 
 
   # Provider-specific configuration so you can fine-tune various
