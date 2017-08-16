@@ -1,8 +1,8 @@
 .course-root {
-  a {
-    border-bottom: none;
-
-  }
+  // a {
+  //   border-bottom: none;
+  //
+  // }
   h3.button {
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -39,10 +39,12 @@
         @include span(last 6 of 9);
         @include container(6);
 
-        #contact-form-Strasse {
+        #contact-form-Strasse,
+        #contact-form-bill-Strasse {
           @include span(first 5 of 6);
         }
-        #contact-form-StrasseNr {
+        #contact-form-StrasseNr,
+        #contact-form-bill-StrasseNr {
           @include span(last 1 of 6);
         }
 
