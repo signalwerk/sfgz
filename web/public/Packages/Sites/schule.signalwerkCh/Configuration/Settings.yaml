@@ -1,0 +1,4 @@
+Neos:
+  Flow:
+    i18n:
+      defaultLocale: 'de_CH.utf8'
