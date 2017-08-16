@@ -1,11 +1,15 @@
-https://github.com/mneuhaus/TYPO3.Neos/blob/master/Resources/Private/Templates/Backend/Module/Index.html
-
-
-http://pad.signalwerk.ch/test/detail2.html
-
-
+## to start up vagrant
 ```
-in case of an emergency (in vagrant):
+vagrant up
+```
+
+## to start the webserver
+```
+vagrant ssh
+```
+
+In the Vagrant:
+```
 sudo su
 sudo /etc/init.d/apache2 restart
 ```
@@ -15,8 +19,8 @@ yarn start
 ```
 
 ## URL
-Frontend: http://beta-sfgz.ch/
-Backend: http://beta-sfgz.ch/neos/
+Frontend: http://sfgz.ch/
+Backend: http://sfgz.ch/neos/
 
 ## To edit Styles of components
 
@@ -24,7 +28,6 @@ edit:
 ```
 web/public/Packages/Sites/schule.signalwerkCh/Resources/Private/Styles/signalwerk/components
 ```
-
 
 ## frontend root:
 ```
