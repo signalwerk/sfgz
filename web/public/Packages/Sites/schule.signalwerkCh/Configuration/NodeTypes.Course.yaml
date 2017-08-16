@@ -313,16 +313,38 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'course'
-    # executions:
-    #   type: references
-    #   ui:
-    #     label: 'Durchfuehrungen'
-    #     reloadIfChanged: TRUE
-    #     inspector:
-    #       group: 'course'
-    #       editorOptions:
-    #         nodeTypes: ['schule.signalwerkCh:CourseExecution']
-    #
+    categories:
+      type: references
+      ui:
+        label: 'Kategorie'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+          editorOptions:
+            nodeTypes: ['schule.signalwerkCh:CourseCategory']
+
+
+
+
+'schule.signalwerkCh:CourseCategory':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'Kurs Kategorie'
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'attr':
+          label: 'Eigenschaften'
+  properties:
+    title:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Titel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
 
 
 ##
