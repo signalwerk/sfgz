@@ -3,6 +3,11 @@
 // Wait for the DOM to be ready
 $(function() {
 
+  // form restore
+  $('#contact-form').squirrel('init', {
+    clear_on_submit: false,
+    storage_key: "squirrel"
+  });
 
 
   if ($('input[name="--contact-form-bill[separate]"]').is(':checked')) {
