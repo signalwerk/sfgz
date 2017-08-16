@@ -114,7 +114,7 @@ table {
 // set the header always to bold
 table th,
 table th p {
-  @include font-bold();
+  @include font-bold(sansblack);
 }
 // no extra space in p-tags in table
 table th p,
