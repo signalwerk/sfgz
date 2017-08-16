@@ -1,6 +1,19 @@
 // main
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
 (function($) {
   $(function() {
+
+
+
+        // add random class
+        var rng = Math.floor(Math.random() * 20) + 1 ;
+        $('body').addClass( 'background'+pad(rng,2));
+
 
     // foldout handling
     $('.foldout-title').click(function() {
@@ -34,7 +47,8 @@
 
     var $body = $('body');
     var store = localStorage;
-    var delta = 259200000; // 3 days -> ms
+    // var delta = 259200000; // 3 days -> ms
+    var delta = 0; // deactivate right now
 
     var lastPlayed = parseInt(store.animationLastPlayed, 10);
     if (store.animationLastPlayed === undefined) {

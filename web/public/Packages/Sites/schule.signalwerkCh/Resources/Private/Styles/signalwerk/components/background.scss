@@ -1,11 +1,34 @@
 $animation-url: "http://beta.d2p.ch/vue/logo.py?savename=Default&animate=1&speed=8&fade=1&fadespeed=4&fadestart=1.5&fadeadd=0.14&mindist=8&maxdist=18&minwidth=2&growth=0.1&stretch=3";
-$static-url: "../Assets/Images/overlay.svg";
+// $static-url: "../Assets/Images/overlay.svg";
+$backgroundURL:'../Assets/Images/logo/generated/anim/background';
+$backgroundURLdisappear:'../Assets/Images/logo/generated/disappear/background';
 
 
 body {
-  background-image: url($static-url);
+  // background-image: url('#{$backgroundURL}01.svg');
   background-repeat: repeat-y;
   background-size: 100% auto;
+
+  &.background01 {background-image: url('#{$backgroundURL}01.svg')};
+  &.background02 {background-image: url('#{$backgroundURL}02.svg')};
+  &.background03 {background-image: url('#{$backgroundURL}03.svg')};
+  &.background04 {background-image: url('#{$backgroundURL}04.svg')};
+  &.background05 {background-image: url('#{$backgroundURL}05.svg')};
+  &.background06 {background-image: url('#{$backgroundURL}06.svg')};
+  &.background07 {background-image: url('#{$backgroundURL}07.svg')};
+  &.background08 {background-image: url('#{$backgroundURL}08.svg')};
+  &.background09 {background-image: url('#{$backgroundURL}09.svg')};
+  &.background10 {background-image: url('#{$backgroundURL}10.svg')};
+  &.background11 {background-image: url('#{$backgroundURL}11.svg')};
+  &.background12 {background-image: url('#{$backgroundURL}12.svg')};
+  &.background13 {background-image: url('#{$backgroundURL}13.svg')};
+  &.background14 {background-image: url('#{$backgroundURL}14.svg')};
+  &.background15 {background-image: url('#{$backgroundURL}15.svg')};
+  &.background16 {background-image: url('#{$backgroundURL}16.svg')};
+  &.background17 {background-image: url('#{$backgroundURL}17.svg')};
+  &.background18 {background-image: url('#{$backgroundURL}18.svg')};
+  &.background19 {background-image: url('#{$backgroundURL}19.svg')};
+  &.background20 {background-image: url('#{$backgroundURL}20.svg')};
 }
 
 body.noBackground {
@@ -16,6 +39,8 @@ body.noBackground {
     position: relative;
     background: none;
 
+
+
     &:after {
       pointer-events: none;
       content: "";
@@ -24,8 +49,13 @@ body.noBackground {
       right: 0;
       bottom: 0;
       left: 0;
-      background: url($animation-url);
+      background-repeat: no-repeat;
+      // background: url($animation-url);
     }
+
+
+
+
   }
 
   &.no-animation {
@@ -33,3 +63,25 @@ body.noBackground {
     &:after { content: none; }
   }
 }
+
+
+body.noBackground.background01:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}01_d.svg')};
+body.noBackground.background02:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}02_d.svg')};
+body.noBackground.background03:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}03_d.svg')};
+body.noBackground.background04:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}04_d.svg')};
+body.noBackground.background05:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}05_d.svg')};
+body.noBackground.background06:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}06_d.svg')};
+body.noBackground.background07:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}07_d.svg')};
+body.noBackground.background08:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}08_d.svg')};
+body.noBackground.background09:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}09_d.svg')};
+body.noBackground.background10:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}10_d.svg')};
+body.noBackground.background11:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}11_d.svg')};
+body.noBackground.background12:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}12_d.svg')};
+body.noBackground.background13:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}13_d.svg')};
+body.noBackground.background14:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}14_d.svg')};
+body.noBackground.background15:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}15_d.svg')};
+body.noBackground.background16:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}16_d.svg')};
+body.noBackground.background17:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}17_d.svg')};
+body.noBackground.background18:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}18_d.svg')};
+body.noBackground.background19:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}19_d.svg')};
+body.noBackground.background20:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}20_d.svg')};

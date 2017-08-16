@@ -16,3 +16,10 @@ pushSitePackageToBetaServer\.sh
 /web/public/Packages/Sites/schule.signalwerkCh/Resources/Public/Styles
 /web/public/Packages/Sites/schule.signalwerkCh/Resources/Public/JavaScript
 *.ai
+/__anmeldung__
+/__GRAFIK__
+/__OLD___Vagrant_SRV__
+/admin_schule_backup.sql
+/DATA
+/pullFromBetaServer.sh
+/web/public/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller/getxml.xml
