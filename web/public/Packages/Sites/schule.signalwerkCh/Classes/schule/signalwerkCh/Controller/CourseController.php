@@ -12,6 +12,13 @@ use Neos\ContentRepository\Domain\Model\NodeTemplate;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
 use Neos\ContentRepository\Domain\Service\ContextFactoryInterface;
 use Neos\ContentRepository\Domain\Service\Context;
+use Neos\ContentRepository\Utility;
+use Handlebars\Handlebars;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use \stdClass;
+use \DOMDocument;
+
 
 /**
  * Courses controller for the Blog package
@@ -31,10 +38,10 @@ class CourseController extends ActionController
      */
     protected $nodeTypeManager;
 
- 	/**
- 	 * @Flow\Inject
- 	 * @var ContextFactoryInterface
- 	 */
+   /**
+    * @Flow\Inject
+    * @var ContextFactoryInterface
+    */
     protected $contextFactory;
 
 
@@ -54,34 +61,33 @@ class CourseController extends ActionController
         // $this->akismetService->setCurrentRequest($this->request->getHttpRequest());
     }
 
+    protected function init() {
+      $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+    }
 
-  	protected function init() {
-  		$this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
-  		// $this->connection = $this->entityManager->getConnection();
+   protected function dataPath() {
+     return dirname(getcwd())."/Data/API/";
+   }
 
-  	}
+    protected function backupPath() {
+       return $this->dataPath()."backup/".date("Y")."/".date("m")."/";
+    }
+
+    protected function backupFilePath() {
+       return $this->backupPath().date("Y-m-d")."___".date("H-i-s")."___".date("U");
+    }
+
 
     protected function getRootOfImport() {
       $this->init();
 
-      // $this->contextFactory = $this->objectManager->get(ContextFactoryInterface::class);
-      // $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
-
-      // $rootNode = $this->context->getRootNode();
-      // $siteNode = $context->getNode(‘/sites’)->getPrimaryChildNode();
-      // $rootCourse = $this->context->getNode('/sites');
-
-    	$q = new FlowQuery(array($this->context->getRootNode()));
-    	// return $q->find('[instanceof Sfi.Kateheo:Category]')->filter('[originalIdentifier = "' . $id  .'"]')->get(0);
-      // $mainCollectionNode = $newsNode->getNode('main');
+      $q = new FlowQuery(array($this->context->getRootNode()));
 
       $courseNode = $q->find('[instanceof Neos.Neos:Document]')->children('[uriPathSegment="course"]')->get(0);
       $mainCollectionNode = $courseNode->getNode('main');
 
       return $mainCollectionNode;
     }
-
-
 
 
     /**
@@ -100,13 +106,12 @@ class CourseController extends ActionController
      * @param string $email
      * @return void
      */
-    //  protected function deleteAction($email) {
     protected function deleteAllCourses() {
 
         $msg = '';
         $this->init();
 
-
+        // ------------------------------------------------
 
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof schule.signalwerkCh:CourseExecution]');
@@ -117,6 +122,20 @@ class CourseController extends ActionController
           $courseExecution->remove();
           $this->emitCourseDeleted($courseExecution);
         }
+
+        // ------------------------------------------------
+
+        $query = new FlowQuery(array($this->context->getRootNode()));
+        $query = $query->find('[instanceof schule.signalwerkCh:CourseCategory]');
+
+        $msg .= 'CourseCategory deleted: ' . count($query);
+
+        foreach ($query as $courseCategory) {
+          $courseCategory->remove();
+          $this->emitCourseDeleted($courseCategory);
+        }
+
+        // ------------------------------------------------
 
 
         $query = new FlowQuery(array($this->context->getRootNode()));
@@ -130,46 +149,138 @@ class CourseController extends ActionController
         }
 
 
+
+
+
         $this->persistenceManager->persistAll();
 
-
-        // while ($result = $results->current()) {
-        //     $result->setDeleted(1);
-        //     $result->remove();
-        //     $this->courseRepository->update($result);
-        //     $results->next();
-        // }
-
-        //
-        //
-        //
-        //
-        // $classname = '\schule\signalwerkCh\Domain\Model\Course';
-        // $query = $this->persistenceManager->createQueryForType($classname);
-        // // $results = $query->matching($query->equals('coursid', '2788'))->execute();
-        // $results = $query->setLimit( 2000 )->execute();
-        // $count = count($results);
-        //
-        // while ($result = $results->current()) {
-        //     $result->setDeleted(1);
-        //     $result->remove();
-        //     $this->courseRepository->update($result);
-        //     $results->next();
-        // }
-
         return $msg;
+    }
 
-        // if ($count==0) {
-        //     $this->redirect('unsubscribe');
-        // } else {
-        //     while ($result = $results->current()) {
-        //         $result->setDeleted('1');
-        //         $this->recipientRepository->update($result);
-        //         $results->next();
-        //     }
-        //     $this->view->assign('error', '1');
-        // }
-        // $this->redirect('unsubscribe');
+
+    protected function emailCourse($data)
+    {
+
+      $engine = new Handlebars;
+
+      $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
+      $templateMail = file_get_contents($path ."/mail.hbs");
+
+
+      // generate mail text
+      $mailtxt = $engine->render( $templateMail, $data );
+
+      // To create the nested structure
+      if (!file_exists($this->backupPath())) {
+        if (!mkdir($this->backupPath(), 0777, true)) {
+            die('Failed to create mail (save)...');
+        }
+      }
+
+      // save backup
+      file_put_contents($this->backupFilePath().'_mail.txt', $mailtxt );
+      file_put_contents($this->backupFilePath().'_mail.json', json_encode($data, JSON_PRETTY_PRINT));
+
+      $mail = new PHPMailer;
+      $mail->CharSet = 'UTF-8';
+      $mail->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
+      $mail->addAddress($data->{'E-Mail'});
+      $mail->addBCC('sh@signalwerk.ch');
+      // $mail->addBCC('Yvonne.Koppitsch@medienformfarbe.zh.ch');
+
+      $mail->Subject = 'Ihre Anmeldung - '.$data->title;
+      $mail->Body = $mailtxt;
+
+      //send the message, check for errors
+      if (!$mail->send()) {
+          $msg = "Mailer Error: " . $mail->ErrorInfo;
+          file_put_contents($this->backupFilePath().'_mail_error.txt', $msg);
+      } else {
+          $msg = "<h1>Danke für die Anmeldung!</h1>";
+      }
+
+      return $msg;
+    }
+
+
+    // to export in open eco
+    protected function exportCourse($data)
+    {
+
+      /* create a dom document with encoding utf8 */
+      $domtree = new DOMDocument('1.0', 'UTF-8');
+      $domtree->formatOutput = true;
+
+      /* create the root element of the xml tree */
+      $xmlRoot = $domtree->createElement("anmeldungen");
+      $xmlRoot->setAttribute('created', date("d.m.Y H:i:s"));
+
+      /* append it to the document created */
+      $xmlRoot = $domtree->appendChild($xmlRoot);
+
+      $anmeldung = $domtree->createElement("Anmeldung");
+      $anmeldung = $xmlRoot->appendChild($anmeldung);
+
+      /* save all the fields */
+      $anmeldung->appendChild($domtree->createElement('KursID', $data->ecoAngebotId ));
+      $anmeldung->appendChild($domtree->createElement('KlassenID', $data->ecoFachId ));
+      $anmeldung->appendChild($domtree->createElement('Anrede', $data->anrede ));
+      $anmeldung->appendChild($domtree->createElement('Name', $data->Name ));
+      $anmeldung->appendChild($domtree->createElement('Vorname', $data->Vorname ));
+      $anmeldung->appendChild($domtree->createElement('Strasse', $data->Strasse." ".$data->StrasseNr ));
+      $anmeldung->appendChild($domtree->createElement('StrName', $data->Strasse ));
+      $anmeldung->appendChild($domtree->createElement('StrNr', $data->StrasseNr ));
+      $anmeldung->appendChild($domtree->createElement('PLZ', $data->Postleitzahl ));
+      $anmeldung->appendChild($domtree->createElement('Ort', $data->Ort ));
+      $anmeldung->appendChild($domtree->createElement('TelefonP', $data->TelP ));
+      $anmeldung->appendChild($domtree->createElement('TelefonG', $data->TelG ));
+      $anmeldung->appendChild($domtree->createElement('Mobile', $data->TelM ));
+      $anmeldung->appendChild($domtree->createElement('Email', $data->{'E-Mail'} ));
+      $anmeldung->appendChild($domtree->createElement('Geburtsdatum', $data->Geburtsdatum ));
+      $anmeldung->appendChild($domtree->createElement('AgName1', $data->bill_company ));
+      $anmeldung->appendChild($domtree->createElement('AgName2', $data->bill_anrede." ".$data->bill_Vorname." ".$data->bill_Name ));
+      $anmeldung->appendChild($domtree->createElement('AgStrasse', $data->bill_Strasse." ".$data->bill_StrasseNr ));
+      $anmeldung->appendChild($domtree->createElement('AgStrName', $data->bill_Strasse ));
+      $anmeldung->appendChild($domtree->createElement('AgStrNr', $data->bill_StrasseNr ));
+      $anmeldung->appendChild($domtree->createElement('AgPLZ', $data->bill_Postleitzahl ));
+      $anmeldung->appendChild($domtree->createElement('AgOrt', $data->bill_Ort ));
+      $anmeldung->appendChild($domtree->createElement('Bemerkung', $data->Comment ));
+
+      // save local copy
+      $domtree->save($this->backupFilePath().'_export.xml');
+
+      // save for export
+      $exportPath = $this->dataPath()."import/ecoopen/";
+      // To create the nested structure
+      if (!file_exists($exportPath)) {
+        if (!mkdir($exportPath, 0777, true)) {
+            die('Failed to create xml (save)...');
+        }
+      }
+      // write export
+      $domtree->save($exportPath."MBA_ZH_53_".date("U").'.xml');
+
+      return " xml written. ";
+      // file_put_contents($this->backupFilePath().'_mail.json', json_encode($data, JSON_PRETTY_PRINT));
+    }
+
+
+    protected function dlCourseXML()
+    {
+      set_time_limit(0); // unlimited max execution time
+
+      $ci = curl_init();
+      // $url = "http://intern.sfgz.ch/wbkurscms/getxml.aspx"; // Source file
+      $url = "http://www.medienformfarbe.ch/wbkurscms/getxml.aspx"; // Source file
+      $fp = fopen($this->dataPath().'getxml.xml', "w"); // Destination location
+      curl_setopt_array( $ci, array(
+          CURLOPT_URL => $url,
+          CURLOPT_TIMEOUT => 28800, // set this to 8 hours so we dont timeout on big files
+          CURLOPT_FILE => $fp
+      ));
+      $contents = curl_exec($ci); // Returns '1' if successful
+      curl_close($ci);
+      fclose($fp);
     }
 
 
@@ -177,75 +288,116 @@ class CourseController extends ActionController
 
 
 
-    // public function importContact()
-    // {
-    //   $rootNode = $this->getRootOfImport();
-    //
-    //   if ($rootNode === null) {
-    //       return 'Expected course root not found! [uriPathSegment="kurse"]';
-    //   }
-    //
-    //   $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
-    //   $jsonString = file_get_contents($path ."/mail.json");
-    //
-    //   $arr = json_decode($jsonString);
-    //
-    //   foreach($arr as $item) { //foreach element in $arr
-    //
-    //       $categoryNodeTemplate = new NodeTemplate();
-    //       $categoryNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:ContactItem'));
-    //       $categoryNodeTemplate->setProperty('title', $item->vorname.' '.$item->name);
-    //       $categoryNodeTemplate->setProperty('firstname', $item->vorname);
-    //       $categoryNodeTemplate->setProperty('familyname', $item->name);
-    //       $categoryNodeTemplate->setProperty('email', $item->mail);
-    //       $categoryNode = $rootNode->createNodeFromTemplate($categoryNodeTemplate);
-    //       $this->persistenceManager->persistAll();
-    //   }
-    // }
+
+
+
+    /**
+     * @var array
+     */
+    protected $tagNodes = [];
+
+
+
+
+    /**
+     * @param array $tags
+     * @return array<NodeInterface>
+     */
+    protected function getTagNodes(array $tags, $rootNode)
+    {
+        $tagNodes = [];
+        foreach ($tags as $tag) {
+            $md5Tag=md5($tag);
+            if (!isset($this->tagNodes[$md5Tag])) {
+
+                // $tagNodeTemplate = new NodeTemplate();
+                // $tagNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory'));
+                // $tagNodeTemplate->setProperty('title', "$tag");
+                // $tagNode = $rootNode->createNodeFromTemplate($tagNodeTemplate);
+                //
+                // $this->emitCategoryCreated($tagNode);
+                //
+                //
+                // $this->tagNodes[$md5Tag] = $tagNode;
+
+
+
+               $tagNodeType = $this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory');
+               $tagNode = $rootNode->createNode(Utility::renderValidNodeName($tag), $tagNodeType);
+               $tagNode->setProperty('title', "$tag");
+               $this->tagNodes[$md5Tag] = $tagNode;
+            }
+            $tagNodes[] = $this->tagNodes[$md5Tag];
+        }
+        return $tagNodes;
+    }
+
+
 
 
     protected function importCourse()
     {
+      $this->dlCourseXML();
+
       $rootNode = $this->getRootOfImport();
 
       if ($rootNode === null) {
           return 'Expected course root not found! [uriPathSegment="course"]';
       }
 
-
-
       $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
-      $xmlString = file_get_contents($path ."/getxml.xml");
-
+      $xmlString = file_get_contents($this->dataPath().'getxml.xml');
 
       $xml = simplexml_load_string($xmlString);
 
-      // foreach([$xml->kurse->kurs[0]] as $kurs)
-      foreach($xml->kurse->kurs as $kurs)
+      foreach([$xml->kurse->kurs[0]] as $kurs)
+      // foreach($xml->kurse->kurs as $kurs)
       {
           foreach($kurs->versionen->version as $version)
           {
             if (!empty($version->durchfuehrungen->durchfuehrung)) {
 
-              $categoryNodeTemplate = new NodeTemplate();
-              $categoryNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:Course'));
+              $courseNodeTemplate = new NodeTemplate();
+              $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:Course'));
 
-              $categoryNodeTemplate->setProperty('coursid', $kurs->{'kurs-code'});
-              $categoryNodeTemplate->setProperty('title', $version->titel);
-              $categoryNodeTemplate->setProperty('subtitle', $version->{'sub-titel'});
+              $courseNodeTemplate->setProperty('coursid', $kurs->{'kurs-code'});
+              $courseNodeTemplate->setProperty('title', $version->titel);
+              $courseNodeTemplate->setProperty('subtitle', $version->{'sub-titel'});
 
-              $categoryNodeTemplate->setProperty('ziel', $version->ziel);
-              $categoryNodeTemplate->setProperty('inhalt', $version->inhalt);
-              $categoryNodeTemplate->setProperty('stufe', $kurs->{'stufe-wb'});
-              $categoryNodeTemplate->setProperty('zielgruppe', $version->zielgruppe);
-              $categoryNodeTemplate->setProperty('voraussetzungen', $version->voraussetzungen);
-              $categoryNodeTemplate->setProperty('methode', $version->methode);
-              $categoryNodeTemplate->setProperty('kursmittel', $version->kursunterlagen);
-              $categoryNodeTemplate->setProperty('hinweis', $version->hinweis);
-              $categoryNodeTemplate->setProperty('zertifikat', $version->zertifikat);
+              $courseNodeTemplate->setProperty('ziel', $version->ziel);
+              $courseNodeTemplate->setProperty('inhalt', $version->inhalt);
+              $courseNodeTemplate->setProperty('stufe', $kurs->{'stufe-wb'});
+              $courseNodeTemplate->setProperty('zielgruppe', $version->zielgruppe);
+              $courseNodeTemplate->setProperty('voraussetzungen', $version->voraussetzungen);
+              $courseNodeTemplate->setProperty('methode', $version->methode);
+              $courseNodeTemplate->setProperty('kursmittel', $version->kursunterlagen);
+              $courseNodeTemplate->setProperty('hinweis', $version->hinweis);
+              $courseNodeTemplate->setProperty('zertifikat', $version->zertifikat);
 
-              $categoryNode = $rootNode->createNodeFromTemplate($categoryNodeTemplate);
-              // $this->emitCourseCreated($categoryNode);
+              $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
+              // $this->emitCourseCreated($courseNode);
+
+
+
+              $tags = [];
+              foreach($kurs->kategorien->kategorie as $kategorie)
+              {
+                $tags[] = $kategorie;
+                // $categoryNodeTemplate = new NodeTemplate();
+                // $categoryNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory'));
+                //
+                // $categoryNodeTemplate->setProperty('title', $kategorie);
+                //
+                // $categoryNode = $rootNode->createNodeFromTemplate($categoryNodeTemplate);
+                //
+                // $this->emitCourseCreated($categoryNode);
+              }
+
+
+              // print_r ($this->getTagNodes($tags, $rootNode));
+              $courseNodeTemplate->setProperty('categories', $this->getTagNodes($tags, $rootNode));
+              // $this->getTagNodes($tags, $rootNode);
+
 
               foreach($version->durchfuehrungen->durchfuehrung as $durchfuehrung)
               {
@@ -284,34 +436,21 @@ class CourseController extends ActionController
                   $durchfuehrungNodeTemplate->setProperty('ort', $durchfuehrung->termine->termin[0]->ort);
                 }
 
-                $durchfuehrungNode = $categoryNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
-                // $durchfuehrungNode = $categoryNode->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
+                $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
+                // $durchfuehrungNode = $courseNode->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
-                $this->emitCourseCreated($durchfuehrungNode, $categoryNode);
+                $this->emitCourseCreated($durchfuehrungNode, $courseNode);
 
               } // end $durchfuehrung
             }
-
           } // end version
       } // end kurs
 
       $this->persistenceManager->persistAll();
 
-      // $arr = json_decode($jsonString);
-
-      // foreach($arr as $item) { //foreach element in $arr
-      //
-      //     $categoryNodeTemplate = new NodeTemplate();
-      //     $categoryNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:ContactItem'));
-      //     $categoryNodeTemplate->setProperty('title', $item->vorname.' '.$item->name);
-      //     $categoryNodeTemplate->setProperty('firstname', $item->vorname);
-      //     $categoryNodeTemplate->setProperty('familyname', $item->name);
-      //     $categoryNodeTemplate->setProperty('email', $item->mail);
-      //     $categoryNode = $rootNode->createNodeFromTemplate($categoryNodeTemplate);
-      //     $this->persistenceManager->persistAll();
-      // }
       return 'Import all done. ';
     }
+
 
     public function importAction()
     {
@@ -324,22 +463,65 @@ class CourseController extends ActionController
     }
 
 
+    public function enrollAction()
+    {
+        $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
 
+        if (!empty($_POST["data"])) {
+          $data = $_POST['data'];
+        } else {
+          $postData = file_get_contents($path ."/mail.json");
+          $data = json_decode($postData)->data;
+        }
 
+        // To create the nested structure
+        if (!file_exists($this->backupPath())) {
+          if (!mkdir($this->backupPath(), 0777, true)) {
+              die('Failed to create mail (save)...');
+          }
+        }
+        file_put_contents($this->backupFilePath().'_data.json', json_encode($data, JSON_PRETTY_PRINT));
 
+        // it can be --contact-form[agb  or --contact-form[agb]
+        $pattern = '/--contact-form\[([^\]]*)(\])?$/';
+        $dataObj = new stdClass;
 
-          // echo "$parentcategory -- $targetPath\n";
-    			// 	$categoryNodeTemplate = new \TYPO3\TYPO3CR\Domain\Model\NodeTemplate();
-    			// 	$categoryNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType($categoryNodeType));
-    			// 	$categoryNodeTemplate->setProperty('originalIdentifier', $category['uid']);
-    			// 	$categoryNodeTemplate->setProperty('title', $category['title']);
-    			// 	$categoryNode = $rootNode->createNodeFromTemplate($categoryNodeTemplate);
+        // format all --contact-form[agb] to => agb
+        foreach ($data as $key => $value) {
+          if (preg_match($pattern,$key,$matches,PREG_OFFSET_CAPTURE)) {
+            $name = $matches[1][0];
+            $dataObj->$name = $value;
+            }
+        }
 
-          // print_r($rootCourse);
-          // $rootCourse = $this->context->getNodeByIdentifier('df6fcd9a-53fe-42bb-8e8e-074fe32cb2c5');
+        $this->init();
+        $query = new FlowQuery(array($this->context->getRootNode()));
+        // $query = $query->find('[instanceof schule.signalwerkCh:Course][coursid = "' +  (string)$dataObj->coursid  +'"]');
+        $queryCourse = $query->find(('[instanceof schule.signalwerkCh:Course][coursid = "' .  $dataObj->coursid  . '"]'))->get(0);
+        $queryExecution = $query->find(('[instanceof schule.signalwerkCh:CourseExecution][code = "' .  $dataObj->executionid  . '"]'))->get(0);
 
-          // $chronikRootNode = $context->getNodeByIdentifier('529a59e2-1849-2782-471c-7635f47167de');
-          // $chronikBranch = $chronikRootNode->getChildNodes('GSL.DuttweilerDe.Pages:ChronikBranch', 1)[0];
+        $dataObj->title = $queryCourse->getProperty('title');
+        $dataObj->code = $queryExecution->getProperty('code');
+        $dataObj->start = $queryExecution->getProperty('start')->format('d.m.Y');
+        $dataObj->end = $queryExecution->getProperty('end')->format('d.m.Y');
+
+        $dataObj->priceZH = $queryExecution->getProperty('priceZH');
+        $dataObj->priceNotZH = $queryExecution->getProperty('priceNotZH');
+
+        $dataObj->ecoMandant = $queryExecution->getProperty('ecoMandant');
+        $dataObj->ecoAngebotId = $queryExecution->getProperty('ecoAngebotId');
+        $dataObj->ecoFachId = $queryExecution->getProperty('ecoFachId');
+
+        if(strtolower($dataObj->anrede) === 'herr') {
+          $dataObj->isHerr = true;
+        }
+
+      $msg = $this->emailCourse($dataObj);
+      $msg .= $this->exportCourse($dataObj);
+
+      $this->response->setStatus(201);
+      return $msg; // 'Import all done. ';
+    }
 
 
 
@@ -388,6 +570,18 @@ class CourseController extends ActionController
      * @Flow\Signal
      */
     protected function emitCourseCreated(NodeInterface $commentNode, NodeInterface $postNode)
+    {
+    }
+
+
+    /**
+     * Signal which informs about a newly created comment
+     *
+     * @param NodeInterface $categoryNode The comment node
+     * @return void
+     * @Flow\Signal
+     */
+    protected function emitCategoryCreated(NodeInterface $categoryNode)
     {
     }
 }
