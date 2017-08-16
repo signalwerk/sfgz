@@ -94,8 +94,10 @@ $color--dark: black;
 
   }
   &2--mobile {
+    > nav {
+      padding: 1rem 0 0.75rem $mobile-nav--logo-width;
+    }
     background-color: $cGrey--dark;
-    padding: 16px 0 16px $mobile-nav--logo-width;
     font-size: 16px;
     line-height: 1.25;
 
@@ -116,6 +118,8 @@ $color--dark: black;
     }
 
     ul, li {
+      padding-top: 0.15rem;
+      padding-bottom: 0.15rem;
       @include mediaQuery($max, $tablet) {
         float: none;
         padding-left: 0;
