@@ -19,28 +19,7 @@ a {
   }
 }
 
-// only change stuff in the content
-.content {
-  a[href^="http"] {
-    @include inline-icon('icon_external-link.svg', 60%);
-  }
 
-  ul {
-    list-style: none;
-  }
-
-  li {
-    position: relative;
-    padding-left: 1.2em;
-
-    &:before {
-      content: "— ";
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-  }
-}
 
 b, strong, span.strong {
   @include font-bold(sansblack);
