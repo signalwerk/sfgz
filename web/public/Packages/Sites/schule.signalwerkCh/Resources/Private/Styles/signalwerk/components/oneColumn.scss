@@ -1,0 +1,13 @@
+.schule-signalwerkch-onecolumn {
+
+  &.columns-mobileonly {
+    display: none;
+    @include mediaQuery($max, $tablet) {
+      display: block;
+    }
+
+    .neos-backend & {
+      display: block;
+    }
+  }
+}

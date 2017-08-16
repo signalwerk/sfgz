@@ -359,6 +359,8 @@
                 label: 'default'
               'masonry':
                 label: 'masonry'
+              'mobileonly':
+                label: 'Nur Mobilgeräte'
 
 
 
