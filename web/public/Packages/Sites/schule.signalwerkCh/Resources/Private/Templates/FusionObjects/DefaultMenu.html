@@ -12,35 +12,15 @@
 	<f:if condition="{items -> f:count()}">
 		<f:then>
 			<f:for each="{items}" as="item">
-			<li class="{item.state}<f:if condition="{item.node.nodeData.properties.menuSubmenuMobile}"> menuSubmenuMobile</f:if>">
-
+			<li class="{item.state}">
 					<neos:link.node node="{item.node}" class="cID{item.node.identifier} cNodePath{item.node.nodePath} cPath{item.node.path}">
-						{item.label} 
-						<f:if condition="{item.node.nodeData.properties.menuPostfix}">
-							<f:then>
-								<f:if condition="{item.node.nodeData.properties.menuPostfixHTML}">
-									<f:then>
-										{item.node.nodeData.properties.menuPostfix -> f:format.raw()}
-									</f:then>
-									<f:else>
-										<span class="postfix">{item.node.nodeData.properties.menuPostfix}</span>
-									</f:else>
-								</f:if>
-							</f:then>
-						</f:if>
+						{item.label}
 					</neos:link.node>
-
 					<f:if condition="{item.subItems}">
 						<ul>
-							<f:if condition="{item.node.nodeData.properties.menuSubmenuMobile}">
-								<li class="menue--back">
-									<a class="" href="#">← zurück</a>
-								</li>
-							</f:if>
 							<f:render section="itemsList" arguments="{items: item.subItems}" />
 						</ul>
 					</f:if>
-
 				</li>
 			</f:for>
 		</f:then>
