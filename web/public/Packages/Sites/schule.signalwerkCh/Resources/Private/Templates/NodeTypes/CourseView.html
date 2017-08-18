@@ -11,6 +11,18 @@
     {course -> f:format.raw()}
   </f:if>
 
+  <f:if condition="{view} == categories">
+    <h3>Filter</h3>
+    <ul>
+      <f:for each="{categories}" as="category">
+        <li>
+          {category.properties.title}---{category.identifier}
+        </li>
+      </f:for>
+    </ul>
+  </f:if>
+
+
   <f:if condition="{view} == enroll">
 
     <f:if condition="{currentCourse.properties.coursid} && {currentExecution.properties}">
@@ -270,24 +282,24 @@
 
             <div class="course-execution">
 
-              <p>Kursnummer: <strong>{currentExecution.properties.code}</strong><p>
+              <p><strong>Kursnummer: </strong>{currentExecution.properties.code}<p>
 
               <f:if condition="{currentExecution.properties.start}">
-                <p>Startdatum: <strong><f:format.date format="d.m.Y">{currentExecution.properties.start}</f:format.date></strong></p>
+                <p><strong>Startdatum: </strong><f:format.date format="d.m.Y">{currentExecution.properties.start}</f:format.date></p>
               </f:if>
               <f:if condition="{currentExecution.properties.end}">
-                <p>Enddatum: <strong><f:format.date format="d.m.Y">{currentExecution.properties.end}</f:format.date></strong></p>
+                <p><strong>Enddatum: </strong><f:format.date format="d.m.Y">{currentExecution.properties.end}</f:format.date></p>
               </f:if>
 
-              <p>Kosten: <br>
+              <p><strong>Kosten: </strong><br>
                 <f:if condition="{currentExecution.properties.priceZH}">
-                  <strong>Teiln. Kanton ZH</strong>{currentExecution.properties.priceZH}.– <br>
+                  <strong>Teiln. Kanton ZH: </strong>{currentExecution.properties.priceZH}.– <br>
                 </f:if>
                 <f:if condition="{currentExecution.properties.priceNotZH}">
-                  <strong>Teiln. ausserkantonal</strong>{currentExecution.properties.priceNotZH}.– <br>
+                  <strong>Teiln. ausserkantonal: </strong>{currentExecution.properties.priceNotZH}.– <br>
                 </f:if>
                 <f:if condition="{currentExecution.properties.priceSfGZ}">
-                  <strong>Lernende SfGZ</strong>{currentExecution.properties.priceSfGZ}.–<br>
+                  <strong>Lernende SfGZ: </strong>{currentExecution.properties.priceSfGZ}.–<br>
                 </f:if>
               </p>
             </div>

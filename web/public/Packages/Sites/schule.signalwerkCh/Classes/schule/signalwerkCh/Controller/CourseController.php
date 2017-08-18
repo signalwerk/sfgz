@@ -164,7 +164,7 @@ class CourseController extends ActionController
       $engine = new Handlebars;
 
       $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
-      $templateMail = file_get_contents($path ."/mail.hbs");
+      $templateMail = file_get_contents($path ."/mail.hbs").file_get_contents($path ."/mail__facts.hbs");
 
 
       // generate mail text
@@ -186,7 +186,6 @@ class CourseController extends ActionController
       $mail->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
       $mail->addAddress($data->{'E-Mail'});
       $mail->addBCC('sh@signalwerk.ch');
-      // $mail->addBCC('Yvonne.Koppitsch@medienformfarbe.zh.ch');
 
       $mail->Subject = 'Ihre Anmeldung - '.$data->title;
       $mail->Body = $mailtxt;
@@ -198,6 +197,30 @@ class CourseController extends ActionController
       } else {
           $msg = "<h1>Danke für die Anmeldung!</h1>";
       }
+
+
+      // mail an die Verwaltung
+
+      $templateMail = file_get_contents($path ."/mail__facts.hbs");
+      $mailtxt = $engine->render( $templateMail, $data );
+
+      $mailVerwaltung = new PHPMailer;
+      $mailVerwaltung->CharSet = 'UTF-8';
+      $mailVerwaltung->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
+      $mailVerwaltung->addAddress('weiterbildung@medienformfarbe.zh.ch');
+      $mailVerwaltung->addBCC('sh@signalwerk.ch');
+
+      $mailVerwaltung->Subject = 'Kursanmeldung - '.$data->Vorname.' '.$data->Name.', '.$data->Ort;
+      $mailVerwaltung->Body = $mailtxt;
+
+      //send the message, check for errors
+      if (!$mailVerwaltung->send()) {
+          $msg .= "Mailer Error: " . $mailVerwaltung->ErrorInfo;
+          file_put_contents($this->backupFilePath().'_mailVerwaltung_error.txt', $msg);
+      } else {
+          $msg .= "<h3>Mail an die Verwaltung versendet.</h3>";
+      }
+
 
       return $msg;
     }
@@ -270,8 +293,7 @@ class CourseController extends ActionController
       set_time_limit(0); // unlimited max execution time
 
       $ci = curl_init();
-      // $url = "http://intern.sfgz.ch/wbkurscms/getxml.aspx"; // Source file
-      $url = "http://www.medienformfarbe.ch/wbkurscms/getxml.aspx"; // Source file
+      $url = "http://intern.sfgz.ch/wbkurscms/getxml.aspx"; // Source file
       $fp = fopen($this->dataPath().'getxml.xml', "w"); // Destination location
       curl_setopt_array( $ci, array(
           CURLOPT_URL => $url,
@@ -307,28 +329,23 @@ class CourseController extends ActionController
     {
         $tagNodes = [];
         foreach ($tags as $tag) {
-            $md5Tag=md5($tag);
+            $md5Tag=md5("$tag");
+            $title = "$tag";
             if (!isset($this->tagNodes[$md5Tag])) {
 
-                // $tagNodeTemplate = new NodeTemplate();
-                // $tagNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory'));
-                // $tagNodeTemplate->setProperty('title', "$tag");
-                // $tagNode = $rootNode->createNodeFromTemplate($tagNodeTemplate);
-                //
-                // $this->emitCategoryCreated($tagNode);
-                //
-                //
-                // $this->tagNodes[$md5Tag] = $tagNode;
-
-
-
                $tagNodeType = $this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory');
-               $tagNode = $rootNode->createNode(Utility::renderValidNodeName($tag), $tagNodeType);
-               $tagNode->setProperty('title', "$tag");
+               $name = Utility::renderValidNodeName($title);
+              //  $name = uniqid('node');
+               $tagNode = $rootNode->createNode($name, $tagNodeType);
+               $tagNode->setProperty('title', $title);
                $this->tagNodes[$md5Tag] = $tagNode;
             }
             $tagNodes[] = $this->tagNodes[$md5Tag];
         }
+
+        // echo "  --- count: ".count($tagNodes);
+        // echo "  --- name: ".$tagNodes[0]->getIdentifier();
+
         return $tagNodes;
     }
 
@@ -350,8 +367,8 @@ class CourseController extends ActionController
 
       $xml = simplexml_load_string($xmlString);
 
-      foreach([$xml->kurse->kurs[0]] as $kurs)
-      // foreach($xml->kurse->kurs as $kurs)
+      // foreach([$xml->kurse->kurs[0]] as $kurs)
+      foreach($xml->kurse->kurs as $kurs)
       {
           foreach($kurs->versionen->version as $version)
           {
@@ -372,9 +389,9 @@ class CourseController extends ActionController
               $courseNodeTemplate->setProperty('methode', $version->methode);
               $courseNodeTemplate->setProperty('kursmittel', $version->kursunterlagen);
               $courseNodeTemplate->setProperty('hinweis', $version->hinweis);
+              $courseNodeTemplate->setProperty('weitereinfos', $version->{'weitere-infos'});
               $courseNodeTemplate->setProperty('zertifikat', $version->zertifikat);
 
-              $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
               // $this->emitCourseCreated($courseNode);
 
 
@@ -383,25 +400,16 @@ class CourseController extends ActionController
               foreach($kurs->kategorien->kategorie as $kategorie)
               {
                 $tags[] = $kategorie;
-                // $categoryNodeTemplate = new NodeTemplate();
-                // $categoryNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory'));
-                //
-                // $categoryNodeTemplate->setProperty('title', $kategorie);
-                //
-                // $categoryNode = $rootNode->createNodeFromTemplate($categoryNodeTemplate);
-                //
-                // $this->emitCourseCreated($categoryNode);
               }
 
 
-              // print_r ($this->getTagNodes($tags, $rootNode));
               $courseNodeTemplate->setProperty('categories', $this->getTagNodes($tags, $rootNode));
-              // $this->getTagNodes($tags, $rootNode);
+
+              $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
 
 
               foreach($version->durchfuehrungen->durchfuehrung as $durchfuehrung)
               {
-
 
                 $durchfuehrungNodeTemplate = new NodeTemplate();
                 $durchfuehrungNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseExecution'));
@@ -413,27 +421,28 @@ class CourseController extends ActionController
                 $durchfuehrungNodeTemplate->setProperty('start', \DateTime::createFromFormat('Y-m-d', $start));
                 $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $end));
 
-                $durchfuehrungNodeTemplate->setProperty('duration', $durchfuehrung->anmerkung);
-
-                if (!empty($durchfuehrung->termine->termin)) {
-                  $durchfuehrungNodeTemplate->setProperty('teacher', $durchfuehrung->termine->termin[0]->{'lehrperson-text'});
-                }
+                // add Unicode Zero Width Space (U+200B) after slash
+                $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
 
                 $durchfuehrungNodeTemplate->setProperty('priceZH', $durchfuehrung->kosten);
                 $durchfuehrungNodeTemplate->setProperty('priceNotZH', $durchfuehrung->{'kosten-extern'});
                 $durchfuehrungNodeTemplate->setProperty('priceSfGZ', $durchfuehrung->{'kosten-lernende'});
 
-                // todo!!!
-                // $durchfuehrungNodeTemplate->setProperty('maxTeilnehmer', $durchfuehrung->kosten);
-                // $durchfuehrungNodeTemplate->setProperty('anmeldeschluss', $durchfuehrung->kosten);
-                // $durchfuehrungNodeTemplate->setProperty('ort', $durchfuehrung->kosten);
+                $durchfuehrungNodeTemplate->setProperty('maxTeilnehmer', $durchfuehrung->maxteilnehmer);
+                $durchfuehrungNodeTemplate->setProperty('anmeldeschluss', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->anmeldeschluss));
 
                 $durchfuehrungNodeTemplate->setProperty('ecoMandant', $durchfuehrung->{'eco_mandant'});
                 $durchfuehrungNodeTemplate->setProperty('ecoAngebotId', $durchfuehrung->{'eco_angebot_id'});
                 $durchfuehrungNodeTemplate->setProperty('ecoFachId', $durchfuehrung->{'eco_fach_id'});
                 $durchfuehrungNodeTemplate->setProperty('status', $durchfuehrung->status);
+                $durchfuehrungNodeTemplate->setProperty('lektionen', (int)$durchfuehrung->lektionen);
+
                 if (!empty($durchfuehrung->termine->termin)) {
                   $durchfuehrungNodeTemplate->setProperty('ort', $durchfuehrung->termine->termin[0]->ort);
+                  $durchfuehrungNodeTemplate->setProperty('teacher', $durchfuehrung->termine->termin[0]->{'lehrperson-text'});
+                  $durchfuehrungNodeTemplate->setProperty('von', $durchfuehrung->termine->termin[0]->{'zeit-von'});
+                  $durchfuehrungNodeTemplate->setProperty('bis', $durchfuehrung->termine->termin[0]->{'zeit-bis'});
+                  $durchfuehrungNodeTemplate->setProperty('veranstaltungen', (int)$durchfuehrung->termine->termin[0]->veranstaltungen);
                 }
 
                 $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));

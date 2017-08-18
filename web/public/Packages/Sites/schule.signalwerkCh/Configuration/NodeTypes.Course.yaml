@@ -37,7 +37,7 @@
       type: string
       defaultValue: ''
       ui:
-        label: 'Kursdauer'
+        label: 'Zeit von'
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
@@ -45,15 +45,15 @@
       type: string
       defaultValue: ''
       ui:
-        label: 'Kursdauer'
+        label: 'Zeit bis'
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
-    duration:
+    anmerkung:
       type: string
       defaultValue: ''
       ui:
-        label: 'Kursdauer'
+        label: 'Anmerkung (Kursdaten)'
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
@@ -98,7 +98,7 @@
         inspector:
           group: 'attr'
     anmeldeschluss:
-      type: string
+      type: DateTime
       defaultValue: ''
       ui:
         label: 'Anmeldeschluss'
@@ -153,8 +153,22 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
-
-
+    veranstaltungen:
+      type: integer
+      defaultValue: ''
+      ui:
+        label: 'Veranstaltungen'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    lektionen:
+      type: integer
+      defaultValue: ''
+      ui:
+        label: 'Lektionen'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
 
 
 
@@ -247,6 +261,13 @@
       type: string
       ui:
         label: 'Hinweis'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    weitereinfos:
+      type: string
+      ui:
+        label: 'Weitere Infos'
         reloadIfChanged: TRUE
         inspector:
           group: 'course'
@@ -374,6 +395,8 @@
             values:
               'list':
                 label: 'Liste'
+              'categories':
+                label: 'Filter'
               'show':
                 label: 'Details'
               'enroll':

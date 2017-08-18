@@ -46,7 +46,11 @@
           <h3>Abschluss</h3>
           <f:format.raw>{node.properties.zertifikat}</f:format.raw>
       </f:if>
-
+      <f:if condition="{node.properties.weitereinfos}">
+          <br />
+          <br />
+          <f:format.raw>{node.properties.weitereinfos}</f:format.raw>
+      </f:if>
     </div>
 
     <div class="course-execution">

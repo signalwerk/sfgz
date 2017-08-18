@@ -3,9 +3,12 @@ prototype(schule.signalwerkCh:CourseView) < prototype(Neos.Neos:Content) {
     requestFormat = ${request.format}
     courseID = ${request.arguments.kurs}
 
-
     currentCourse = ${q(site).find('[instanceof schule.signalwerkCh:Course][coursid = "' + request.arguments.kurs +'"]').get(0)}
     currentExecution = ${q(site).find('[instanceof schule.signalwerkCh:CourseExecution][code = "' + request.arguments.durchfuehrung +'"]').get(0)}
+
+    categories = ${q(site).find('[instanceof schule.signalwerkCh:CourseCategory]')}
+    # categories = ${q(site).find('[instanceof schule.signalwerkCh:CourseCategory][title = "Vorkurs"]')}
+    # categories = ${q(site).find('[instanceof schule.signalwerkCh:Course]').filterPropertiesFromArray('categories', 'efaf294c-2730-446b-892d-1e36e30a0d93')}
 
 
     course = Neos.Fusion:Collection {
@@ -22,6 +25,7 @@ prototype(schule.signalwerkCh:CourseView) < prototype(Neos.Neos:Content) {
             templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/CourseExecution.html'
             node = ${courseExecution}
             course = ${course}
+            lektionenProVeranstaltung = ${courseExecution.properties.lektionen / courseExecution.properties.veranstaltungen}
           }
         }
       }

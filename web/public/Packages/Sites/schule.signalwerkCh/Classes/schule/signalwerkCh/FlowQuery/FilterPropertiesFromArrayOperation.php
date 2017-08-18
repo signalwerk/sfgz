@@ -49,7 +49,6 @@ class FilterPropertiesFromArrayOperation extends FilterOperation {
             $elementsFromProperty = $element->getProperty($propertyName);
             print_r('-1-----');
             print_r($filter);
-            //print_r($element);
             print_r('-2-----');
             print_r($propertyName);
             print_r('-3-----');

@@ -86,6 +86,7 @@
           }
           .course-execution {
             @include span(last 3 of 12);
+            word-wrap: break-word;
           }
         }
       }

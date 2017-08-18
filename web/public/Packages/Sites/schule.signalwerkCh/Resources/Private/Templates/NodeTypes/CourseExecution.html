@@ -8,36 +8,68 @@
     <div class="course-not-complete">
   </f:else>
 </f:if>
-<p>Kurs:<strong> {node.properties.code}</strong></p>
+<p><strong>Kurs: </strong>{node.properties.code}</p>
 
 <f:if condition="{node.properties.start}">
-  <p>Startdatum: <strong><f:format.date format="d.m.Y">{node.properties.start}</f:format.date></strong></p>
-</f:if>
-<f:if condition="{node.properties.end}">
-  <p>Enddatum: <strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></strong></p>
-</f:if>
-<f:if condition="{node.properties.von}">
-  <p>Tag/Zeit:<strong><f:format.date format="l">{node.properties.start}</f:format.date> <f:format.date format="d.m.Y - H:i:s">{node.properties.start}</f:format.date> {node.properties.von}–{node.properties.bis}</strong></p>
+  <p><strong>Startdatum: </strong><f:format.date format="d.m.Y">{node.properties.start}</f:format.date></p>
 </f:if>
 
-<f:if condition="{node.properties.duration}">
-  <p>Daten:<strong> {node.properties.duration}</strong></p>
+<f:if condition="{node.properties.anmerkung}">
+  <f:then>
+    <p><strong>Daten: </strong>{node.properties.anmerkung}</p>
+  </f:then>
+  <f:else>
+    <f:if condition="{node.properties.end}">
+      <p><strong>Enddatum: </strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></p>
+    </f:if>
+    <f:if condition="{node.properties.start}">
+      <p><strong>Tag: </strong>
+        <f:switch expression="{f:format.date(date: node.properties.start, format: 'N')}">
+          <f:case value="0">Sonntag</f:case>
+          <f:case value="1">Montag</f:case>
+          <f:case value="2">Dienstag</f:case>
+          <f:case value="3">Mittwoch</f:case>
+          <f:case value="4">Donnerstag</f:case>
+          <f:case value="5">Freitag</f:case>
+          <f:case value="6">Samstag</f:case>
+        </f:switch>
+      </p>
+    </f:if>
+    <f:if condition="{node.properties.von} && {node.properties.bis}">
+      <p><strong>Zeit: </strong>{node.properties.von}–{node.properties.bis}</p>
+    </f:if>
+    <f:if condition="{node.properties.veranstaltungen} && {node.properties.lektionen}">
+      <p><strong>Kursumfang: </strong>{node.properties.veranstaltungen} × {lektionenProVeranstaltung} Lektionen</p>
+    </f:if>
+
+  </f:else>
 </f:if>
+
 
 <f:if condition="{node.properties.teacher}">
-  <p>Kursleitung:<strong> {node.properties.teacher}</strong></p>
+  <p><strong>Kursleitung: </strong>{node.properties.teacher}</p>
 </f:if>
-<p>Kosten: <br>
+
+<p><strong>Kosten: </strong><br>
   <f:if condition="{node.properties.priceZH}">
-    <strong>Teiln. Kanton ZH</strong>{node.properties.priceZH}.– <br>
+    <strong>Teiln. Kanton ZH: </strong>{node.properties.priceZH}.– <br>
   </f:if>
   <f:if condition="{node.properties.priceNotZH}">
-    <strong>Teiln. ausserkantonal</strong>{node.properties.priceNotZH}.– <br>
+    <strong>Teiln. ausserkantonal: </strong>{node.properties.priceNotZH}.– <br>
   </f:if>
   <f:if condition="{node.properties.priceSfGZ}">
-    <strong>Lernende SfGZ</strong>{node.properties.priceSfGZ}.–<br>
+    <strong>Lernende SfGZ: </strong>{node.properties.priceSfGZ}.–<br>
   </f:if>
 </p>
+
+
+<f:if condition="{node.properties.maxTeilnehmer}">
+  <p><strong>Max. Teilnehmer: </strong>{node.properties.maxTeilnehmer}</p>
+</f:if>
+
+<f:if condition="{node.properties.anmeldeschluss}">
+  <p><strong>Anmeldeschluss: </strong><f:format.date format="d.m.Y">{node.properties.anmeldeschluss}</f:format.date></p>
+</f:if>
 
 <f:if condition="{node.properties.ort}">
  <p>
