@@ -9,17 +9,17 @@ include: NodeTypes/*
 page = Page {
   head {
     stylesheets.site = Neos.Fusion:Template {
-      templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
+      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
       sectionName = 'stylesheets'
     }
 
     javascripts.site = Neos.Fusion:Template {
-      templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
+      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
       sectionName = 'headScripts'
     }
 
     meta = Neos.Fusion:Template {
-      templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
+      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
       sectionName = 'meta'
     }
   }
@@ -27,7 +27,7 @@ page = Page {
   bodyTag.attributes.class = ${q(node).property('style')}
 
   body {
-    templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
+    templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
     sectionName = 'body'
 
     parts {
@@ -38,7 +38,7 @@ page = Page {
       //   entryLevel = 1
       // }
       menu1 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
         maximumLevels = 1
@@ -46,14 +46,14 @@ page = Page {
       }
 
       menu2 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 3
         maximumLevels = 1
       }
 
       menu3 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 4
         maximumLevels = 1
@@ -61,7 +61,7 @@ page = Page {
       }
 
       menuSiblings = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
         entryLevel = ${q(node).property('_depth') - 2}
         maximumLevels = 1
       }
@@ -69,7 +69,7 @@ page = Page {
       currentLevel = ${q(node).property('_depth') - 2}
 
       mobileMenu1 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
         maximumLevels = 1
@@ -77,14 +77,14 @@ page = Page {
       }
 
       mobileMenu2 = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 3
         maximumLevels = 2
       }
 
       metaMenu = Menu {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/FusionObjects/DefaultMenu.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
         maximumLevels = 1
@@ -111,7 +111,7 @@ page = Page {
 
 
     javascripts.site = Neos.Fusion:Template {
-      templatePath = 'resource://schule.signalwerkCh/Private/Templates/Page/Default.html'
+      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
       sectionName = 'bodyScripts'
     }
 
@@ -120,7 +120,7 @@ page = Page {
   		tagName = 'script'
   		attributes {
   			src = Neos.Fusion:ResourceUri {
-  				package = 'schule.signalwerkCh'
+  				package = 'signalwerk.sfgz'
   				path = 'JavaScript/signalwerkBackend.js'
   			}
   			async = null
@@ -132,7 +132,7 @@ page = Page {
   		tagName = 'script'
   		attributes {
   			src = Neos.Fusion:ResourceUri {
-  				package = 'schule.signalwerkCh'
+  				package = 'signalwerk.sfgz'
   				path = 'JavaScript/signalwerkFrontend.js'
   			}
   			async = null

@@ -27,8 +27,8 @@
       constraints:
         nodeTypes:
           '*': FALSE
-          'schule.signalwerkCh:Space': TRUE
-          'schule.signalwerkCh:Upload': TRUE
+          'signalwerk.sfgz:Space': TRUE
+          'signalwerk.sfgz:Upload': TRUE
           'Neos.NodeTypes:ContentReferences': TRUE
           'Neos.NodeTypes:Headline': TRUE
           'Neos.NodeTypes:Text': TRUE
@@ -73,7 +73,7 @@
 ##
 # A "Space" content element
 #
-'schule.signalwerkCh:Space':
+'signalwerk.sfgz:Space':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -98,7 +98,7 @@
 ##
 # upload a file
 #
-'schule.signalwerkCh:Upload':
+'signalwerk.sfgz:Upload':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -125,7 +125,7 @@
 ##
 # News Item
 #
-'schule.signalwerkCh:NewsItem':
+'signalwerk.sfgz:NewsItem':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -248,7 +248,7 @@
 
 
 
-'schule.signalwerkCh:Column':
+'signalwerk.sfgz:Column':
   superTypes:
     'Neos.Neos:Content': TRUE
   abstract: TRUE
@@ -273,9 +273,9 @@
           editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
 
 
-# 'schule.signalwerkCh:TwoColumn':
+# 'signalwerk.sfgz:TwoColumn':
 #   superTypes:
-#     'schule.signalwerkCh:Column': TRUE
+#     'signalwerk.sfgz:Column': TRUE
 #   ui:
 #     label: 'SH two column'
 #     position: 200
@@ -307,9 +307,9 @@
 
 
 
-'schule.signalwerkCh:Foldout':
+'signalwerk.sfgz:Foldout':
   superTypes:
-    'schule.signalwerkCh:Column': TRUE
+    'signalwerk.sfgz:Column': TRUE
   ui:
     label: 'Foldout'
     position: 200
@@ -346,9 +346,9 @@
 
 
 
-'schule.signalwerkCh:OneColumn':
+'signalwerk.sfgz:OneColumn':
   superTypes:
-    'schule.signalwerkCh:Column': TRUE
+    'signalwerk.sfgz:Column': TRUE
   ui:
     label: 'Box (Wrapper)'
     position: 200
@@ -380,7 +380,7 @@
 ##
 # A "Youtube" content element
 #
-'schule.signalwerkCh:YouTube':
+'signalwerk.sfgz:YouTube':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -433,7 +433,7 @@
 ##
 # A "Vimeo" content element
 #
-'schule.signalwerkCh:Vimeo':
+'signalwerk.sfgz:Vimeo':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:

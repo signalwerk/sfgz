@@ -1,5 +1,5 @@
 {
-    "description": "Add description here",
+    "description": "site for sfgz.ch",
     "type": "neos-site",
     "require": {
         "neos/neos": "*",
@@ -8,15 +8,15 @@
     "suggest": {
         "neos/neos-seo": "*"
     },
-    "name": "schule/signalwerkch",
+    "name": "signalwerk/sfgz",
     "autoload": {
         "psr-0": {
-            "schule\\signalwerkCh": "Classes/"
+            "signalwerk\\sfgz": "Classes/"
         }
     },
     "extra": {
         "neos": {
-            "package-key": "schule.signalwerkCh"
+            "package-key": "signalwerk.sfgz"
         }
     }
 }

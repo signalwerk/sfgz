@@ -1,4 +1,4 @@
-'schule.signalwerkCh:CourseExecution':
+'signalwerk.sfgz:CourseExecution':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -172,7 +172,7 @@
 
 
 
-'schule.signalwerkCh:Course':
+'signalwerk.sfgz:Course':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -342,12 +342,12 @@
         inspector:
           group: 'course'
           editorOptions:
-            nodeTypes: ['schule.signalwerkCh:CourseCategory']
+            nodeTypes: ['signalwerk.sfgz:CourseCategory']
 
 
 
 
-'schule.signalwerkCh:CourseCategory':
+'signalwerk.sfgz:CourseCategory':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -371,7 +371,7 @@
 ##
 # Kurs
 #
-'schule.signalwerkCh:CourseView':
+'signalwerk.sfgz:CourseView':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:

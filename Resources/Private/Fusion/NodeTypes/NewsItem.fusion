@@ -1,4 +1,4 @@
-prototype(schule.signalwerkCh:NewsItem) < prototype(Neos.Neos:Content) {
+prototype(signalwerk.sfgz:NewsItem) < prototype(Neos.Neos:Content) {
 	attributes.class = 'news-item'
 	link.@process.convertUris = Neos.Neos:ConvertUris {
 		forceConversion = true

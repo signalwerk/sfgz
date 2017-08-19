@@ -1,7 +1,7 @@
 <?php
 //  ./flow flow:package:rescan
 
-namespace schule\signalwerkCh\Controller;
+namespace signalwerk\sfgz\Controller;
 
 
 use Neos\Eel\FlowQuery\FlowQuery;
@@ -28,7 +28,7 @@ class CourseController extends ActionController
 
     // /**
     //  * @Flow\Inject
-    //  * @var \schule\signalwerkCh\Domain\Repository\CourseRepository
+    //  * @var \signalwerk\sfgz\Domain\Repository\CourseRepository
     //  */
     // protected $courseRepository;
 
@@ -114,7 +114,7 @@ class CourseController extends ActionController
         // ------------------------------------------------
 
         $query = new FlowQuery(array($this->context->getRootNode()));
-        $query = $query->find('[instanceof schule.signalwerkCh:CourseExecution]');
+        $query = $query->find('[instanceof signalwerk.sfgz:CourseExecution]');
 
         $msg .= 'CourseExecution deleted: ' . count($query);
 
@@ -126,7 +126,7 @@ class CourseController extends ActionController
         // ------------------------------------------------
 
         $query = new FlowQuery(array($this->context->getRootNode()));
-        $query = $query->find('[instanceof schule.signalwerkCh:CourseCategory]');
+        $query = $query->find('[instanceof signalwerk.sfgz:CourseCategory]');
 
         $msg .= 'CourseCategory deleted: ' . count($query);
 
@@ -139,7 +139,7 @@ class CourseController extends ActionController
 
 
         $query = new FlowQuery(array($this->context->getRootNode()));
-        $query = $query->find('[instanceof schule.signalwerkCh:Course]');
+        $query = $query->find('[instanceof signalwerk.sfgz:Course]');
 
         $msg .= 'Course deleted: ' . count($query);
 
@@ -163,7 +163,7 @@ class CourseController extends ActionController
 
       $engine = new Handlebars;
 
-      $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
+      $path = dirname(getcwd())."/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
       $templateMail = file_get_contents($path ."/mail.hbs").file_get_contents($path ."/mail__facts.hbs");
 
 
@@ -333,7 +333,7 @@ class CourseController extends ActionController
             $title = "$tag";
             if (!isset($this->tagNodes[$md5Tag])) {
 
-               $tagNodeType = $this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseCategory');
+               $tagNodeType = $this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory');
                $name = Utility::renderValidNodeName($title);
               //  $name = uniqid('node');
                $tagNode = $rootNode->createNode($name, $tagNodeType);
@@ -362,7 +362,7 @@ class CourseController extends ActionController
           return 'Expected course root not found! [uriPathSegment="course"]';
       }
 
-      $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
+      $path = dirname(getcwd())."/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
       $xmlString = file_get_contents($this->dataPath().'getxml.xml');
 
       $xml = simplexml_load_string($xmlString);
@@ -375,7 +375,7 @@ class CourseController extends ActionController
             if (!empty($version->durchfuehrungen->durchfuehrung)) {
 
               $courseNodeTemplate = new NodeTemplate();
-              $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:Course'));
+              $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:Course'));
 
               $courseNodeTemplate->setProperty('coursid', $kurs->{'kurs-code'});
               $courseNodeTemplate->setProperty('title', $version->titel);
@@ -412,7 +412,7 @@ class CourseController extends ActionController
               {
 
                 $durchfuehrungNodeTemplate = new NodeTemplate();
-                $durchfuehrungNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('schule.signalwerkCh:CourseExecution'));
+                $durchfuehrungNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseExecution'));
 
                 $durchfuehrungNodeTemplate->setProperty('code', $durchfuehrung->code);
 
@@ -474,7 +474,7 @@ class CourseController extends ActionController
 
     public function enrollAction()
     {
-        $path = dirname(getcwd())."/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller";
+        $path = dirname(getcwd())."/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
 
         if (!empty($_POST["data"])) {
           $data = $_POST['data'];
@@ -505,9 +505,9 @@ class CourseController extends ActionController
 
         $this->init();
         $query = new FlowQuery(array($this->context->getRootNode()));
-        // $query = $query->find('[instanceof schule.signalwerkCh:Course][coursid = "' +  (string)$dataObj->coursid  +'"]');
-        $queryCourse = $query->find(('[instanceof schule.signalwerkCh:Course][coursid = "' .  $dataObj->coursid  . '"]'))->get(0);
-        $queryExecution = $query->find(('[instanceof schule.signalwerkCh:CourseExecution][code = "' .  $dataObj->executionid  . '"]'))->get(0);
+        // $query = $query->find('[instanceof signalwerk.sfgz:Course][coursid = "' +  (string)$dataObj->coursid  +'"]');
+        $queryCourse = $query->find(('[instanceof signalwerk.sfgz:Course][coursid = "' .  $dataObj->coursid  . '"]'))->get(0);
+        $queryExecution = $query->find(('[instanceof signalwerk.sfgz:CourseExecution][code = "' .  $dataObj->executionid  . '"]'))->get(0);
 
         $dataObj->title = $queryCourse->getProperty('title');
         $dataObj->code = $queryExecution->getProperty('code');

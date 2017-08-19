@@ -255,7 +255,9 @@
 
                 } // end actions.
             }); // return each plugin call.
-        } }); // end jQuery extend.
+        } // end plugin function.
+
+    }); // end jQuery extend.
 
     // EVENTS
     var _eventsClick = 'click.squirrel.js';

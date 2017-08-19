@@ -1,5 +1,5 @@
 
-'schule.signalwerkCh:ContactCategory':
+'signalwerk.sfgz:ContactCategory':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -20,7 +20,7 @@
           group: 'attr'
 
 
-'schule.signalwerkCh:ContactItem':
+'signalwerk.sfgz:ContactItem':
   superTypes:
     'Neos.Neos:Content': TRUE
   ui:
@@ -71,7 +71,7 @@
         inspector:
           group: 'attr'
           editorOptions:
-            nodeTypes: ['schule.signalwerkCh:ContactCategory']
+            nodeTypes: ['signalwerk.sfgz:ContactCategory']
     email:
       type: string
       defaultValue: ''

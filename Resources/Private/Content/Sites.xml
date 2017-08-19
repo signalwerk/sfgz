@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
- <site name="sfgz.ch" state="1" siteResourcesPackageKey="schule.signalwerkCh" siteNodeName="signalwerkch">
+ <site name="sfgz.ch" state="1" siteResourcesPackageKey="signalwerk.sfgz" siteNodeName="sfgz">
   <nodes formatVersion="2.0">
-   <node nodeName="signalwerkch">
+   <node nodeName="sfgz">
     <variant workspace="live" nodeType="Neos.NodeTypes:Page" sortingIndex="100" version="1" removed="" hidden="" hiddenInIndex="">
      <dimensions>
 

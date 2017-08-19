@@ -1,4 +1,4 @@
-prototype(schule.signalwerkCh:Course) < prototype(Neos.Neos:Content) {
+prototype(signalwerk.sfgz:Course) < prototype(Neos.Neos:Content) {
 	node = ${node}
 
 	# Render the main ContentCollection of the Post like a page would

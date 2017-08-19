@@ -1,5 +1,5 @@
 <?php
-namespace schule\signalwerkCh\FlowQuery;
+namespace signalwerk\sfgz\FlowQuery;
 
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\Operations\AbstractOperation;

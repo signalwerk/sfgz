@@ -1,4 +1,4 @@
 prototype(Neos.NodeTypes:Html){
 	# attributes.class = 'html_attr'
-	templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/Html.html'
+	templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Html.html'
 }

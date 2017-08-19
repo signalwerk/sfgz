@@ -1,5 +1,5 @@
 # see multicolumn
-prototype(schule.signalwerkCh:Foldout) >
-prototype(schule.signalwerkCh:Foldout) < prototype(schule.signalwerkCh:MultiColumn) {
-  templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/Foldout.html'
+prototype(signalwerk.sfgz:Foldout) >
+prototype(signalwerk.sfgz:Foldout) < prototype(signalwerk.sfgz:MultiColumn) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Foldout.html'
 }

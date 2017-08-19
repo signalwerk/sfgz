@@ -1,28 +1,28 @@
-prototype(schule.signalwerkCh:CourseView) < prototype(Neos.Neos:Content) {
+prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
     test = 'thisisatest'
     requestFormat = ${request.format}
     courseID = ${request.arguments.kurs}
 
-    currentCourse = ${q(site).find('[instanceof schule.signalwerkCh:Course][coursid = "' + request.arguments.kurs +'"]').get(0)}
-    currentExecution = ${q(site).find('[instanceof schule.signalwerkCh:CourseExecution][code = "' + request.arguments.durchfuehrung +'"]').get(0)}
+    currentCourse = ${q(site).find('[instanceof signalwerk.sfgz:Course][coursid = "' + request.arguments.kurs +'"]').get(0)}
+    currentExecution = ${q(site).find('[instanceof signalwerk.sfgz:CourseExecution][code = "' + request.arguments.durchfuehrung +'"]').get(0)}
 
-    categories = ${q(site).find('[instanceof schule.signalwerkCh:CourseCategory]')}
-    # categories = ${q(site).find('[instanceof schule.signalwerkCh:CourseCategory][title = "Vorkurs"]')}
-    # categories = ${q(site).find('[instanceof schule.signalwerkCh:Course]').filterPropertiesFromArray('categories', 'efaf294c-2730-446b-892d-1e36e30a0d93')}
+    categories = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory]')}
+    # categories = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][title = "Vorkurs"]')}
+    # categories = ${q(site).find('[instanceof signalwerk.sfgz:Course]').filterPropertiesFromArray('categories', 'efaf294c-2730-446b-892d-1e36e30a0d93')}
 
 
     course = Neos.Fusion:Collection {
-    	collection = ${q(site).find('[instanceof schule.signalwerkCh:Course][coursid = "' + request.arguments.kurs +'"]')}
+    	collection = ${q(site).find('[instanceof signalwerk.sfgz:Course][coursid = "' + request.arguments.kurs +'"]')}
       itemName = 'course'
   		itemRenderer = Neos.Fusion:Template {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/Course.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Course.html'
   			node = ${course}
         executions = Neos.Fusion:Collection {
-          collection = ${q(course).find('[instanceof schule.signalwerkCh:CourseExecution]')}
+          collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]')}
           itemName = 'courseExecution'
 
           itemRenderer = Neos.Fusion:Template {
-            templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/CourseExecution.html'
+            templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseExecution.html'
             node = ${courseExecution}
             course = ${course}
             lektionenProVeranstaltung = ${courseExecution.properties.lektionen / courseExecution.properties.veranstaltungen}
@@ -32,17 +32,17 @@ prototype(schule.signalwerkCh:CourseView) < prototype(Neos.Neos:Content) {
     }
 
 		courseItemRenderer = Neos.Fusion:Collection {
-      collection = ${q(site).find('[instanceof schule.signalwerkCh:Course]')}
+      collection = ${q(site).find('[instanceof signalwerk.sfgz:Course]')}
       itemName = 'course'
   		itemRenderer = Neos.Fusion:Template {
-        templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/CourseViewListItem.html'
+        templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseViewListItem.html'
   			course = ${course}
         executions = Neos.Fusion:Collection {
-          collection = ${q(course).find('[instanceof schule.signalwerkCh:CourseExecution]')}
+          collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]')}
           itemName = 'courseExecution'
 
           itemRenderer = Neos.Fusion:Template {
-            templatePath = 'resource://schule.signalwerkCh/Private/Templates/NodeTypes/CourseExecutionViewListItem.html'
+            templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseExecutionViewListItem.html'
             courseExecution = ${courseExecution}
           }
         }
@@ -54,7 +54,7 @@ prototype(schule.signalwerkCh:CourseView) < prototype(Neos.Neos:Content) {
 }
 
 # Abstract render definition for a single content column in a multi column element
-prototype(schule.signalwerkCh:CourseViewListItem) < prototype(Neos.Neos:ContentCollection) {
+prototype(signalwerk.sfgz:CourseViewListItem) < prototype(Neos.Neos:ContentCollection) {
 
 
 }
