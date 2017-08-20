@@ -23,7 +23,14 @@
 		<f:if condition="{teaserImage}">
 				<f:then>
 						<!--  http://neos.readthedocs.io/en/stable/References/ViewHelpers/Media.html#neos-media-image -->
-						<neos.media:image image="{teaserImage}" alt="{teaserImage.alternativeText}" title="{teaserImage.title}"/>
+						<neos.media:image
+
+
+							image="{teaserImage}"
+							alt="{teaserImage.alternativeText}"
+							title="{teaserImage.title}"
+							maximumWidth="700"
+						/>
 				</f:then>
 				<f:else>
 				</f:else>
