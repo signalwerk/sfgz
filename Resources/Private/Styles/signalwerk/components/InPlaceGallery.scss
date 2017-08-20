@@ -1,0 +1,29 @@
+
+$clickSize: 3rem;
+
+body .dl-gallery-gallery {
+
+  a[href^="http"]:before {
+    display: none;
+  }
+
+  .row.dl-gallery {
+    $imgCount: 20;
+    $gap: 0.5%;
+
+    .item.dl-gallery {
+
+        flex-shrink: 0;
+        width: ((100% - ($gap * ($imgCount - 1))) / $imgCount);
+        margin-right: $gap;
+        margin-bottom: 0.5rem;
+        // reset the default
+        &:nth-child(4n + 4) {
+          margin-right: $gap;
+        }
+        &:nth-child(#{$imgCount}n + #{$imgCount}) {
+          margin-right: 0;
+        }
+    }
+  }
+}
