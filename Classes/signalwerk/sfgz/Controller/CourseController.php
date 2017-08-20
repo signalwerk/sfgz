@@ -116,7 +116,7 @@ class CourseController extends ActionController
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof signalwerk.sfgz:CourseExecution]');
 
-        $msg .= 'CourseExecution deleted: ' . count($query);
+        $msg .= '<p>Alte Durchführungen gelöschen: ' . count($query) .'x</p>';
 
         foreach ($query as $courseExecution) {
           $courseExecution->remove();
@@ -128,7 +128,7 @@ class CourseController extends ActionController
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof signalwerk.sfgz:CourseCategory]');
 
-        $msg .= 'CourseCategory deleted: ' . count($query);
+        $msg .= '<p>Alte Kategorien gelöschen: ' . count($query) .'x</p>';
 
         foreach ($query as $courseCategory) {
           $courseCategory->remove();
@@ -141,7 +141,7 @@ class CourseController extends ActionController
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof signalwerk.sfgz:Course]');
 
-        $msg .= 'Course deleted: ' . count($query);
+        $msg .= '<p>Alte Kurse gelöschen: ' . count($query) .'x</p>';
 
         foreach ($query as $course) {
           $course->remove();
