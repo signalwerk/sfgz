@@ -1,48 +1,40 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 {namespace media=Neos\Media\ViewHelpers}
-<div {attributes -> f:format.raw()} >
-	<figure{f:if(condition: imageClassName, then: ' class="{imageClassName}"')}>
-		<f:if condition="{image}">
-			<f:then>
-				<f:if condition="{link}">
-					<f:then>
-						<a href="{link}"><media:image image="{image}" alt="{alternativeText}" title="{title}" width="{width}" maximumWidth="{maximumWidth}" height="{height}" maximumHeight="{maximumHeight}" allowUpScaling="{allowUpScaling}" /></a>
-					</f:then>
-					<f:else>
-						<f:comment>
-							<media:image image="{image}" alt="{alternativeText}" title="{title}" width="{width}" maximumWidth="{maximumWidth}" height="{height}" maximumHeight="{maximumHeight}" allowUpScaling="{allowUpScaling}" />
-						</f:comment>
-						<media:image
-							additionalAttributes="{srcset: '
-																							{media:uri.image(image: image, maximumWidth: 1400)} 1400w,
-																							{media:uri.image(image: image, maximumWidth: 1100)} 1100w,
-																							{media:uri.image(image: image, maximumWidth: 800)} 800w,
-																							{media:uri.image(image: image, maximumWidth: 600)} 600w,
-																							{media:uri.image(image: image, maximumWidth: 400)} 400w,
-																							{media:uri.image(image: image, maximumWidth: 200)} 200w'
-																						}"
-							image="{image}"
-							alt="{alternativeText}"
-							title="{title}"
-							width="{width}"
-							maximumWidth="{maximumWidth}"
-							height="{height}"
-							maximumHeight="{maximumHeight}"
-							allowUpScaling="{allowUpScaling}"
-						/>
-					</f:else>
-				</f:if>
-			</f:then>
-			<f:else>
-				<f:if condition="{neos:rendering.inEditMode()}">
-					<img src="{f:uri.resource(package: 'Neos.Neos', path: 'Images/dummy-image.svg')}" title="Dummy image" alt="Dummy image" class="neos-handle" />
-				</f:if>
-			</f:else>
-		</f:if>
-		<f:if condition="{hasCaption}">
-			<figcaption>
-				{neos:contentElement.editable(property: 'caption', node: node)}
-			</figcaption>
-		</f:if>
-	</figure>
+<div{attributes -> f:format.raw()}>
+  <f:if condition="{image}">
+  	<f:then>
+  		<f:if condition="{link}">
+  				<a href="{link}">
+  		</f:if>
+  		<media:image
+				additionalAttributes="{srcset: '{media:uri.image(image: image, maximumWidth: 800)} 800w,
+																				{media:uri.image(image: image, maximumWidth: 600)} 600w,
+																				{media:uri.image(image: image, maximumWidth: 400)} 400w,
+																				{media:uri.image(image: image, maximumWidth: 200)} 200w'
+																			}"
+  			image="{image}"
+  			title="{title}"
+  			alt="{alternativeText}"
+  			width="{width}"
+  			height="{height}"
+  			maximumWidth="{maximumWidth}"
+  			maximumHeight="{maximumHeight}"
+  			allowCropping="{allowCropping}"
+  			allowUpScaling="{allowUpScaling}"
+  			class="{class}"
+  		/>
+  		<f:if condition="{link}"></a></f:if>
+  	</f:then>
+  	<f:else>
+  		<f:if condition="{neos:rendering.inEditMode()}">
+  			<img src="{f:uri.resource(package: 'Neos.Neos', path: 'Images/dummy-image.svg')}" title="Dummy image" alt="Dummy image" class="neos-handle" />
+  		</f:if>
+  	</f:else>
+  </f:if>
+  <f:if condition="{hasCaption}">
+  	<figcaption>
+  		{neos:contentElement.editable(property: 'caption', node: node)}
+  	</figcaption>
+  </f:if>
+
 </div>
