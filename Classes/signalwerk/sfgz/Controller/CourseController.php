@@ -457,7 +457,7 @@ class CourseController extends ActionController
 
       $this->persistenceManager->persistAll();
 
-      return 'Import all done. ';
+      return '<h3>Neuer Import abgeschlossen.</h3>';
     }
 
 
