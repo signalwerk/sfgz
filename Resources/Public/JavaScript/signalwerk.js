@@ -134,7 +134,7 @@ $(function () {
     submitHandler: function submitHandler(form) {
       $.ajax({
         type: "POST",
-        url: "//beta.sfgz.ch/signalwerk/course/enroll",
+        url: "/signalwerk/course/enroll",
         data: {
           'data': $('.form-control').serializeObject()
         },
@@ -142,8 +142,8 @@ $(function () {
           window.location.href = './anmeldung/danke.html';
         },
         error: function error(returnval) {
-          window.location.href = './anmeldung/danke.html';
-          // window.location.href = './anmeldung/error.html';
+          // window.location.href = './anmeldung/danke.html';
+          window.location.href = './anmeldung/error.html';
         }
       });
     }
