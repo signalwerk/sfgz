@@ -267,7 +267,7 @@ class CourseController extends ActionController
       $anmeldung->appendChild($domtree->createElement('AgStrNr', $data->bill_StrasseNr ));
       $anmeldung->appendChild($domtree->createElement('AgPLZ', $data->bill_Postleitzahl ));
       $anmeldung->appendChild($domtree->createElement('AgOrt', $data->bill_Ort ));
-      $anmeldung->appendChild($domtree->createElement('Bemerkung', $data->Comment ));
+      // $anmeldung->appendChild($domtree->createElement('Bemerkung', $data->Comment ));
 
       // save local copy
       $domtree->save($this->backupFilePath().'_export.xml');
