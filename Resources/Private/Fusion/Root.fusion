@@ -121,6 +121,30 @@ page = Page {
   		attributes {
   			src = Neos.Fusion:ResourceUri {
   				package = 'signalwerk.sfgz'
+  				path = 'JavaScript/signalwerk.js'
+  			}
+  			async = null
+  		}
+  		@if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') == 'Production'}
+  	}
+
+    javascripts.backend = Neos.Fusion:Tag {
+  		tagName = 'script'
+  		attributes {
+  			src = Neos.Fusion:ResourceUri {
+  				package = 'signalwerk.sfgz'
+  				path = 'JavaScript/signalwerk.min.js'
+  			}
+  			async = null
+  		}
+  		@if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') != 'Production'}
+  	}
+
+    javascripts.backend = Neos.Fusion:Tag {
+  		tagName = 'script'
+  		attributes {
+  			src = Neos.Fusion:ResourceUri {
+  				package = 'signalwerk.sfgz'
   				path = 'JavaScript/signalwerkBackend.js'
   			}
   			async = null
