@@ -12,11 +12,11 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
 
 
     course = Neos.Fusion:Collection {
-    	collection = ${q(site).find('[instanceof signalwerk.sfgz:Course][coursid = "' + request.arguments.kurs +'"]')}
+      collection = ${q(site).find('[instanceof signalwerk.sfgz:Course][coursid = "' + request.arguments.kurs +'"]')}
       itemName = 'course'
-  		itemRenderer = Neos.Fusion:Template {
+      itemRenderer = Neos.Fusion:Template {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Course.html'
-  			node = ${course}
+        node = ${course}
         executions = Neos.Fusion:Collection {
           collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]')}
           itemName = 'courseExecution'
@@ -31,12 +31,12 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
       }
     }
 
-		courseItemRenderer = Neos.Fusion:Collection {
+    courseItemRenderer = Neos.Fusion:Collection {
       collection = ${q(site).find('[instanceof signalwerk.sfgz:Course]')}
       itemName = 'course'
-  		itemRenderer = Neos.Fusion:Template {
+      itemRenderer = Neos.Fusion:Template {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseViewListItem.html'
-  			course = ${course}
+        course = ${course}
         executions = Neos.Fusion:Collection {
           collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]')}
           itemName = 'courseExecution'
@@ -49,8 +49,10 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
         // executions = Neos.Neos:ContentCollection {
         //   nodePath = 'executions'
         // }
-  		}
-		}
+      }
+    }
+
+
 }
 
 # Abstract render definition for a single content column in a multi column element
