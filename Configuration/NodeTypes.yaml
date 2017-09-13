@@ -85,7 +85,7 @@
           label: 'Abstand'
           position: 50
     help:
-      message: 'bindet einen abstand ein'
+      message: 'bindet einen Abstand eingeben'
   properties:
     'space':
       type: integer
