@@ -2,16 +2,16 @@
 <div {attributes -> f:format.raw()} >
 
 
-	<f:if condition="{neos:rendering.live()} && {link}">
-	  <f:then>
-			<a href="{link}">
-				<f:render section="newsItemRender" arguments="{_all}" />
-			</a>
-	  </f:then>
-	  <f:else>
-			<f:render section="newsItemRender" arguments="{_all}" />
-	  </f:else>
-	</f:if>
+  <f:if condition="{neos:rendering.live()} && {link}">
+    <f:then>
+      <a href="{link}">
+        <f:render section="newsItemRender" arguments="{_all}" />
+      </a>
+    </f:then>
+    <f:else>
+      <f:render section="newsItemRender" arguments="{_all}" />
+    </f:else>
+  </f:if>
 
 </div>
 
@@ -19,35 +19,35 @@
 
 <f:section name="newsItemRender">
 
-	<div class="teaser-image {bgStyle}">
-		<f:if condition="{teaserImage}">
-				<f:then>
-						<!--  http://neos.readthedocs.io/en/stable/References/ViewHelpers/Media.html#neos-media-image -->
-						<neos.media:image
+  <div class="teaser-image {bgStyle}">
+    <f:if condition="{teaserImage}">
+        <f:then>
+            <!--  http://neos.readthedocs.io/en/stable/References/ViewHelpers/Media.html#neos-media-image -->
+            <neos.media:image
 
 
-							image="{teaserImage}"
-							alt="{teaserImage.alternativeText}"
-							title="{teaserImage.title}"
-							maximumWidth="700"
-						/>
-				</f:then>
-				<f:else>
-				</f:else>
-		</f:if>
-	</div>
+              image="{teaserImage}"
+              alt="{teaserImage.alternativeText}"
+              title="{teaserImage.title}"
+              maximumWidth="700"
+            />
+        </f:then>
+        <f:else>
+        </f:else>
+    </f:if>
+  </div>
 
-	<!-- <img class="teaser-image__overlay" src="http://beta.d2p.ch/vue/logo.py?savename=Default&speed=8&fade=1&fadespeed=4&fadestart=1.5&fadeadd=0.14&mindist=8&maxdist=18&minwidth=2&growth=0.1&stretch=3" alt="abstract art"> -->
+  <!-- <img class="teaser-image__overlay" src="http://beta.d2p.ch/vue/logo.py?savename=Default&speed=8&fade=1&fadespeed=4&fadestart=1.5&fadeadd=0.14&mindist=8&maxdist=18&minwidth=2&growth=0.1&stretch=3" alt="abstract art"> -->
 
-	<neos:contentElement.editable class="news-item__date" property="date" tag="p" />
-	<neos:contentElement.editable class="news-item__title" property="title"/>
-	<neos:contentElement.editable class="news-item__text" property="text"/>
+  <neos:contentElement.editable class="news-item__date" property="date" tag="p" />
+  <neos:contentElement.editable class="news-item__title" property="title"/>
+  <neos:contentElement.editable class="news-item__text" property="text"/>
 
-		<f:if condition="{neos:rendering.live()}">
-				<f:if condition="{teaserImage}">
-					</a>
-				</f:if>
-		</f:if>
+    <f:if condition="{neos:rendering.live()}">
+        <f:if condition="{teaserImage}">
+          </a>
+        </f:if>
+    </f:if>
 
 
 </f:section>

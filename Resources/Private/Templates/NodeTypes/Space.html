@@ -1,11 +1,11 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 <div{attributes -> f:format.raw()}>
-	<f:if condition="{space}">
-		<f:then>
-			<div class="space" style="height: {space}rem"></div>
-		</f:then>
-		<f:else>
-			<div class="emptyspace"></div>
-		</f:else>
-	</f:if>
+  <f:if condition="{space}">
+    <f:then>
+      <div class="space" style="height: {space}rem"></div>
+    </f:then>
+    <f:else>
+      <div class="emptyspace"></div>
+    </f:else>
+  </f:if>
 </div>

@@ -15,22 +15,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </f:section>
 
-	<f:section name="signalwerk">
-	<!--
-		********************************************
-		*  OpenSource Site-Package                 *
-		*  https://github.com/signalwerk/sfgz      *
-		********************************************
-		*  Programming & Interaction               *
-		*  Stefan Huber | signalwerk.ch            *
-		********************************************
-	-->
-	</f:section>
+  <f:section name="signalwerk">
+  <!--
+    ********************************************
+    *  OpenSource Site-Package                 *
+    *  https://github.com/signalwerk/sfgz      *
+    ********************************************
+    *  Programming & Interaction               *
+    *  Stefan Huber | signalwerk.ch            *
+    ********************************************
+  -->
+  </f:section>
 
-	<f:section name="favicon">
-		<!--[if IE]><link rel="shortcut icon" href="{f:uri.resource(path: 'Images/favicon/favicon.ico', package: 'signalwerk.mygarden')}"/><![endif]--><!-- Internet Explorer before version 11-->
-		<link rel="icon" href="{f:uri.resource(path: 'Images/favicon/favicon.png', package: 'signalwerk.mygarden')}"/>
-	</f:section>
+  <f:section name="favicon">
+    <!--[if IE]><link rel="shortcut icon" href="{f:uri.resource(path: 'Images/favicon/favicon.ico', package: 'signalwerk.mygarden')}"/><![endif]--><!-- Internet Explorer before version 11-->
+    <link rel="icon" href="{f:uri.resource(path: 'Images/favicon/favicon.png', package: 'signalwerk.mygarden')}"/>
+  </f:section>
 
 </head>
 <body>
@@ -40,16 +40,16 @@
   <!-- workspace: {workspaceName} -->
 
   <a href="/">
-  	<div class="header-lion">
-  		<img src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
-  	</div>
+    <div class="header-lion">
+      <img src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
+    </div>
   </a>
 
-	<header class="header">
-		<div class="header-logo">
-			<img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-black@2x.png', package: 'signalwerk.sfgz')}" class="header-logo-desktop">
-			<img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-white@2x.png', package: 'signalwerk.sfgz')}" class="header-logo-mobile">
-		</div>
+  <header class="header">
+    <div class="header-logo">
+      <img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-black@2x.png', package: 'signalwerk.sfgz')}" class="header-logo-desktop">
+      <img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-white@2x.png', package: 'signalwerk.sfgz')}" class="header-logo-mobile">
+    </div>
 
     <div class="header-navigation--mobile navigation navigation--mobile">
       <div class="navigation__logos">
@@ -63,37 +63,37 @@
       </div>
       <div class="navigation__content">
         <nav class="menu menu1 menu--mobile menu1--mobile">
-  				{parts.mobileMenu1 -> f:format.raw()}
+          {parts.mobileMenu1 -> f:format.raw()}
           <hr>
           {parts.metaMenu -> f:format.raw()}
-  			</nav>
+        </nav>
       </div>
     </div>
 
-		<div class="header-navigation-wrap">
+    <div class="header-navigation-wrap">
 
-			<div class="meta">
-				{parts.metaMenu -> f:format.raw()}
-			</div>
+      <div class="meta">
+        {parts.metaMenu -> f:format.raw()}
+      </div>
 
-			<h1 class="header-name">
+      <h1 class="header-name">
           <a href="/" tabindex="-1" class="header-name-link">Schule für Gestaltung Zürich</a>
       </h1>
 
-			<nav class="menu menu1">
-				{parts.menu1 -> f:format.raw()}
-			</nav>
+      <nav class="menu menu1">
+        {parts.menu1 -> f:format.raw()}
+      </nav>
 
-			<nav class="menu menu2">
-				{parts.menu2 -> f:format.raw()}
-			</nav>
+      <nav class="menu menu2">
+        {parts.menu2 -> f:format.raw()}
+      </nav>
       <nav class="menu menu--mobile menu2--mobile">
         {parts.mobileMenu2 -> f:format.raw()}
       </nav>
 
-		</div>
+    </div>
 
-	</header>
+  </header>
 
 
   <div class="content">
