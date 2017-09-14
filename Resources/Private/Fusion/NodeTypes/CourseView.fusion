@@ -52,6 +52,14 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
       }
     }
 
+    @cache {
+        mode = 'cached'
+
+        entryTags {
+                # Flushes cache entries if any node of type course changes.
+                1 = ${'NodeType_signalwerk.sfgz:Course'}
+        }
+    }
 
 }
 
