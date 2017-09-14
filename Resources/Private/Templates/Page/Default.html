@@ -3,20 +3,41 @@
 {namespace ts=Neos\Fusion\ViewHelpers}
 <html>
 <head>
+  <!-- Put your stylesheet inclusions here, they will be included in your website by TypoScript -->
   <f:section name="stylesheets">
-    <!-- Put your stylesheet inclusions here, they will be included in your website by TypoScript -->
     <link rel="stylesheet" href="{f:uri.resource(path: 'Styles/signalwerk.css', package: 'signalwerk.sfgz')}" media="all" />
   </f:section>
+  <!-- Put your scripts inclusions for the head here, they will be included in your website by TypoScript -->
   <f:section name="headScripts">
-    <!-- Put your scripts inclusions for the head here, they will be included in your website by TypoScript -->
   </f:section>
+
   <f:section name="meta">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </f:section>
+
+	<f:section name="signalwerk">
+	<!--
+		********************************************
+		*  OpenSource Site-Package                 *
+		*  https://github.com/signalwerk/sfgz      *
+		********************************************
+		*  Programming & Interaction               *
+		*  Stefan Huber | signalwerk.ch            *
+		********************************************
+	-->
+	</f:section>
+
+	<f:section name="favicon">
+		<!--[if IE]><link rel="shortcut icon" href="{f:uri.resource(path: 'Images/favicon/favicon.ico', package: 'signalwerk.mygarden')}"/><![endif]--><!-- Internet Explorer before version 11-->
+		<link rel="icon" href="{f:uri.resource(path: 'Images/favicon/favicon.png', package: 'signalwerk.mygarden')}"/>
+	</f:section>
+
 </head>
 <body>
 <f:section name="body">
 
+  <!-- context: {contextName} -->
+  <!-- workspace: {workspaceName} -->
 
   <a href="/">
   	<div class="header-lion">
