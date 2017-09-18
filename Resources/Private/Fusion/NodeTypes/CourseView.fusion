@@ -10,7 +10,6 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
     # categories = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][title = "Vorkurs"]')}
     # categories = ${q(site).find('[instanceof signalwerk.sfgz:Course]').filterPropertiesFromArray('categories', 'efaf294c-2730-446b-892d-1e36e30a0d93')}
 
-
     course = Neos.Fusion:Collection {
       collection = ${q(site).find('[instanceof signalwerk.sfgz:Course][coursid = "' + request.arguments.kurs +'"]')}
       itemName = 'course'
@@ -46,20 +45,30 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
             courseExecution = ${courseExecution}
           }
         }
-        // executions = Neos.Neos:ContentCollection {
-        //   nodePath = 'executions'
-        // }
+        # executions = Neos.Neos:ContentCollection {
+        #   nodePath = 'executions'
+        # }
       }
     }
 
-    @cache {
-        mode = 'cached'
 
-        entryTags {
-                # Flushes cache entries if any node of type course changes.
-                1 = ${'NodeType_signalwerk.sfgz:Course'}
+    @cache {
+        mode = 'uncached'
+        context {
+            1 = 'node'
+            2 = 'documentNode'
+            3 = 'site'
         }
     }
+
+#    @cache {
+#        mode = 'cached'
+#
+#        entryTags {
+#                # Flushes cache entries if any node of type course changes.
+#                1 = ${'NodeType_signalwerk.sfgz:Course'}
+#        }
+#    }
 
 }
 
