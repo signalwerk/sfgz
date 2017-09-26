@@ -47,13 +47,6 @@ class FilterPropertiesFromArrayOperation extends FilterOperation {
         $context = $flowQuery->getContext();
         foreach ($context as $element) {
             $elementsFromProperty = $element->getProperty($propertyName);
-            print_r('-1-----');
-            print_r($filter);
-            print_r('-2-----');
-            print_r($propertyName);
-            print_r('-3-----');
-            print_r($elementsFromProperty);
-            print_r("-4-----\n");
 
             foreach ($elementsFromProperty as $propertyElement) {
                 if ($this->matchesFilterGroup($propertyElement, $parsedFilter)) {

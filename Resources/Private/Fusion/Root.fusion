@@ -200,6 +200,7 @@ course {
   bodyTag.attributes.class = 'course'
   @cache.entryIdentifier.courseId = ${request.arguments.kurs}
   @cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+  @cache.entryIdentifier.categoryId = ${request.arguments.cat}
 }
 
 
@@ -211,6 +212,7 @@ course {
 #
 root.@cache.entryIdentifier.courseId = ${request.arguments.kurs}
 root.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+root.@cache.entryIdentifier.categoryId = ${request.arguments.cat}
 
 // prototype(Neos.Neos:Page) {
 // 	@cache.entryIdentifier.courseId = ${request.arguments.kurs}
@@ -218,5 +220,6 @@ root.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
 
 prototype(Neos.Neos:PrimaryContent).default {
   renderer.@cache.entryIdentifier.courseId = ${request.arguments.kurs}
-	renderer.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+  renderer.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
+  renderer.@cache.entryIdentifier.categoryId = ${request.arguments.cat}
 }

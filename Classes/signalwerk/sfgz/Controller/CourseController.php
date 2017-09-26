@@ -185,7 +185,7 @@ class CourseController extends ActionController
       $mail->CharSet = 'UTF-8';
       $mail->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
       $mail->addAddress($data->{'E-Mail'});
-      $mail->addBCC('sh@signalwerk.ch');
+      // $mail->addBCC('sh@signalwerk.ch');
 
       $mail->Subject = 'Ihre Anmeldung - '.$data->title;
       $mail->Body = $mailtxt;
@@ -208,7 +208,7 @@ class CourseController extends ActionController
       $mailVerwaltung->CharSet = 'UTF-8';
       $mailVerwaltung->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
       $mailVerwaltung->addAddress('weiterbildung@medienformfarbe.zh.ch');
-      $mailVerwaltung->addBCC('sh@signalwerk.ch');
+      // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
       $mailVerwaltung->Subject = 'Kursanmeldung - '.$data->Vorname.' '.$data->Name.', '.$data->Ort;
       $mailVerwaltung->Body = $mailtxt;
@@ -342,9 +342,6 @@ class CourseController extends ActionController
             }
             $tagNodes[] = $this->tagNodes[$md5Tag];
         }
-
-        // echo "  --- count: ".count($tagNodes);
-        // echo "  --- name: ".$tagNodes[0]->getIdentifier();
 
         return $tagNodes;
     }
