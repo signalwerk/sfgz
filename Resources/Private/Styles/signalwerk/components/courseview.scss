@@ -1,3 +1,80 @@
+.courseview-filter {
+
+  h3 {
+    @include font(sans);
+    padding-bottom: 0.05em;
+    border-bottom: black solid 0.15em;
+    margin-top: 1em;
+    margin-bottom: 0.6em;
+  }
+
+  .starttime {
+    @include container(12);
+
+    .day {
+      @include span(first 6 of 12);
+
+    }
+    .month {
+      @include span(last 6 of 12);
+
+    }
+  }
+
+  .rubrik {
+    column-count: 2;
+    column-gap: 2rem;
+
+    @include font-bold(sansblack);
+
+    label {
+      display: block;
+      position: relative;
+      padding-left: 0.8em;
+
+      &:before {
+        content: "– ";
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+  }
+
+  input[type="radio"]:checked+label {
+    color: red;
+  }
+
+
+  #filter-form-submit {
+    .txt {
+      display: block;
+    }
+    .wait {
+      display: none;
+    }
+    &.button-submitting {
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.6;
+      /*Button disabled - CSS color class*/
+     //  color: #c0c0c0;
+     //  background-color: #ffffff;
+     .txt {
+       display: none;
+     }
+     .wait {
+       display: block;
+     }
+    }
+  }
+
+}
+
 .courseview-listeitem {
   @include container(12);
 
@@ -18,5 +95,9 @@
     p {
       padding-top: 0.3rem;
     }
+  }
+
+  &--root.hidden {
+      display: none;
   }
 }

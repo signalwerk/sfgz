@@ -140,3 +140,23 @@ table tr {
     display: none;
   }
 }
+
+
+input,
+select,
+textarea,
+button {
+  box-sizing: border-box;
+  width: 100%;
+  @include font(sans);
+}
+
+button {
+  box-shadow: none;
+  background-color: rgb(224, 224, 224);
+
+  border-color: rgb(198, 198, 198);
+  border-style: solid;
+  border-width: 0.1rem;
+  @include font-bold(sansblack);
+}

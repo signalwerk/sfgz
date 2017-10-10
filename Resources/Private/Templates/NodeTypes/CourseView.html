@@ -12,14 +12,62 @@
   </f:if>
 
   <f:if condition="{view} == categories">
-    <h3>Filter</h3>
-    <ul>
-      <f:for each="{categories}" as="category">
-        <li>
-          {category.properties.title}---{category.identifier}
-        </li>
-      </f:for>
-    </ul>
+
+
+    <script src="{f:uri.resource(path: 'JavaScript/courseview.js', package: 'signalwerk.sfgz')}"></script>
+
+    <div class="courseview-filter">
+      <form class="filter-form" id="filter-form" method="post" action="">
+
+          <h3>Freitext</h3>
+          <div class="form-group clearfix">
+            <!-- <label for="filter-form-Name">Text</label> -->
+            <div class="input">
+              <input class="form-control" id="filter-form-text" type="text" name="text" value="" placeholder="Suche nach...">
+            </div>
+          </div>
+
+          <h3>Rubrik</h3>
+          <div class="form-group rubrik clearfix">
+            <f:for each="{categories}" as="category" iteration="iterator">
+              <input type="radio" id="categoryChoice{iterator.index}" name="category" value="{category.identifier}">
+              <label for="categoryChoice{iterator.index}">{category.properties.title}</label>
+            </f:for>
+          </div>
+
+          <h3>Zeiten/Start</h3>
+          <div class="form-group starttime clearfix">
+
+            <div class="day">
+              <select name="day">
+                <option value="*">Kurstag</option>
+                <f:for each="{days}" as="day">
+                  <option value="{day.identifier}">{day.properties.title}</option>
+                </f:for>
+              </select>
+            </div>
+
+            <div class="month">
+              <select name="month">
+                <option value="*">Startmonat</option>
+                <f:for each="{months}" as="month">
+                  <option value="{month.identifier}">{month.properties.title}</option>
+                </f:for>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group clearfix">
+            <label for="filter-form-submit">&nbsp;</label>
+            <div class="input">
+              <button id="filter-form-submit" type="submit"><span class="txt">Suchen</span><span class="wait">warten...</span></button>
+            </div>
+          </div>
+          <br />
+          <br />
+      </form>
+    </div>
+
   </f:if>
 
 
@@ -39,8 +87,8 @@
 
 <form class="contact-form" id="contact-form" method="post" action="">
 
-  <input class="form-control" type="hidden" name="--contact-form[coursid]" value="{currentCourse.properties.coursid}">
-  <input class="form-control" type="hidden" name="--contact-form[executionid]" value="{currentExecution.properties.code}">
+              <input class="form-control" type="hidden" name="--contact-form[coursid]" value="{currentCourse.properties.coursid}">
+              <input class="form-control" type="hidden" name="--contact-form[executionid]" value="{currentExecution.properties.code}">
 
 
               <fieldset>

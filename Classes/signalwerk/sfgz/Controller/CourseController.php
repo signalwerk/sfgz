@@ -1,5 +1,6 @@
 <?php
 //  ./flow flow:package:rescan
+//  see also: https://github.com/robertlemke/RobertLemke.Plugin.Blog
 
 namespace signalwerk\sfgz\Controller;
 
@@ -21,16 +22,10 @@ use \DOMDocument;
 
 
 /**
- * Courses controller for the Blog package
+ * Courses controller for the site package
  */
 class CourseController extends ActionController
 {
-
-    // /**
-    //  * @Flow\Inject
-    //  * @var \signalwerk\sfgz\Domain\Repository\CourseRepository
-    //  */
-    // protected $courseRepository;
 
     /**
      * @Flow\Inject
@@ -52,17 +47,13 @@ class CourseController extends ActionController
 
 
     /**
-     * Initialize the Akismet service
+     * Initialize the context
      *
      * @return void
      */
     protected function initializeAction()
     {
-        // $this->akismetService->setCurrentRequest($this->request->getHttpRequest());
-    }
-
-    protected function init() {
-      $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+        $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
     }
 
    protected function dataPath() {
@@ -79,8 +70,6 @@ class CourseController extends ActionController
 
 
     protected function getRootOfImport() {
-      $this->init();
-
       $q = new FlowQuery(array($this->context->getRootNode()));
 
       $courseNode = $q->find('[instanceof Neos.Neos:Document]')->children('[uriPathSegment="course"]')->get(0);
@@ -101,7 +90,6 @@ class CourseController extends ActionController
     {
     }
 
-
     /**
      * @param string $email
      * @return void
@@ -109,8 +97,6 @@ class CourseController extends ActionController
     protected function deleteAllCourses() {
 
         $msg = '';
-        $this->init();
-
         // ------------------------------------------------
 
         $query = new FlowQuery(array($this->context->getRootNode()));
@@ -147,10 +133,6 @@ class CourseController extends ActionController
           $course->remove();
           $this->emitCourseDeleted($course);
         }
-
-
-
-
 
         $this->persistenceManager->persistAll();
 
@@ -309,10 +291,6 @@ class CourseController extends ActionController
 
 
 
-
-
-
-
     /**
      * @var array
      */
@@ -330,7 +308,9 @@ class CourseController extends ActionController
         $tagNodes = [];
         foreach ($tags as $tag) {
             $md5Tag=md5("$tag");
-            $title = "$tag";
+            $title = explode("||", $tag)[0];
+            $sort = explode("||", $tag)[1];
+            $type = explode("||", $tag)[2];
             if (!isset($this->tagNodes[$md5Tag])) {
 
                $tagNodeType = $this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory');
@@ -338,6 +318,8 @@ class CourseController extends ActionController
               //  $name = uniqid('node');
                $tagNode = $rootNode->createNode($name, $tagNodeType);
                $tagNode->setProperty('title', $title);
+               $tagNode->setProperty('sort', $sort);
+               $tagNode->setProperty('type', $type);
                $this->tagNodes[$md5Tag] = $tagNode;
             }
             $tagNodes[] = $this->tagNodes[$md5Tag];
@@ -345,8 +327,6 @@ class CourseController extends ActionController
 
         return $tagNodes;
     }
-
-
 
 
     protected function importCourse()
@@ -388,22 +368,39 @@ class CourseController extends ActionController
               $courseNodeTemplate->setProperty('hinweis', $version->hinweis);
               $courseNodeTemplate->setProperty('weitereinfos', $version->{'weitere-infos'});
               $courseNodeTemplate->setProperty('zertifikat', $version->zertifikat);
+              $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
+
+
+              $courseNodeTemplate->setProperty('fulltext',
+                strtolower (
+                  strip_tags (
+                    $version->titel.' '.
+                    $version->{'sub-titel'}.' '.
+                    $version->ziel.' '.
+                    $version->inhalt.' '.
+                    $kurs->{'stufe-wb'}.' '.
+                    $version->zielgruppe.' '.
+                    $version->voraussetzungen.' '.
+                    $version->methode.' '.
+                    $version->kursunterlagen.' '.
+                    $version->hinweis.' '.
+                    $version->{'weitere-infos'}.' '.
+                    $version->zertifikat.' '.
+                    $version->{'meta-keywords'}
+                  )
+                )
+             );
+
 
               // $this->emitCourseCreated($courseNode);
 
 
 
-              $tags = [];
-              foreach($kurs->kategorien->kategorie as $kategorie)
-              {
-                $tags[] = $kategorie;
-              }
-
-
-              $courseNodeTemplate->setProperty('categories', $this->getTagNodes($tags, $rootNode));
 
               $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
 
+              $tagsMonth = [];
+              $tagsDay = [];
 
               foreach($version->durchfuehrungen->durchfuehrung as $durchfuehrung)
               {
@@ -413,13 +410,26 @@ class CourseController extends ActionController
 
                 $durchfuehrungNodeTemplate->setProperty('code', $durchfuehrung->code);
 
-                $start = $durchfuehrung->start;
-                $end = $durchfuehrung->ende;
-                $durchfuehrungNodeTemplate->setProperty('start', \DateTime::createFromFormat('Y-m-d', $start));
-                $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $end));
+
+                $durchfuehrungNodeTemplate->setProperty('start', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->start));
+
+                // only if anmerkung is empty the course is always on the same weekday
+                if (empty($durchfuehrung->anmerkung) && !empty($durchfuehrung->start)) {
+                  $days = array('Sonntag||700', 'Montag||100', 'Dienstag||200', 'Mittwoch||300', 'Donnerstag||400', 'Freitag||500', 'Samstag||600');
+                  $months = array('Januar||100', 'Februar||200', 'März||300', 'April||400', 'Mai||500', 'Juni||600', 'Juli||700', 'August||800', 'September||900', 'Oktober||1000', 'November||1100', 'Dezember||1200');
+                  $tagsDay[] = $days[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('N')]."||day";
+                  $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n')-1]."||month";
+                }
+
+                $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->ende));
+
+
+
+
 
                 // add Unicode Zero Width Space (U+200B) after slash
                 $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
+
 
                 $durchfuehrungNodeTemplate->setProperty('priceZH', $durchfuehrung->kosten);
                 $durchfuehrungNodeTemplate->setProperty('priceNotZH', $durchfuehrung->{'kosten-extern'});
@@ -448,6 +458,15 @@ class CourseController extends ActionController
                 $this->emitCourseCreated($durchfuehrungNode, $courseNode);
 
               } // end $durchfuehrung
+
+
+              $tags = [];
+              foreach($kurs->kategorien->kategorie as $kategorie)
+              {
+                $tags[] = $kategorie."||100||category";
+              }
+
+              $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
             }
           } // end version
       } // end kurs
@@ -500,7 +519,6 @@ class CourseController extends ActionController
             }
         }
 
-        $this->init();
         $query = new FlowQuery(array($this->context->getRootNode()));
         // $query = $query->find('[instanceof signalwerk.sfgz:Course][coursid = "' +  (string)$dataObj->coursid  +'"]');
         $queryCourse = $query->find(('[instanceof signalwerk.sfgz:Course][coursid = "' .  $dataObj->coursid  . '"]'))->get(0);
@@ -531,42 +549,6 @@ class CourseController extends ActionController
 
 
 
-
-
-
-
-    /**
-     * Creates a new comment
-     *
-     * @param NodeInterface $postNode The post node which will contain the new comment
-     * @param NodeTemplate<RobertLemke.Plugin.Blog:Course> $newCourse
-     * @return string
-     */
-    public function createAction(NodeInterface $postNode, NodeTemplate $newCourse)
-    {
-        # Workaround until we can validate node templates properly:
-        if (strlen($newCourse->getProperty('author')) < 2) {
-            $this->throwStatus(400, 'Your comment was NOT created - please specify your name.');
-        }
-        if (filter_var($newCourse->getProperty('emailAddress'), FILTER_VALIDATE_EMAIL) === false) {
-            $this->throwStatus(400, 'Your comment was NOT created - you must specify a valid email address.');
-        }
-        if (strlen($newCourse->getProperty('text')) < 5) {
-            $this->throwStatus(400, 'Your comment was NOT created - it was too short.');
-        }
-        $newCourse->setProperty('text', filter_var($newCourse->getProperty('text'), FILTER_SANITIZE_STRIPPED));
-        $newCourse->setProperty('author', filter_var($newCourse->getProperty('author'), FILTER_SANITIZE_STRIPPED));
-        $newCourse->setProperty('emailAddress', filter_var($newCourse->getProperty('emailAddress'), FILTER_SANITIZE_STRIPPED));
-        $commentNode = $postNode->getNode('comments')->createNodeFromTemplate($newCourse, uniqid('comment-'));
-        $commentNode->setProperty('spam', false);
-        $commentNode->setProperty('datePublished', new \DateTime());
-        if ($this->akismetService->isCourseSpam('', $commentNode->getProperty('text'), 'comment', $commentNode->getProperty('author'), $commentNode->getProperty('emailAddress'))) {
-            $commentNode->setProperty('spam', true);
-        }
-        $this->emitCourseCreated($commentNode, $postNode);
-        $this->response->setStatus(201);
-        return 'Thank you for your comment!';
-    }
     /**
      * Signal which informs about a newly created comment
      *

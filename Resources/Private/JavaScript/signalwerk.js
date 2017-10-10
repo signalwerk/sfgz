@@ -128,6 +128,7 @@ $(function() {
       '--contact-form[onSfGZ]': "Bitte Ausbildungsart wählen.",
       '--contact-form[agb]': "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren",
     },
+
     // Make sure the form is submitted to the destination defined
     // in the "action" attribute of the form when valid
     submitHandler: function(form) {
