@@ -278,6 +278,15 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'course'
+    keywords:
+      type: string
+      ui:
+        label: 'Mega keywords'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'course'
+    fulltext:
+      type: string
     # text:
     #   validation: ~
     #   ui:
