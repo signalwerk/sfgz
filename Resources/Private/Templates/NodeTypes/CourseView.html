@@ -27,13 +27,34 @@
             </div>
           </div>
 
-          <h3>Rubrik</h3>
-          <div class="form-group rubrik clearfix">
-            <f:for each="{categories}" as="category" iteration="iterator">
-              <input type="radio" id="categoryChoice{iterator.index}" name="category" value="{category.identifier}">
-              <label for="categoryChoice{iterator.index}">{category.properties.title}</label>
-            </f:for>
+
+          <div class="category">
+
+            <div class="angebot">
+                      <h3>Angebotsbereiche</h3>
+                      <div class="form-group clearfix">
+                        <input type="radio" id="angebotChoiceAll" name="angebot" value="*" checked>
+                        <label for="angebotChoiceAll">Alle</label>
+                        <f:for each="{angebote}" as="category" iteration="iterator">
+                          <input type="radio" id="angebotChoice{iterator.index}" name="angebot" value="{category.identifier}">
+                          <label for="angebotChoice{iterator.index}">{category.properties.title}</label>
+                        </f:for>
+                      </div>
+            </div>
+            <div class="beruf">
+                      <h3>Berufe</h3>
+                      <div class="form-group clearfix">
+                        <input type="radio" id="berufChoiceAll" name="beruf" value="*" checked>
+                        <label for="berufChoiceAll">Alle</label>
+                        <f:for each="{berufe}" as="category" iteration="iterator">
+                          <input type="radio" id="berufChoice{iterator.index}" name="beruf" value="{category.identifier}">
+                          <label for="berufChoice{iterator.index}">{category.properties.title}</label>
+                        </f:for>
+                      </div>
+            </div>
           </div>
+
+
 
           <h3>Zeiten/Start</h3>
           <div class="form-group starttime clearfix">

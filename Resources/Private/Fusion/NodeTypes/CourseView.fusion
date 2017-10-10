@@ -5,7 +5,8 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
     currentExecution = ${q(site).find('[instanceof signalwerk.sfgz:CourseExecution][code = "' + request.arguments.durchfuehrung +'"]').get(0)}
 
     # overview
-    categories = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="category"][title!="Viscom-Reduktion"]')}
+    angebote = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="category-Angebotsbereiche"]')}
+    berufe = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="category-Berufe"]')}
     days = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="day"]').sort('sort', 'ASC')}
     months = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="month"]').sort('sort', 'ASC')}
 

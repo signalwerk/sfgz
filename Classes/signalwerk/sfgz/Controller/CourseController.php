@@ -295,8 +295,6 @@ class CourseController extends ActionController
     protected $tagNodes = [];
 
 
-
-
     /**
      * @param array $tags
      * @return array<NodeInterface>
@@ -305,10 +303,10 @@ class CourseController extends ActionController
     {
         $tagNodes = [];
         foreach ($tags as $tag) {
-            $md5Tag=md5("$tag");
-            $title = explode("||", $tag)[0];
-            $sort = explode("||", $tag)[1];
-            $type = explode("||", $tag)[2];
+            $title = $tag['title'];
+            $sort = $tag['sort'];
+            $type = $tag['type'];
+            $md5Tag=md5($title.$sort.$type);
             if (!isset($this->tagNodes[$md5Tag])) {
                 $tagNodeType = $this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory');
                 $name = Utility::renderValidNodeName($title);
@@ -340,6 +338,14 @@ class CourseController extends ActionController
         $xmlString = file_get_contents($this->dataPath().'getxml.xml');
 
         $xml = simplexml_load_string($xmlString);
+
+      // build up an array to late look up kategoriegruppe by kategoriename
+      $categories = [];
+      foreach ($xml->kategorien->kategorie as $kategoriegruppe) {
+        foreach ($kategoriegruppe->kategorie as $kategorie) {
+          $categories[strval($kategorie)] = strval($kategoriegruppe['name']);
+        }
+      }
 
       // foreach([$xml->kurse->kurs[0]] as $kurs)
       foreach ($xml->kurse->kurs as $kurs) {
@@ -407,21 +413,40 @@ class CourseController extends ActionController
 
                 // only if anmerkung is empty the course is always on the same weekday
                 if (empty($durchfuehrung->anmerkung) && !empty($durchfuehrung->start)) {
-                    $days = array('Sonntag||700', 'Montag||100', 'Dienstag||200', 'Mittwoch||300', 'Donnerstag||400', 'Freitag||500', 'Samstag||600');
-                    $months = array('Januar||100', 'Februar||200', 'März||300', 'April||400', 'Mai||500', 'Juni||600', 'Juli||700', 'August||800', 'September||900', 'Oktober||1000', 'November||1100', 'Dezember||1200');
-                    $tagsDay[] = $days[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('N')]."||day";
-                    $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n')-1]."||month";
+                    $days = [
+                      ['title'=>'Sonntag','sort'=>100,'type'=>'day'],
+                      ['title'=>'Montag','sort'=>200,'type'=>'day'],
+                      ['title'=>'Dienstag','sort'=>300,'type'=>'day'],
+                      ['title'=>'Mittwoch','sort'=>400,'type'=>'day'],
+                      ['title'=>'Donnerstag','sort'=>500,'type'=>'day'],
+                      ['title'=>'Freitag','sort'=>600,'type'=>'day'],
+                      ['title'=>'Samstag','sort'=>700,'type'=>'day']
+                    ];
+
+                    $months = [
+                      ['title'=>'Januar','sort'=>100,'type'=>'month'],
+                      ['title'=>'Februar','sort'=>200,'type'=>'month'],
+                      ['title'=>'März','sort'=>300,'type'=>'month'],
+                      ['title'=>'April','sort'=>400,'type'=>'month'],
+                      ['title'=>'Mai','sort'=>500,'type'=>'month'],
+                      ['title'=>'Juni','sort'=>600,'type'=>'month'],
+                      ['title'=>'Juli','sort'=>700,'type'=>'month'],
+                      ['title'=>'August','sort'=>800,'type'=>'month'],
+                      ['title'=>'September','sort'=>900,'type'=>'month'],
+                      ['title'=>'Oktober','sort'=>1000,'type'=>'month'],
+                      ['title'=>'November','sort'=>1100,'type'=>'month'],
+                      ['title'=>'Dezember','sort'=>1200,'type'=>'month']
+                    ];
+
+                    $tagsDay[] = $days[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('N')];
+                    $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n')-1];
                 }
 
                       $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->ende));
 
 
-
-
-
                 // add Unicode Zero Width Space (U+200B) after slash
                 $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
-
 
                       $durchfuehrungNodeTemplate->setProperty('priceZH', $durchfuehrung->kosten);
                       $durchfuehrungNodeTemplate->setProperty('priceNotZH', $durchfuehrung->{'kosten-extern'});
@@ -453,7 +478,7 @@ class CourseController extends ActionController
 
               $tags = [];
                   foreach ($kurs->kategorien->kategorie as $kategorie) {
-                      $tags[] = $kategorie."||100||category";
+                      $tags[] = ['title'=>strval($kategorie),'sort'=>100,'type'=>'category-'.$categories[strval($kategorie)]];
                   }
 
                   $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));

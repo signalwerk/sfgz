@@ -45,7 +45,8 @@ $(function() {
         data: {
           filterTxt: $('input[name=text]').val(), // month
           filterID: [
-            $('input[name=category]:checked').val(), // category
+            $('input[name=angebot]:checked').val(), // category
+            $('input[name=beruf]:checked').val(), // category
             $('select[name=day]').val(), // day
             $('select[name=month]').val(), // month
           ].join(','),

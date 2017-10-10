@@ -8,22 +8,27 @@
     margin-bottom: 0.6em;
   }
 
-  .starttime {
+  .category {
     @include container(12);
-
-    .day {
+    .angebot {
       @include span(first 6 of 12);
-
     }
-    .month {
+    .beruf {
       @include span(last 6 of 12);
-
     }
   }
 
-  .rubrik {
-    column-count: 2;
-    column-gap: 2rem;
+  .starttime {
+    @include container(12);
+    .day {
+      @include span(first 6 of 12);
+    }
+    .month {
+      @include span(last 6 of 12);
+    }
+  }
+
+  .category {
 
     @include font-bold(sansblack);
 
