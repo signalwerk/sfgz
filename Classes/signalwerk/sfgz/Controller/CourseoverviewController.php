@@ -55,46 +55,51 @@ class CourseoverviewController extends ActionController
       /**
       * @param string $action
       */
-      public function getAjaxDataAction($action){
-        // $this->init();
+      public function getAjaxDataAction($action)
+      {
+          // $this->init();
 
         $stauts="Start";
 
         /*do some stuff*/
         $query = new FlowQuery(array($this->context->getRootNode()));
-        $query = $query->find('[instanceof signalwerk.sfgz:Course]');
+          $query = $query->find('[instanceof signalwerk.sfgz:Course]');
 
         // filter by freetext
         if (!empty($_GET["filterTxt"])) {
-          $query = $query->filter('[fulltext*="'.strtolower($_GET["filterTxt"]).'"]');
-          $stauts.="\nfilterTxt:'".$_GET["filterTxt"]."'";
+            $query = $query->filter('[fulltext*="'.strtolower($_GET["filterTxt"]).'"]');
+            $stauts.="\nfilterTxt:'".$_GET["filterTxt"]."'";
         }
 
-        $filterIDs = [];
+          $filterIDs = [];
 
         // filter by ids of categories
         if (!empty($_GET["filterID"])) {
-          $filterIDs = explode(",", $_GET['filterID']);
+            $filterIDs = explode(",", $_GET['filterID']);
 
           // remove empty elements and *
-          $filterIDs = array_filter($filterIDs, function($value) { return $value !== ''; });
-          $filterIDs = array_filter($filterIDs, function($value) { return $value !== '*'; });
+          $filterIDs = array_filter($filterIDs, function ($value) {
+              return $value !== '';
+          });
+            $filterIDs = array_filter($filterIDs, function ($value) {
+                return $value !== '*';
+            });
 
-          foreach ($filterIDs as $filterID) {
-            $query = $query->filterPropertiesFromArray('[identifier="'.$filterID.'"]','categories');
-            $stauts.="\nfilterID:'".$filterID."'";
+            foreach ($filterIDs as $filterID) {
+                $query = $query->filterPropertiesFromArray('[identifier="'.$filterID.'"]', 'categories');
+                $stauts.="\nfilterID:'".$filterID."'";
+            }
+        }
+
+          $query = $query->get();
+
+          $ids = [];
+          foreach ($query as $course) {
+              $ids[] = $course->getIdentifier();
           }
-        }
+          $stauts.="\nEnd";
 
-        $query = $query->get();
-
-        $ids = [];
-        foreach ($query as $course) {
-          $ids[] = $course->getIdentifier();
-        }
-        $stauts.="\nEnd";
-
-        $data=array("data"=>$ids, "filter"=>$stauts);
-        return json_encode($data);
+          $data=array("data"=>$ids, "filter"=>$stauts);
+          return json_encode($data);
       }
 }
