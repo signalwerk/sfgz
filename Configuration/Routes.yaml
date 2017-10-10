@@ -1,0 +1,26 @@
+-
+ name: 'Import course'
+ uriPattern:    'signalwerk/course/import'
+ defaults:
+   '@package':    'signalwerk.sfgz'
+   '@controller': 'Course'
+   '@format': 'html'
+   '@action': 'import'
+-
+ name: 'enroll course'
+ uriPattern:    'signalwerk/course/enroll'
+ defaults:
+   '@package':    'signalwerk.sfgz'
+   '@controller': 'Course'
+   '@format': 'html'
+   '@action': 'enroll'
+
+-
+  name: 'course overview list'
+  # uriPattern: 'signalwerk/courseoverview/{action}'
+  uriPattern: 'signalwerk/courseoverview/{action}'
+  defaults:
+    '@package': 'signalwerk.sfgz'
+    '@controller': 'Courseoverview'
+    '@action': 'getAjaxData'
+    '@format': 'json'

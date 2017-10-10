@@ -1,8 +1,7 @@
 privilegeTargets:
   Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
-    'signalwerk.sfgz:Course':
-      matcher: 'method(signalwerk\sfgz\Controller\CourseController->(.*)Action())'
-
+    'signalwerk.sfgz:AllPublicActions':
+      matcher: 'method(signalwerk\sfgz\Controller\.*Controller->(.*)Action())'
 roles:
   'Neos.Neos:Editor':
     privileges:
@@ -12,5 +11,5 @@ roles:
   'Neos.Flow:Everybody':
     privileges:
       -
-        privilegeTarget: 'signalwerk.sfgz:Course'
+        privilegeTarget: 'signalwerk.sfgz:AllPublicActions'
         permission: GRANT
