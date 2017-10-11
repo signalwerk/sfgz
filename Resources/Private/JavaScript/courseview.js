@@ -37,6 +37,8 @@ $(function() {
           $(this).removeAttr('checked');
       });
 
+      $('.noResult').addClass('hidden');
+
       // Assign handlers immediately after making the request,
       // and remember the jqXHR object for this request
       $.ajax({
@@ -56,6 +58,11 @@ $(function() {
 
           // console.log( "success" );
           $('.courseview-listeitem--root').addClass('hidden');
+
+          if (!data.data.length) {
+            $('.noResult').removeClass('hidden');
+          }
+
           data.data.forEach(item => {
             // console.log( "show:", item);
             $('.courseview-listeitem--root[data-id="'+item+'"]').removeClass('hidden');
