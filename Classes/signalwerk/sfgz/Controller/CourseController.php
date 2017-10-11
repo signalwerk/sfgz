@@ -285,10 +285,6 @@ class CourseController extends ActionController
         fclose($fp);
     }
 
-
-
-
-
     /**
      * @var array
      */
