@@ -10,9 +10,9 @@ function pad(n, width, z) {
 
 
 
-        // add random class
-        var rng = Math.floor(Math.random() * 20) + 1 ;
-        $('body').addClass( 'background'+pad(rng,2));
+    // add random class
+    var rng = Math.floor(Math.random() * 20) + 1 ;
+    $('body').addClass( 'random' + pad(rng, 2));
 
 
     // foldout handling
