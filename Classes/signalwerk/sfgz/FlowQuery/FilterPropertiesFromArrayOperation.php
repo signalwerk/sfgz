@@ -48,13 +48,14 @@ class FilterPropertiesFromArrayOperation extends FilterOperation {
         foreach ($context as $element) {
             $elementsFromProperty = $element->getProperty($propertyName);
 
-            foreach ($elementsFromProperty as $propertyElement) {
-                if ($this->matchesFilterGroup($propertyElement, $parsedFilter)) {
-                    $filteredContext[] = $element;
-                    break;
-                }
+            if($elementsFromProperty) {
+              foreach ($elementsFromProperty as $propertyElement) {
+                  if ($this->matchesFilterGroup($propertyElement, $parsedFilter)) {
+                      $filteredContext[] = $element;
+                      break;
+                  }
+              }
             }
-
         }
         $flowQuery->setContext($filteredContext);
     }
