@@ -11,8 +11,8 @@ function pad(n, width, z) {
 
 
     // add random class
-    var rng = Math.floor(Math.random() * 20) + 1 ;
-    $('body').addClass( 'random' + pad(rng, 2));
+    var rng = Math.floor(Math.random() * 20) + 1;
+    $('body').addClass('random' + pad(rng, 2));
 
 
     // foldout handling
@@ -76,8 +76,8 @@ function createNewsGrid() {
   });
 
   $grid.imagesLoaded()
-  .progress(function(instance, image) {
-    $grid.masonry('layout');
-    $(image.img).closest('.news-item').addClass('news-item--image-loaded');
-  });
+    .progress(function(instance, image) {
+      $grid.masonry('layout');
+      $(image.img).closest('.news-item').addClass('news-item--image-loaded');
+    });
 }

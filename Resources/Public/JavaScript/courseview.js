@@ -62,7 +62,6 @@ $(function () {
       }
 
       data.data.forEach(function (item) {
-        // console.log( "show:", item);
         $('.courseview-listeitem--root[data-id="' + item + '"]').removeClass('hidden');
       });
     }).fail(function () {
