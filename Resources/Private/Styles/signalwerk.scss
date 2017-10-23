@@ -21,7 +21,11 @@
 @import './signalwerk/components/youtube';
 @import './signalwerk/components/contactItem';
 @import './signalwerk/components/course';
-@import './signalwerk/components/courseview';
 @import './signalwerk/components/vimeo';
 @import './signalwerk/components/background';
 @import './signalwerk/components/InPlaceGallery';
+
+@import './signalwerk/components/_filter';
+@import './signalwerk/components/courseview';
+@import './signalwerk/components/newsview';
+@import './signalwerk/components/contactview';

@@ -1,0 +1,28 @@
+root.ajax {
+    condition = ${!String.isBlank(request.arguments.nodeName)}
+    renderer = signalwerk.sfgz:AjaxView
+}
+
+root.@cache.entryIdentifier.nodeName = ${request.arguments.nodeName}
+
+
+prototype(signalwerk.sfgz:AjaxView) < prototype(Neos.Neos:Content) {
+    templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/AjaxView.html'
+
+    collection = Neos.Fusion:Collection {
+      #collection = ${q(site).find('#' + request.arguments.nodeName).children('[instanceof Neos.Neos:ContentCollection]')}
+      collection = ${q(site).find('#' + request.arguments.nodeName).children()}
+
+  		itemRenderer = signalwerk.sfgz:AjaxViewItem
+  		itemName = 'node'
+  		iterationName = 'nodeIteration'
+  	}
+}
+
+
+prototype(signalwerk.sfgz:AjaxViewItem) < prototype(Neos.Neos:ContentCollection) {
+	nodePath = '.'
+	attributes = Neos.Fusion:Attributes {
+		class = 'ajax'
+	}
+}

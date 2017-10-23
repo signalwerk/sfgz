@@ -113,3 +113,91 @@
           'formatlesspaste':
             'button': FALSE
             'formatlessPasteOption': TRUE
+    categories:
+      type: references
+      ui:
+        label: 'Kategorie'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+          editorOptions:
+            nodeTypes: ['signalwerk.sfgz:NewsCategory']
+
+
+
+'signalwerk.sfgz:NewsCategory':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'News Kategorie'
+    icon: 'icon-book'
+    inspector:
+      groups:
+        'attr':
+          label: 'Eigenschaften'
+  properties:
+    title:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Titel'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    type:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Type'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+    sort:
+      type: integer
+      defaultValue: 0
+      ui:
+        label: 'Sortierung'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
+
+
+'signalwerk.sfgz:NewsView':
+  superTypes:
+    'signalwerk.sfgz:Column': TRUE
+  ui:
+    label: 'News View'
+    position: 200
+    inspector:
+      groups:
+        'view':
+          label: 'Details'
+          position: 50
+  childNodes:
+    content:
+      type: 'Neos.Neos:ContentCollection'
+  properties:
+    # layout:
+    #   defaultValue: 'default'
+    #   ui:
+    #     reloadIfChanged: TRUE
+    #     inspector:
+    #       editorOptions:
+    #         values:
+    #           'default':
+    #             label: 'default'
+    view:
+      type: string
+      defaultValue: 'list'
+      ui:
+        label: 'View'
+        inspector:
+          group: 'view'
+          editor: Content/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            values:
+              'list':
+                label: 'Liste'
+              'filter':
+                label: 'Filter'
+        reloadIfChanged: TRUE

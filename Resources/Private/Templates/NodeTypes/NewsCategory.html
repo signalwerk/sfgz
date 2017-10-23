@@ -1,0 +1,7 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+{namespace ts=Neos\Fusion\ViewHelpers}
+<f:if condition="{node.context.workspace.name} != 'live'">
+  <div{attributes -> f:format.raw()}>
+    <h1>{node.properties.title}</h1>
+  </div>
+</f:if>

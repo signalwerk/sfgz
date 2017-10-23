@@ -1,29 +1,18 @@
-.courseview-filter {
+.contactview-filter {
 
   @include filterHeader();
 
   .category {
     @include container(12);
-    .angebot {
+    .organisations {
       @include span(first 6 of 12);
     }
-    .beruf {
-      @include span(last 6 of 12);
-    }
-  }
-
-  .starttime {
-    @include container(12);
-    .day {
-      @include span(first 6 of 12);
-    }
-    .month {
+    .functions {
       @include span(last 6 of 12);
     }
   }
 
   @include filterCategory();
   @include filterSubmit();
-
 
 }

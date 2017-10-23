@@ -385,7 +385,7 @@
           group: 'attr'
     sort:
       type: integer
-      defaultValue: ''
+      defaultValue: 0
       ui:
         label: 'Sortierung'
         reloadIfChanged: TRUE
@@ -419,7 +419,7 @@
             values:
               'list':
                 label: 'Liste'
-              'categories':
+              'filter':
                 label: 'Filter'
               'show':
                 label: 'Details'

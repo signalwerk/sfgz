@@ -1,0 +1,56 @@
+# Basic implementation of a flexible MultiColumn element, not exposed directly but inherited by all specific MultiColumn content elements
+prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
+	@cache {
+			mode = 'uncached'
+			context {
+					1 = 'node'
+					2 = 'documentNode'
+					3 = 'site'
+			}
+	}
+
+	events = ${q(site).find('[instanceof signalwerk.sfgz:NewsCategory][type="Event-Typ"]')}
+	days = ${q(site).find('[instanceof signalwerk.sfgz:NewsCategory][type="Wochentag"]')}
+
+  isAjax = ${!String.isBlank(request.arguments.cat)}
+
+
+  parentID = ${q(node).parents().parents().get(0)}
+
+	news = Neos.Fusion:Collection {
+
+		#collection = ${q(site).find('[instanceof signalwerk.sfgz:NewsItem]')}
+
+		collection = Neos.Fusion:Case {
+
+				ifTwoCat {
+						condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
+		        #renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+						renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]','categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories')}
+						#collection = ${q(site).find('[instanceof signalwerk.sfgz:NewsItem]')}
+						#renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+
+
+
+		    }
+				ifCat {
+						condition = ${!String.isBlank(request.arguments.cat)}
+		        #renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+						renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat +'"]','categories')}
+						#collection = ${q(site).find('[instanceof signalwerk.sfgz:NewsItem]')}
+						#renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+
+
+
+		    }
+		    else {
+		        condition = TRUE
+		        renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+		    }
+		}
+
+		itemRenderer = signalwerk.sfgz:NewsItem
+		itemName = 'node'
+		iterationName = 'nodeIteration'
+	}
+}

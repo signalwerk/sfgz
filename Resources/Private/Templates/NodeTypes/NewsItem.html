@@ -1,7 +1,6 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 <div {attributes -> f:format.raw()} >
 
-
   <f:if condition="{neos:rendering.live()} && {link}">
     <f:then>
       <a href="{link}">
@@ -18,30 +17,24 @@
 
 <f:section name="newsItemRender">
 
-  <div class="teaser-image {bgStyle}">
-    <f:if condition="{teaserImage}">
-        <f:then>
-            <neos.media:image
-              image="{teaserImage}"
-              alt="{teaserImage.alternativeText}"
-              title="{teaserImage.title}"
-              maximumWidth="700"
-            />
-        </f:then>
-        <f:else>
-        </f:else>
-    </f:if>
-  </div>
-
-  <neos:contentElement.editable class="news-item__date" property="date" tag="p" />
-  <neos:contentElement.editable class="news-item__title" property="title"/>
-  <neos:contentElement.editable class="news-item__text" property="text"/>
-
-    <f:if condition="{neos:rendering.live()}">
+    <div class="teaser-content">
+      <div class="teaser-image {bgStyle}">
         <f:if condition="{teaserImage}">
-          </a>
+                <neos.media:image
+                  image="{teaserImage}"
+                  alt="{teaserImage.alternativeText}"
+                  title="{teaserImage.title}"
+                  maximumWidth="700"
+                />
         </f:if>
-    </f:if>
+      </div>
+
+      <div class="teaser-text">
+        <neos:contentElement.editable class="news-item__date" property="date" tag="p" />
+        <neos:contentElement.editable class="news-item__title" property="title"/>
+        <neos:contentElement.editable class="news-item__text" property="text"/>
+      </div>
+    </div>
 
 
 </f:section>

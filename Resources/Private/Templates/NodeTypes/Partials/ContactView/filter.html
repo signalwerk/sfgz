@@ -1,0 +1,40 @@
+<script src="{f:uri.resource(path: 'JavaScript/filterview.js', package: 'signalwerk.sfgz')}"></script>
+
+<form class="filter-form" id="filter-form" method="post" action="">
+
+  <div class="category">
+
+    <div class="organisations">
+      <h3>Organisation</h3>
+      <div class="form-group clearfix">
+        <input class="filterCat" type="radio" id="organisationChoiceAll" name="organisation" value="*" checked>
+        <label for="organisationChoiceAll">Alle</label>
+        <f:for each="{organisations}" as="category" iteration="iterator">
+          <input type="radio" id="organisationChoice{iterator.index}" name="organisation" value="{category.identifier}">
+          <label for="organisationChoice{iterator.index}">{category.properties.title}</label>
+        </f:for>
+      </div>
+    </div>
+
+    <div class="functions">
+      <h3>Funktion</h3>
+      <div class="form-group clearfix">
+        <input class="filterCat" type="radio" id="functionChoiceAll" name="function" value="*" checked>
+        <label for="functionChoiceAll">Alle</label>
+        <f:for each="{functions}" as="category" iteration="iterator">
+          <input type="radio" id="functionChoice{iterator.index}" name="function" value="{category.identifier}">
+          <label for="functionChoice{iterator.index}">{category.properties.title}</label>
+        </f:for>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group clearfix">
+    <label for="filter-form-submit">&nbsp;</label>
+    <div class="input">
+      <button id="filter-form-submit" type="submit"><span class="txt">Suchen</span><span class="wait">warten...</span></button>
+    </div>
+  </div>
+  <br />
+  <br />
+</form>

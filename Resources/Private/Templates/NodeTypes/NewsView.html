@@ -1,0 +1,16 @@
+<div{attributes -> f:format.raw()}>
+
+<!-- {node.identifier} -->
+    <f:if condition="{view} == list">
+      <div class="newsview-list ajax-list" data-list="{parentID.identifier}">
+        {news -> f:format.raw()}
+      </div>
+    </f:if>
+
+    <f:if condition="{view} == filter">
+      <div class="newsview-filter">
+        <f:render partial="./NewsView/filter" arguments="{_all}"/>
+      </div>
+    </f:if>
+
+</div>
