@@ -1,5 +1,6 @@
 .signalwerk-sfgz-newsview,
 .signalwerk-sfgz-courseview,
+.signalwerk-sfgz-contactview,
 .signalwerk-sfgz-course,
 .signalwerk-sfgz-foldout,
 .signalwerk-sfgz-contactitem,
@@ -11,6 +12,14 @@
   padding-left: $spaceArroundContent;
   padding-right: $spaceArroundContent;
 }
+
+// no additional padding if it's ajax loaded
+.ajax.neos-contentcollection > .signalwerk-sfgz-newsview,
+.ajax.neos-contentcollection > .signalwerk-sfgz-courseview,
+.ajax.neos-contentcollection > .signalwerk-sfgz-contactview {
+  padding: 0;
+}
+
 
 .dl-gallery-gallery {
   padding: 0;
