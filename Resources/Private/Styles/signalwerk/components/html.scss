@@ -16,6 +16,27 @@ a {
 
   &:hover {
     color: $cLinkHover;
+
+    .random01 & { color: $cLinkHover01; }
+    .random02 & { color: $cLinkHover02; }
+    .random03 & { color: $cLinkHover03; }
+    .random04 & { color: $cLinkHover04; }
+    .random05 & { color: $cLinkHover05; }
+    .random06 & { color: $cLinkHover06; }
+    .random07 & { color: $cLinkHover07; }
+    .random08 & { color: $cLinkHover08; }
+    .random09 & { color: $cLinkHover09; }
+    .random10 & { color: $cLinkHover10; }
+    .random11 & { color: $cLinkHover11; }
+    .random12 & { color: $cLinkHover12; }
+    .random13 & { color: $cLinkHover13; }
+    .random14 & { color: $cLinkHover14; }
+    .random15 & { color: $cLinkHover15; }
+    .random16 & { color: $cLinkHover16; }
+    .random17 & { color: $cLinkHover17; }
+    .random18 & { color: $cLinkHover18; }
+    .random19 & { color: $cLinkHover19; }
+    .random20 & { color: $cLinkHover20; }
   }
 }
 
