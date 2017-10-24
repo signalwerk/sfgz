@@ -59,5 +59,4 @@ class FilterPropertiesFromArrayOperation extends FilterOperation {
         }
         $flowQuery->setContext($filteredContext);
     }
-
 }

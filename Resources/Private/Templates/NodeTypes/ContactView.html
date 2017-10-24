@@ -2,7 +2,16 @@
 <!-- {node.identifier} -->
     <f:if condition="{view} == list">
       <div class="contactview-list ajax-list" data-list="{parentID.identifier}">
-        {contacts -> f:format.raw()}
+
+        <f:for each="{filteredContacts}" as="item">
+          <f:if condition="{item}">
+             <f:render section="contactItemRender" arguments="{node: item}" />
+          </f:if>
+        </f:for>
+
+        <h3>Keine Treffer.</h3>
+
+
       </div>
     </f:if>
 
@@ -12,3 +21,23 @@
       </div>
     </f:if>
 </div>
+
+
+
+
+
+
+<f:section name="contactItemRender">
+    <div class="contact-item__wrapper">
+      <h3>{node.properties.firstname} {node.properties.familyname}<br>
+        <f:if condition="{function}">
+          {node.properties.function}<br>
+        </f:if>
+        <f:for each="{node.properties.categories}" as="category" iteration="itemIterator">
+          {category.properties.title}{f:if(condition: itemIterator.isLast, then: '', else: ', ')}
+        </f:for>
+      </h3>
+      <f:if condition="{node.properties.email}"><p class="compact"><a href="mailto:{node.properties.email}">{node.properties.email}</a></p></f:if>
+      <f:if condition="{node.properties.tel}"><p class="compact"><a href="tel:{node.properties.tel}" class="noUnderline">{node.properties.tel}</a></p></f:if>
+    </div>
+</f:section>

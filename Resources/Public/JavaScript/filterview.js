@@ -11,23 +11,20 @@ $(function () {
     // console.log('submitBtn', submitBtn);
     submitBtn.addClass('button-submitting');
 
-    $('radio').bind('click', function () {
-      $(this).removeAttr('checked');
-    });
+    // $('radio').bind('click', function() {
+    //     $(this).removeAttr('checked');
+    // });
 
     $('.noResult').addClass('hidden');
 
     var cat = [];
     $('.filterCat').each(function (index) {
-      var val = $('input[name=' + $(this).attr('name') + ']:checked').val();
+      var val = $(this).val();
+      // let val = $('input[name='+ $( this ).attr('name') + ']:checked').val();
       if (val !== '*') {
         cat.push(val);
       }
     });
-
-    console.log('--- CAT:', cat.join(','));
-
-    console.log('--- AJAX:', $('.ajax-list').data('list'));
 
     // Assign handlers immediately after making the request,
     // and remember the jqXHR object for this request
@@ -35,7 +32,8 @@ $(function () {
       url: '/',
       data: {
         nodeName: $('.ajax-list').data('list'),
-        cat: cat.join(',')
+        cat: cat.join(','),
+        filterTxt: $('input[name=text]').val() || '' // text
       }
     }).done(function (response) {
       // .unwrap()

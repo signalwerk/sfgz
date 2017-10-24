@@ -14,41 +14,28 @@ prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
 
   isAjax = ${!String.isBlank(request.arguments.cat)}
 
-
   parentID = ${q(node).parents().parents().get(0)}
 
+	@context.items = Neos.Fusion:Case {
+
+			ifTwoCat {
+					condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
+					renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]','categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories')}
+			}
+			ifCat {
+					condition = ${!String.isBlank(request.arguments.cat)}
+					renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat +'"]','categories')}
+			}
+			else {
+					condition = TRUE
+					renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+			}
+	}
+
+	itemsCount = ${items}
+
 	news = Neos.Fusion:Collection {
-
-		#collection = ${q(site).find('[instanceof signalwerk.sfgz:NewsItem]')}
-
-		collection = Neos.Fusion:Case {
-
-				ifTwoCat {
-						condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
-		        #renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
-						renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]','categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories')}
-						#collection = ${q(site).find('[instanceof signalwerk.sfgz:NewsItem]')}
-						#renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
-
-
-
-		    }
-				ifCat {
-						condition = ${!String.isBlank(request.arguments.cat)}
-		        #renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
-						renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat +'"]','categories')}
-						#collection = ${q(site).find('[instanceof signalwerk.sfgz:NewsItem]')}
-						#renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
-
-
-
-		    }
-		    else {
-		        condition = TRUE
-		        renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
-		    }
-		}
-
+		collection = ${items}
 		itemRenderer = signalwerk.sfgz:NewsItem
 		itemName = 'node'
 		iterationName = 'nodeIteration'

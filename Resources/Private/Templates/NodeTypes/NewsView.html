@@ -3,7 +3,14 @@
 <!-- {node.identifier} -->
     <f:if condition="{view} == list">
       <div class="newsview-list ajax-list" data-list="{parentID.identifier}">
-        {news -> f:format.raw()}
+        <f:if condition="{itemsCount -> f:count()}">
+          <f:then>
+            {news -> f:format.raw()}
+          </f:then>
+          <f:else>
+            <h3>Keine Treffer.</h3>
+          </f:else>
+        </f:if>
       </div>
     </f:if>
 

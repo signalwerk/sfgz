@@ -35,6 +35,10 @@
         inspector:
           group: 'attr'
 
+
+
+
+
 'signalwerk.sfgz:ContactItem':
   superTypes:
     'Neos.Neos:Content': TRUE

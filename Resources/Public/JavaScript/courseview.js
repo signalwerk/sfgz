@@ -46,9 +46,9 @@ $(function () {
       dataType: "json",
       url: '/signalwerk/courseoverview/getAjaxData',
       data: {
-        filterTxt: $('input[name=text]').val(), // month
-        filterID: [$('input[name=angebot]:checked').val(), // category
-        $('input[name=beruf]:checked').val(), // category
+        filterTxt: $('input[name=text]').val(), // text
+        filterID: [$('select[name=angebot]').val(), // category
+        $('select[name=beruf]').val(), // category
         $('select[name=day]').val(), // day
         $('select[name=month]').val()].join(',')
       }
