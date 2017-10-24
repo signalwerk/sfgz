@@ -4,28 +4,33 @@
 
   <div class="category">
 
+    <div class="text">
+      <h3>Freitext</h3>
+      <div class="form-group clearfix">
+        <div class="input">
+          <input class="filterText"  class="form-control" id="filter-form-text" type="text" name="text" value="" placeholder="Suche nach...">
+        </div>
+      </div>
+    </div>
+
     <div class="organisations">
       <h3>Organisation</h3>
-      <div class="form-group clearfix">
-        <input class="filterCat" type="radio" id="organisationChoiceAll" name="organisation" value="*" checked>
-        <label for="organisationChoiceAll">Alle</label>
-        <f:for each="{organisations}" as="category" iteration="iterator">
-          <input type="radio" id="organisationChoice{iterator.index}" name="organisation" value="{category.identifier}">
-          <label for="organisationChoice{iterator.index}">{category.properties.title}</label>
+      <select class="filterCat" name="organisation">
+        <option value="*">Alle</option>
+        <f:for each="{organisations}" as="category">
+          <option value="{category.identifier}">{category.properties.title}</option>
         </f:for>
-      </div>
+      </select>
     </div>
 
     <div class="functions">
       <h3>Funktion</h3>
-      <div class="form-group clearfix">
-        <input class="filterCat" type="radio" id="functionChoiceAll" name="function" value="*" checked>
-        <label for="functionChoiceAll">Alle</label>
-        <f:for each="{functions}" as="category" iteration="iterator">
-          <input type="radio" id="functionChoice{iterator.index}" name="function" value="{category.identifier}">
-          <label for="functionChoice{iterator.index}">{category.properties.title}</label>
+      <select class="filterCat" name="function">
+        <option value="*">Alle</option>
+        <f:for each="{functions}" as="category">
+          <option value="{category.identifier}">{category.properties.title}</option>
         </f:for>
-      </div>
+      </select>
     </div>
   </div>
 

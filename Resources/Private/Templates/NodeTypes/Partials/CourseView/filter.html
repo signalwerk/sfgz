@@ -13,49 +13,46 @@
 
     <div class="angebot">
       <h3>Angebotsbereiche</h3>
-      <div class="form-group clearfix">
-        <input type="radio" id="angebotChoiceAll" name="angebot" value="*" checked>
-        <label for="angebotChoiceAll">Alle</label>
-        <f:for each="{angebote}" as="category" iteration="iterator">
-          <input type="radio" id="angebotChoice{iterator.index}" name="angebot" value="{category.identifier}">
-          <label for="angebotChoice{iterator.index}">{category.properties.title}</label>
+      <select name="angebot">
+        <option value="*">Alle</option>
+        <f:for each="{angebote}" as="category">
+          <option value="{category.identifier}">{category.properties.title}</option>
         </f:for>
-      </div>
+      </select>
     </div>
     <div class="beruf">
       <h3>Berufe</h3>
-      <div class="form-group clearfix">
-        <input type="radio" id="berufChoiceAll" name="beruf" value="*" checked>
-        <label for="berufChoiceAll">Alle</label>
-        <f:for each="{berufe}" as="category" iteration="iterator">
-          <input type="radio" id="berufChoice{iterator.index}" name="beruf" value="{category.identifier}">
-          <label for="berufChoice{iterator.index}">{category.properties.title}</label>
+      <select name="beruf">
+        <option value="*">Alle</option>
+        <f:for each="{berufe}" as="category">
+          <option value="{category.identifier}">{category.properties.title}</option>
         </f:for>
-      </div>
+      </select>
     </div>
   </div>
 
 
 
-  <h3>Zeiten/Start</h3>
   <div class="form-group starttime clearfix">
 
     <div class="day">
+      <h3>Kurstag</h3>
       <select name="day">
-                <option value="*">Kurstag</option>
-                <f:for each="{days}" as="day">
-                  <option value="{day.identifier}">{day.properties.title}</option>
-                </f:for>
-              </select>
+        <option value="*">Alle</option>
+        <f:for each="{days}" as="day">
+          <option value="{day.identifier}">{day.properties.title}</option>
+        </f:for>
+      </select>
     </div>
 
     <div class="month">
+      <h3>Startmonat</h3>
       <select name="month">
-                <option value="*">Startmonat</option>
-                <f:for each="{months}" as="month">
-                  <option value="{month.identifier}">{month.properties.title}</option>
-                </f:for>
-              </select>
+        <option value="*">Alle</option>
+        <f:for each="{months}" as="month">
+          <option value="{month.identifier}">{month.properties.title}</option>
+        </f:for>
+      </select>
     </div>
   </div>
 

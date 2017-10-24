@@ -6,27 +6,24 @@
 
     <div class="events">
       <h3>Events</h3>
-      <div class="form-group clearfix">
-        <input class="filterCat" type="radio" id="eventChoiceAll" name="event" value="*" checked>
-        <label for="eventChoiceAll">Alle</label>
-        <f:for each="{events}" as="category" iteration="iterator">
-          <input type="radio" id="eventChoice{iterator.index}" name="event" value="{category.identifier}">
-          <label for="eventChoice{iterator.index}">{category.properties.title}</label>
+      <select class="filterCat" name="event">
+        <option value="*">Alle</option>
+        <f:for each="{events}" as="category">
+          <option value="{category.identifier}">{category.properties.title}</option>
         </f:for>
-      </div>
+      </select>
     </div>
 
     <div class="day">
       <h3>Wochentag</h3>
-      <div class="form-group clearfix">
-        <input class="filterCat" type="radio" id="dayChoiceAll" name="day" value="*" checked>
-        <label for="dayChoiceAll">Alle</label>
-        <f:for each="{days}" as="category" iteration="iterator">
-          <input type="radio" id="dayChoice{iterator.index}" name="day" value="{category.identifier}">
-          <label for="dayChoice{iterator.index}">{category.properties.title}</label>
+      <select class="filterCat" name="day">
+        <option value="*">Alle</option>
+        <f:for each="{days}" as="category">
+          <option value="{category.identifier}">{category.properties.title}</option>
         </f:for>
-      </div>
+      </select>
     </div>
+
   </div>
 
   <div class="form-group clearfix">

@@ -10,23 +10,20 @@ $(function() {
       submitBtn.addClass('button-submitting');
 
 
-      $('radio').bind('click', function() {
-          $(this).removeAttr('checked');
-      });
+      // $('radio').bind('click', function() {
+      //     $(this).removeAttr('checked');
+      // });
 
       $('.noResult').addClass('hidden');
 
       let cat = [];
       $('.filterCat').each(function( index ) {
-        let val = $('input[name='+ $( this ).attr('name') + ']:checked').val();
+        let val = $(this).val();
+        // let val = $('input[name='+ $( this ).attr('name') + ']:checked').val();
         if (val !== '*') {
           cat.push(val);
         }
       });
-
-      console.log('--- CAT:', cat.join(','))
-
-      console.log('--- AJAX:', $('.ajax-list').data('list'));
 
       // Assign handlers immediately after making the request,
       // and remember the jqXHR object for this request
@@ -35,6 +32,7 @@ $(function() {
         data: {
           nodeName: $('.ajax-list').data('list'),
           cat: cat.join(','),
+          filterTxt: $('input[name=text]').val() || '', // text
         },
       })
         .done(function( response ) {
