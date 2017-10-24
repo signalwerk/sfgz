@@ -63,6 +63,7 @@
       margin-bottom: 2rem;
     }
 
+
     @include mediaQuery($min, $tablet) {
       .content_main {
         @include span(first 9 of 12);
@@ -73,6 +74,11 @@
       }
     }
 
+    // for course
+    .wide & .content_main  {
+      @include span(12 of 12);
+    }
+      
     // for course
     .course & .content_main  {
       @include span(12 of 12);
@@ -92,6 +98,7 @@
       }
     }
 
+    .wide & .content_extra,
     .course & .content_extra {
       display: none;
     }
