@@ -319,6 +319,15 @@ class CourseController extends ActionController
         return $tagNodes;
     }
 
+    // remove text references with the link
+    protected function linkText(array $links, $text)
+    {
+      $newText = $text;
+      foreach ($links as $link) {
+        $newText = str_replace('$'.$link['id'].'$', '<a href="'.$link['url'].'">'.$link['titel'].'</a>', $newText);
+      }
+      return $newText;
+    }
 
     protected function importCourse()
     {
@@ -346,6 +355,15 @@ class CourseController extends ActionController
       // foreach([$xml->kurse->kurs[0]] as $kurs)
       foreach ($xml->kurse->kurs as $kurs) {
           foreach ($kurs->versionen->version as $version) {
+
+              $links = [];
+
+              if (!empty($version->links->link)) {
+                foreach ($version->links->link as $link) {
+                  $links[] = ['id' => strval($link->nummer), 'titel' => $link->titel, 'url' => $link->url];
+                }
+              }
+
               if (!empty($version->durchfuehrungen->durchfuehrung)) {
                   $courseNodeTemplate = new NodeTemplate();
                   $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:Course'));
@@ -354,16 +372,16 @@ class CourseController extends ActionController
                   $courseNodeTemplate->setProperty('title', $version->titel);
                   $courseNodeTemplate->setProperty('subtitle', $version->{'sub-titel'});
 
-                  $courseNodeTemplate->setProperty('ziel', $version->ziel);
-                  $courseNodeTemplate->setProperty('inhalt', $version->inhalt);
-                  $courseNodeTemplate->setProperty('stufe', $kurs->{'stufe-wb'});
-                  $courseNodeTemplate->setProperty('zielgruppe', $version->zielgruppe);
-                  $courseNodeTemplate->setProperty('voraussetzungen', $version->voraussetzungen);
-                  $courseNodeTemplate->setProperty('methode', $version->methode);
-                  $courseNodeTemplate->setProperty('kursmittel', $version->kursunterlagen);
-                  $courseNodeTemplate->setProperty('hinweis', $version->hinweis);
-                  $courseNodeTemplate->setProperty('weitereinfos', $version->{'weitere-infos'});
-                  $courseNodeTemplate->setProperty('zertifikat', $version->zertifikat);
+                  $courseNodeTemplate->setProperty('ziel', $this->linkText($links, $version->ziel));
+                  $courseNodeTemplate->setProperty('inhalt', $this->linkText($links, $version->inhalt));
+                  $courseNodeTemplate->setProperty('stufe', $this->linkText($links, $kurs->{'stufe-wb'}));
+                  $courseNodeTemplate->setProperty('zielgruppe', $this->linkText($links, $version->zielgruppe));
+                  $courseNodeTemplate->setProperty('voraussetzungen', $this->linkText($links, $version->voraussetzungen));
+                  $courseNodeTemplate->setProperty('methode', $this->linkText($links, $version->methode));
+                  $courseNodeTemplate->setProperty('kursmittel', $this->linkText($links, $version->kursunterlagen));
+                  $courseNodeTemplate->setProperty('hinweis', $this->linkText($links, $version->hinweis));
+                  $courseNodeTemplate->setProperty('weitereinfos', $this->linkText($links, $version->{'weitere-infos'}));
+                  $courseNodeTemplate->setProperty('zertifikat', $this->linkText($links, $version->zertifikat));
                   $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
 
 
@@ -372,16 +390,16 @@ class CourseController extends ActionController
                   strip_tags(
                     $version->titel.' '.
                     $version->{'sub-titel'}.' '.
-                    $version->ziel.' '.
-                    $version->inhalt.' '.
-                    $kurs->{'stufe-wb'}.' '.
-                    $version->zielgruppe.' '.
-                    $version->voraussetzungen.' '.
-                    $version->methode.' '.
-                    $version->kursunterlagen.' '.
-                    $version->hinweis.' '.
-                    $version->{'weitere-infos'}.' '.
-                    $version->zertifikat.' '.
+                    $this->linkText($links, $version->ziel).' '.
+                    $this->linkText($links, $version->inhalt).' '.
+                    $this->linkText($links, $kurs->{'stufe-wb'}).' '.
+                    $this->linkText($links, $version->zielgruppe).' '.
+                    $this->linkText($links, $version->voraussetzungen).' '.
+                    $this->linkText($links, $version->methode).' '.
+                    $this->linkText($links, $version->kursunterlagen).' '.
+                    $this->linkText($links, $version->hinweis).' '.
+                    $this->linkText($links, $version->{'weitere-infos'}).' '.
+                    $this->linkText($links, $version->zertifikat).' '.
                     $version->{'meta-keywords'}
                   )
                 )
