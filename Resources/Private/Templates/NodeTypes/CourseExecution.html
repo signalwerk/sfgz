@@ -1,111 +1,125 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 
-<f:if condition="{node.properties.status} == 3">
-  <f:then>
-    <div class="course-complete">
-  </f:then>
-  <f:else>
-    <div class="course-not-complete">
-  </f:else>
-</f:if>
-<p><strong>Kurs: </strong>{node.properties.code}</p>
+<f:if condition="{node.properties.status} != 4">
 
-<f:if condition="{node.properties.start}">
-  <p><strong>Startdatum: </strong><f:format.date format="d.m.Y">{node.properties.start}</f:format.date></p>
-</f:if>
-
-<f:if condition="{node.properties.anmerkung}">
-  <f:then>
-    <p><strong>Daten: </strong>{node.properties.anmerkung}</p>
-  </f:then>
-  <f:else>
-    <f:if condition="{node.properties.end}">
-      <p><strong>Enddatum: </strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></p>
-    </f:if>
-    <f:if condition="{node.properties.start}">
-      <p><strong>Tag: </strong>
-        <f:switch expression="{f:format.date(date: node.properties.start, format: 'N')}">
-          <f:case value="0">Sonntag</f:case>
-          <f:case value="1">Montag</f:case>
-          <f:case value="2">Dienstag</f:case>
-          <f:case value="3">Mittwoch</f:case>
-          <f:case value="4">Donnerstag</f:case>
-          <f:case value="5">Freitag</f:case>
-          <f:case value="6">Samstag</f:case>
-        </f:switch>
-      </p>
-    </f:if>
-    <f:if condition="{node.properties.von} && {node.properties.bis}">
-      <p><strong>Zeit: </strong>{node.properties.von}–{node.properties.bis}</p>
-    </f:if>
-    <f:if condition="{node.properties.veranstaltungen} && {node.properties.lektionen}">
-      <p><strong>Kursumfang: </strong>{node.properties.veranstaltungen} × {lektionenProVeranstaltung} Lektionen</p>
-    </f:if>
-
-  </f:else>
-</f:if>
-
-
-<f:if condition="{node.properties.teacher}">
-  <p><strong>Kursleitung: </strong>{node.properties.teacher}</p>
-</f:if>
-
-<f:if condition="{node.properties.priceZH} || {node.properties.priceNotZH} || {node.properties.priceSfGZ}">
-  <p><strong>Kosten: </strong><br>
-    <f:if condition="{node.properties.priceZH}">
-      <strong>Teiln. Kanton ZH: </strong>{node.properties.priceZH}.– <br>
-    </f:if>
-    <f:if condition="{node.properties.priceNotZH}">
-      <strong>Teiln. ausserkantonal: </strong>{node.properties.priceNotZH}.– <br>
-    </f:if>
-    <f:if condition="{node.properties.priceSfGZ}">
-      <strong>Lernende SfGZ: </strong>{node.properties.priceSfGZ}.–<br>
-    </f:if>
-
-    <f:if condition="{viscom -> f:count()}">
-      <strong>Viscom: </strong>Verbandsmitglieder bzw. Arbeitnehmer/-innen von Viscom-Mitgliederfirmen des Teilverbands Ost (AI, AR, GL, GR, SG, SH, TG, ZH, Fürstentum Liechtenstein) können nach Kursende bei Viscom gegen Vorweisen der Kursbestätigung der Berufsschule für Gestaltung Zürich eine Rückerstattung von 20% auf die Kurskosten einfordern.
-    </f:if>
-
-  </p>
-</f:if>
-
-
-<f:if condition="{node.properties.maxTeilnehmer}">
-  <p><strong>Max. Teilnehmer: </strong>{node.properties.maxTeilnehmer}</p>
-</f:if>
-
-<f:if condition="{node.properties.anmeldeschluss}">
-  <p><strong>Anmeldeschluss: </strong><f:format.date format="d.m.Y">{node.properties.anmeldeschluss}</f:format.date></p>
-</f:if>
-
-<f:if condition="{node.properties.ort}">
- <p>
-   <strong>Ort:</strong>
-   <f:if condition="{node.properties.ort} == Lp">
-     Ausstellungsstrasse 104, CH-8005 Zürich
-   </f:if>
-   <f:if condition="{node.properties.ort} == Jo">
-     Josefstrasse 53-59, CH-8005 Zürich
-   </f:if>
-   <f:if condition="{node.properties.ort} == Extern">
-     Extern
-   </f:if>
- </p>
-</f:if>
-</div>
-
-<f:if condition="{node.properties.status} == 0 || {node.properties.status} == 1 || {node.properties.status} == 2">
-  <f:if condition="{node.properties.priceZH} || {node.properties.priceNotZH} || {node.properties.priceSfGZ}">
-    <a class="noLine" href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
-      <h3 class="button">Anmelden</h3>
-    </a>
-    <br>
+  <f:if condition="{node.properties.status} == 3">
+    <f:then>
+      <div class="course-complete">
+        <f:render section="executionRender" arguments="{_all}" />
+      </div>
+    </f:then>
+    <f:else>
+      <div class="course-not-complete">
+        <f:render section="executionRender" arguments="{_all}" />
+      </div>
+    </f:else>
   </f:if>
 </f:if>
 
-<f:if condition="{node.properties.status} == 3">
-  <h3>Ausgebucht</h3>
-  <br>
-</f:if>
 
-<hr>
+
+
+<f:section name="executionRender">
+
+  <p><strong>Kurs: </strong>{node.properties.code}</p>
+
+  <f:if condition="{node.properties.start}">
+    <p><strong>Startdatum: </strong><f:format.date format="d.m.Y">{node.properties.start}</f:format.date></p>
+  </f:if>
+
+  <f:if condition="{node.properties.anmerkung}">
+    <f:then>
+      <p><strong>Daten: </strong>{node.properties.anmerkung}</p>
+    </f:then>
+    <f:else>
+      <f:if condition="{node.properties.end}">
+        <p><strong>Enddatum: </strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></p>
+      </f:if>
+      <f:if condition="{node.properties.start}">
+        <p><strong>Tag: </strong>
+          <f:switch expression="{f:format.date(date: node.properties.start, format: 'N')}">
+            <f:case value="0">Sonntag</f:case>
+            <f:case value="1">Montag</f:case>
+            <f:case value="2">Dienstag</f:case>
+            <f:case value="3">Mittwoch</f:case>
+            <f:case value="4">Donnerstag</f:case>
+            <f:case value="5">Freitag</f:case>
+            <f:case value="6">Samstag</f:case>
+          </f:switch>
+        </p>
+      </f:if>
+      <f:if condition="{node.properties.von} && {node.properties.bis}">
+        <p><strong>Zeit: </strong>{node.properties.von}–{node.properties.bis}</p>
+      </f:if>
+      <f:if condition="{node.properties.veranstaltungen} && {node.properties.lektionen}">
+        <p><strong>Kursumfang: </strong>{node.properties.veranstaltungen} × {lektionenProVeranstaltung} Lektionen</p>
+      </f:if>
+
+    </f:else>
+  </f:if>
+
+
+  <f:if condition="{node.properties.teacher}">
+    <p><strong>Kursleitung: </strong>{node.properties.teacher}</p>
+  </f:if>
+
+  <f:if condition="{node.properties.priceZH} || {node.properties.priceNotZH} || {node.properties.priceSfGZ}">
+    <p><strong>Kosten: </strong><br>
+      <f:if condition="{node.properties.priceZH}">
+        <strong>Teiln. Kanton ZH: </strong>{node.properties.priceZH}.– <br>
+      </f:if>
+      <f:if condition="{node.properties.priceNotZH}">
+        <strong>Teiln. ausserkantonal: </strong>{node.properties.priceNotZH}.– <br>
+      </f:if>
+      <f:if condition="{node.properties.priceSfGZ}">
+        <strong>Lernende SfGZ: </strong>{node.properties.priceSfGZ}.–<br>
+      </f:if>
+
+      <f:if condition="{viscom -> f:count()}">
+        <strong>Viscom: </strong>Verbandsmitglieder bzw. Arbeitnehmer/-innen von Viscom-Mitgliederfirmen des Teilverbands Ost (AI, AR, GL, GR, SG, SH, TG, ZH, Fürstentum Liechtenstein) können nach Kursende bei Viscom gegen Vorweisen der Kursbestätigung der Berufsschule für Gestaltung Zürich eine Rückerstattung von 20% auf die Kurskosten einfordern.
+      </f:if>
+
+    </p>
+  </f:if>
+
+
+  <f:if condition="{node.properties.maxTeilnehmer}">
+    <p><strong>Max. Teilnehmer: </strong>{node.properties.maxTeilnehmer}</p>
+  </f:if>
+
+  <f:if condition="{node.properties.anmeldeschluss}">
+    <p><strong>Anmeldeschluss: </strong><f:format.date format="d.m.Y">{node.properties.anmeldeschluss}</f:format.date></p>
+  </f:if>
+
+  <f:if condition="{node.properties.ort}">
+   <p>
+     <strong>Ort:</strong>
+     <f:if condition="{node.properties.ort} == Lp">
+       Ausstellungsstrasse 104, CH-8005 Zürich
+     </f:if>
+     <f:if condition="{node.properties.ort} == Jo">
+       Josefstrasse 53-59, CH-8005 Zürich
+     </f:if>
+     <f:if condition="{node.properties.ort} == Extern">
+       Extern
+     </f:if>
+   </p>
+  </f:if>
+
+  <f:if condition="{node.properties.status} == 0 || {node.properties.status} == 1 || {node.properties.status} == 2">
+    <f:if condition="{node.properties.priceZH} || {node.properties.priceNotZH} || {node.properties.priceSfGZ}">
+      <a class="noLine" href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
+        <h3 class="button">Anmelden</h3>
+      </a>
+      <br>
+    </f:if>
+  </f:if>
+
+  <f:if condition="{node.properties.status} == 3">
+    <h3>Ausgebucht</h3>
+    <br>
+  </f:if>
+
+  <hr>
+
+</f:section>
