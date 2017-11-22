@@ -356,6 +356,9 @@
 
 
 
+
+
+
 'signalwerk.sfgz:CourseCategory':
   superTypes:
     'Neos.Neos:Content': TRUE

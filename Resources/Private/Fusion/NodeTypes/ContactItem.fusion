@@ -1,30 +1,3 @@
-// prototype(signalwerk.sfgz:ContactItem) < prototype(Neos.Fusion:Template) {
 prototype(signalwerk.sfgz:ContactItem) < prototype(Neos.Neos:Content) {
-
   templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/ContactItem.html'
-
-  // tttest = ${this.categories}
-//   /// .filterPropertiesFromArray('[identifier="'+node.identifier+'"]','categories')}
-
-
-//  classNames = Neos.Fusion:Collection {
-//    // collection = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory]')}
-//    collection = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory]').filterPropertiesFromArray('[identifier="'+node.identifier+'"]','categories')}
-//    itemName = 'node'
-//    itemRenderer = ${node.properties.title + ', '}
-//    /////itemRenderer = signalwerk.sfgz:ContentB
-//  }
-
 }
-
-
-// prototype(signalwerk.sfgz:ContentB) < prototype(Neos.Fusion:Template) {
-//   templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/CategoryItem.html'
-//   contentNode = ${node}
-//
-// 	subNode = TYPO3.TypoScript:Collection {
-//     collection = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][identifier="'+node.identifier+'"]')}
-// 		itemName = 'childNodeB'
-// 		itemRenderer = ${childNodeB.properties.title + ' '}
-// 	}
-// }
