@@ -5,10 +5,14 @@
       <f:if condition="{function}">
         {function}<br>
       </f:if>
-      <f:for each="{categories}" as="category" iteration="itemIterator">
-        {category.properties.title}{f:if(condition: itemIterator.isLast, then: '', else: ', ')}
-      </f:for>
     </h3>
+    <f:if condition="{neos:rendering.inEditMode()}">
+      <p>Kategorien:
+        <f:for each="{categories}" as="category" iteration="itemIterator">
+          {category.properties.title}{f:if(condition: itemIterator.isLast, then: '', else: ', ')}
+        </f:for>
+      </p>
+    </f:if>
     <f:if condition="{email}"><p class="compact"><a href="mailto:{email}">{email}</a></p></f:if>
     <f:if condition="{tel}"><p class="compact"><a href="tel:{tel}" class="noUnderline">{tel}</a></p></f:if>
   </div>
