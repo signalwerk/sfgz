@@ -221,32 +221,32 @@ class CourseController extends ActionController
       /* append it to the document created */
       $xmlRoot = $domtree->appendChild($xmlRoot);
 
-        $anmeldung = $domtree->createElement("Anmeldung");
-        $anmeldung = $xmlRoot->appendChild($anmeldung);
+      $anmeldung = $domtree->createElement("Anmeldung");
+      $anmeldung = $xmlRoot->appendChild($anmeldung);
 
       /* save all the fields */
       $anmeldung->appendChild($domtree->createElement('KursID', $data->ecoAngebotId));
-        $anmeldung->appendChild($domtree->createElement('KlassenID', $data->ecoFachId));
-        $anmeldung->appendChild($domtree->createElement('Anrede', $data->anrede));
-        $anmeldung->appendChild($domtree->createElement('Name', $data->Name));
-        $anmeldung->appendChild($domtree->createElement('Vorname', $data->Vorname));
-        $anmeldung->appendChild($domtree->createElement('Strasse', $data->Strasse." ".$data->StrasseNr));
-        $anmeldung->appendChild($domtree->createElement('StrName', $data->Strasse));
-        $anmeldung->appendChild($domtree->createElement('StrNr', $data->StrasseNr));
-        $anmeldung->appendChild($domtree->createElement('PLZ', $data->Postleitzahl));
-        $anmeldung->appendChild($domtree->createElement('Ort', $data->Ort));
-        $anmeldung->appendChild($domtree->createElement('TelefonP', $data->TelP));
-        $anmeldung->appendChild($domtree->createElement('TelefonG', $data->TelG));
-        $anmeldung->appendChild($domtree->createElement('Mobile', $data->TelM));
-        $anmeldung->appendChild($domtree->createElement('Email', $data->{'E-Mail'}));
-        $anmeldung->appendChild($domtree->createElement('Geburtsdatum', $data->Geburtsdatum));
-        $anmeldung->appendChild($domtree->createElement('AgName1', $data->bill_company));
-        $anmeldung->appendChild($domtree->createElement('AgName2', $data->bill_anrede." ".$data->bill_Vorname." ".$data->bill_Name));
-        $anmeldung->appendChild($domtree->createElement('AgStrasse', $data->bill_Strasse." ".$data->bill_StrasseNr));
-        $anmeldung->appendChild($domtree->createElement('AgStrName', $data->bill_Strasse));
-        $anmeldung->appendChild($domtree->createElement('AgStrNr', $data->bill_StrasseNr));
-        $anmeldung->appendChild($domtree->createElement('AgPLZ', $data->bill_Postleitzahl));
-        $anmeldung->appendChild($domtree->createElement('AgOrt', $data->bill_Ort));
+      $anmeldung->appendChild($domtree->createElement('KlassenID', $data->ecoFachId));
+      $anmeldung->appendChild($domtree->createElement('Anrede', $data->anrede));
+      $anmeldung->appendChild($domtree->createElement('Name', $data->Name));
+      $anmeldung->appendChild($domtree->createElement('Vorname', $data->Vorname));
+      $anmeldung->appendChild($domtree->createElement('Strasse', $data->Strasse." ".$data->StrasseNr));
+      $anmeldung->appendChild($domtree->createElement('StrName', $data->Strasse));
+      $anmeldung->appendChild($domtree->createElement('StrNr', $data->StrasseNr));
+      $anmeldung->appendChild($domtree->createElement('PLZ', $data->Postleitzahl));
+      $anmeldung->appendChild($domtree->createElement('Ort', $data->Ort));
+      $anmeldung->appendChild($domtree->createElement('TelefonP', $data->TelP));
+      $anmeldung->appendChild($domtree->createElement('TelefonG', $data->TelG));
+      $anmeldung->appendChild($domtree->createElement('Mobile', $data->TelM));
+      $anmeldung->appendChild($domtree->createElement('Email', $data->{'E-Mail'}));
+      $anmeldung->appendChild($domtree->createElement('Geburtsdatum', $data->Geburtsdatum));
+      $anmeldung->appendChild($domtree->createElement('AgName1', $data->bill_company));
+      $anmeldung->appendChild($domtree->createElement('AgName2', $data->bill_anrede." ".$data->bill_Vorname." ".$data->bill_Name));
+      $anmeldung->appendChild($domtree->createElement('AgStrasse', $data->bill_Strasse." ".$data->bill_StrasseNr));
+      $anmeldung->appendChild($domtree->createElement('AgStrName', $data->bill_Strasse));
+      $anmeldung->appendChild($domtree->createElement('AgStrNr', $data->bill_StrasseNr));
+      $anmeldung->appendChild($domtree->createElement('AgPLZ', $data->bill_Postleitzahl));
+      $anmeldung->appendChild($domtree->createElement('AgOrt', $data->bill_Ort));
       // $anmeldung->appendChild($domtree->createElement('Bemerkung', $data->Comment ));
 
       // save local copy
@@ -413,6 +413,16 @@ class CourseController extends ActionController
 
               $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
 
+
+              if (!empty($version->{'publikation-start'})) {
+                $courseNode->setHiddenBeforeDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $version->{'publikation-start'}.' 00:00:00'));
+              }
+
+              if (!empty($version->{'publikation-ende'})) {
+                $courseNode->setHiddenAfterDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $version->{'publikation-ende'}.' 00:00:00'));
+              }
+
+
                   $tagsMonth = [];
                   $tagsDay = [];
 
@@ -484,9 +494,16 @@ class CourseController extends ActionController
                       }
 
                       $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
-                // $durchfuehrungNode = $courseNode->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
-                $this->emitCourseCreated($durchfuehrungNode, $courseNode);
+                      if (!empty($durchfuehrung->{'publikation-start'})) {
+                        $durchfuehrungNode->setHiddenBeforeDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $durchfuehrung->{'publikation-start'}.' 00:00:00'));
+                      }
+                      if (!empty($durchfuehrung->{'publikation-ende'})) {
+                        $durchfuehrungNode->setHiddenAfterDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $durchfuehrung->{'publikation-ende'}.' 00:00:00'));
+                      }
+
+
+                      $this->emitCourseCreated($durchfuehrungNode, $courseNode);
                   } // end $durchfuehrung
 
 
