@@ -315,27 +315,27 @@
     #       'formatlesspaste':
     #         'button': FALSE
     #         'formatlessPasteOption': TRUE
-    'startdate':
-      type: DateTime
-      ui:
-        label: 'Start'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'course'
-    'enddate':
-      type: DateTime
-      ui:
-        label: 'End'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'course'
-    'duration':
-      type: string
-      ui:
-        label: 'Umfang'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'course'
+    # 'startdate':
+    #   type: DateTime
+    #   ui:
+    #     label: 'Start'
+    #     reloadIfChanged: TRUE
+    #     inspector:
+    #       group: 'course'
+    # 'enddate':
+    #   type: DateTime
+    #   ui:
+    #     label: 'End'
+    #     reloadIfChanged: TRUE
+    #     inspector:
+    #       group: 'course'
+    # 'duration':
+    #   type: string
+    #   ui:
+    #     label: 'Umfang'
+    #     reloadIfChanged: TRUE
+    #     inspector:
+    #       group: 'course'
     'instructor':
       type: string
       ui:
