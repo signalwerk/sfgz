@@ -2,20 +2,15 @@
 @import './newsview-filter';
 
 .signalwerk-sfgz-newsview {
-
   .teaser-content {
     @include container(12);
 
     .teaser-image {
       @include span(last 4 of 12);
-
     }
 
     .teaser-text {
       @include span(first 8 of 12);
-
     }
   }
-
-
 }

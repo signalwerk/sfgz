@@ -13,16 +13,16 @@ prototype(signalwerk.sfgz:AjaxView) < prototype(Neos.Neos:Content) {
       #collection = ${q(site).find('#' + request.arguments.nodeName).children('[instanceof Neos.Neos:ContentCollection]')}
       collection = ${q(site).find('#' + request.arguments.nodeName).children()}
 
-  		itemRenderer = signalwerk.sfgz:AjaxViewItem
-  		itemName = 'node'
-  		iterationName = 'nodeIteration'
-  	}
+      itemRenderer = signalwerk.sfgz:AjaxViewItem
+      itemName = 'node'
+      iterationName = 'nodeIteration'
+    }
 }
 
 
 prototype(signalwerk.sfgz:AjaxViewItem) < prototype(Neos.Neos:ContentCollection) {
-	nodePath = '.'
-	attributes = Neos.Fusion:Attributes {
-		class = 'ajax'
-	}
+  nodePath = '.'
+  attributes = Neos.Fusion:Attributes {
+    class = 'ajax'
+  }
 }

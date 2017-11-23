@@ -1,25 +1,23 @@
-.signalwerk-sfgz-newsview,
-.signalwerk-sfgz-courseview,
-.signalwerk-sfgz-contactview,
-.signalwerk-sfgz-course,
-.signalwerk-sfgz-foldout,
-.signalwerk-sfgz-contactitem,
+.neos-nodetypes-headline,
 .neos-nodetypes-menu,
 .neos-nodetypes-text,
-.neos-nodetypes-headline {
+.signalwerk-sfgz-contactitem,
+.signalwerk-sfgz-contactview,
+.signalwerk-sfgz-course,
+.signalwerk-sfgz-courseview,
+.signalwerk-sfgz-foldout,
+.signalwerk-sfgz-newsview {
   background-color: white;
   overflow: auto;
   padding-left: $spaceArroundContent;
   padding-right: $spaceArroundContent;
 }
-
 // no additional padding if it's ajax loaded
-.ajax.neos-contentcollection > .signalwerk-sfgz-newsview,
+.ajax.neos-contentcollection > .signalwerk-sfgz-contactview,
 .ajax.neos-contentcollection > .signalwerk-sfgz-courseview,
-.ajax.neos-contentcollection > .signalwerk-sfgz-contactview {
+.ajax.neos-contentcollection > .signalwerk-sfgz-newsview {
   padding: 0;
 }
-
 
 .dl-gallery-gallery {
   padding: 0;
@@ -33,9 +31,7 @@
 }
 
 .neos-nodetypes-image {
-
   // padding: $spaceArroundContent;
-
   figure {
     margin: 0;
   }

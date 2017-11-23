@@ -3,6 +3,6 @@
 #
 
 prototype(Neos.Demo:Upload) < prototype(Neos.Fusion:Content) {
-		attributes.class = 'Upload-items'
-		templatePath = 'resource://Neos.Demo/Private/Templates/NodeTypes/Upload.html'
+    attributes.class = 'Upload-items'
+    templatePath = 'resource://Neos.Demo/Private/Templates/NodeTypes/Upload.html'
 }

@@ -1,23 +1,23 @@
 # Basic implementation of a flexible MultiColumn element, not exposed directly but inherited by all specific MultiColumn content elements
 prototype(signalwerk.sfgz:MultiColumn) < prototype(Neos.Neos:Content) {
-	templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/MultiColumn.html'
-	layout = ${q(node).property('layout')}
-	attributes.class = ${'container columns-' + q(node).property('layout')}
-	columns = Neos.Fusion:Collection {
-		@context.columnLayout = ${q(node).property('layout')}
-		collection = ${q(node).children('[instanceof Neos.Neos:ContentCollection]')}
-		itemRenderer = signalwerk.sfgz:MultiColumnItem
-		itemName = 'node'
-		iterationName = 'columnIteration'
-	}
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/MultiColumn.html'
+  layout = ${q(node).property('layout')}
+  attributes.class = ${'container columns-' + q(node).property('layout')}
+  columns = Neos.Fusion:Collection {
+    @context.columnLayout = ${q(node).property('layout')}
+    collection = ${q(node).children('[instanceof Neos.Neos:ContentCollection]')}
+    itemRenderer = signalwerk.sfgz:MultiColumnItem
+    itemName = 'node'
+    iterationName = 'columnIteration'
+  }
 }
 
 # Abstract render definition for a single content column in a multi column element
 prototype(signalwerk.sfgz:MultiColumnItem) < prototype(Neos.Neos:ContentCollection) {
-	nodePath = '.'
-	attributes = Neos.Fusion:Attributes {
-		class = 'column'
-	}
+  nodePath = '.'
+  attributes = Neos.Fusion:Attributes {
+    class = 'column'
+  }
 }
 
 # # Two Column TS Object

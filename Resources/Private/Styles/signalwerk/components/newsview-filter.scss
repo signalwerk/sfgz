@@ -1,18 +1,17 @@
 .newsview-filter {
-
   @include filterHeader();
 
   .category {
     @include container(12);
+
     .events {
       @include span(first 6 of 12);
     }
+
     .day {
       @include span(last 6 of 12);
     }
   }
-
   @include filterCategory();
   @include filterSubmit();
-
 }

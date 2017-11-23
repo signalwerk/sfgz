@@ -1,16 +1,16 @@
 # Basic implementation of a flexible MultiColumn element, not exposed directly but inherited by all specific MultiColumn content elements
 prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
-	@cache {
-			mode = 'uncached'
-			context {
-					1 = 'node'
-					2 = 'documentNode'
-					3 = 'site'
-			}
-	}
+  @cache {
+      mode = 'uncached'
+      context {
+          1 = 'node'
+          2 = 'documentNode'
+          3 = 'site'
+      }
+  }
 
-	organisations = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Organisation"]')}
-	functions = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Funktion"]')}
+  organisations = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Organisation"]')}
+  functions = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Funktion"]')}
 
   isAjax = ${!String.isBlank(request.arguments.cat)}
 
@@ -53,36 +53,36 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
 
 
 
-	filteredContacts = Neos.Fusion:RawCollection {
+  filteredContacts = Neos.Fusion:RawCollection {
 
 
-					collection = Neos.Fusion:Case {
+          collection = Neos.Fusion:Case {
 
-							ifTwoCat {
-									condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
-									renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]', 'categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories').get()}
-							}
-							ifCat {
-									condition = ${!String.isBlank(request.arguments.cat)}
-									renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat + '"]', 'categories').get()}
-							}
-							else {
-									condition = TRUE
-									renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').get()}
-							}
-					}
+              ifTwoCat {
+                  condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]', 'categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories').get()}
+              }
+              ifCat {
+                  condition = ${!String.isBlank(request.arguments.cat)}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat + '"]', 'categories').get()}
+              }
+              else {
+                  condition = TRUE
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').get()}
+              }
+          }
 
-					itemRenderer = Neos.Fusion:Case {
-							if {
-									condition = ${!String.isBlank(request.arguments.filterTxt)}
-									renderer = ${String.indexOf(String.toLowerCase(q(item).property('firstname') + ' ' + q(item).property('familyname')), String.toLowerCase( request.arguments.filterTxt )) != -1 ? item : null }
-							}
-							else {
-									condition = TRUE
-									renderer = ${item}
-							}
-					}
-	}
+          itemRenderer = Neos.Fusion:Case {
+              if {
+                  condition = ${!String.isBlank(request.arguments.filterTxt)}
+                  renderer = ${String.indexOf(String.toLowerCase(q(item).property('firstname') + ' ' + q(item).property('familyname')), String.toLowerCase( request.arguments.filterTxt )) != -1 ? item : null }
+              }
+              else {
+                  condition = TRUE
+                  renderer = ${item}
+              }
+          }
+  }
 
-	itemsCount = ${filteredContacts}
+  itemsCount = ${filteredContacts}
 }

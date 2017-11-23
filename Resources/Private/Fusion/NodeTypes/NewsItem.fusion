@@ -1,29 +1,29 @@
 prototype(signalwerk.sfgz:NewsItem) < prototype(Neos.Neos:Content) {
-	attributes.class = 'news-item'
-	link.@process.convertUris = Neos.Neos:ConvertUris {
-		forceConversion = true
-	}
+  attributes.class = 'news-item'
+  link.@process.convertUris = Neos.Neos:ConvertUris {
+    forceConversion = true
+  }
 
-	bgStyle = ${Array.random([
-	  'background01',
-	  'background02',
-	  'background03',
-	  'background04',
-	  'background05',
-	  'background06',
-	  'background07',
-	  'background08',
-	  'background09',
-	  'background10',
-	  'background11',
-	  'background12',
-	  'background13',
-	  'background14',
-	  'background15',
-	  'background16',
-	  'background17',
-	  'background18',
-	  'background19',
-	  'background20'
-	])
+  bgStyle = ${Array.random([
+    'background01',
+    'background02',
+    'background03',
+    'background04',
+    'background05',
+    'background06',
+    'background07',
+    'background08',
+    'background09',
+    'background10',
+    'background11',
+    'background12',
+    'background13',
+    'background14',
+    'background15',
+    'background16',
+    'background17',
+    'background18',
+    'background19',
+    'background20'
+  ])
 }

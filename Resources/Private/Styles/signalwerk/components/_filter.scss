@@ -9,58 +9,52 @@
 }
 
 @mixin filterCategory() {
+  .category {
+    @include font-bold(sansblack);
 
-    .category {
+    label {
+      display: block;
+      position: relative;
+      padding-left: 0.8em;
+      cursor: pointer;
 
-      @include font-bold(sansblack);
-
-      label {
-        display: block;
-        position: relative;
-        padding-left: 0.8em;
-        cursor: pointer;
-
-        &:before {
-          content: "– ";
-          position: absolute;
-          left: 0;
-          top: 0;
-        }
-      }
-
-      input[type="radio"] {
-        display: none;
+      &:before {
+        content: "– ";
+        position: absolute;
+        left: 0;
+        top: 0;
       }
     }
 
-    input[type="radio"]:checked+label {
-      color: $cLinkHover;
+    input[type="radio"] {
+      display: none;
     }
+  }
+
+  input[type="radio"]:checked+label {
+    color: $cLinkHover;
+  }
 }
-
-
 @mixin filterSubmit() {
+  #filter-form-submit {
+    .txt {
+      display: block;
+    }
 
-    #filter-form-submit {
+    .wait {
+      display: none;
+    }
+
+    &.button-submitting {
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.6;
       .txt {
-        display: block;
+        display: none;
       }
       .wait {
-        display: none;
-      }
-      &.button-submitting {
-        cursor: not-allowed;
-        pointer-events: none;
-        opacity: 0.6;
-        /*Button disabled - CSS color class*/
-       //  color: #c0c0c0;
-       //  background-color: #ffffff;
-       .txt {
-         display: none;
-       }
-       .wait {
-         display: block;
-       }
+        display: block;
       }
     }
+  }
 }

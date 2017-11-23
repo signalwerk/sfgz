@@ -11,15 +11,15 @@ page = Page {
   head {
 
     signalwerk = Neos.Fusion:Template {
-			templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
-			sectionName = 'signalwerk'
-		}
+      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
+      sectionName = 'signalwerk'
+    }
 
     /**
-		favicon = Neos.Fusion:Template {
+    favicon = Neos.Fusion:Template {
       templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
-			sectionName = 'favicon'
-		}
+      sectionName = 'favicon'
+    }
     */
 
     stylesheets.site = Neos.Fusion:Template {
@@ -120,9 +120,9 @@ page = Page {
         nodePath = 'main'
       }
 
-			extra = ContentCollection {
-				nodePath = 'extra'
-			}
+      extra = ContentCollection {
+        nodePath = 'extra'
+      }
     }
 
 
@@ -134,52 +134,52 @@ page = Page {
 
 
     javascripts.mainProduction = Neos.Fusion:Tag {
-  		tagName = 'script'
-  		attributes {
-  			src = Neos.Fusion:ResourceUri {
-  				package = 'signalwerk.sfgz'
+      tagName = 'script'
+      attributes {
+        src = Neos.Fusion:ResourceUri {
+          package = 'signalwerk.sfgz'
           path = 'JavaScript/signalwerk.min.js'
-  			}
-  			async = null
-  		}
-  		@if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') == 'Production'}
-  	}
+        }
+        async = null
+      }
+      @if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') == 'Production'}
+    }
 
     javascripts.mainDevelopment = Neos.Fusion:Tag {
-  		tagName = 'script'
-  		attributes {
-  			src = Neos.Fusion:ResourceUri {
-  				package = 'signalwerk.sfgz'
+      tagName = 'script'
+      attributes {
+        src = Neos.Fusion:ResourceUri {
+          package = 'signalwerk.sfgz'
           path = 'JavaScript/signalwerk.js'
-  			}
-  			async = null
-  		}
-  		@if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') != 'Production'}
-  	}
+        }
+        async = null
+      }
+      @if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') != 'Production'}
+    }
 
     javascripts.backend = Neos.Fusion:Tag {
-  		tagName = 'script'
-  		attributes {
-  			src = Neos.Fusion:ResourceUri {
-  				package = 'signalwerk.sfgz'
-  				path = 'JavaScript/signalwerkBackend.js'
-  			}
-  			async = null
-  		}
-  		@if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name != 'live'}
-  	}
+      tagName = 'script'
+      attributes {
+        src = Neos.Fusion:ResourceUri {
+          package = 'signalwerk.sfgz'
+          path = 'JavaScript/signalwerkBackend.js'
+        }
+        async = null
+      }
+      @if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name != 'live'}
+    }
 
     javascripts.frontend = Neos.Fusion:Tag {
-  		tagName = 'script'
-  		attributes {
-  			src = Neos.Fusion:ResourceUri {
-  				package = 'signalwerk.sfgz'
-  				path = 'JavaScript/signalwerkFrontend.js'
-  			}
-  			async = null
-  		}
-  		@if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name == 'live'}
-  	}
+      tagName = 'script'
+      attributes {
+        src = Neos.Fusion:ResourceUri {
+          package = 'signalwerk.sfgz'
+          path = 'JavaScript/signalwerkFrontend.js'
+        }
+        async = null
+      }
+      @if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name == 'live'}
+    }
 
 
   }
@@ -190,7 +190,7 @@ default < page
 // Special page layout with less navigation components
 wide < page
 wide {
-	bodyTag.attributes.class = 'wide'
+  bodyTag.attributes.class = 'wide'
 }
 
 
@@ -217,7 +217,7 @@ root.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
 root.@cache.entryIdentifier.categoryId = ${request.arguments.cat}
 
 // prototype(Neos.Neos:Page) {
-// 	@cache.entryIdentifier.courseId = ${request.arguments.kurs}
+//   @cache.entryIdentifier.courseId = ${request.arguments.kurs}
 // }
 
 prototype(Neos.Neos:PrimaryContent).default {
