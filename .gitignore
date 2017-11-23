@@ -26,3 +26,5 @@ pushSitePackageToBetaServer\.sh
 /Resources/Private/Content/Resources
 /___OLD
 .php_cs.cache
+/Resources/Public/Styles/signalwerk.css
+/Resources/Public/Styles/signalwerk.min.css
