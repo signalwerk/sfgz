@@ -5,7 +5,7 @@ $mobile-nav--logo-width: 85px;
 $font-size--large: 22px;
 
 $color--light: $cWhite;
-$color--gray: rgba(0,0,0,.8);
+$color--gray: rgb(172,172,172);
 $color--dark: black;
 
 .navigation {
@@ -19,9 +19,16 @@ $color--dark: black;
     left: 0;
     height: $mobile-nav--height;
     width: 100%;
+    max-width: 100vw;
+
     z-index: 5;
-    background-color: $color--dark;
-    color: $color--light;
+    background-color: white;
+
+    border-bottom-color: $color--gray;
+    border-bottom-style: solid;
+    border-bottom-width: 0.15rem;
+
+    color: $color--dark;
     transition: transform 200ms ease;
 
     @include mediaQuery($max, $tablet) {
@@ -33,7 +40,7 @@ $color--dark: black;
     width: $mobile-nav--logo-width;
     height: $mobile-nav--height;
     padding: $mobile-nav--padding;
-    background-color: $color--dark;
+    // background-color: white;
     padding-right: 0;
     box-sizing: border-box;
   }
@@ -49,6 +56,17 @@ $color--dark: black;
     margin-bottom: 13px;
   }
 
+  &__toggle-btn {
+    &:hover { background-color: inherit;}
+    &:focus { border: none; outline: none; }
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+  }
+
   &__toggle {
     box-sizing: border-box;
     display: block;
@@ -56,12 +74,34 @@ $color--dark: black;
     height: 100%;
     padding-left: 0;
     padding-top: 5px;
-    color: $color--light;
-    background-color: $color--dark;
     font-size: $font-size--large;
-    border: none;
-    -webkit-appearance: none;
     @include font-bold(sansblack);
+    color: inherit;
+    background-color: $color--light;
+
+    padding-right: 60px;
+
+    // background-position: top right 10px;
+    // background-size: 60px 60px;
+    // repeat:no-repeat;
+
+    position: relative;
+    &:after {
+      content: " ";
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      width: 25px;
+      height: 25px;
+      // background-attachment: fixed;
+      background-repeat: no-repeat;
+      // background-position:50% 160%;
+      background-size: 100%;
+
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="rgb(0, 0, 0)"><rect y="0" width="100%" height="20%" rx="5%" ry="5%" /><rect y="40%" width="100%" height="20%" rx="5%" ry="5%" /><rect y="80%" width="100%" height="20%" rx="5%" ry="5%" /></svg>');
+      // background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="rgb(0, 0, 0)"><rect y="0" width="100px" height="20px" rx="5px" ry="5px" /><rect y="40px" width="100px" height="20px" rx="5px" ry="5px" /><rect y="80px" width="100px" height="20px" rx="5px" ry="5px" /></svg>');
+
+    }
   }
 
   &__content {
@@ -73,7 +113,11 @@ $color--dark: black;
     z-index: -1;
 
     padding-left: $mobile-nav--logo-width;
-    background-color: black;
+    background-color: white;
+
+    border-bottom-color: $color--gray;
+    border-bottom-style: solid;
+    border-bottom-width: 0.15rem;
 
 
     transform: translateY(-100%);
@@ -90,14 +134,14 @@ $color--dark: black;
     @include font-bold(sansblack);
     ul { padding-left: 0; }
     li { list-style: none; }
-    a { color: $cWhite; }
+    a { color: inherit; }
 
   }
   &2--mobile {
     > nav {
       padding: 1rem 0 0.75rem $mobile-nav--logo-width;
     }
-    background-color: $cGrey--dark;
+    background-color: white;
     font-size: 16px;
     line-height: 1.25;
 
@@ -110,7 +154,7 @@ $color--dark: black;
       display: block;
     }
 
-    a { color: $cWhite; }
+    a { color: inherit; }
 
     .normal > ul {
       overflow: hidden;

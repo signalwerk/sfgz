@@ -52,10 +52,6 @@
     img.header-logo-desktop {
       display: inline;
     }
-
-    img.header-logo-mobile {
-      display: none;
-    }
   }
 
   @include mediaQuery ($max, $tablet) {
@@ -106,7 +102,7 @@
         }
         &.normal > a {
           @include mediaQuery ($max, $tablet) {
-            color:  $cWhite;
+            color:  black;
           }
         }
 
