@@ -1,3 +1,12 @@
 prototype(signalwerk.sfgz:ContactItem) < prototype(Neos.Neos:Content) {
   templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/ContactItem.html'
+
+  @cache {
+			mode = 'uncached'
+			context {
+					1 = 'node'
+					2 = 'documentNode'
+					3 = 'site'
+			}
+	}
 }
