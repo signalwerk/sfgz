@@ -91,6 +91,7 @@ class CourseoverviewController extends ActionController
             }
         }
 
+          $query = $query->sort('sort', 'ASC');
           $query = $query->get();
 
           $ids = [];

@@ -24,14 +24,14 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
       #     }
       # }
 
-      collection = ${q(site).find('[instanceof signalwerk.sfgz:Course]')}
+      collection = ${q(site).find('[instanceof signalwerk.sfgz:Course]').sort('sort', 'ASC')}
 
       itemName = 'course'
       itemRenderer = Neos.Fusion:Template {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseViewListItem.html'
         course = ${course}
         executions = Neos.Fusion:Collection {
-          collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]')}
+          collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]').sort('start', 'ASC')}
           itemName = 'courseExecution'
 
           itemRenderer = Neos.Fusion:Template {
@@ -51,7 +51,7 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Course.html'
         node = ${course}
         executions = Neos.Fusion:Collection {
-          collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]')}
+          collection = ${q(course).find('[instanceof signalwerk.sfgz:CourseExecution]').sort('start', 'ASC')}
           itemName = 'courseExecution'
 
           itemRenderer = Neos.Fusion:Template {

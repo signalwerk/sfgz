@@ -383,6 +383,7 @@ class CourseController extends ActionController
                   $courseNodeTemplate->setProperty('weitereinfos', $this->linkText($links, $version->{'weitere-infos'}));
                   $courseNodeTemplate->setProperty('zertifikat', $this->linkText($links, $version->zertifikat));
                   $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
+                  $courseNodeTemplate->setProperty('sort', sprintf('%09d', $kurs->reihenfolge).'___'.$version->titel);
 
 
                   $courseNodeTemplate->setProperty('fulltext',

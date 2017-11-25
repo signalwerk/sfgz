@@ -9,6 +9,14 @@
         'attr':
           label: 'Eigenschaften'
   properties:
+    sort:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Sortierung'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
     code:
       type: string
       defaultValue: ''
