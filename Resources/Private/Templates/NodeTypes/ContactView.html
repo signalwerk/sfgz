@@ -27,7 +27,7 @@
 <f:section name="contactItemRender">
     <div class="contact-item__wrapper">
       <h3>{node.properties.firstname} {node.properties.familyname}<br>
-        <f:if condition="{function}">
+        <f:if condition="{node.properties.function}">
           {node.properties.function}<br>
         </f:if>
       </h3>
