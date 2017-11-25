@@ -263,15 +263,9 @@
             </f:if>
 
             <p><strong>Kosten: </strong><br>
-              <f:if condition="{currentExecution.properties.priceZH}">
-                <strong>Teiln. Kanton ZH: </strong>{currentExecution.properties.priceZH}.– <br>
-              </f:if>
-              <f:if condition="{currentExecution.properties.priceNotZH}">
-                <strong>Teiln. ausserkantonal: </strong>{currentExecution.properties.priceNotZH}.– <br>
-              </f:if>
-              <f:if condition="{currentExecution.properties.priceSfGZ}">
-                <strong>Lernende SfGZ: </strong>{currentExecution.properties.priceSfGZ}.–<br>
-              </f:if>
+              <strong>Teiln. Kanton ZH: </strong>{currentExecution.properties.priceZH}.– <br>
+              <strong>Teiln. ausserkantonal: </strong>{currentExecution.properties.priceNotZH}.– <br>
+              <strong>Lernende SfGZ: </strong>{currentExecution.properties.priceSfGZ}.–<br>
             </p>
       </div>
     </div>

@@ -63,26 +63,15 @@
     <p><strong>Kursleitung: </strong>{node.properties.teacher}</p>
   </f:if>
 
-  <f:if condition="{node.properties.priceZH} || {node.properties.priceNotZH} || {node.properties.priceSfGZ}">
-    <p><strong>Kosten: </strong><br>
-      <f:if condition="{node.properties.priceZH}">
-        <strong>Teiln. Kanton ZH: </strong>{node.properties.priceZH}.– <br>
-      </f:if>
-      <f:if condition="{node.properties.priceNotZH}">
-        <strong>Teiln. ausserkantonal: </strong>{node.properties.priceNotZH}.– <br>
-      </f:if>
-      <f:if condition="{node.properties.priceSfGZ}">
-        <strong>Lernende SfGZ: </strong>{node.properties.priceSfGZ}.–<br>
-      </f:if>
+  <p><strong>Kosten: </strong><br>
+      <strong>Teiln. Kanton ZH: </strong>{node.properties.priceZH}.– <br>
+      <strong>Teiln. ausserkantonal: </strong>{node.properties.priceNotZH}.– <br>
+      <strong>Lernende SfGZ: </strong>{node.properties.priceSfGZ}.–<br>
 
-      <f:if condition="{viscom -> f:count()}">
-        <strong>Viscom: </strong><a href="./viscom-rueckerstattung.html">Infos</a>
-
-      </f:if>
-
-    </p>
-  </f:if>
-
+    <f:if condition="{viscom -> f:count()}">
+      <strong>Viscom-Rückerstattung: </strong><a href="./viscom-rueckerstattung.html">Infos</a>
+    </f:if>
+  </p>
 
   <f:if condition="{node.properties.maxTeilnehmer}">
     <p><strong>Max. Teilnehmer: </strong>{node.properties.maxTeilnehmer}</p>
@@ -108,12 +97,10 @@
   </f:if>
 
   <f:if condition="{node.properties.status} == 0 || {node.properties.status} == 1 || {node.properties.status} == 2">
-    <f:if condition="{node.properties.priceZH} || {node.properties.priceNotZH} || {node.properties.priceSfGZ}">
-      <a class="noLine" href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
-        <h3 class="button">Anmelden</h3>
-      </a>
-      <br>
-    </f:if>
+    <a class="noLine" href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
+      <h3 class="button">Anmelden</h3>
+    </a>
+    <br>
   </f:if>
 
   <f:if condition="{node.properties.status} == 3">
