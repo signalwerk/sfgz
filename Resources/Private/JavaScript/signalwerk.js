@@ -15,6 +15,25 @@ $.fn.serializeObject = function() {
   return o;
 };
 
+
+jQuery.validator.addMethod("chDate",
+
+  function validateDate(value, element) {
+      var matches = /^(\d{2})[.](\d{2})[.](\d{4})$/.exec(value.trim());
+      if (matches == null) return false;
+      var d = matches[1];
+      var m = matches[2] - 1;
+      var y = matches[3] ;
+      var composedDate = new Date(y, m, d);
+
+      return composedDate.getDate() == d &&
+             composedDate.getMonth() == m &&
+             composedDate.getFullYear() == y;
+  }
+);
+
+
+
 // Wait for the DOM to be ready
 $(function() {
 
@@ -76,7 +95,10 @@ $(function() {
         // by the built-in "email" rule
         email: true
       },
-      '--contact-form[Geburtsdatum]': "required",
+      '--contact-form[Geburtsdatum]': {
+        required: true,
+        chDate: true
+      },
       '--contact-form[Berufstatigkeit]': "required",
 
       '--contact-form[bill_Strasse]': {
@@ -120,7 +142,7 @@ $(function() {
       '--contact-form[Postleitzahl]': "Bitte ausfüllen.",
       '--contact-form[Ort]': "Bitte ausfüllen.",
       '--contact-form[E-Mail]': "Bitte ausfüllen.",
-      '--contact-form[Geburtsdatum]': "Bitte ausfüllen.",
+      '--contact-form[Geburtsdatum]': "Bitte ausfüllen (TT.MM.JJJJ).",
       '--contact-form[Berufstatigkeit]': "Bitte ausfüllen.",
       '--contact-form[bill_Strasse]': "Bitte ausfüllen.",
       '--contact-form[bill_Postleitzahl]': "Bitte ausfüllen.",
