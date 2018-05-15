@@ -416,11 +416,13 @@ class CourseController extends ActionController
 
 
               if (!empty($version->{'publikation-start'})) {
-                $courseNode->setHiddenBeforeDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $version->{'publikation-start'}.' 00:00:00'));
+                $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-start'}.' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                $courseNode->setHiddenBeforeDateTime($date);
               }
 
               if (!empty($version->{'publikation-ende'})) {
-                $courseNode->setHiddenAfterDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $version->{'publikation-ende'}.' 00:00:00'));
+                $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-ende'}.' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                $courseNode->setHiddenAfterDateTime($date);
               }
 
 
@@ -497,10 +499,12 @@ class CourseController extends ActionController
                       $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
                       if (!empty($durchfuehrung->{'publikation-start'})) {
-                        $durchfuehrungNode->setHiddenBeforeDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $durchfuehrung->{'publikation-start'}.' 00:00:00'));
+                        $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-start'}.' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                        $durchfuehrungNode->setHiddenBeforeDateTime($date);
                       }
                       if (!empty($durchfuehrung->{'publikation-ende'})) {
-                        $durchfuehrungNode->setHiddenAfterDateTime(\DateTime::createFromFormat('Y-m-d H:i:s', $durchfuehrung->{'publikation-ende'}.' 00:00:00'));
+                        $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-ende'}.' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                        $durchfuehrungNode->setHiddenAfterDateTime($date);
                       }
 
 
