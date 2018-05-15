@@ -19,7 +19,7 @@ $.fn.serializeObject = function() {
 jQuery.validator.addMethod("chDate",
 
   function validateDate(value, element) {
-      var matches = /^(\d{2})[.](\d{2})[.](\d{4})$/.exec(value.trim());
+      var matches = /^(\d{1,2})[.](\d{1,2})[.](\d{4})$/.exec(value.trim());
       if (matches == null) return false;
       var d = matches[1];
       var m = matches[2] - 1;
