@@ -130,12 +130,16 @@
   <script>
     var gaProperty = 'UA-18405471-38';
     var disableStr = 'ga-disable-' + gaProperty;
-    if (document.cookie.indexOf(disableStr + '=true') > -1) {
+    if (document.cookie.indexOf('ga-disable-global=true') > -1) {
       window[disableStr] = true;
     }
-    function gaOptout() {
-      document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+    function gaOptOut() {
+      document.cookie = 'ga-disable-global=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
       window[disableStr] = true;
+    }
+    function gaOptIn() {
+      document.cookie = 'ga-disable-global=false; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+      window[disableStr] = false;
     }
   </script>
   <script>
