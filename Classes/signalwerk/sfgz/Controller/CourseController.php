@@ -273,7 +273,7 @@ class CourseController extends ActionController
         set_time_limit(0); // unlimited max execution time
 
         $ci = curl_init();
-        $url = "http://intern.sfgz.ch/wbkurscms/getxml.aspx"; // Source file
+        $url = "https://daten.sfgz.ch/?type=90"; // Source file
       $fp = fopen($this->dataPath().'getxml.xml', "w"); // Destination location
       curl_setopt_array($ci, array(
           CURLOPT_URL => $url,
@@ -320,13 +320,9 @@ class CourseController extends ActionController
     }
 
     // remove text references with the link
-    protected function linkText(array $links, $text)
+    protected function linkText($text)
     {
-        $newText = $text;
-        foreach ($links as $link) {
-            $newText = str_replace('$'.$link['id'].'$', '<a href="'.$link['url'].'">'.$link['titel'].'</a>', $newText);
-        }
-        return $newText;
+        return str_replace('#REP_URL#', './detail.html?kurs=', $text);
     }
 
     protected function importCourse()
@@ -355,88 +351,90 @@ class CourseController extends ActionController
         // foreach([$xml->kurse->kurs[0]] as $kurs)
         foreach ($xml->kurse->kurs as $kurs) {
             foreach ($kurs->versionen->version as $version) {
-                $links = [];
 
-                if (!empty($version->links->link)) {
-                    foreach ($version->links->link as $link) {
-                        $links[] = ['id' => strval($link->nummer), 'titel' => $link->titel, 'url' => $link->url];
-                    }
+//              $links = [];
+//
+//              if (!empty($version->links->link)) {
+//                foreach ($version->links->link as $link) {
+//                  $links[] = ['id' => strval($link->nummer), 'titel' => $link->titel, 'url' => $link->url];
+//                }
+//              }
+
+                $courseNodeTemplate = new NodeTemplate();
+                $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:Course'));
+
+                $courseNodeTemplate->setProperty('coursid', $kurs->{'kurs-code'});
+                $courseNodeTemplate->setProperty('title', $version->titel);
+                $courseNodeTemplate->setProperty('subtitle', $version->{'sub-titel'});
+
+                $courseNodeTemplate->setProperty('ziel', $this->linkText($version->ziel));
+                $courseNodeTemplate->setProperty('inhalt', $this->linkText($version->inhalt));
+                $courseNodeTemplate->setProperty('stufe', $this->linkText($kurs->{'stufe-wb'}));
+                $courseNodeTemplate->setProperty('zielgruppe', $this->linkText($version->zielgruppe));
+                $courseNodeTemplate->setProperty('voraussetzungen', $this->linkText($version->voraussetzungen));
+                $courseNodeTemplate->setProperty('methode', $this->linkText($version->methode));
+                $courseNodeTemplate->setProperty('kursmittel', $this->linkText($version->kursunterlagen));
+                $courseNodeTemplate->setProperty('hinweis', $this->linkText($version->hinweis));
+                $courseNodeTemplate->setProperty('weitereinfos', $this->linkText($version->{'weitere-infos'}));
+                $courseNodeTemplate->setProperty('zertifikat', $this->linkText($version->zertifikat));
+                $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
+                $courseNodeTemplate->setProperty('sort', sprintf('%09d', $kurs->reihenfolge).'___'.$version->titel);
+
+
+                $courseNodeTemplate->setProperty(
+                      'fulltext',
+                      strtolower(
+                        strip_tags(
+                          $version->titel.' '.
+                          $version->{'sub-titel'}.' '.
+                          $this->linkText($version->ziel).' '.
+                          $this->linkText($version->inhalt).' '.
+                          $this->linkText($kurs->{'stufe-wb'}).' '.
+                          $this->linkText($version->zielgruppe).' '.
+                          $this->linkText($version->voraussetzungen).' '.
+                          $this->linkText($version->methode).' '.
+                          $this->linkText($version->kursunterlagen).' '.
+                          $this->linkText($version->hinweis).' '.
+                          $this->linkText($version->{'weitere-infos'}).' '.
+                          $this->linkText($version->zertifikat).' '.
+                          $version->{'meta-keywords'}
+                        )
+                      )
+                   );
+
+
+                // $this->emitCourseCreated($courseNode);
+
+
+
+
+                $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
+
+
+                if (!empty($version->{'publikation-start'})) {
+                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-start'}.' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                    $courseNode->setHiddenBeforeDateTime($date);
                 }
 
+                if (!empty($version->{'publikation-ende'})) {
+                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-ende'}.' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                    $courseNode->setHiddenAfterDateTime($date);
+                }
+
+
+                $tagsMonth = [];
+                $tagsDay = [];
+
                 if (!empty($version->durchfuehrungen->durchfuehrung)) {
-                    $courseNodeTemplate = new NodeTemplate();
-                    $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:Course'));
-
-                    $courseNodeTemplate->setProperty('coursid', $kurs->{'kurs-code'});
-                    $courseNodeTemplate->setProperty('title', $version->titel);
-                    $courseNodeTemplate->setProperty('subtitle', $version->{'sub-titel'});
-
-                    $courseNodeTemplate->setProperty('ziel', $this->linkText($links, $version->ziel));
-                    $courseNodeTemplate->setProperty('inhalt', $this->linkText($links, $version->inhalt));
-                    $courseNodeTemplate->setProperty('stufe', $this->linkText($links, $kurs->{'stufe-wb'}));
-                    $courseNodeTemplate->setProperty('zielgruppe', $this->linkText($links, $version->zielgruppe));
-                    $courseNodeTemplate->setProperty('voraussetzungen', $this->linkText($links, $version->voraussetzungen));
-                    $courseNodeTemplate->setProperty('methode', $this->linkText($links, $version->methode));
-                    $courseNodeTemplate->setProperty('kursmittel', $this->linkText($links, $version->kursunterlagen));
-                    $courseNodeTemplate->setProperty('hinweis', $this->linkText($links, $version->hinweis));
-                    $courseNodeTemplate->setProperty('weitereinfos', $this->linkText($links, $version->{'weitere-infos'}));
-                    $courseNodeTemplate->setProperty('zertifikat', $this->linkText($links, $version->zertifikat));
-                    $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
-                    $courseNodeTemplate->setProperty('sort', sprintf('%09d', $kurs->reihenfolge).'___'.$version->titel);
-
-
-                    $courseNodeTemplate->setProperty(
-                      'fulltext',
-                strtolower(
-                  strip_tags(
-                    $version->titel.' '.
-                    $version->{'sub-titel'}.' '.
-                    $this->linkText($links, $version->ziel).' '.
-                    $this->linkText($links, $version->inhalt).' '.
-                    $this->linkText($links, $kurs->{'stufe-wb'}).' '.
-                    $this->linkText($links, $version->zielgruppe).' '.
-                    $this->linkText($links, $version->voraussetzungen).' '.
-                    $this->linkText($links, $version->methode).' '.
-                    $this->linkText($links, $version->kursunterlagen).' '.
-                    $this->linkText($links, $version->hinweis).' '.
-                    $this->linkText($links, $version->{'weitere-infos'}).' '.
-                    $this->linkText($links, $version->zertifikat).' '.
-                    $version->{'meta-keywords'}
-                  )
-                )
-             );
-
-
-                    // $this->emitCourseCreated($courseNode);
-
-
-
-
-                    $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
-
-
-                    if (!empty($version->{'publikation-start'})) {
-                        $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-start'}.' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
-                        $courseNode->setHiddenBeforeDateTime($date);
-                    }
-
-                    if (!empty($version->{'publikation-ende'})) {
-                        $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-ende'}.' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
-                        $courseNode->setHiddenAfterDateTime($date);
-                    }
-
-
-                    $tagsMonth = [];
-                    $tagsDay = [];
-
                     foreach ($version->durchfuehrungen->durchfuehrung as $durchfuehrung) {
                         $durchfuehrungNodeTemplate = new NodeTemplate();
                         $durchfuehrungNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseExecution'));
 
                         $durchfuehrungNodeTemplate->setProperty('code', $durchfuehrung->code);
 
-
                         $durchfuehrungNodeTemplate->setProperty('start', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->start));
+                        $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->ende));
+
 
                         // only if anmerkung is empty the course is always on the same weekday
                         if (empty($durchfuehrung->anmerkung) && !empty($durchfuehrung->start)) {
@@ -469,11 +467,13 @@ class CourseController extends ActionController
                             $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n')-1];
                         }
 
-                        $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->ende));
 
 
                         // add Unicode Zero Width Space (U+200B) after slash
-                        $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
+                        // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
+                        $durchfuehrungNodeTemplate->setProperty('anmerkung', $this->linkText($durchfuehrung->anmerkung));
+
+                        $durchfuehrungNodeTemplate->setProperty('terminausblenden', $durchfuehrung->{'termin-ausblenden'});
 
                         $durchfuehrungNodeTemplate->setProperty('priceZH', $durchfuehrung->kosten);
                         $durchfuehrungNodeTemplate->setProperty('priceNotZH', $durchfuehrung->{'kosten-extern'});
@@ -488,13 +488,13 @@ class CourseController extends ActionController
                         $durchfuehrungNodeTemplate->setProperty('status', $durchfuehrung->status);
                         $durchfuehrungNodeTemplate->setProperty('lektionen', (int)$durchfuehrung->lektionen);
 
-                        if (!empty($durchfuehrung->termine->termin)) {
-                            $durchfuehrungNodeTemplate->setProperty('ort', $durchfuehrung->termine->termin[0]->ort);
-                            $durchfuehrungNodeTemplate->setProperty('teacher', $durchfuehrung->termine->termin[0]->{'lehrperson-text'});
-                            $durchfuehrungNodeTemplate->setProperty('von', $durchfuehrung->termine->termin[0]->{'zeit-von'});
-                            $durchfuehrungNodeTemplate->setProperty('bis', $durchfuehrung->termine->termin[0]->{'zeit-bis'});
-                            $durchfuehrungNodeTemplate->setProperty('veranstaltungen', (int)$durchfuehrung->termine->termin[0]->veranstaltungen);
-                        }
+
+                        $durchfuehrungNodeTemplate->setProperty('ort', $durchfuehrung->ort);
+                        $durchfuehrungNodeTemplate->setProperty('teacher', $durchfuehrung->{'lehrperson-text'});
+                        $durchfuehrungNodeTemplate->setProperty('von', $durchfuehrung->{'zeit-von'});
+                        $durchfuehrungNodeTemplate->setProperty('bis', $durchfuehrung->{'zeit-bis'});
+                        $durchfuehrungNodeTemplate->setProperty('veranstaltungen', (int)$durchfuehrung->veranstaltungen);
+
 
                         $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
@@ -510,15 +510,15 @@ class CourseController extends ActionController
 
                         $this->emitCourseCreated($durchfuehrungNode, $courseNode);
                     } // end $durchfuehrung
-
-
-                    $tags = [];
-                    foreach ($kurs->kategorien->kategorie as $kategorie) {
-                        $tags[] = ['title'=>strval($kategorie),'sort'=>100,'type'=>'category-'.$categories[strval($kategorie)]];
-                    }
-
-                    $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
                 }
+
+
+                $tags = [];
+                foreach ($kurs->kategorien->kategorie as $kategorie) {
+                    $tags[] = ['title'=>strval($kategorie),'sort'=>100,'type'=>'category-'.$categories[strval($kategorie)]];
+                }
+
+                $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
             } // end version
         } // end kurs
 
