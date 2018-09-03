@@ -17,8 +17,6 @@
 </f:if>
 
 
-
-
 <f:section name="executionRender">
 
   <p><strong>Kurs: </strong>{node.properties.code}</p>
@@ -27,11 +25,8 @@
     <p><strong>Startdatum: </strong><f:format.date format="d.m.Y">{node.properties.start}</f:format.date></p>
   </f:if>
 
-  <f:if condition="{node.properties.anmerkung}">
-    <f:then>
-      <p><strong>Daten: </strong>{node.properties.anmerkung}</p>
-    </f:then>
-    <f:else>
+
+  <f:if condition="{node.properties.terminausblenden} == 'FALSE'">
       <f:if condition="{node.properties.end}">
         <p><strong>Enddatum: </strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></p>
       </f:if>
@@ -55,7 +50,10 @@
         <p><strong>Kursumfang: </strong>{node.properties.veranstaltungen} × {lektionenProVeranstaltung} Lektionen</p>
       </f:if>
 
-    </f:else>
+  </f:if>
+
+  <f:if condition="{node.properties.anmerkung}">
+    <p><strong>Daten: </strong><f:format.raw>{node.properties.anmerkung}</f:format.raw></p>
   </f:if>
 
 
@@ -64,9 +62,16 @@
   </f:if>
 
   <p><strong>Kosten: </strong><br>
+    <f:if condition="{node.properties.priceZH}">
       <strong>Teiln. Kanton ZH: </strong>{node.properties.priceZH}.– <br>
+    </f:if>
+    <f:if condition="{node.properties.priceNotZH}">
       <strong>Teiln. ausserkantonal: </strong>{node.properties.priceNotZH}.– <br>
+    </f:if>
+    <f:if condition="{node.properties.priceSfGZ}">
       <strong>Lernende SfGZ: </strong>{node.properties.priceSfGZ}.–<br>
+    </f:if>
+
 
     <f:if condition="{viscom -> f:count()}">
       <strong>Viscom-Rückerstattung: </strong><a href="./viscom-rueckerstattung.html">Infos</a>

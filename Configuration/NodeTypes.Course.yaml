@@ -177,6 +177,14 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
+    terminausblenden:
+      type: string
+      defaultValue: false
+      ui:
+        label: 'Termin ausblenden'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'attr'
 
 
 
