@@ -27,43 +27,43 @@ class CourseoverviewController extends ActionController
        * @Flow\Inject
        * @var NodeTypeManager
        */
-      protected $nodeTypeManager;
+    protected $nodeTypeManager;
 
-     /**
-      * @Flow\Inject
-      * @var ContextFactoryInterface
-      */
-      protected $contextFactory;
-
-
-      /**
-       * @var Context
-       */
-      protected $context;
+    /**
+     * @Flow\Inject
+     * @var ContextFactoryInterface
+     */
+    protected $contextFactory;
 
 
-      /**
-       * Initialize the context
-       *
-       * @return void
-       */
-      protected function initializeAction()
-      {
-          $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
-      }
+    /**
+     * @var Context
+     */
+    protected $context;
 
-      /**
-      * @param string $action
-      */
-      public function getAjaxDataAction($action)
-      {
-          // $this->init();
+
+    /**
+     * Initialize the context
+     *
+     * @return void
+     */
+    protected function initializeAction()
+    {
+        $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+    }
+
+    /**
+    * @param string $action
+    */
+    public function getAjaxDataAction($action)
+    {
+        // $this->init();
 
         $stauts="Start";
 
         /*do some stuff*/
         $query = new FlowQuery(array($this->context->getRootNode()));
-          $query = $query->find('[instanceof signalwerk.sfgz:Course]');
+        $query = $query->find('[instanceof signalwerk.sfgz:Course]');
 
         // filter by freetext
         if (!empty($_GET["filterTxt"])) {
@@ -71,16 +71,16 @@ class CourseoverviewController extends ActionController
             $stauts.="\nfilterTxt:'".$_GET["filterTxt"]."'";
         }
 
-          $filterIDs = [];
+        $filterIDs = [];
 
         // filter by ids of categories
         if (!empty($_GET["filterID"])) {
             $filterIDs = explode(",", $_GET['filterID']);
 
-          // remove empty elements and *
-          $filterIDs = array_filter($filterIDs, function ($value) {
-              return $value !== '';
-          });
+            // remove empty elements and *
+            $filterIDs = array_filter($filterIDs, function ($value) {
+                return $value !== '';
+            });
             $filterIDs = array_filter($filterIDs, function ($value) {
                 return $value !== '*';
             });
@@ -91,16 +91,16 @@ class CourseoverviewController extends ActionController
             }
         }
 
-          $query = $query->sort('sort', 'ASC');
-          $query = $query->get();
+        $query = $query->sort('sort', 'ASC');
+        $query = $query->get();
 
-          $ids = [];
-          foreach ($query as $course) {
-              $ids[] = $course->getIdentifier();
-          }
-          $stauts.="\nEnd";
+        $ids = [];
+        foreach ($query as $course) {
+            $ids[] = $course->getIdentifier();
+        }
+        $stauts.="\nEnd";
 
-          $data=array("data"=>$ids, "filter"=>$stauts);
-          return json_encode($data);
-      }
+        $data=array("data"=>$ids, "filter"=>$stauts);
+        return json_encode($data);
+    }
 }
