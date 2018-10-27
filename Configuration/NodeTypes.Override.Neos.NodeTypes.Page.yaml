@@ -1,0 +1,67 @@
+# If you need more than just the "main" content area you can uncomment the snippet below. It will add a "sidebar" area
+# to your pages. You can add as many areas as you like, still only those that are rendered in your TypoScript and
+# Template are visible on your page.
+---
+#'Neos.NodeTypes:Page':
+#  childNodes:
+#    'sidebar':
+#      type: 'Neos.Neos:ContentCollection'
+
+
+##
+# Adjust the "Page" node type:
+# Add two properties "layout" and "subpageLayout" to the default "Page" NodeType
+#
+'Neos.NodeTypes:Page':
+  childNodes:
+    'main':
+      type: 'Neos.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          'Neos.NodeTypes:TextWithImage': false
+          'Neos.NodeTypes:TwoColumn': false
+          'Neos.NodeTypes:ThreeColumn': false
+          'Neos.NodeTypes:FourColumn': false
+    'extra':
+      type: 'Neos.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          '*': FALSE
+          'signalwerk.sfgz:Space': TRUE
+          'signalwerk.sfgz:Upload': TRUE
+          'Neos.NodeTypes:ContentReferences': TRUE
+          'Neos.NodeTypes:Headline': TRUE
+          'Neos.NodeTypes:Text': TRUE
+          'Neos.NodeTypes:Image': TRUE
+          'Neos.NodeTypes:Menu': TRUE
+  properties:
+    'layout':
+      ui:
+        inspector:
+          group: 'layout'
+          editorOptions:
+            values:
+              'default':
+                label: 'Normal'
+              'wide':
+                label: 'wide'
+              'course':
+                label: 'course'
+    'style':
+      type: string
+      ui:
+        label: 'Stil'
+        inspector:
+          group: 'layout'
+          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
+
+          editorOptions:
+            values:
+              'default':
+                label: 'Normal'
+              'noBackground':
+                label: 'kein Hintergrundbild'
+              'hideL3':
+                label: 'Verstecke L3-Navigation'
+              'showSiblings':
+                label: 'Nur selbes Level zeigen'

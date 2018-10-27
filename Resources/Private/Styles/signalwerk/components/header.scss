@@ -13,16 +13,10 @@
   .neos-backend & {
     display: none;
   }
-
   z-index: 4;
   max-width: 1130px;
 
   &-lion {
-
-    .neos-backend & {
-      display: none;
-    }
-    
     width: 103px;
     height: 138px;
     position: fixed;
