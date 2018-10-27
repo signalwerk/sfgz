@@ -13,8 +13,6 @@ neosCopy\.sh
 pushSitePackageToBetaServer\.sh
 
 
-/web/public/Packages/Sites/schule.signalwerkCh/Resources/Public/Styles
-/web/public/Packages/Sites/schule.signalwerkCh/Resources/Public/JavaScript
 *.ai
 /__anmeldung__
 /__GRAFIK__
@@ -26,5 +24,3 @@ pushSitePackageToBetaServer\.sh
 /Resources/Private/Content/Resources
 /___OLD
 .php_cs.cache
-/Resources/Public/Styles/signalwerk.css
-/Resources/Public/Styles/signalwerk.min.css
