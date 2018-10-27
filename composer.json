@@ -3,7 +3,6 @@
     "type": "neos-site",
     "require": {
         "neos/neos": "*",
-        "neos/neos-nodetypes": "*"
         "neos/nodetypes": "*"
     },
     "suggest": {
