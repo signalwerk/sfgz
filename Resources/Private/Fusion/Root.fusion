@@ -1,12 +1,19 @@
 /**
- * Root TypoScript template for the sfgz.ch site
+ * Root TypoScript template for the sfgz.ch site (signalwerk.sfgz)
  */
 
 include: NodeTypes/*
 
+// https://discuss.neos.io/t/solved-problem-with-selecting-page-layout/3348/4
+// https://github.com/neos/neos-development-collection/pull/1973
+root.layout {
+  @position = 'end 9997'
+  layout = ${q(node).property('layout') != null && q(node).property('layout') != '' ? q(node).property('layout') : q(node).parents('[subpageLayout][subpageLayout != ""]').first().property('subpageLayout')}
+  condition = ${this.layout != null && this.layout != ''}
+  renderPath = ${'/' + this.layout}
+}
 
-
-page = Page {
+prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
 
   head {
 
@@ -14,13 +21,6 @@ page = Page {
       templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
       sectionName = 'signalwerk'
     }
-
-    /**
-    favicon = Neos.Fusion:Template {
-      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
-      sectionName = 'favicon'
-    }
-    */
 
     stylesheets.site = Neos.Fusion:Template {
       templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
@@ -41,7 +41,7 @@ page = Page {
   bodyTag.attributes.class = ${q(node).property('style')}
 
   body {
-    
+
     workspaceName = ${node.context.workspace.name}
     contextName = ${Configuration.setting('Neos.Flow.core.context')}
 
@@ -49,13 +49,8 @@ page = Page {
     sectionName = 'body'
 
     parts {
-      // menu = TYPO3.Neos:Menu
-      // menu.maximumLevels = 2
-      // menu {
-      //   maximumLevels = 2
-      //   entryLevel = 1
-      // }
-      menu1 = Menu {
+
+      menu1 = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
@@ -63,14 +58,14 @@ page = Page {
         startingPoint = ${q(site).children('[uriPathSegment="angebot"]').get(0)}
       }
 
-      menu2 = Menu {
+      menu2 = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 3
         maximumLevels = 1
       }
 
-      menu3 = Menu {
+      menu3 = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 4
@@ -78,7 +73,7 @@ page = Page {
         attributes.class = 'menu menu3'
       }
 
-      menuSiblings = Menu {
+      menuSiblings = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
         entryLevel = ${q(node).property('_depth') - 2}
         maximumLevels = 1
@@ -86,7 +81,7 @@ page = Page {
 
       currentLevel = ${q(node).property('_depth') - 2}
 
-      mobileMenu1 = Menu {
+      mobileMenu1 = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
@@ -94,21 +89,20 @@ page = Page {
         startingPoint = ${q(site).children('[uriPathSegment="angebot"]').get(0)}
       }
 
-      mobileMenu2 = Menu {
+      mobileMenu2 = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 3
         maximumLevels = 2
       }
 
-      metaMenu = Menu {
+      metaMenu = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
         entryLevel = 2
         maximumLevels = 1
         startingPoint = ${q(site).children('[uriPathSegment="schule"]').get(0)}
       }
-
     }
 
     hasExtras = ${q(node).children('extra').children().count() > 0}
@@ -116,22 +110,19 @@ page = Page {
     // These are your content areas, you can define as many as you want, just name them and the nodePath.
     content {
       // The default content section
-      main = PrimaryContent {
+      main = Neos.Neos:PrimaryContent {
         nodePath = 'main'
       }
 
-      extra = ContentCollection {
+      extra = Neos.Neos:ContentCollection {
         nodePath = 'extra'
       }
     }
-
-
 
     javascripts.site = Neos.Fusion:Template {
       templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
       sectionName = 'bodyScripts'
     }
-
 
     javascripts.mainProduction = Neos.Fusion:Tag {
       tagName = 'script'
@@ -180,10 +171,11 @@ page = Page {
       }
       @if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name == 'live'}
     }
-
-
   }
 }
+
+page = Neos.NodeTypes:Page
+
 
 default < page
 
@@ -196,7 +188,6 @@ wide {
 
 
 // https://discuss.neos.io/t/how-can-i-pass-an-variable-via-url-parameters/994/6
-
 course < page
 course {
   bodyTag.attributes.class = 'course'
