@@ -126,13 +126,12 @@
 
 @mixin inline-icon($filename, $size) {
   &:before {
-    content: "";
-    display: inline-block;
-    width: 1em;
+    content: "\2060";
+    padding-left: 1em;
     height: 1em;
     background-size: $size;
     background-image: url("../Assets/Images/" + $filename);
     background-repeat: no-repeat;
-    background-position: center bottom;
+    background-position: center center;
   }
 }
