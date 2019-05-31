@@ -24,3 +24,5 @@ pushSitePackageToBetaServer\.sh
 /Resources/Private/Content/Resources
 /___OLD
 .php_cs.cache
+ci/.ssh/id_rsa
+ci/.ssh/secret.key
