@@ -26,3 +26,8 @@ pushSitePackageToBetaServer\.sh
 .php_cs.cache
 ci/.ssh/id_rsa
 ci/.ssh/secret.key
+/Resources/Public/JavaScript/signalwerk.js
+/Resources/Public/JavaScript/signalwerk.js.map
+/Resources/Public/JavaScript/signalwerk.min.js
+/Resources/Public/Styles/signalwerk.css
+/Resources/Public/Styles/signalwerk.min.css
