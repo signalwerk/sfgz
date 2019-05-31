@@ -3,15 +3,25 @@ name: default
 
 steps:
   - name: build
-    image: node:latest
+    image: node:10
     commands:
       - npm ci
-      - bash ./ci/gh-pages.sh
+      - npm run build
+    when:
+      branch:
+        - master
+
+  - name: deploy-ftp
+    image: signalwerk/lftp:latest
+    commands:
+      - bash ./ci/lftp.sh push
     environment:
-      DECRYPT_KEY:
-        from_secret: "DECRYPT_KEY"
-      COMMIT_AUTHOR_EMAIL: "sh@signalwerk.ch"
-      DEPLOY_DIR: "build"
+      FTP_SERVER: berufssc.myhostpoint.ch
+      FTP_USER: signalwerk@sfgz.ch
+      FTP_PASSWORD:
+        from_secret: "FTP_PASSWORD"
+      FTP_LOCAL_DIR: .
+      FTP_REMOTE_DIR: /www/sfgz.ch/main/Packages/Sites/signalwerk.sfgz/
     when:
       branch:
         - master
