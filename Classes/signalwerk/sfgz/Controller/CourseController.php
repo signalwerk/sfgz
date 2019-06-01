@@ -515,7 +515,7 @@ class CourseController extends ActionController
 
                 $tags = [];
                 foreach ($kurs->kategorien->kategorie as $kategorie) {
-                    $tags[] = ['title'=>strval($kategorie),'sort'=>100,'type'=>'category-'.$categories[strval($kategorie)]];
+                    $tags[] = ['title'=>strval($kategorie),'sort'=>(int)$kategorie["reihenfolge"],'type'=>'category-'.$categories[strval($kategorie)]];
                 }
 
                 $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
