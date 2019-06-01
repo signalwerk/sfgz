@@ -40,13 +40,11 @@
   <!-- context: {contextName} -->
   <!-- workspace: {workspaceName} -->
 
-  <f:if condition="{node.context.workspace.name} != 'live'">
-    <a href="/">
-      <div class="header-lion">
-        <img src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
-      </div>
-    </a>
-  </f:if>
+  <a href="/">
+    <div class="header-lion">
+      <img src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
+    </div>
+  </a>
 
   <header class="header">
     <div class="header-logo">
