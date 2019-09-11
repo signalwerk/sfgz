@@ -1,0 +1,10 @@
+##
+# "Image" element
+#
+prototype(signalwerk.hoellgrotten:Content.Image) < prototype(Neos.Neos:ContentComponent) {
+    renderer = afx`
+        <div class="ContentImage">
+            <signalwerk.hoellgrotten:Content.Fragment.Image.Figure />
+        </div>
+    `
+}

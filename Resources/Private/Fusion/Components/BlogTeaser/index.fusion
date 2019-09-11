@@ -1,0 +1,56 @@
+
+
+prototype(Breadlesscode.Blog:Component.PostTeaser) < prototype(Neos.Neos:ContentComponent) {
+
+    bgStyle = ${Array.random([
+      'background01',
+      'background02',
+      'background03',
+      'background04',
+      'background05',
+      'background06',
+      'background07',
+      'background08',
+      'background09',
+      'background10',
+      'background11',
+      'background12',
+      'background13',
+      'background14',
+      'background15',
+      'background16',
+      'background17',
+      'background18',
+      'background19',
+      'background20'
+    ])}
+
+
+  renderer = afx`
+    <div class="blog-teaser">
+      <a href={props.href}>
+        <div class="teaser-content">
+          <div class={'teaser-image ' + props.bgStyle}>
+            <signalwerk.sfgz:Content.Fragment.Image.FigureBLOG />
+          </div>
+
+          <div class="teaser-text">
+            <p class="blog-teaser__date">{props.teaserDate}</p>
+            <div class="blog-teaser__title">{props.teaserTitle}</div>
+            <div class="blog-teaser__text">{props.teaserText}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  `
+
+}
+
+
+prototype(signalwerk.sfgz:Content.Fragment.Image.FigureBLOG) < prototype(signalwerk.sfgz:Content.Fragment.Image.Figure) {
+
+    @context {
+        propertyPath = 'teaserPic'
+    }
+
+}

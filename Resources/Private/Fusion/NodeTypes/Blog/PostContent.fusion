@@ -1,0 +1,56 @@
+prototype(Breadlesscode.Blog:Component.PostContent) >
+prototype(Breadlesscode.Blog:Component.PostContent) < prototype(Neos.Neos:ContentComponent) {
+
+    headline = ${ q(documentNode).property('title') }
+    nodePath = 'main'
+    @context.node = ${this.node}
+    inBackend = ${node.context.inBackend}
+
+
+    teaserDate = Neos.Neos:Editable {
+        property = 'teaserDate'
+    }
+
+    teaserTitle = Neos.Neos:Editable {
+        property = 'teaserTitle'
+    }
+
+    teaserText = Neos.Neos:Editable {
+        property = 'teaserText'
+    }
+
+    renderer = afx`
+      <div class="blog_post__content">
+
+
+        <div @if.has={props.inBackend}>
+              <hr />
+              <h3>Teaser-Vorschau</h3>
+
+
+              <div class="blog-teasers">
+
+                  <Breadlesscode.Blog:Component.PostTeaser
+                    teaserDate={props.teaserDate}
+                    teaserTitle={props.teaserTitle}
+                    teaserText={props.teaserText}
+                  />
+
+              </div>
+
+              <hr />
+
+        </div>
+
+
+        <div class="neos-nodetypes-headline">
+        	<div>
+            <h1>{props.headline}</h1>
+          </div>
+        </div>
+        <Neos.Neos:ContentCollection
+          nodePath={props.nodePath}
+          attributes.class="blog_post__content" />
+      </div>
+    `
+}

@@ -1,0 +1,13 @@
+@import "../Styles/signalwerk/variables";
+
+.blog-teasers {
+  @include container(12);
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.blog-teaser__gutter {
+  width: gutter(12);  
+}

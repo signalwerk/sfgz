@@ -146,6 +146,8 @@ module.exports = {
   devServer: {
     // open browser on server start
     // open: config.get("open")
+    public: 'blog.sfgz.local:8080', // That solved it
+
     port: 8080,
     allowedHosts: [
       "sfgz.local",

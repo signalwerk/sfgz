@@ -1,0 +1,24 @@
+prototype(Breadlesscode.Blog:Component.PostList.Category) < prototype(Neos.Fusion:Component) {
+    category = ${ documentNode }
+    category.@process.convertToArray = Breadlesscode.Blog:Helper.ConvertToArray
+    title = ${ q(this.category).property('title') }
+    itemsPerPage = 10
+    paginated = true
+
+    renderer = afx`
+        <div class="neos-nodetypes-headline"  @if.hasHeadline={ props.title }>
+        	<div>
+            <h1>{props.title}</h1>
+          </div>
+        </div>
+        <div class="blog-teasers">
+          <div class="blog-teaser__gutter"></div>
+        
+          <Breadlesscode.Blog:Component.PostList
+              paginated={ props.paginated }
+              itemsPerPage={ props.itemsPerPage }
+              collection={ posts } />
+        </div>
+    `
+    renderer.@context.posts = ${ q(site).find('[instanceof Breadlesscode.Blog:Document.Post]').filterByCategories(props.category).get() }
+}

@@ -12,7 +12,7 @@
 @import './signalwerk/components/header';
 @import './signalwerk/components/content';
 @import './signalwerk/components/oneColumn';
-@import './signalwerk/components/newsItem';
+// @import './signalwerk/components/newsItem';
 @import './signalwerk/components/neos-nodetypes';
 @import './signalwerk/components/upload';
 @import './signalwerk/components/space';
@@ -29,3 +29,10 @@
 @import './signalwerk/components/courseview';
 @import './signalwerk/components/newsview';
 @import './signalwerk/components/contactview';
+
+
+
+// new components
+
+@import "../Fusion/Components/BlogTeaser/styles";
+@import "../Fusion/Components/BlogTeasers/styles";

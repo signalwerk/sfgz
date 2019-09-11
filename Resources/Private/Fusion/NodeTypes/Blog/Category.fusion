@@ -1,0 +1,32 @@
+prototype(Breadlesscode.Blog:Document.CategoryBlog) >
+prototype(Breadlesscode.Blog:Document.CategoryBlog) < prototype(Neos.NodeTypes:Page) {
+
+    bodyTag.attributes.class = 'blog blog--category noBackground'
+
+    body {
+      parts {
+        menu1 >
+        menu2 >
+        mobileMenu1 >
+        mobileMenu2 >
+        metaMenu >
+      }
+      content {
+        main >
+        main = afx`
+          <div class="blog-category">
+            <Breadlesscode.Blog:Component.PostList.Category />
+          </div>
+          `
+
+        extra >
+        extra = afx`
+          <div class="blog-category__extra">
+
+          </div>
+          `
+      }
+
+    }
+
+}

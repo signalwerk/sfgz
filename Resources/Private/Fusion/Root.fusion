@@ -2,7 +2,7 @@
  * Root TypoScript template for the sfgz.ch site (signalwerk.sfgz)
  */
 
-include: NodeTypes/*
+include: ./**/*.fusion
 
 // https://discuss.neos.io/t/solved-problem-with-selecting-page-layout/3348/4
 // https://github.com/neos/neos-development-collection/pull/1973
