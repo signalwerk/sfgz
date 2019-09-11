@@ -1,22 +1,22 @@
 {
-    "description": "site for sfgz.ch",
-    "type": "neos-site",
-    "require": {
-        "neos/neos": "*",
-        "neos/nodetypes": "*"
-    },
-    "suggest": {
-        "neos/neos-seo": "*"
-    },
-    "name": "signalwerk/sfgz",
-    "autoload": {
-        "psr-0": {
-            "signalwerk\\sfgz": "Classes/"
-        }
-    },
-    "extra": {
-        "neos": {
-            "package-key": "signalwerk.sfgz"
-        }
+  "description": "site for sfgz.ch",
+  "type": "neos-site",
+  "require": {
+    "neos/neos": "*",
+    "neos/nodetypes": "*"
+  },
+  "suggest": {
+    "neos/neos-seo": "*"
+  },
+  "name": "signalwerk/sfgz",
+  "autoload": {
+    "psr-0": {
+      "signalwerk\\sfgz": "Classes/"
     }
+  },
+  "extra": {
+    "neos": {
+      "package-key": "signalwerk.sfgz"
+    }
+  }
 }
