@@ -1,0 +1,137 @@
+
+'Breadlesscode.Blog:Document.Post':
+  superTypes:
+    'signalwerk.Blog:Mixin.Post': true
+
+
+'signalwerk.Blog:Mixin.Post':
+  abstract: true
+  properties:
+    # featured:
+    #   type: boolean
+    #   defaultValue: false
+    #   ui:
+    #     label: 'featured'
+    #     inspector:
+    #       position: 12
+    #       group: blogPost
+    # onBlog:
+    #   type: boolean
+    #   defaultValue: true
+    #   ui:
+    #     label: 'Teaser auf blog.sfgz.ch'
+    #     inspector:
+    #       position: 12
+    #       group: blogPost
+    # onHomepage:
+    #   type: boolean
+    #   defaultValue: true
+    #   ui:
+    #     label: 'Teaser auf sfgz.ch'
+    #     inspector:
+    #       position: 12
+    #       group: blogPost
+    teaserPic:
+      type: 'Neos\Media\Domain\Model\ImageInterface'
+      ui:
+        label: 'Teaser Bilder'
+        reloadIfChanged: TRUE
+        inspector:
+          position: 12
+          group: blogPost
+    teaserLink:
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Link'
+        reloadIfChanged: TRUE
+        inspector:
+          group: blogPost
+          editor: 'Neos.Neos/Inspector/Editors/LinkEditor'
+    teaserDate:
+      type: string
+      defaultValue: ''
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Teaser Date'
+          'format':
+            'b': FALSE
+            'i': FALSE
+            'u': FALSE
+            'sub': FALSE
+            'sup': FALSE
+            'p': FALSE
+            'h1': FALSE
+            'h2': FALSE
+            'h3': FALSE
+            'pre': FALSE
+            'removeFormat': FALSE
+          'table': []
+          'list': []
+          'link':
+            'a': FALSE
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE
+    teaserTitle:
+      type: string
+      defaultValue: ''
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Teaser Titel'
+          'format':
+            'b': FALSE
+            'i': FALSE
+            'u': FALSE
+            'sub': FALSE
+            'sup': FALSE
+            'p': FALSE
+            'h1': TRUE
+            'h2': TRUE
+            'h3': FALSE
+            'pre': FALSE
+            'removeFormat': FALSE
+          'table': []
+          'list': []
+          'link':
+            'a': FALSE
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE
+    teaserText:
+      type: string
+      defaultValue: ''
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: 'Teaser Text'
+          'format':
+            'b': TRUE
+            'i': FALSE
+            'u': FALSE
+            'sub': FALSE
+            'sup': FALSE
+            'p': TRUE
+            'h1': FALSE
+            'h2': FALSE
+            'h3': FALSE
+            'pre': FALSE
+            'removeFormat': FALSE
+          'table': []
+          'list': []
+          'link':
+            'a': TRUE
+          'alignment': []
+          'formatlesspaste':
+            'button': FALSE
+            'formatlessPasteOption': TRUE

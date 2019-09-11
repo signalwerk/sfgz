@@ -153,14 +153,6 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
-    ort:
-      type: string
-      defaultValue: ''
-      ui:
-        label: 'Ort'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'attr'
     veranstaltungen:
       type: integer
       defaultValue: ''

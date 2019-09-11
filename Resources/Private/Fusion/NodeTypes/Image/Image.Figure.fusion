@@ -1,0 +1,91 @@
+##
+# Figure fragment
+#
+# <img srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Sample pic" />
+# media="(min-width: 0px)"
+#
+prototype(signalwerk.sfgz:Content.Fragment.Image.Figure) < prototype(Neos.Fusion:Component) {
+
+    @context {
+        propertyPath = 'image'
+    }
+
+    src = Neos.Fusion:Case {
+        asset {
+            condition = ${q(node).property(propertyPath)}
+            renderer = Neos.Neos:ImageUri {
+                asset = ${q(node).property(propertyPath)}
+                maximumWidth = 1200
+            }
+        }
+        dummy {
+            condition = ${node.context.inBackend}
+            renderer = Neos.Fusion:ResourceUri {
+                path = 'resource://Neos.Neos/Public/Images/dummy-image.svg'
+            }
+        }
+    }
+
+    p1200 = Neos.Neos:ImageUri {
+       asset = ${q(node).property(propertyPath)}
+       maximumWidth = 1200
+   }
+
+   p1000 = Neos.Neos:ImageUri {
+      asset = ${q(node).property(propertyPath)}
+      maximumWidth = 1000
+   }
+
+   p800 = Neos.Neos:ImageUri {
+      asset = ${q(node).property(propertyPath)}
+      maximumWidth = 800
+  }
+   p600 = Neos.Neos:ImageUri {
+      asset = ${q(node).property(propertyPath)}
+      maximumWidth = 600
+  }
+
+   p400 = Neos.Neos:ImageUri {
+      asset = ${q(node).property(propertyPath)}
+      maximumWidth = 400
+  }
+
+    p200 = Neos.Neos:ImageUri {
+       asset = ${q(node).property(propertyPath)}
+       maximumWidth = 200
+   }
+
+    alt = ''
+    title = ''
+    class = null
+
+    hasCaption = ${q(node).property('hasCaption')}
+
+    caption = Neos.Neos:Editable {
+        property = 'caption'
+    }
+
+    renderer = afx`
+        <figure class={props.class}>
+            <picture>
+              <source
+                srcset={
+                        props.p1200 + " 1200w, " +
+                        props.p1000 + " 1000w, " +
+                        props.p800 + " 800w, " +
+                        props.p600 + " 600w, " +
+                        props.p400 + " 400w, " +
+                        props.p200 + " 200w" }
+              />
+              <img
+                src={props.src}
+                title={props.title}
+                alt={props.alt}
+              />
+            </picture>
+            <figcaption @if.has={props.hasCaption && props.caption}>
+                {props.caption}
+            </figcaption>
+        </figure>
+    `
+}

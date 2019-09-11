@@ -1,14 +1,15 @@
 {
-  "description": "site for sfgz.ch",
+  "name": "signalwerk/sfgz",
+  "description": "Site package for sfgz.ch",
   "type": "neos-site",
   "require": {
     "neos/neos": "*",
-    "neos/nodetypes": "*"
+    "neos/nodetypes": "*",
+    "breadlesscode/neos-blog": "^2.0"
   },
   "suggest": {
-    "neos/neos-seo": "*"
+    "neos/seo": "*"
   },
-  "name": "signalwerk/sfgz",
   "autoload": {
     "psr-0": {
       "signalwerk\\sfgz": "Classes/"

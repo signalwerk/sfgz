@@ -65,17 +65,17 @@ function pad(n, width, z) {
 })(jQuery);
 
 function createNewsGrid() {
-  var $grid = $('.columns-masonry > .column').masonry({
+  var $grid = $('.blog-teasers').masonry({
     horizontalOrder: true,
-    itemSelector: '.news-item',
-    columnWidth: '.news-item__sizer',
-    gutter: '.news-item__gutter',
+    itemSelector: '.blog-teaser',
+    columnWidth: '.blog-teaser',
+    gutter: '.blog-teaser__gutter',
     percentPosition: true
   });
 
   $grid.imagesLoaded().progress(function (instance, image) {
     $grid.masonry('layout');
-    $(image.img).closest('.news-item').addClass('news-item--image-loaded');
+      $(image.img).closest('.blog-teaser').addClass('blog-teaser--image-loaded');
   });
 }
 //# sourceMappingURL=signalwerkFrontend.js.map

@@ -22,6 +22,7 @@ steps:
         from_secret: "FTP_PASSWORD"
       FTP_LOCAL_DIR: .
       FTP_REMOTE_DIR: /www/sfgz.ch/main/Packages/Sites/signalwerk.sfgz/
+      FTP_PARALLEL: 15
     when:
       branch:
         - master

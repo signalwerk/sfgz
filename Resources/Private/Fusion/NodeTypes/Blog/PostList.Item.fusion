@@ -1,0 +1,26 @@
+prototype(Breadlesscode.Blog:Component.PostList.Item) >
+prototype(Breadlesscode.Blog:Component.PostList.Item) < prototype(Neos.Fusion:Component) {
+    excerpt = ${ q(item).property('excerpt') }
+
+    teaserDate = ${ q(item).property('teaserDate') }
+    teaserTitle = ${ q(item).property('teaserTitle') }
+    teaserText = ${ q(item).property('teaserText') }
+    teaserLink = ${ q(item).property('teaserLink') }
+    @context {
+        node = ${ q(item) }
+    }
+
+    href = Neos.Neos:NodeUri {
+        node = ${ item }
+    }
+
+    renderer = afx`
+          <Breadlesscode.Blog:Component.PostTeaser
+            href={props.teaserLink ? props.teaserLink : props.href}
+            teaserDate={props.teaserDate}
+            teaserTitle={props.teaserTitle}
+            teaserText={props.teaserText}
+          />
+
+    `
+}

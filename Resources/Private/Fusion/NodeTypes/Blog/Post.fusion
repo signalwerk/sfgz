@@ -1,0 +1,49 @@
+prototype(Breadlesscode.Blog:Document.Post) >
+prototype(Breadlesscode.Blog:Document.Post) < prototype(Neos.NodeTypes:Page) {
+    @context {
+        author =  ${ Blog.getUserByIdentifier(q(node).property('author')) }
+        publishDate = ${ Date.formatCldr(q(node).property('datePublished'), 'dd.MM.y') }
+        // category = ${q(site).find('[instanceof Breadlesscode.Blog:Document.CategoryBlog]')}
+        category = ${q(node).property('categories')}
+        //n = ${q(node)}
+    }
+
+    bodyTag.attributes.class = ${'blog blog--post ' + q(node).property('style')}
+
+    body {
+      content {
+        main >
+        main = afx`
+          <article class="blog-post">
+            <Breadlesscode.Blog:Component.PostContent node={node}/>
+          </article>
+          `
+
+        extra >
+        extra = afx`
+          <div class="blog-post__extra">
+
+            <h3>{author.label}</h3>
+
+            <p>
+              { publishDate }
+            </p>
+            <h3>Thema</h3>
+
+            <nav class="navbar" role="navigation" @if.has={category ? true : false}>
+                <ul class="nav nav-pills">
+                    <Neos.Fusion:Loop items={category}>
+                        <li>
+                            <Neos.Neos:NodeLink node={item}>{item.label}</Neos.Neos:NodeLink>
+                        </li>
+                    </Neos.Fusion:Loop>
+                </ul>
+            </nav>
+
+          </div>
+          `
+      }
+
+    }
+
+}

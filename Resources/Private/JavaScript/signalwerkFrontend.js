@@ -20,6 +20,7 @@ function pad(n, width, z) {
       $(this).toggleClass('active').next().children('.foldout-content').toggleClass('show');
     });
 
+console.log("createNewsGrid")
     createNewsGrid();
 
     var navToggle = document.querySelector('.navigation__toggle');
@@ -67,17 +68,18 @@ function pad(n, width, z) {
 })(jQuery);
 
 function createNewsGrid() {
-  var $grid = $('.columns-masonry > .column').masonry({
+  console.log("grid loaded")
+  var $grid = $('.blog-teasers').masonry({
     horizontalOrder: true,
-    itemSelector: '.news-item',
-    columnWidth: '.news-item__sizer',
-    gutter: '.news-item__gutter',
+    itemSelector: '.blog-teaser',
+    columnWidth: '.blog-teaser',
+    gutter: '.blog-teaser__gutter',
     percentPosition: true
   });
 
   $grid.imagesLoaded()
     .progress(function(instance, image) {
       $grid.masonry('layout');
-      $(image.img).closest('.news-item').addClass('news-item--image-loaded');
+      $(image.img).closest('.blog-teaser').addClass('blog-teaser--image-loaded');
     });
 }

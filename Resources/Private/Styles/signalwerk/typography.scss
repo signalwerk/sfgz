@@ -1,39 +1,11 @@
 @import './variables';
 
-// Font
-// check https://google-webfonts-helper.herokuapp.com/
-// ==========================================================================
-// @font-face {
-//   font-family: map-get($font-name, sans);
-//   @include fontdef('../Fonts/droid-sans-v6-latin/droid-sans-v6-latin-regular');
-//   font-weight: normal;
-//   font-style: normal;
-// }
-//
-// @font-face {
-//   font-family: map-get($font-name, sans);
-//   font-weight: map-get($font-weight-bold, sans);
-//   font-style: normal;
-//   @include fontdef('../Fonts/droid-sans-v6-latin/droid-sans-v6-latin-700');
-// }
-
 @font-face {
   font-family: map-get($font-name, sansblack);
   font-weight: map-get($font-weight-bold, sansblack);
   font-style: normal;
   src: url('../Fonts/Helvetica/2B6D49_0_0.eot');
-  src: url('../Fonts/Helvetica/2B6D49_0_0.eot?#iefix') format('embedded-opentype'), url('../Fonts/Helvetica/2B6D49_0_0.woff') format('woff'), url('../Fonts/Helvetica/2B6D49_0_0.ttf') format('truetype');
+  src: url('../Fonts/Helvetica/2B6D49_0_0.eot?#iefix') format('embedded-opentype'),
+       url('../Fonts/Helvetica/2B6D49_0_0.woff') format('woff'),
+       url('../Fonts/Helvetica/2B6D49_0_0.ttf') format('truetype');
 }
-
-/* ICONS */
-
-// @font-face {
-//     font-family: 'icomoon';
-//     src:  url('../Fonts/Helvetica/icomoon.eot?2qcd1t');
-//     src:  url('../Fonts/Helvetica/icomoon.eot?2qcd1t#iefix') format('embedded-opentype'),
-//     url('../Fonts/Helvetica/icomoon.ttf?2qcd1t') format('truetype'),
-//     url('../Fonts/Helvetica/icomoon.woff?2qcd1t') format('woff'),
-//     url('../Fonts/Helvetica/icomoon.svg?2qcd1t#MBA-Styleguide') format('svg');
-//     font-weight: normal;
-//     font-style: normal;
-// }

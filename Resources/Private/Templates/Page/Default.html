@@ -5,7 +5,7 @@
 <head>
   <!-- Put your stylesheet inclusions here, they will be included in your website by TypoScript -->
   <f:section name="stylesheets">
-    <link rel="stylesheet" href="{f:uri.resource(path: 'Styles/signalwerk.css', package: 'signalwerk.sfgz')}" media="all" />
+    <link rel="stylesheet" href="{f:uri.resource(path: 'Styles/main.css', package: 'signalwerk.sfgz')}" media="all" />
   </f:section>
   <!-- Put your scripts inclusions for the head here, they will be included in your website by TypoScript -->
   <f:section name="headScripts">
@@ -43,22 +43,22 @@
   <f:if condition="{workspaceName} == 'live'">
     <a href="/">
       <div class="header-lion">
-        <img src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
+        <img src="{f:uri.resource(path: 'static/images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
       </div>
     </a>
   </f:if>
 
   <header class="header">
     <div class="header-logo">
-      <img src="{f:uri.resource(path: 'Assets/Images/logo/wappen-black@2x.png', package: 'signalwerk.sfgz')}" class="header-logo-desktop">
+      <img src="{f:uri.resource(path: 'static/images/logo/wappen-black@2x.png', package: 'signalwerk.sfgz')}" class="header-logo-desktop">
     </div>
 
     <div class="header-navigation--mobile navigation navigation--mobile">
       <div class="navigation__logos">
         <a href="/">
-          <img class="navigation__lion--mobile" src="{f:uri.resource(path: 'Assets/Images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
+          <img class="navigation__lion--mobile" src="{f:uri.resource(path: 'static/images/logo/lion-black@2x.png', package: 'signalwerk.sfgz')}">
         </a>
-        <img class="navigation__flag--mobile"  src="{f:uri.resource(path: 'Assets/Images/logo/wappen-black@2x.png', package: 'signalwerk.sfgz')}">
+        <img class="navigation__flag--mobile"  src="{f:uri.resource(path: 'static/images/logo/wappen-black@2x.png', package: 'signalwerk.sfgz')}">
       </div>
       <div class="navigation__toggle">
         <button class="navigation__toggle-btn" type="button" name="navigation-toggle">Navigation</button>
