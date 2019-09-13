@@ -186,8 +186,8 @@ class CourseController extends ActionController
 
         $mailVerwaltung = new PHPMailer;
         $mailVerwaltung->CharSet = 'UTF-8';
-        $mailVerwaltung->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
-        $mailVerwaltung->addAddress('weiterbildung@medienformfarbe.zh.ch');
+        $mailVerwaltung->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mailVerwaltung->addAddress('weiterbildung@sfgz.zh.ch');
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
         $mailVerwaltung->Subject = 'Kursanmeldung - '.$data->Vorname.' '.$data->Name.', '.$data->Ort;
