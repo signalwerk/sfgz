@@ -163,7 +163,7 @@ class CourseController extends ActionController
 
         $mail = new PHPMailer;
         $mail->CharSet = 'UTF-8';
-        $mail->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
+        $mail->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
         $mail->addAddress($data->{'E-Mail'});
         // $mail->addBCC('sh@signalwerk.ch');
 
