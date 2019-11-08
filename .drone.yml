@@ -25,3 +25,11 @@ steps:
     when:
       branch:
         - master
+
+  - name: build-cache
+    image: pstauffer/curl:latest
+    commands:
+      - curl -s -I https://sfgz.ch
+    when:
+      branch:
+        - master
