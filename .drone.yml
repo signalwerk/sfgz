@@ -17,7 +17,7 @@ steps:
       - bash ./ci/lftp.sh push
     environment:
       FTP_SERVER: 34.65.45.216
-      FTP_USER: signalwerk@sfgz.ch
+      FTP_USER: sh@signalwerk.ch
       FTP_PASSWORD:
         from_secret: "FTP_PASSWORD"
       FTP_LOCAL_DIR: .
