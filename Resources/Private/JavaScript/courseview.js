@@ -8,10 +8,10 @@
       }
       var label_radio = label.add(radio);
       label_radio.mousedown(function() {
-        $(radio).data('wasChecked', radio.checked);
+        $(radio).data("wasChecked", radio.checked);
       });
       label_radio.click(function() {
-        if ($(radio).data('wasChecked')) {
+        if ($(radio).data("wasChecked")) {
           radio.checked = false;
         }
       });
@@ -21,61 +21,57 @@
 
 // Wait for the DOM to be ready
 $(function() {
-
-  $('input[type=radio]').uncheckableRadio();
+  $("input[type=radio]").uncheckableRadio();
 
   // form restore
-  $('#filter-form').submit(function(event) {
-
+  $("#filter-form").submit(function(event) {
     var submitBtn = $("#filter-form-submit");
     // submitBtn.attr('disabled', 'disabled');
     // console.log('submitBtn', submitBtn);
-    submitBtn.addClass('button-submitting');
+    submitBtn.addClass("button-submitting");
 
-
-    $('radio').bind('click', function() {
-      $(this).removeAttr('checked');
+    $("radio").bind("click", function() {
+      $(this).removeAttr("checked");
     });
 
-    $('.noResult').addClass('hidden');
+    $(".noResult").addClass("hidden");
 
     // Assign handlers immediately after making the request,
     // and remember the jqXHR object for this request
     $.ajax({
-        dataType: "json",
-        url: '/signalwerk/courseoverview/getAjaxData',
-        data: {
-          filterTxt: $('input[name=text]').val(), // text
-          filterID: [
-            $('select[name=angebot]').val(), // category
-            $('select[name=beruf]').val(), // category
-            $('select[name=day]').val(), // day
-            $('select[name=month]').val(), // month
-          ].join(','),
-        },
-      })
+      dataType: "json",
+      url: "/signalwerk/courseoverview/getAjaxData",
+      data: {
+        filterTxt: $("input[name=text]").val(), // text
+        filterID: [
+          $("select[name=angebot]").val(), // category
+          $("select[name=beruf]").val(), // category
+          $("select[name=day]").val(), // day
+          $("select[name=month]").val() // month
+        ].join(",")
+      }
+    })
       .done(function(data) {
-
         // console.log( "success" );
-        $('.courseview-listeitem--root').addClass('hidden');
+        $(".courseview-listeitem--root").addClass("hidden");
 
         if (!data.data.length) {
-          $('.noResult').removeClass('hidden');
+          $(".noResult").removeClass("hidden");
         }
 
         data.data.forEach(item => {
-          $('.courseview-listeitem--root[data-id="' + item + '"]').removeClass('hidden');
-        })
-
+          $('.courseview-listeitem--root[data-id="' + item + '"]').removeClass(
+            "hidden"
+          );
+        });
       })
       .fail(function() {
         console.log("error");
       })
       .always(function() {
         // console.log( "complete" );
-        submitBtn.removeClass('button-submitting');
+        submitBtn.removeClass("button-submitting");
       });
-
 
     return false;
 

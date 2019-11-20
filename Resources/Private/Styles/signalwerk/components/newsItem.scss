@@ -1,11 +1,10 @@
-@import '../variables';
+@import "../variables";
 
 .column {
   @include container(12);
 }
 
 .columns-masonry {
-
   .news-item__gutter {
     width: gutter(12);
   }
@@ -21,7 +20,6 @@
 }
 
 .news-item {
-
   position: relative;
   padding-bottom: 1rem;
   font-size: 1.15rem;
@@ -31,7 +29,8 @@
 
   a {
     color: black;
-    h1, h2 {
+    h1,
+    h2 {
       border-bottom: transparent solid 0.1em;
       transition: border-bottom 400ms ease;
       padding-top: 0.1em;
@@ -40,13 +39,13 @@
       // box-sizing: border-box;
       // transition: color 500ms ease, border-bottom 400ms ease;
 
-          display: inline;
-          position: relative;
+      display: inline;
+      position: relative;
 
-        @include mediaQuery($max, $tablet) {
-          border-bottom: black solid 0.1em;
-        }
-        &:after {
+      @include mediaQuery($max, $tablet) {
+        border-bottom: black solid 0.1em;
+      }
+      &:after {
         clear: both;
         display: block;
         content: "";
@@ -55,31 +54,91 @@
     }
 
     &:hover {
-
-      h1, h2 {
+      h1,
+      h2 {
         border-bottom: $cLinkHover solid 0.1em;
         color: $cLinkHover;
 
-        .random01 & { color: $cLinkHover01; border-bottom-color: $cLinkHover01;}
-        .random02 & { color: $cLinkHover02; border-bottom-color: $cLinkHover02;}
-        .random03 & { color: $cLinkHover03; border-bottom-color: $cLinkHover03;}
-        .random04 & { color: $cLinkHover04; border-bottom-color: $cLinkHover04;}
-        .random05 & { color: $cLinkHover05; border-bottom-color: $cLinkHover05;}
-        .random06 & { color: $cLinkHover06; border-bottom-color: $cLinkHover06;}
-        .random07 & { color: $cLinkHover07; border-bottom-color: $cLinkHover07;}
-        .random08 & { color: $cLinkHover08; border-bottom-color: $cLinkHover08;}
-        .random09 & { color: $cLinkHover09; border-bottom-color: $cLinkHover09;}
-        .random10 & { color: $cLinkHover10; border-bottom-color: $cLinkHover10;}
-        .random11 & { color: $cLinkHover11; border-bottom-color: $cLinkHover11;}
-        .random12 & { color: $cLinkHover12; border-bottom-color: $cLinkHover12;}
-        .random13 & { color: $cLinkHover13; border-bottom-color: $cLinkHover13;}
-        .random14 & { color: $cLinkHover14; border-bottom-color: $cLinkHover14;}
-        .random15 & { color: $cLinkHover15; border-bottom-color: $cLinkHover15;}
-        .random16 & { color: $cLinkHover16; border-bottom-color: $cLinkHover16;}
-        .random17 & { color: $cLinkHover17; border-bottom-color: $cLinkHover17;}
-        .random18 & { color: $cLinkHover18; border-bottom-color: $cLinkHover18;}
-        .random19 & { color: $cLinkHover19; border-bottom-color: $cLinkHover19;}
-        .random20 & { color: $cLinkHover20; border-bottom-color: $cLinkHover20;}
+        .random01 & {
+          color: $cLinkHover01;
+          border-bottom-color: $cLinkHover01;
+        }
+        .random02 & {
+          color: $cLinkHover02;
+          border-bottom-color: $cLinkHover02;
+        }
+        .random03 & {
+          color: $cLinkHover03;
+          border-bottom-color: $cLinkHover03;
+        }
+        .random04 & {
+          color: $cLinkHover04;
+          border-bottom-color: $cLinkHover04;
+        }
+        .random05 & {
+          color: $cLinkHover05;
+          border-bottom-color: $cLinkHover05;
+        }
+        .random06 & {
+          color: $cLinkHover06;
+          border-bottom-color: $cLinkHover06;
+        }
+        .random07 & {
+          color: $cLinkHover07;
+          border-bottom-color: $cLinkHover07;
+        }
+        .random08 & {
+          color: $cLinkHover08;
+          border-bottom-color: $cLinkHover08;
+        }
+        .random09 & {
+          color: $cLinkHover09;
+          border-bottom-color: $cLinkHover09;
+        }
+        .random10 & {
+          color: $cLinkHover10;
+          border-bottom-color: $cLinkHover10;
+        }
+        .random11 & {
+          color: $cLinkHover11;
+          border-bottom-color: $cLinkHover11;
+        }
+        .random12 & {
+          color: $cLinkHover12;
+          border-bottom-color: $cLinkHover12;
+        }
+        .random13 & {
+          color: $cLinkHover13;
+          border-bottom-color: $cLinkHover13;
+        }
+        .random14 & {
+          color: $cLinkHover14;
+          border-bottom-color: $cLinkHover14;
+        }
+        .random15 & {
+          color: $cLinkHover15;
+          border-bottom-color: $cLinkHover15;
+        }
+        .random16 & {
+          color: $cLinkHover16;
+          border-bottom-color: $cLinkHover16;
+        }
+        .random17 & {
+          color: $cLinkHover17;
+          border-bottom-color: $cLinkHover17;
+        }
+        .random18 & {
+          color: $cLinkHover18;
+          border-bottom-color: $cLinkHover18;
+        }
+        .random19 & {
+          color: $cLinkHover19;
+          border-bottom-color: $cLinkHover19;
+        }
+        .random20 & {
+          color: $cLinkHover20;
+          border-bottom-color: $cLinkHover20;
+        }
       }
 
       .teaser-image {
@@ -91,10 +150,7 @@
     &[href^="http"]:before {
       display: none;
     }
-
   }
-
-
 
   // .neos-backend & {
   //   &:hover {
@@ -114,15 +170,16 @@
   // }
 
   transition: opacity 300ms;
-  &--image-loaded { opacity: 1; }
+  &--image-loaded {
+    opacity: 1;
+  }
 
   &__date {
     @include font-bold(sansblack);
 
-      margin-top: 0;
+    margin-top: 0;
   }
   &__title {
-
   }
   &__text {
     padding-top: 0.5rem;
@@ -136,7 +193,7 @@
     &:after {
       content: "";
       position: absolute;
-      top:0;
+      top: 0;
       left: 0;
       width: 100%;
       height: 100%;
@@ -146,31 +203,68 @@
       background-position: left bottom;
     }
 
+    $backgroundURL: "../Assets/Images/logo/generated/small/background";
 
-    $backgroundURL:'../Assets/Images/logo/generated/small/background';
-
-    &.background01:after {background-image: url('#{$backgroundURL}01_s.svg')};
-    &.background02:after {background-image: url('#{$backgroundURL}02_s.svg')};
-    &.background03:after {background-image: url('#{$backgroundURL}03_s.svg')};
-    &.background04:after {background-image: url('#{$backgroundURL}04_s.svg')};
-    &.background05:after {background-image: url('#{$backgroundURL}05_s.svg')};
-    &.background06:after {background-image: url('#{$backgroundURL}06_s.svg')};
-    &.background07:after {background-image: url('#{$backgroundURL}07_s.svg')};
-    &.background08:after {background-image: url('#{$backgroundURL}08_s.svg')};
-    &.background09:after {background-image: url('#{$backgroundURL}09_s.svg')};
-    &.background10:after {background-image: url('#{$backgroundURL}10_s.svg')};
-    &.background11:after {background-image: url('#{$backgroundURL}11_s.svg')};
-    &.background12:after {background-image: url('#{$backgroundURL}12_s.svg')};
-    &.background13:after {background-image: url('#{$backgroundURL}13_s.svg')};
-    &.background14:after {background-image: url('#{$backgroundURL}14_s.svg')};
-    &.background15:after {background-image: url('#{$backgroundURL}15_s.svg')};
-    &.background16:after {background-image: url('#{$backgroundURL}16_s.svg')};
-    &.background17:after {background-image: url('#{$backgroundURL}17_s.svg')};
-    &.background18:after {background-image: url('#{$backgroundURL}18_s.svg')};
-    &.background19:after {background-image: url('#{$backgroundURL}19_s.svg')};
-    &.background20:after {background-image: url('#{$backgroundURL}20_s.svg')};
-
-
+    &.background01:after {
+      background-image: url("#{$backgroundURL}01_s.svg");
+    }
+    &.background02:after {
+      background-image: url("#{$backgroundURL}02_s.svg");
+    }
+    &.background03:after {
+      background-image: url("#{$backgroundURL}03_s.svg");
+    }
+    &.background04:after {
+      background-image: url("#{$backgroundURL}04_s.svg");
+    }
+    &.background05:after {
+      background-image: url("#{$backgroundURL}05_s.svg");
+    }
+    &.background06:after {
+      background-image: url("#{$backgroundURL}06_s.svg");
+    }
+    &.background07:after {
+      background-image: url("#{$backgroundURL}07_s.svg");
+    }
+    &.background08:after {
+      background-image: url("#{$backgroundURL}08_s.svg");
+    }
+    &.background09:after {
+      background-image: url("#{$backgroundURL}09_s.svg");
+    }
+    &.background10:after {
+      background-image: url("#{$backgroundURL}10_s.svg");
+    }
+    &.background11:after {
+      background-image: url("#{$backgroundURL}11_s.svg");
+    }
+    &.background12:after {
+      background-image: url("#{$backgroundURL}12_s.svg");
+    }
+    &.background13:after {
+      background-image: url("#{$backgroundURL}13_s.svg");
+    }
+    &.background14:after {
+      background-image: url("#{$backgroundURL}14_s.svg");
+    }
+    &.background15:after {
+      background-image: url("#{$backgroundURL}15_s.svg");
+    }
+    &.background16:after {
+      background-image: url("#{$backgroundURL}16_s.svg");
+    }
+    &.background17:after {
+      background-image: url("#{$backgroundURL}17_s.svg");
+    }
+    &.background18:after {
+      background-image: url("#{$backgroundURL}18_s.svg");
+    }
+    &.background19:after {
+      background-image: url("#{$backgroundURL}19_s.svg");
+    }
+    &.background20:after {
+      background-image: url("#{$backgroundURL}20_s.svg");
+    }
 
     img {
       display: block;
@@ -179,13 +273,8 @@
       width: 100%;
       height: auto;
     }
-
   }
-
 }
 
-
 .signalwerk-sfgz-newsitem {
-
-
 }

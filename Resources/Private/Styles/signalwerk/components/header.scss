@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .header {
   position: relative;
@@ -54,11 +54,12 @@
     }
   }
 
-  @include mediaQuery ($max, $tablet) {
+  @include mediaQuery($max, $tablet) {
     &-lion,
-    &-logo { display: none; }
+    &-logo {
+      display: none;
+    }
   }
-
 
   &-navigation-wrap {
     // position: absolute;
@@ -82,7 +83,8 @@
     // font-family: HelveticaNeueLTStd-Blk,Helvetica,Arial,sans-serif;
     // z-index: 3;
     // color: #000;
-    .meta, .menu {
+    .meta,
+    .menu {
       @include font-bold(sansblack);
       @include clearfix();
 
@@ -101,8 +103,8 @@
           color: $cLinkIsActive;
         }
         &.normal > a {
-          @include mediaQuery ($max, $tablet) {
-            color:  black;
+          @include mediaQuery($max, $tablet) {
+            color: black;
           }
         }
 
@@ -112,11 +114,6 @@
           float: left;
         }
       }
-
-
-
-
-
     }
 
     .meta {
@@ -136,7 +133,6 @@
 
     .menu1 {
       font-size: map-get($fontFactorsMenu, L1);
-
     }
 
     .menu2 {
@@ -166,11 +162,13 @@
       }
     }
 
-    @include mediaQuery ($max, $tablet) {
+    @include mediaQuery($max, $tablet) {
       .meta,
       .menu1,
       .menu2,
-      .header-name { display: none; }
+      .header-name {
+        display: none;
+      }
     }
   }
 }

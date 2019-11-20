@@ -8,28 +8,32 @@ $susySetup: (
   columns: 12,
   gutters: 1/2,
   math: fluid,
-  output: float,
+  output: float
 );
 
 @if $debug == true {
-  $susy: map-merge($susySetup, (debug: (image: show)));
-}
-@else {
+  $susy: map-merge(
+    $susySetup,
+    (
+      debug: (
+        image: show
+      )
+    )
+  );
+} @else {
   $susy: map-merge($susySetup, ());
 }
 
-
 // Colors
 // ==========================================================================
-$cWhite:            #ffffff  ;
-$cText:             darken($cWhite, 94%);
-$cGrey--light:      darken($cWhite, 6%);
-$cGrey--dark:       darken($cWhite, 80%);
+$cWhite: #ffffff;
+$cText: darken($cWhite, 94%);
+$cGrey--light: darken($cWhite, 6%);
+$cGrey--dark: darken($cWhite, 80%);
 
-$cLink:             $cText;
-$cLinkIsActive:     lighten($cText, 50%);
-$cLinkHover:        #cb2e26;
-
+$cLink: $cText;
+$cLinkIsActive: lighten($cText, 50%);
+$cLinkHover: #cb2e26;
 
 $cLinkHover01: #2d5199;
 $cLinkHover02: #cb2e26;
@@ -52,28 +56,27 @@ $cLinkHover18: #cb2e26;
 $cLinkHover19: #50afa7;
 $cLinkHover20: #d53064;
 
-
-
-
-$cBackgroundColor:  $cWhite;
-
+$cBackgroundColor: $cWhite;
 
 // Typography
 // ==========================================================================
 
-
 $font-name: (
-  sansblack: 'SFGZSansBlack'
+  sansblack: "SFGZSansBlack"
 );
 
 $font-family: (
-  sans: #{Helvetica Neue,Helvetica,Arial,sans-serif},
-  sansblack: #{map-get($font-name, sansblack), sans-serif}
+  sans: #{Helvetica Neue,
+  Helvetica,
+  Arial,
+  sans-serif},
+  sansblack: #{map-get($font-name, sansblack),
+  sans-serif}
 );
 
 $font-weight-bold: (
   sans: 700,
-  sansblack:800
+  sansblack: 800
 );
 
 $fontFactors: (
@@ -81,30 +84,27 @@ $fontFactors: (
   p: 1rem,
   h1: 2rem,
   h2: 2rem,
-  h3: 1rem,
+  h3: 1rem
 );
 
 $fontFactorsMenu: (
   meta: 1.15rem,
   name: 2.3rem,
   L1: 1.65rem,
-  L2: 1.15rem,
+  L2: 1.15rem
 );
 
 $fontFactorsMenuMobile: (
   meta: 1.15rem,
   name: 2.3rem,
   L1: 1.65rem,
-  L2: 1rem,
+  L2: 1rem
 );
-
 
 // Layout
 // ==========================================================================
 
 $max-width: 1130px;
-
-
 
 // the spacing for the white cubes on the background
 $spaceArroundContent: 0.4em;

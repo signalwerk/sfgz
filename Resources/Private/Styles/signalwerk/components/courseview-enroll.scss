@@ -1,11 +1,10 @@
 .courseview-enroll {
-
   .course-form {
     fieldset {
-        width: 100%;
-        border: none;
-        padding: 0;
-        margin: 0;
+      width: 100%;
+      border: none;
+      padding: 0;
+      margin: 0;
     }
 
     span.required {
@@ -40,7 +39,6 @@
       }
     }
 
-
     .switch-right-left .form-group {
       label {
         @include span(last 6 of 9);
@@ -49,8 +47,8 @@
         @include span(first 3 of 9);
         @include container(3);
         text-align: right;
-        input[type='radio'],
-        input[type='checkbox'] {
+        input[type="radio"],
+        input[type="checkbox"] {
           right: 0;
           width: auto;
         }

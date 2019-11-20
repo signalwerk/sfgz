@@ -7,7 +7,6 @@
 // @media min-width and max-width
 $viewport-increment: 0.1px; // customize to suite
 
-
 // Wide-Desktop
 $wide-desktop: 1240px; // customize to suite
 $pre-wide-desktop: $wide-desktop - $viewport-increment;
@@ -25,19 +24,17 @@ $post-mobile: $mobile + $viewport-increment;
 $min: min-width;
 $max: max-width;
 @mixin mediaQuery($constraint, $viewport1, $viewport2: null) {
-     @if $constraint == $min{
-        @media screen and ($min: $viewport1) {
-             @content;
-        }
+  @if $constraint == $min {
+    @media screen and ($min: $viewport1) {
+      @content;
     }
-    @else if $constraint == $max {
-         @media screen and ($max: $viewport1){
-            @content;
-        }
+  } @else if $constraint == $max {
+    @media screen and ($max: $viewport1) {
+      @content;
     }
-    @else {
-         @media screen and ($min: $viewport1) and ($max: $viewport2){
-            @content;
-        }
+  } @else {
+    @media screen and ($min: $viewport1) and ($max: $viewport2) {
+      @content;
     }
+  }
 }

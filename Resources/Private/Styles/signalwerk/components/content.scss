@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .content {
   box-sizing: border-box;
@@ -8,7 +8,7 @@
 
   @include mediaQuery($max, $tablet) {
     padding: 2%;
-  };
+  }
 
   .neos-backend & {
     padding-left: 1rem;
@@ -36,7 +36,7 @@
     border-bottom: none;
   }
   a[href^="http"] {
-    @include inline-icon('icon_external-link.svg', 60%);
+    @include inline-icon("icon_external-link.svg", 60%);
   }
 
   ul {
@@ -63,7 +63,6 @@
       margin-bottom: 2rem;
     }
 
-
     @include mediaQuery($min, $tablet) {
       .content_main {
         @include span(first 9 of 12);
@@ -75,15 +74,15 @@
     }
 
     // for course
-    .wide & .content_main  {
+    .wide & .content_main {
       @include span(12 of 12);
     }
-      
+
     // for course
-    .course & .content_main  {
+    .course & .content_main {
       @include span(12 of 12);
 
-      .course-root{
+      .course-root {
         @include container(12);
 
         @include mediaQuery($min, $tablet) {
@@ -102,7 +101,6 @@
     .course & .content_extra {
       display: none;
     }
-
 
     .menu3 {
       padding-bottom: 3rem;
