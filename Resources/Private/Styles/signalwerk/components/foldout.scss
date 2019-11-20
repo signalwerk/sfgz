@@ -1,4 +1,4 @@
-@import "../variables";
+@import '../variables';
 
 // see
 // https://codepen.io/echozone/pen/LwJCD
@@ -11,19 +11,19 @@ $arrowSize: 1.5em;
 }
 
 .foldout-content {
-  transition: transform 0.5s;
+  transition: transform .5s;
   transform: translateY(-100%);
   overflow: hidden;
   height: 0;
 
-  &.show,
-  .neos-backend & {
+  &.show, .neos-backend & {
     transform: translateY(0);
     height: auto;
   }
 }
 
 .foldout-title {
+
   &:hover {
     cursor: pointer;
   }
@@ -36,7 +36,7 @@ $arrowSize: 1.5em;
     &:before {
       position: absolute;
       top: -0.3rem;
-      content: "";
+      content:'';
       display: inline-block;
       position: relative;
       left: $arrowSize / 4;

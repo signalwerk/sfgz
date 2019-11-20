@@ -1,4 +1,4 @@
-@import "./variables";
+@import './variables';
 
 // Font
 // check https://google-webfonts-helper.herokuapp.com/
@@ -21,11 +21,8 @@
   font-family: map-get($font-name, sansblack);
   font-weight: map-get($font-weight-bold, sansblack);
   font-style: normal;
-  src: url("../Fonts/Helvetica/2B6D49_0_0.eot");
-  src: url("../Fonts/Helvetica/2B6D49_0_0.eot?#iefix")
-      format("embedded-opentype"),
-    url("../Fonts/Helvetica/2B6D49_0_0.woff") format("woff"),
-    url("../Fonts/Helvetica/2B6D49_0_0.ttf") format("truetype");
+  src: url('../Fonts/Helvetica/2B6D49_0_0.eot');
+  src: url('../Fonts/Helvetica/2B6D49_0_0.eot?#iefix') format('embedded-opentype'), url('../Fonts/Helvetica/2B6D49_0_0.woff') format('woff'), url('../Fonts/Helvetica/2B6D49_0_0.ttf') format('truetype');
 }
 
 /* ICONS */

@@ -1,74 +1,36 @@
-$backgroundURL: "../Assets/Images/logo/generated/anim/background";
-$backgroundURLdisappear: "../Assets/Images/logo/generated/disappear/background";
+$backgroundURL:'../Assets/Images/logo/generated/anim/background';
+$backgroundURLdisappear:'../Assets/Images/logo/generated/disappear/background';
+
 
 body {
   // background-image: url('#{$backgroundURL}01.svg');
   background-repeat: repeat-y;
   background-size: 100% auto;
 
-  &.random01 {
-    background-image: url("#{$backgroundURL}01.svg");
-  }
-  &.random02 {
-    background-image: url("#{$backgroundURL}02.svg");
-  }
-  &.random03 {
-    background-image: url("#{$backgroundURL}03.svg");
-  }
-  &.random04 {
-    background-image: url("#{$backgroundURL}04.svg");
-  }
-  &.random05 {
-    background-image: url("#{$backgroundURL}05.svg");
-  }
-  &.random06 {
-    background-image: url("#{$backgroundURL}06.svg");
-  }
-  &.random07 {
-    background-image: url("#{$backgroundURL}07.svg");
-  }
-  &.random08 {
-    background-image: url("#{$backgroundURL}08.svg");
-  }
-  &.random09 {
-    background-image: url("#{$backgroundURL}09.svg");
-  }
-  &.random10 {
-    background-image: url("#{$backgroundURL}10.svg");
-  }
-  &.random11 {
-    background-image: url("#{$backgroundURL}11.svg");
-  }
-  &.random12 {
-    background-image: url("#{$backgroundURL}12.svg");
-  }
-  &.random13 {
-    background-image: url("#{$backgroundURL}13.svg");
-  }
-  &.random14 {
-    background-image: url("#{$backgroundURL}14.svg");
-  }
-  &.random15 {
-    background-image: url("#{$backgroundURL}15.svg");
-  }
-  &.random16 {
-    background-image: url("#{$backgroundURL}16.svg");
-  }
-  &.random17 {
-    background-image: url("#{$backgroundURL}17.svg");
-  }
-  &.random18 {
-    background-image: url("#{$backgroundURL}18.svg");
-  }
-  &.random19 {
-    background-image: url("#{$backgroundURL}19.svg");
-  }
-  &.random20 {
-    background-image: url("#{$backgroundURL}20.svg");
-  }
+  &.random01 {background-image: url('#{$backgroundURL}01.svg')};
+  &.random02 {background-image: url('#{$backgroundURL}02.svg')};
+  &.random03 {background-image: url('#{$backgroundURL}03.svg')};
+  &.random04 {background-image: url('#{$backgroundURL}04.svg')};
+  &.random05 {background-image: url('#{$backgroundURL}05.svg')};
+  &.random06 {background-image: url('#{$backgroundURL}06.svg')};
+  &.random07 {background-image: url('#{$backgroundURL}07.svg')};
+  &.random08 {background-image: url('#{$backgroundURL}08.svg')};
+  &.random09 {background-image: url('#{$backgroundURL}09.svg')};
+  &.random10 {background-image: url('#{$backgroundURL}10.svg')};
+  &.random11 {background-image: url('#{$backgroundURL}11.svg')};
+  &.random12 {background-image: url('#{$backgroundURL}12.svg')};
+  &.random13 {background-image: url('#{$backgroundURL}13.svg')};
+  &.random14 {background-image: url('#{$backgroundURL}14.svg')};
+  &.random15 {background-image: url('#{$backgroundURL}15.svg')};
+  &.random16 {background-image: url('#{$backgroundURL}16.svg')};
+  &.random17 {background-image: url('#{$backgroundURL}17.svg')};
+  &.random18 {background-image: url('#{$backgroundURL}18.svg')};
+  &.random19 {background-image: url('#{$backgroundURL}19.svg')};
+  &.random20 {background-image: url('#{$backgroundURL}20.svg')};
 }
 
 body.noBackground {
+
   &:not(.no-animation) {
     position: relative;
     background: none;
@@ -87,69 +49,28 @@ body.noBackground {
 
   &.no-animation {
     background: none;
-    &:after {
-      content: none;
-    }
+    &:after { content: none; }
   }
 }
 
-body.noBackground.random01:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}01_d.svg");
-}
-body.noBackground.random02:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}02_d.svg");
-}
-body.noBackground.random03:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}03_d.svg");
-}
-body.noBackground.random04:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}04_d.svg");
-}
-body.noBackground.random05:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}05_d.svg");
-}
-body.noBackground.random06:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}06_d.svg");
-}
-body.noBackground.random07:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}07_d.svg");
-}
-body.noBackground.random08:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}08_d.svg");
-}
-body.noBackground.random09:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}09_d.svg");
-}
-body.noBackground.random10:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}10_d.svg");
-}
-body.noBackground.random11:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}11_d.svg");
-}
-body.noBackground.random12:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}12_d.svg");
-}
-body.noBackground.random13:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}13_d.svg");
-}
-body.noBackground.random14:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}14_d.svg");
-}
-body.noBackground.random15:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}15_d.svg");
-}
-body.noBackground.random16:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}16_d.svg");
-}
-body.noBackground.random17:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}17_d.svg");
-}
-body.noBackground.random18:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}18_d.svg");
-}
-body.noBackground.random19:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}19_d.svg");
-}
-body.noBackground.random20:not(.no-animation):after {
-  background-image: url("#{$backgroundURLdisappear}20_d.svg");
-}
+
+body.noBackground.random01:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}01_d.svg')};
+body.noBackground.random02:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}02_d.svg')};
+body.noBackground.random03:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}03_d.svg')};
+body.noBackground.random04:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}04_d.svg')};
+body.noBackground.random05:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}05_d.svg')};
+body.noBackground.random06:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}06_d.svg')};
+body.noBackground.random07:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}07_d.svg')};
+body.noBackground.random08:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}08_d.svg')};
+body.noBackground.random09:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}09_d.svg')};
+body.noBackground.random10:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}10_d.svg')};
+body.noBackground.random11:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}11_d.svg')};
+body.noBackground.random12:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}12_d.svg')};
+body.noBackground.random13:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}13_d.svg')};
+body.noBackground.random14:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}14_d.svg')};
+body.noBackground.random15:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}15_d.svg')};
+body.noBackground.random16:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}16_d.svg')};
+body.noBackground.random17:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}17_d.svg')};
+body.noBackground.random18:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}18_d.svg')};
+body.noBackground.random19:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}19_d.svg')};
+body.noBackground.random20:not(.no-animation):after {background-image: url('#{$backgroundURLdisappear}20_d.svg')};
