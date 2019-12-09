@@ -16,13 +16,20 @@ steps:
     commands:
       - bash ./ci/lftp.sh push
     environment:
-      FTP_SERVER: berufssc.myhostpoint.ch
-      FTP_USER: signalwerk@sfgz.ch
+      FTP_SERVER: 34.65.45.216
+      FTP_USER: sh@signalwerk.ch
       FTP_PASSWORD:
         from_secret: "FTP_PASSWORD"
       FTP_LOCAL_DIR: .
-      FTP_REMOTE_DIR: /www/sfgz.ch/main/Packages/Sites/signalwerk.sfgz/
-      FTP_PARALLEL: 15
+      FTP_REMOTE_DIR: /Packages/Sites/signalwerk.sfgz/
+    when:
+      branch:
+        - master
+
+  - name: build-cache
+    image: pstauffer/curl:latest
+    commands:
+      - curl -s -I https://sfgz.ch
     when:
       branch:
         - master

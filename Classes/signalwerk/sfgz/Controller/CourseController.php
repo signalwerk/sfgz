@@ -163,9 +163,28 @@ class CourseController extends ActionController
 
         $mail = new PHPMailer;
         $mail->CharSet = 'UTF-8';
-        $mail->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
+        $mail->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
         $mail->addAddress($data->{'E-Mail'});
         // $mail->addBCC('sh@signalwerk.ch');
+
+
+    // Server settings
+	// https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = 'mta.tam.ch';                    // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
+    $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
+	$mail->SMTPSecure = 'ssl';
+	$mail->SMTPOptions = array(
+	    'ssl' => array(
+	        'verify_peer' => false,
+	        'verify_peer_name' => false,
+	        'allow_self_signed' => true
+	    )
+	);
+    $mail->Port       = 465;       
+
 
         $mail->Subject = 'Ihre Anmeldung - '.$data->title;
         $mail->Body = $mailtxt;
@@ -186,9 +205,28 @@ class CourseController extends ActionController
 
         $mailVerwaltung = new PHPMailer;
         $mailVerwaltung->CharSet = 'UTF-8';
-        $mailVerwaltung->setFrom('weiterbildung@medienformfarbe.ch', 'SfGZ – Weiterbildung');
-        $mailVerwaltung->addAddress('weiterbildung@medienformfarbe.zh.ch');
+        $mailVerwaltung->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mailVerwaltung->addAddress('weiterbildung@sfgz.zh.ch');
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
+
+    // Server settings
+	// https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
+    $mailVerwaltung->isSMTP();                                            // Send using SMTP
+    $mailVerwaltung->Host       = 'mta.tam.ch';                    // Set the SMTP server to send through
+    $mailVerwaltung->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mailVerwaltung->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
+    $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
+	$mailVerwaltung->SMTPSecure = 'ssl';
+	$mailVerwaltung->SMTPOptions = array(
+	    'ssl' => array(
+	        'verify_peer' => false,
+	        'verify_peer_name' => false,
+	        'allow_self_signed' => true
+	    )
+	);
+    $mailVerwaltung->Port       = 465;       
+
+
 
         $mailVerwaltung->Subject = 'Kursanmeldung - '.$data->Vorname.' '.$data->Name.', '.$data->Ort;
         $mailVerwaltung->Body = $mailtxt;
