@@ -124,28 +124,16 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
       sectionName = 'bodyScripts'
     }
 
-    javascripts.mainProduction = Neos.Fusion:Tag {
-      tagName = 'script'
-      attributes {
-        src = Neos.Fusion:ResourceUri {
-          package = 'signalwerk.sfgz'
-          path = 'JavaScript/signalwerk.min.js'
-        }
-        async = null
-      }
-      @if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') == 'Production'}
-    }
 
-    javascripts.mainDevelopment = Neos.Fusion:Tag {
+    javascripts.main = Neos.Fusion:Tag {
       tagName = 'script'
       attributes {
         src = Neos.Fusion:ResourceUri {
           package = 'signalwerk.sfgz'
-          path = 'JavaScript/signalwerk.js'
+          path = 'JavaScript/main.js'
         }
         async = null
       }
-      @if.inProductionContext = ${Configuration.setting('Neos.Flow.core.context') != 'Production'}
     }
 
     javascripts.backend = Neos.Fusion:Tag {

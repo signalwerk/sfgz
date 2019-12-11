@@ -31,3 +31,5 @@ ci/.ssh/secret.key
 /Resources/Public/JavaScript/signalwerk.min.js
 /Resources/Public/Styles/signalwerk.css
 /Resources/Public/Styles/signalwerk.min.css
+/Resources/Public/assets
+/Resources/Public/Styles

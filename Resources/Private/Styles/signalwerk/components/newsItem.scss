@@ -147,28 +147,26 @@
     }
 
 
-    $backgroundURL:'../Assets/Images/logo/generated/small/background';
-
-    &.background01:after {background-image: url('#{$backgroundURL}01_s.svg')};
-    &.background02:after {background-image: url('#{$backgroundURL}02_s.svg')};
-    &.background03:after {background-image: url('#{$backgroundURL}03_s.svg')};
-    &.background04:after {background-image: url('#{$backgroundURL}04_s.svg')};
-    &.background05:after {background-image: url('#{$backgroundURL}05_s.svg')};
-    &.background06:after {background-image: url('#{$backgroundURL}06_s.svg')};
-    &.background07:after {background-image: url('#{$backgroundURL}07_s.svg')};
-    &.background08:after {background-image: url('#{$backgroundURL}08_s.svg')};
-    &.background09:after {background-image: url('#{$backgroundURL}09_s.svg')};
-    &.background10:after {background-image: url('#{$backgroundURL}10_s.svg')};
-    &.background11:after {background-image: url('#{$backgroundURL}11_s.svg')};
-    &.background12:after {background-image: url('#{$backgroundURL}12_s.svg')};
-    &.background13:after {background-image: url('#{$backgroundURL}13_s.svg')};
-    &.background14:after {background-image: url('#{$backgroundURL}14_s.svg')};
-    &.background15:after {background-image: url('#{$backgroundURL}15_s.svg')};
-    &.background16:after {background-image: url('#{$backgroundURL}16_s.svg')};
-    &.background17:after {background-image: url('#{$backgroundURL}17_s.svg')};
-    &.background18:after {background-image: url('#{$backgroundURL}18_s.svg')};
-    &.background19:after {background-image: url('#{$backgroundURL}19_s.svg')};
-    &.background20:after {background-image: url('#{$backgroundURL}20_s.svg')};
+    &.background01:after {background-image: url('../Assets/Images/logo/generated/small/background01_s.svg')};
+    &.background02:after {background-image: url('../Assets/Images/logo/generated/small/background02_s.svg')};
+    &.background03:after {background-image: url('../Assets/Images/logo/generated/small/background03_s.svg')};
+    &.background04:after {background-image: url('../Assets/Images/logo/generated/small/background04_s.svg')};
+    &.background05:after {background-image: url('../Assets/Images/logo/generated/small/background05_s.svg')};
+    &.background06:after {background-image: url('../Assets/Images/logo/generated/small/background06_s.svg')};
+    &.background07:after {background-image: url('../Assets/Images/logo/generated/small/background07_s.svg')};
+    &.background08:after {background-image: url('../Assets/Images/logo/generated/small/background08_s.svg')};
+    &.background09:after {background-image: url('../Assets/Images/logo/generated/small/background09_s.svg')};
+    &.background10:after {background-image: url('../Assets/Images/logo/generated/small/background10_s.svg')};
+    &.background11:after {background-image: url('../Assets/Images/logo/generated/small/background11_s.svg')};
+    &.background12:after {background-image: url('../Assets/Images/logo/generated/small/background12_s.svg')};
+    &.background13:after {background-image: url('../Assets/Images/logo/generated/small/background13_s.svg')};
+    &.background14:after {background-image: url('../Assets/Images/logo/generated/small/background14_s.svg')};
+    &.background15:after {background-image: url('../Assets/Images/logo/generated/small/background15_s.svg')};
+    &.background16:after {background-image: url('../Assets/Images/logo/generated/small/background16_s.svg')};
+    &.background17:after {background-image: url('../Assets/Images/logo/generated/small/background17_s.svg')};
+    &.background18:after {background-image: url('../Assets/Images/logo/generated/small/background18_s.svg')};
+    &.background19:after {background-image: url('../Assets/Images/logo/generated/small/background19_s.svg')};
+    &.background20:after {background-image: url('../Assets/Images/logo/generated/small/background20_s.svg')};
 
 
 

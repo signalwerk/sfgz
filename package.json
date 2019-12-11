@@ -1,31 +1,44 @@
 {
-  "name": "sfgz.ch",
+  "name": "sfgz",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "sfgz.ch processor",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx gulp",
-    "build": "npx gulp build"
+    "build": "NODE_ENV=production webpack --env=production",
+    "start": "webpack-dev-server",
+    "watch": "webpack --watch"
   },
-  "author": "Stefan Huber (Signalwekr GmbH)",
+  "author": "Stefan Huber (Signalwerk GmbH)",
   "license": "MIT",
-  "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-changed": "^1.3.0",
-    "gulp-cssnano": "^2.1.0",
-    "gulp-ignore": "^2.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.1",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^2.0.0",
+  "inactive--devDependencies": {
     "imagesloaded": "^4.1.2",
-    "masonry-layout": "^4.2.0",
+    "masonry-layout": "^4.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.1.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "config": "^2.0.1",
+    "css-loader": "^1.0.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^4.2.0",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.12.0",
     "normalize.css": "^4.2.0",
-    "susy": "^2.2.12"
+    "postcss-calc": "^7.0.1",
+    "postcss-conditionals": "^2.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
+    "postcss-preset-env": "^6.6.0",
+    "postcss-simple-vars": "^5.0.2",
+    "sass-loader": "^8.0.0",
+    "showdown": "^1.8.6",
+    "susy": "^2.2.12",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.2.1"
   }
 }
