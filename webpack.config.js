@@ -147,6 +147,10 @@ module.exports = {
     // open browser on server start
     // open: config.get("open")
     port: 8080,
+    allowedHosts: [
+      "sfgz.local",
+      "blog.sfgz.local"
+    ],
     proxy: {
       "*": "http://localhost:80"
     }
