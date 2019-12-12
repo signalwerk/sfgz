@@ -21,7 +21,7 @@ steps:
       FTP_PASSWORD:
         from_secret: "FTP_PASSWORD"
       FTP_LOCAL_DIR: .
-      FTP_REMOTE_DIR: /Packages/Sites/signalwerk.sfgz/
+      FTP_REMOTE_DIR: /html/Packages/Sites/signalwerk.sfgz/
     when:
       branch:
         - master
