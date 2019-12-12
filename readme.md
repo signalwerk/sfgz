@@ -19,4 +19,4 @@ CSS classes are named after [BEM](https://cssguidelin.es/#bem-like-naming).
 * modifiers are separated by two hyphens (`--`)
 
 ### Lizenz
-MIT-Lizenzierung
+Jeglicher Code in [diesem Repository](https://github.com/signalwerk/sfgz/) steht unter [MIT-Lizenzierung](https://opensource.org/licenses/MIT).
