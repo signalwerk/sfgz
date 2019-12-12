@@ -4,6 +4,10 @@ Dieses Repo beinhaltet die NEOS-Daten von [sfgz.ch](https://sfgz.ch/). Basierend
 ### Technics
 To get more informations about how to setup the site see `technics.md`
 
+# TODO
+# REMOVE news-item
+
+
 <!-- generated package -->
 
 ## INFOS

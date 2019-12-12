@@ -1,5 +1,5 @@
 prototype(signalwerk.sfgz:NewsItem) < prototype(Neos.Neos:Content) {
-  attributes.class = 'news-item'
+  attributes.class = 'news-item blog-teaser'
   link.@process.convertUris = Neos.Neos:ConvertUris {
     forceConversion = true
   }
