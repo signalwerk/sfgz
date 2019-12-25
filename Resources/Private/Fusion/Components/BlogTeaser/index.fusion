@@ -34,7 +34,7 @@ prototype(Breadlesscode.Blog:Component.PostTeaser) < prototype(Neos.Neos:Content
             <signalwerk.sfgz:Content.Fragment.Image.FigureBLOG />
           </div>
 
-          <div class="teaser-text">
+          <div class="blog-teaser__content">
             <p class="blog-teaser__date">{props.teaserDate}</p>
             <div class="blog-teaser__title">{props.teaserTitle}</div>
             <div class="blog-teaser__text">{props.teaserText}</div>

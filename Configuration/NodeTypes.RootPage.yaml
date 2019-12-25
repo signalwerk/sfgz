@@ -1,0 +1,15 @@
+'signalwerk.sfgz:Root':
+  superTypes:
+    'Neos.NodeTypes:Page': true
+  ui:
+    label: Root
+    icon: 'file'
+
+  properties:
+    'headerTitle':
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Header Titel'
+        inspector:
+          group: 'layout'

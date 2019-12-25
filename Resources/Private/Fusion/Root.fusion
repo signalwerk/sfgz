@@ -50,6 +50,9 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
 
     parts {
 
+      // Schule für Gestaltung Zürich
+      headerTitle = ${q(node).closest("[instanceof signalwerk.sfgz:Root][headerTitle][headerTitle != '']").property('headerTitle')}
+
       menu1 = Neos.Neos:Menu {
         templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/DefaultMenu.html'
 
@@ -173,6 +176,10 @@ wide {
   bodyTag.attributes.class = 'wide'
 }
 
+blog < page
+blog {
+  bodyTag.attributes.class = 'blog'
+}
 
 
 // https://discuss.neos.io/t/how-can-i-pass-an-variable-via-url-parameters/994/6

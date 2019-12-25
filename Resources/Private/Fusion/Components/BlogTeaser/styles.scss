@@ -154,6 +154,16 @@
 
     margin-top: 0;
   }
+
+  &__content {
+    background-color: white;
+    margin-top: $spaceArroundContent;
+
+    padding-left: $spaceArroundContent;
+    padding-right: $spaceArroundContent;
+    padding-top: $spaceArroundContent;
+    padding-bottom: $spaceArroundContent;
+  }
   &__title {
   }
   &__text {
