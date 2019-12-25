@@ -47,6 +47,8 @@
                 label: 'wide'
               'course':
                 label: 'course'
+              'blog':
+                label: 'blog'
     'style':
       type: string
       ui:
