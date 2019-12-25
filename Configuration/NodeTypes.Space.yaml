@@ -1,0 +1,24 @@
+##
+# A "Space" content element
+#
+"signalwerk.sfgz:Space":
+  superTypes:
+    "Neos.Neos:Content": TRUE
+  ui:
+    label: Space
+    icon: "icon-book"
+    inspector:
+      groups:
+        "space":
+          label: "Abstand"
+          position: 50
+    help:
+      message: "bindet einen Abstand eingeben"
+  properties:
+    "space":
+      type: integer
+      defaultValue: 1
+      ui:
+        label: "Abstand"
+        inspector:
+          group: "space"

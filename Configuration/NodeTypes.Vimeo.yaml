@@ -1,0 +1,48 @@
+##
+# A "Vimeo" content element
+#
+'signalwerk.sfgz:Vimeo':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: Vimeo
+    icon: 'icon-vimeo'
+    inspector:
+      groups:
+        'video':
+          label: 'Film'
+          icon: 'icon-film'
+          position: 50
+    help:
+      message: 'Einbinden eines Vimeo Films mit einer Video-ID'
+  properties:
+    'video':
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Video ID'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+        help:
+          message: |
+            Die Video-ID ist sichtbar in der URL vom Vimeo video
+            z.B. in der URL
+            `https://vimeo.com/154404170`
+            ist `154404170` die Video-ID.
+    'width':
+      type: integer
+      defaultValue: 400
+      ui:
+        label: 'Breite'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+    'height':
+      type: integer
+      defaultValue: 300
+      ui:
+        label: 'Höhe'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'

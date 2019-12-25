@@ -1,0 +1,22 @@
+##
+# upload a file
+#
+"signalwerk.sfgz:Upload":
+  superTypes:
+    "Neos.Neos:Content": TRUE
+  ui:
+    label: Upload
+    icon: "icon-file"
+    inspector:
+      groups:
+        "upload":
+          label: "Upload"
+          position: 50
+  properties:
+    "files":
+      type: 'array<Neos\Media\Domain\Model\Asset>'
+      ui:
+        label: "Files"
+        reloadIfChanged: TRUE
+        inspector:
+          group: "upload"

@@ -1,0 +1,36 @@
+"signalwerk.sfgz:Foldout":
+  superTypes:
+    "signalwerk.sfgz:Column": TRUE
+  ui:
+    label: "Foldout"
+    position: 200
+  childNodes:
+    content:
+      type: "Neos.Neos:ContentCollection"
+  properties:
+    layout:
+      defaultValue: "default"
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              "default":
+                label: "default"
+    title:
+      type: string
+      defaultValue: "mehr..."
+      ui:
+        inlineEditable: TRUE
+        inspector:
+          group: ~
+        aloha:
+          placeholder: "Titel für Foldout..."
+          "format": []
+          "table": []
+          "list": []
+          "link": []
+          "alignment": []
+          "formatlesspaste":
+            "button": FALSE
+            "formatlessPasteOption": TRUE

@@ -1,0 +1,50 @@
+
+
+##
+# A "Youtube" content element
+#
+'signalwerk.sfgz:YouTube':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: YouTube
+    icon: 'icon-youtube'
+    inspector:
+      groups:
+        'video':
+          label: 'Film'
+          icon: 'icon-film'
+          position: 50
+    help:
+      message: 'Einbinden eines YouTube Films mit einer Video-ID'
+  properties:
+    'video':
+      type: string
+      defaultValue: ''
+      ui:
+        label: 'Video ID'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+        help:
+          message: |
+            Die Video-ID ist sichtbar in der URL vom youtube video
+            z.B. in der URL
+            `https://youtu.be/G6D1YI-41ao`
+            ist `G6D1YI-41ao` die Video-ID.
+    'width':
+      type: integer
+      defaultValue: 400
+      ui:
+        label: 'Breite'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
+    'height':
+      type: integer
+      defaultValue: 300
+      ui:
+        label: 'Höhe'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'video'
