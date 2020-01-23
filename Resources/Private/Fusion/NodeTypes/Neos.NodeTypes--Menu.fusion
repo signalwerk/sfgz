@@ -1,0 +1,6 @@
+
+prototype(Neos.NodeTypes:Menu) {
+  attributes {
+    class = 'signalwerk-sfgz-menu'
+  }
+}

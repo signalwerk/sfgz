@@ -28,4 +28,6 @@ prototype(signalwerk.sfgz:MultiColumnItem) < prototype(Neos.Neos:ContentCollecti
 
 # one Column TS Object
 prototype(signalwerk.sfgz:OneColumn) >
-prototype(signalwerk.sfgz:OneColumn) < prototype(signalwerk.sfgz:MultiColumn)
+prototype(signalwerk.sfgz:OneColumn) < prototype(signalwerk.sfgz:MultiColumn) {
+  templatePath = ${q(node).property('layout') == 'masonry' ? 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/MultiColumn--masonry.html' : 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/MultiColumn.html'}
+}

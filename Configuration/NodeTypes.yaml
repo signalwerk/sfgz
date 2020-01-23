@@ -1,31 +1,26 @@
-
-
-
-'signalwerk.sfgz:Column':
+"signalwerk.sfgz:Column":
   superTypes:
-    'Neos.Neos:Content': TRUE
+    "Neos.Neos:Content": TRUE
   abstract: TRUE
   ui:
-    group: 'structure'
-    label: 'SH Column'
-    icon: 'icon-columns'
+    group: "structure"
+    label: "SH Column"
+    icon: "icon-columns"
     inlineEditable: TRUE
     inspector:
       groups:
         column:
-          label: 'Eigenschaften'
+          label: "Eigenschaften"
           position: 10
-          icon: 'icon-columns'
+          icon: "icon-columns"
   properties:
     layout:
       type: string
       ui:
-        label: 'Layout'
+        label: "Layout"
         inspector:
-          group: 'column'
-          editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'
-
-
+          group: "column"
+          editor: "Neos.Neos/Inspector/Editors/SelectBoxEditor"
 # 'signalwerk.sfgz:TwoColumn':
 #   superTypes:
 #     'signalwerk.sfgz:Column': TRUE
@@ -55,31 +50,3 @@
 #                 label: '66% / 33%'
 #               '33-66':
 #                 label: '33% / 66%'
-
-
-
-
-
-'signalwerk.sfgz:OneColumn':
-  superTypes:
-    'signalwerk.sfgz:Column': TRUE
-  ui:
-    label: 'Box (Wrapper)'
-    position: 200
-  childNodes:
-    column0:
-      type: 'Neos.Neos:ContentCollection'
-  properties:
-    layout:
-      defaultValue: 'default'
-      ui:
-        reloadIfChanged: TRUE
-        inspector:
-          editorOptions:
-            values:
-              'default':
-                label: 'default'
-              'masonry':
-                label: 'masonry'
-              'mobileonly':
-                label: 'Nur Mobilgeräte'

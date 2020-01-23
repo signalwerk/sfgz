@@ -1,7 +1,10 @@
 // @import './newsview-list';
-@import './newsview-filter';
+@import "./newsview-filter";
 
 .signalwerk-sfgz-newsview {
+  .signalwerk-sfgz-newsitem {
+    width: 100%;
+  }
   .teaser-content {
     @include container(12);
 

@@ -1,0 +1,23 @@
+"signalwerk.sfgz:OneColumn":
+  superTypes:
+    "signalwerk.sfgz:Column": TRUE
+  ui:
+    label: "Box (Wrapper)"
+    position: 200
+  childNodes:
+    column0:
+      type: "Neos.Neos:ContentCollection"
+  properties:
+    layout:
+      defaultValue: "default"
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              "default":
+                label: "default"
+              "masonry":
+                label: "masonry"
+              "mobileonly":
+                label: "Nur Mobilgeräte"
