@@ -79,8 +79,8 @@ module.exports = {
             options: { sourceMap: config.get("sourcemap") }
           },
           // Compiles Sass to CSS
-          'sass-loader',
-        ],
+          "sass-loader"
+        ]
       },
       {
         test: /\.css$/,
@@ -146,15 +146,12 @@ module.exports = {
   devServer: {
     // open browser on server start
     // open: config.get("open")
-    
+
     // public: 'blog.sfgz.local:8080', // That solved it
-    public: 'sfgz.local:8080', // That solved it
+    public: "sfgz.local:8080", // That solved it
 
     port: 8080,
-    allowedHosts: [
-      "sfgz.local",
-      "blog.sfgz.local"
-    ],
+    allowedHosts: ["sfgz.local", "blog.sfgz.local"],
     proxy: {
       "*": "http://localhost:80"
     }
