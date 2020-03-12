@@ -18,6 +18,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use \stdClass;
 use \DOMDocument;
+use DateTime;
 
 /**
  * Courses controller for the site package
@@ -41,6 +42,8 @@ class CourseController extends ActionController
      */
     protected $context;
 
+
+
     /**
      * Initialize the context
      *
@@ -49,6 +52,7 @@ class CourseController extends ActionController
     protected function initializeAction()
     {
         $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+        $this->logImportLast = new DateTime;
     }
 
     protected function dataPath()
@@ -95,45 +99,69 @@ class CourseController extends ActionController
      */
     protected function deleteAllCourses()
     {
+      $this->log("Start – Delete", true);
+
         $msg = '';
         // ------------------------------------------------
+
+        $this->log("  * find executions start", true);
 
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof signalwerk.sfgz:CourseExecution]');
 
+        $this->log("  * find executions end");
+
         $msg .= '<p>Alte Durchführungen gelöschen: ' . count($query) .'x</p>';
 
+        $this->log("  * delete executions start", true);
         foreach ($query as $courseExecution) {
             $courseExecution->remove();
             $this->emitCourseDeleted($courseExecution);
         }
+        $this->log("  * delete executions end");
 
         // ------------------------------------------------
 
+        $this->log("  * find category start", true);
+
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof signalwerk.sfgz:CourseCategory]');
+        $this->log("  * find category end");
 
         $msg .= '<p>Alte Kategorien gelöschen: ' . count($query) .'x</p>';
+
+        $this->log("  * delete category start", true);
 
         foreach ($query as $courseCategory) {
             $courseCategory->remove();
             $this->emitCourseDeleted($courseCategory);
         }
+        $this->log("  * delete category end");
 
         // ------------------------------------------------
 
 
+        $this->log("  * find course start", true);
+
         $query = new FlowQuery(array($this->context->getRootNode()));
         $query = $query->find('[instanceof signalwerk.sfgz:Course]');
+        $this->log("  * find course end");
 
         $msg .= '<p>Alte Kurse gelöschen: ' . count($query) .'x</p>';
 
+        $this->log("  * delete course start", true);
         foreach ($query as $course) {
             $course->remove();
             $this->emitCourseDeleted($course);
         }
 
+        $this->log("  * delete course end");
+
+        $this->log("  * persist start", true);
         $this->persistenceManager->persistAll();
+        $this->log("  * persist end");
+
+        $this->log("End – Delete", true);
 
         return $msg;
     }
@@ -183,7 +211,7 @@ class CourseController extends ActionController
 	        'allow_self_signed' => true
 	    )
 	);
-    $mail->Port       = 465;       
+    $mail->Port       = 465;
 
 
         $mail->Subject = 'Ihre Anmeldung - '.$data->title;
@@ -224,7 +252,7 @@ class CourseController extends ActionController
 	        'allow_self_signed' => true
 	    )
 	);
-    $mailVerwaltung->Port       = 465;       
+    $mailVerwaltung->Port       = 465;
 
 
 
@@ -308,6 +336,9 @@ class CourseController extends ActionController
 
     protected function dlCourseXML()
     {
+
+      $this->log("Start – Import", true);
+
         set_time_limit(0); // unlimited max execution time
 
         $ci = curl_init();
@@ -321,6 +352,7 @@ class CourseController extends ActionController
         $contents = curl_exec($ci); // Returns '1' if successful
         curl_close($ci);
         fclose($fp);
+        $this->log("End – Import");
     }
 
     /**
@@ -363,6 +395,44 @@ class CourseController extends ActionController
         return str_replace('#REP_URL#', './detail.html?kurs=', $text);
     }
 
+
+    /**
+     * @var array
+     */
+    protected $logImport = array();
+
+    protected $logImportLast;
+
+    protected function pluralize( $count, $text )
+    {
+        return $count . ( ( $count == 1 ) ? ( " $text" ) : ( " ${text}s" ) );
+    }
+    protected function ago( $datetime )
+    {
+        $interval = date_create('now')->diff( $datetime );
+        $suffix = ( $interval->invert ? ' ago' : '' );
+        if ( $v = $interval->y >= 1 ) return $this->pluralize( $interval->y, 'year' ) . $suffix;
+        if ( $v = $interval->m >= 1 ) return $this->pluralize( $interval->m, 'month' ) . $suffix;
+        if ( $v = $interval->d >= 1 ) return $this->pluralize( $interval->d, 'day' ) . $suffix;
+        if ( $v = $interval->h >= 1 ) return $this->pluralize( $interval->h, 'hour' ) . $suffix;
+        if ( $v = $interval->i >= 1 ) return $this->pluralize( $interval->i, 'minute' ) . $suffix;
+        return $this->pluralize( $interval->s, 'second' ) . $suffix;
+    }
+
+    protected function log($text, $noDuration=false)
+    {
+      $time = date("Y-m-d | H:i:s");
+      $duration = $this->ago($this->logImportLast);
+      if($noDuration) {
+        $total = $time." | ".$text;
+      } else {
+        $total = $time." | ".$duration." | ".$text;
+      }
+
+      array_push($this->logImport,$total);
+      $this->logImportLast = new DateTime();
+    }
+
     protected function importCourse()
     {
         $this->dlCourseXML();
@@ -388,6 +458,9 @@ class CourseController extends ActionController
 
         // foreach([$xml->kurse->kurs[0]] as $kurs)
         foreach ($xml->kurse->kurs as $kurs) {
+          $this->log("Start – Import: ".$kurs->{'kurs-code'}, true);
+
+
             foreach ($kurs->versionen->version as $version) {
 
 //              $links = [];
@@ -558,9 +631,15 @@ class CourseController extends ActionController
 
                 $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
             } // end version
+            $this->log("End – Import: ".$kurs->{'kurs-code'});
+
         } // end kurs
 
+        $this->log("Start – persist", true);
+
       $this->persistenceManager->persistAll();
+      $this->log("End – persist");
+
 
         return '<h3>Neuer Import abgeschlossen.</h3>';
     }
@@ -568,11 +647,14 @@ class CourseController extends ActionController
 
     public function importAction()
     {
+      $this->log("Start – import", true);
+
         $msg = $this->deleteAllCourses();
         $msg .= $this->importCourse();
 
         $this->response->setStatus(201);
-        return $msg; // 'Import all done. ';
+        $this->log("End – import", true);
+        return $msg."<pre style='font-size: 0.5em;'>\n".join("\n",$this->logImport)."\n</pre>"; // 'Import all done. ';
     }
 
 
