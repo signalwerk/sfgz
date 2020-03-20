@@ -4,13 +4,10 @@ Dieses Repo beinhaltet die NEOS-Daten von [sfgz.ch](https://sfgz.ch/). Basierend
 ### Technics
 To get more informations about how to setup the site see `technics.md`
 
-# TODO
-# REMOVE news-item
-
 
 <!-- generated package -->
 
-## INFOS
+## INFOS used to run Scripts
 ```bash
 export DOMAIN="sfgz.ch"
 export PROJECT_IDENTIFIER="sfgz"
@@ -21,6 +18,12 @@ export PROJECT_VENDOR="signalwerk"
 CSS classes are named after [BEM](https://cssguidelin.es/#bem-like-naming).
 * Elements are separated by two underscores (`__`).
 * modifiers are separated by two hyphens (`--`)
+
+
+
+## TODO
+* Right now there are two Elements on the Start-Page «news-items» and blog-items. Need to clean up?
+
 
 ### Lizenz
 Jeglicher Code in [diesem Repository](https://github.com/signalwerk/sfgz/) steht unter [MIT-Lizenzierung](https://opensource.org/licenses/MIT).
