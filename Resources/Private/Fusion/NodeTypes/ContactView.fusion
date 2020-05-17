@@ -25,19 +25,19 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
 
               ifTwoCat {
                   condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]', 'categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories').get()}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]', 'categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories').sort('familyname', 'ASC').get()}
               }
               ifCat {
                   condition = ${!String.isBlank(request.arguments.cat)}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat + '"]', 'categories').get()}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat + '"]', 'categories').sort('familyname', 'ASC').get()}
               }
               listFilter {
                   condition = ${q(node).property('filterCategory')}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + q(node).property('filterCategory').identifier + '"]', 'categories').get()}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + q(node).property('filterCategory').identifier + '"]', 'categories').sort('familyname', 'ASC').get()}
               }
               else {
                   condition = TRUE
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').get()}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').sort('familyname', 'ASC').get()}
               }
           }
 
