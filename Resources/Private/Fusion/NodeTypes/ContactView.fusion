@@ -18,41 +18,6 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   filteredContacts = Neos.Fusion:RawCollection {
 
 
@@ -65,6 +30,10 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
               ifCat {
                   condition = ${!String.isBlank(request.arguments.cat)}
                   renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat + '"]', 'categories').get()}
+              }
+              listFilter {
+                  condition = ${q(node).property('filterCategory')}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + q(node).property('filterCategory').identifier + '"]', 'categories').get()}
               }
               else {
                   condition = TRUE

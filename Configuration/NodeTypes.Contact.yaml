@@ -130,15 +130,25 @@
     content:
       type: 'Neos.Neos:ContentCollection'
   properties:
-    # layout:
-    #   defaultValue: 'default'
-    #   ui:
-    #     reloadIfChanged: TRUE
-    #     inspector:
-    #       editorOptions:
-    #         values:
-    #           'default':
-    #             label: 'default'
+    layout:
+      defaultValue: 'default'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              'default':
+                label: 'default'
+
+    filterCategory:
+      type: reference
+      ui:
+        label: 'Filter Kategorie'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'view'
+          editorOptions:
+            nodeTypes: ['signalwerk.sfgz:ContactCategory']
     view:
       type: string
       defaultValue: 'list'
