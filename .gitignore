@@ -33,3 +33,5 @@ ci/.ssh/secret.key
 /Resources/Public/Styles/signalwerk.min.css
 /Resources/Public/assets
 /Resources/Public/Styles
+/Resources/Public/Styles/main.css
+/Resources/Public/Styles/main.css.map
