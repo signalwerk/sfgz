@@ -9,16 +9,15 @@ use Neos\Flow\Annotations as Flow;
 use Neos\ContentRepository\Domain\Model\Node;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 
-
-
-class FilterPropertiesFromArrayOperation extends FilterOperation {
+class FilterPropertiesFromArrayOperation extends FilterOperation
+{
 
     /**
      * {@inheritdoc}
      *
      * @var string
      */
-    static protected $shortName = 'filterPropertiesFromArray';
+    protected static $shortName = 'filterPropertiesFromArray';
 
     /**
      * {@inheritdoc}
@@ -48,13 +47,13 @@ class FilterPropertiesFromArrayOperation extends FilterOperation {
         foreach ($context as $element) {
             $elementsFromProperty = $element->getProperty($propertyName);
 
-            if($elementsFromProperty) {
-              foreach ($elementsFromProperty as $propertyElement) {
-                  if ($this->matchesFilterGroup($propertyElement, $parsedFilter)) {
-                      $filteredContext[] = $element;
-                      break;
-                  }
-              }
+            if ($elementsFromProperty) {
+                foreach ($elementsFromProperty as $propertyElement) {
+                    if ($this->matchesFilterGroup($propertyElement, $parsedFilter)) {
+                        $filteredContext[] = $element;
+                        break;
+                    }
+                }
             }
         }
         $flowQuery->setContext($filteredContext);

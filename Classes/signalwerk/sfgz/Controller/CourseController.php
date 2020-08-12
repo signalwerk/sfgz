@@ -99,7 +99,7 @@ class CourseController extends ActionController
      */
     protected function deleteAllCourses()
     {
-      $this->log("Start – Delete", true);
+        $this->log("Start – Delete", true);
 
         $msg = '';
         // ------------------------------------------------
@@ -196,22 +196,22 @@ class CourseController extends ActionController
         // $mail->addBCC('sh@signalwerk.ch');
 
 
-    // Server settings
-	// https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
+        // Server settings
+    // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'mta.tam.ch';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
     $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-	$mail->SMTPSecure = 'ssl';
-	$mail->SMTPOptions = array(
-	    'ssl' => array(
-	        'verify_peer' => false,
-	        'verify_peer_name' => false,
-	        'allow_self_signed' => true
-	    )
-	);
-    $mail->Port       = 465;
+    $mail->SMTPSecure = 'ssl';
+        $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+        $mail->Port       = 465;
 
 
         $mail->Subject = 'Ihre Anmeldung - '.$data->title;
@@ -237,22 +237,22 @@ class CourseController extends ActionController
         $mailVerwaltung->addAddress('weiterbildung@sfgz.zh.ch');
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
-    // Server settings
-	// https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
+        // Server settings
+    // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
     $mailVerwaltung->isSMTP();                                            // Send using SMTP
     $mailVerwaltung->Host       = 'mta.tam.ch';                    // Set the SMTP server to send through
     $mailVerwaltung->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mailVerwaltung->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
     $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-	$mailVerwaltung->SMTPSecure = 'ssl';
-	$mailVerwaltung->SMTPOptions = array(
-	    'ssl' => array(
-	        'verify_peer' => false,
-	        'verify_peer_name' => false,
-	        'allow_self_signed' => true
-	    )
-	);
-    $mailVerwaltung->Port       = 465;
+    $mailVerwaltung->SMTPSecure = 'ssl';
+        $mailVerwaltung->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+        $mailVerwaltung->Port       = 465;
 
 
 
@@ -336,8 +336,7 @@ class CourseController extends ActionController
 
     protected function dlCourseXML()
     {
-
-      $this->log("Start – Import", true);
+        $this->log("Start – Import", true);
 
         set_time_limit(0); // unlimited max execution time
 
@@ -403,34 +402,44 @@ class CourseController extends ActionController
 
     protected $logImportLast;
 
-    protected function pluralize( $count, $text )
+    protected function pluralize($count, $text)
     {
-        return $count . ( ( $count == 1 ) ? ( " $text" ) : ( " ${text}s" ) );
+        return $count . (($count == 1) ? (" $text") : (" ${text}s"));
     }
-    protected function ago( $datetime )
+    protected function ago($datetime)
     {
-        $interval = date_create('now')->diff( $datetime );
-        $suffix = ( $interval->invert ? ' ago' : '' );
-        if ( $v = $interval->y >= 1 ) return $this->pluralize( $interval->y, 'year' ) . $suffix;
-        if ( $v = $interval->m >= 1 ) return $this->pluralize( $interval->m, 'month' ) . $suffix;
-        if ( $v = $interval->d >= 1 ) return $this->pluralize( $interval->d, 'day' ) . $suffix;
-        if ( $v = $interval->h >= 1 ) return $this->pluralize( $interval->h, 'hour' ) . $suffix;
-        if ( $v = $interval->i >= 1 ) return $this->pluralize( $interval->i, 'minute' ) . $suffix;
-        return $this->pluralize( $interval->s, 'second' ) . $suffix;
+        $interval = date_create('now')->diff($datetime);
+        $suffix = ($interval->invert ? ' ago' : '');
+        if ($v = $interval->y >= 1) {
+            return $this->pluralize($interval->y, 'year') . $suffix;
+        }
+        if ($v = $interval->m >= 1) {
+            return $this->pluralize($interval->m, 'month') . $suffix;
+        }
+        if ($v = $interval->d >= 1) {
+            return $this->pluralize($interval->d, 'day') . $suffix;
+        }
+        if ($v = $interval->h >= 1) {
+            return $this->pluralize($interval->h, 'hour') . $suffix;
+        }
+        if ($v = $interval->i >= 1) {
+            return $this->pluralize($interval->i, 'minute') . $suffix;
+        }
+        return $this->pluralize($interval->s, 'second') . $suffix;
     }
 
     protected function log($text, $noDuration=false)
     {
-      $time = date("Y-m-d | H:i:s");
-      $duration = $this->ago($this->logImportLast);
-      if($noDuration) {
-        $total = $time." | ".$text;
-      } else {
-        $total = $time." | ".$duration." | ".$text;
-      }
+        $time = date("Y-m-d | H:i:s");
+        $duration = $this->ago($this->logImportLast);
+        if ($noDuration) {
+            $total = $time." | ".$text;
+        } else {
+            $total = $time." | ".$duration." | ".$text;
+        }
 
-      array_push($this->logImport,$total);
-      $this->logImportLast = new DateTime();
+        array_push($this->logImport, $total);
+        $this->logImportLast = new DateTime();
     }
 
     protected function importCourse()
@@ -458,7 +467,7 @@ class CourseController extends ActionController
 
         // foreach([$xml->kurse->kurs[0]] as $kurs)
         foreach ($xml->kurse->kurs as $kurs) {
-          $this->log("Start – Import: ".$kurs->{'kurs-code'}, true);
+            $this->log("Start – Import: ".$kurs->{'kurs-code'}, true);
 
 
             foreach ($kurs->versionen->version as $version) {
@@ -493,10 +502,10 @@ class CourseController extends ActionController
 
 
                 $courseNodeTemplate->setProperty(
-                      'fulltext',
-                      strtolower(
-                        strip_tags(
-                          $version->titel.' '.
+                    'fulltext',
+                    strtolower(
+                          strip_tags(
+                            $version->titel.' '.
                           $version->{'sub-titel'}.' '.
                           $this->linkText($version->ziel).' '.
                           $this->linkText($version->inhalt).' '.
@@ -632,13 +641,12 @@ class CourseController extends ActionController
                 $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
             } // end version
             $this->log("End – Import: ".$kurs->{'kurs-code'});
-
         } // end kurs
 
         $this->log("Start – persist", true);
 
-      $this->persistenceManager->persistAll();
-      $this->log("End – persist");
+        $this->persistenceManager->persistAll();
+        $this->log("End – persist");
 
 
         return '<h3>Neuer Import abgeschlossen.</h3>';
@@ -647,14 +655,14 @@ class CourseController extends ActionController
 
     public function importAction()
     {
-      $this->log("Start – import", true);
+        $this->log("Start – import", true);
 
         $msg = $this->deleteAllCourses();
         $msg .= $this->importCourse();
 
         $this->response->setStatus(201);
         $this->log("End – import", true);
-        return $msg."<pre style='font-size: 0.5em;'>\n".join("\n",$this->logImport)."\n</pre>"; // 'Import all done. ';
+        return $msg."<pre style='font-size: 0.5em;'>\n".join("\n", $this->logImport)."\n</pre>"; // 'Import all done. ';
     }
 
 
