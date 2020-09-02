@@ -2,3 +2,13 @@ Neos:
   Flow:
     i18n:
       defaultLocale: 'de_CH.utf8'
+  SwiftMailer:
+    transport:
+      type: 'Swift_SmtpTransport'
+      options:
+        host: 'mta.tam.ch'
+        port: '465'
+        encryption: 'ssl'
+        username: 'weiterbildung@sfgz.ch'
+        password: "%env:MAIL_PASSWORD%"
+        localDomain: 'sfgz.ch'
