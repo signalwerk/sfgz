@@ -191,7 +191,8 @@ class CourseController extends ActionController
 
         $mail = new PHPMailer;
         $mail->CharSet = 'UTF-8';
-        $mail->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mail->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mail->addReplyTo('weiterbildung@sfgz.ch');
         $mail->addAddress($data->{'E-Mail'});
         // $mail->addBCC('sh@signalwerk.ch');
 
@@ -199,19 +200,25 @@ class CourseController extends ActionController
         // Server settings
     // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'mta.tam.ch';                    // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
+    $mail->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
+    $mail->Port       = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth   = true;
+    // $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+ // $mail->Debugoutput = 'html';
+    // $mail->SMTPDebug  = 3;                                  // Enable SMTP authentication
+    // $mail->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
+    $mail->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
     $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-    $mail->SMTPSecure = 'ssl';
-        $mail->SMTPOptions = array(
-        'ssl' => array(
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        )
-    );
-        $mail->Port       = 465;
+    // $mail->SMTPSecure = 'ssl';
+    //     $mail->SMTPOptions = array(
+    //     'ssl' => array(
+    //         'verify_peer' => false,
+    //         'verify_peer_name' => false,
+    //         'allow_self_signed' => true
+    //     )
+    // );
+    //     $mail->Port       = 465;
 
 
         $mail->Subject = 'Ihre Anmeldung - '.$data->title;
@@ -233,26 +240,34 @@ class CourseController extends ActionController
 
         $mailVerwaltung = new PHPMailer;
         $mailVerwaltung->CharSet = 'UTF-8';
-        $mailVerwaltung->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mailVerwaltung->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mailVerwaltung->addReplyTo('weiterbildung@sfgz.ch');
         $mailVerwaltung->addAddress('weiterbildung@sfgz.zh.ch');
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
         // Server settings
     // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
     $mailVerwaltung->isSMTP();                                            // Send using SMTP
-    $mailVerwaltung->Host       = 'mta.tam.ch';                    // Set the SMTP server to send through
-    $mailVerwaltung->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mailVerwaltung->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
+    $mailVerwaltung->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
+    $mailVerwaltung->Port       = 587;
+    $mailVerwaltung->SMTPSecure = 'tls';
+    $mailVerwaltung->SMTPAuth   = true;
+    // $mailVerwaltung->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+ // $mailVerwaltung->Debugoutput = 'html';
+    // $mailVerwaltung->SMTPDebug  = 3;                                  // Enable SMTP authentication
+    // $mailVerwaltung->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
+
+    $mailVerwaltung->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
     $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-    $mailVerwaltung->SMTPSecure = 'ssl';
-        $mailVerwaltung->SMTPOptions = array(
-        'ssl' => array(
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        )
-    );
-        $mailVerwaltung->Port       = 465;
+    // $mailVerwaltung->SMTPSecure = 'ssl';
+    //     $mailVerwaltung->SMTPOptions = array(
+    //     'ssl' => array(
+    //         'verify_peer' => false,
+    //         'verify_peer_name' => false,
+    //         'allow_self_signed' => true
+    //     )
+    // );
+    //     $mailVerwaltung->Port       = 465;
 
 
 
