@@ -205,21 +205,8 @@ class CourseController extends ActionController
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth   = true;
         // $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-        // $mail->Debugoutput = 'html';
-        // $mail->SMTPDebug  = 3;                                  // Enable SMTP authentication
-        // $mail->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
         $mail->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
         $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-        // $mail->SMTPSecure = 'ssl';
-        //     $mail->SMTPOptions = array(
-        //     'ssl' => array(
-        //         'verify_peer' => false,
-        //         'verify_peer_name' => false,
-        //         'allow_self_signed' => true
-        //     )
-        // );
-        //     $mail->Port       = 465;
-
 
         $mail->Subject = 'Ihre Anmeldung - ' . $data->title;
         $mail->Body = $mailtxt;
@@ -253,22 +240,8 @@ class CourseController extends ActionController
         $mailVerwaltung->SMTPSecure = 'tls';
         $mailVerwaltung->SMTPAuth   = true;
         // $mailVerwaltung->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-        // $mailVerwaltung->Debugoutput = 'html';
-        // $mailVerwaltung->SMTPDebug  = 3;                                  // Enable SMTP authentication
-        // $mailVerwaltung->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
-
         $mailVerwaltung->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
         $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-        // $mailVerwaltung->SMTPSecure = 'ssl';
-        //     $mailVerwaltung->SMTPOptions = array(
-        //     'ssl' => array(
-        //         'verify_peer' => false,
-        //         'verify_peer_name' => false,
-        //         'allow_self_signed' => true
-        //     )
-        // );
-        //     $mailVerwaltung->Port       = 465;
-
 
 
         $mailVerwaltung->Subject = 'Kursanmeldung - ' . $data->Vorname . ' ' . $data->Name . ', ' . $data->Ort;
