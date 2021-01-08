@@ -57,17 +57,17 @@ class CourseController extends ActionController
 
     protected function dataPath()
     {
-        return dirname(getcwd())."/Data/API/";
+        return dirname(getcwd()) . "/Data/API/";
     }
 
     protected function backupPath()
     {
-        return $this->dataPath()."backup/".date("Y")."/".date("m")."/";
+        return $this->dataPath() . "backup/" . date("Y") . "/" . date("m") . "/";
     }
 
     protected function backupFilePath()
     {
-        return $this->backupPath().date("Y-m-d")."___".date("H-i-s")."___".date("U");
+        return $this->backupPath() . date("Y-m-d") . "___" . date("H-i-s") . "___" . date("U");
     }
 
 
@@ -111,7 +111,7 @@ class CourseController extends ActionController
 
         $this->log("  * find executions end");
 
-        $msg .= '<p>Alte Durchführungen gelöschen: ' . count($query) .'x</p>';
+        $msg .= '<p>Alte Durchführungen gelöschen: ' . count($query) . 'x</p>';
 
         $this->log("  * delete executions start", true);
         foreach ($query as $courseExecution) {
@@ -128,7 +128,7 @@ class CourseController extends ActionController
         $query = $query->find('[instanceof signalwerk.sfgz:CourseCategory]');
         $this->log("  * find category end");
 
-        $msg .= '<p>Alte Kategorien gelöschen: ' . count($query) .'x</p>';
+        $msg .= '<p>Alte Kategorien gelöschen: ' . count($query) . 'x</p>';
 
         $this->log("  * delete category start", true);
 
@@ -147,7 +147,7 @@ class CourseController extends ActionController
         $query = $query->find('[instanceof signalwerk.sfgz:Course]');
         $this->log("  * find course end");
 
-        $msg .= '<p>Alte Kurse gelöschen: ' . count($query) .'x</p>';
+        $msg .= '<p>Alte Kurse gelöschen: ' . count($query) . 'x</p>';
 
         $this->log("  * delete course start", true);
         foreach ($query as $course) {
@@ -171,8 +171,8 @@ class CourseController extends ActionController
     {
         $engine = new Handlebars;
 
-        $path = dirname(getcwd())."/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
-        $templateMail = file_get_contents($path ."/mail.hbs").file_get_contents($path ."/mail__facts.hbs");
+        $path = dirname(getcwd()) . "/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
+        $templateMail = file_get_contents($path . "/mail.hbs") . file_get_contents($path . "/mail__facts.hbs");
 
 
         // generate mail text
@@ -186,8 +186,8 @@ class CourseController extends ActionController
         }
 
         // save backup
-        file_put_contents($this->backupFilePath().'_mail.txt', $mailtxt);
-        file_put_contents($this->backupFilePath().'_mail.json', json_encode($data, JSON_PRETTY_PRINT));
+        file_put_contents($this->backupFilePath() . '_mail.txt', $mailtxt);
+        file_put_contents($this->backupFilePath() . '_mail.json', json_encode($data, JSON_PRETTY_PRINT));
 
         $mail = new PHPMailer;
         $mail->CharSet = 'UTF-8';
@@ -198,36 +198,36 @@ class CourseController extends ActionController
 
 
         // Server settings
-    // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
-    $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
-    $mail->Port       = 587;
-    $mail->SMTPSecure = 'tls';
-    $mail->SMTPAuth   = true;
-    // $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
- // $mail->Debugoutput = 'html';
-    // $mail->SMTPDebug  = 3;                                  // Enable SMTP authentication
-    // $mail->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
-    $mail->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
-    $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-    // $mail->SMTPSecure = 'ssl';
-    //     $mail->SMTPOptions = array(
-    //     'ssl' => array(
-    //         'verify_peer' => false,
-    //         'verify_peer_name' => false,
-    //         'allow_self_signed' => true
-    //     )
-    // );
-    //     $mail->Port       = 465;
+        // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
+        $mail->Port       = 587;
+        $mail->SMTPSecure = 'tls';
+        $mail->SMTPAuth   = true;
+        // $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+        // $mail->Debugoutput = 'html';
+        // $mail->SMTPDebug  = 3;                                  // Enable SMTP authentication
+        // $mail->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
+        $mail->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
+        $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
+        // $mail->SMTPSecure = 'ssl';
+        //     $mail->SMTPOptions = array(
+        //     'ssl' => array(
+        //         'verify_peer' => false,
+        //         'verify_peer_name' => false,
+        //         'allow_self_signed' => true
+        //     )
+        // );
+        //     $mail->Port       = 465;
 
 
-        $mail->Subject = 'Ihre Anmeldung - '.$data->title;
+        $mail->Subject = 'Ihre Anmeldung - ' . $data->title;
         $mail->Body = $mailtxt;
 
         //send the message, check for errors
         if (!$mail->send()) {
             $msg = "Mailer Error: " . $mail->ErrorInfo;
-            file_put_contents($this->backupFilePath().'_mail_error.txt', $msg);
+            file_put_contents($this->backupFilePath() . '_mail_error.txt', $msg);
         } else {
             $msg = "<h1>Danke für die Anmeldung!</h1>";
         }
@@ -235,7 +235,7 @@ class CourseController extends ActionController
 
         // mail an die Verwaltung
 
-        $templateMail = file_get_contents($path ."/mail__facts.hbs");
+        $templateMail = file_get_contents($path . "/mail__facts.hbs");
         $mailtxt = $engine->render($templateMail, $data);
 
         $mailVerwaltung = new PHPMailer;
@@ -246,38 +246,38 @@ class CourseController extends ActionController
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
         // Server settings
-    // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
-    $mailVerwaltung->isSMTP();                                            // Send using SMTP
-    $mailVerwaltung->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
-    $mailVerwaltung->Port       = 587;
-    $mailVerwaltung->SMTPSecure = 'tls';
-    $mailVerwaltung->SMTPAuth   = true;
-    // $mailVerwaltung->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
- // $mailVerwaltung->Debugoutput = 'html';
-    // $mailVerwaltung->SMTPDebug  = 3;                                  // Enable SMTP authentication
-    // $mailVerwaltung->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
+        // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
+        $mailVerwaltung->isSMTP();                                            // Send using SMTP
+        $mailVerwaltung->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
+        $mailVerwaltung->Port       = 587;
+        $mailVerwaltung->SMTPSecure = 'tls';
+        $mailVerwaltung->SMTPAuth   = true;
+        // $mailVerwaltung->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+        // $mailVerwaltung->Debugoutput = 'html';
+        // $mailVerwaltung->SMTPDebug  = 3;                                  // Enable SMTP authentication
+        // $mailVerwaltung->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";}; //$mail->Debugoutput = 'echo';
 
-    $mailVerwaltung->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
-    $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
-    // $mailVerwaltung->SMTPSecure = 'ssl';
-    //     $mailVerwaltung->SMTPOptions = array(
-    //     'ssl' => array(
-    //         'verify_peer' => false,
-    //         'verify_peer_name' => false,
-    //         'allow_self_signed' => true
-    //     )
-    // );
-    //     $mailVerwaltung->Port       = 465;
+        $mailVerwaltung->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
+        $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
+        // $mailVerwaltung->SMTPSecure = 'ssl';
+        //     $mailVerwaltung->SMTPOptions = array(
+        //     'ssl' => array(
+        //         'verify_peer' => false,
+        //         'verify_peer_name' => false,
+        //         'allow_self_signed' => true
+        //     )
+        // );
+        //     $mailVerwaltung->Port       = 465;
 
 
 
-        $mailVerwaltung->Subject = 'Kursanmeldung - '.$data->Vorname.' '.$data->Name.', '.$data->Ort;
+        $mailVerwaltung->Subject = 'Kursanmeldung - ' . $data->Vorname . ' ' . $data->Name . ', ' . $data->Ort;
         $mailVerwaltung->Body = $mailtxt;
 
         //send the message, check for errors
         if (!$mailVerwaltung->send()) {
             $msg .= "Mailer Error: " . $mailVerwaltung->ErrorInfo;
-            file_put_contents($this->backupFilePath().'_mailVerwaltung_error.txt', $msg);
+            file_put_contents($this->backupFilePath() . '_mailVerwaltung_error.txt', $msg);
         } else {
             $msg .= "<h3>Mail an die Verwaltung versendet.</h3>";
         }
@@ -291,7 +291,7 @@ class CourseController extends ActionController
     protected function exportCourse($data)
     {
 
-      /* create a dom document with encoding utf8 */
+        /* create a dom document with encoding utf8 */
         $domtree = new DOMDocument('1.0', 'UTF-8');
         $domtree->formatOutput = true;
 
@@ -311,7 +311,7 @@ class CourseController extends ActionController
         $anmeldung->appendChild($domtree->createElement('Anrede', $data->anrede));
         $anmeldung->appendChild($domtree->createElement('Name', $data->Name));
         $anmeldung->appendChild($domtree->createElement('Vorname', $data->Vorname));
-        $anmeldung->appendChild($domtree->createElement('Strasse', $data->Strasse." ".$data->StrasseNr));
+        $anmeldung->appendChild($domtree->createElement('Strasse', $data->Strasse . " " . $data->StrasseNr));
         $anmeldung->appendChild($domtree->createElement('StrName', $data->Strasse));
         $anmeldung->appendChild($domtree->createElement('StrNr', $data->StrasseNr));
         $anmeldung->appendChild($domtree->createElement('PLZ', $data->Postleitzahl));
@@ -322,8 +322,8 @@ class CourseController extends ActionController
         $anmeldung->appendChild($domtree->createElement('Email', $data->{'E-Mail'}));
         $anmeldung->appendChild($domtree->createElement('Geburtsdatum', $data->Geburtsdatum));
         $anmeldung->appendChild($domtree->createElement('AgName1', $data->bill_company));
-        $anmeldung->appendChild($domtree->createElement('AgName2', $data->bill_anrede." ".$data->bill_Vorname." ".$data->bill_Name));
-        $anmeldung->appendChild($domtree->createElement('AgStrasse', $data->bill_Strasse." ".$data->bill_StrasseNr));
+        $anmeldung->appendChild($domtree->createElement('AgName2', $data->bill_anrede . " " . $data->bill_Vorname . " " . $data->bill_Name));
+        $anmeldung->appendChild($domtree->createElement('AgStrasse', $data->bill_Strasse . " " . $data->bill_StrasseNr));
         $anmeldung->appendChild($domtree->createElement('AgStrName', $data->bill_Strasse));
         $anmeldung->appendChild($domtree->createElement('AgStrNr', $data->bill_StrasseNr));
         $anmeldung->appendChild($domtree->createElement('AgPLZ', $data->bill_Postleitzahl));
@@ -331,10 +331,10 @@ class CourseController extends ActionController
         // $anmeldung->appendChild($domtree->createElement('Bemerkung', $data->Comment ));
 
         // save local copy
-        $domtree->save($this->backupFilePath().'_export.xml');
+        $domtree->save($this->backupFilePath() . '_export.xml');
 
         // save for export
-        $exportPath = $this->dataPath()."import/ecoopen/";
+        $exportPath = $this->dataPath() . "import/ecoopen/";
         // To create the nested structure
         if (!file_exists($exportPath)) {
             if (!mkdir($exportPath, 0777, true)) {
@@ -342,7 +342,7 @@ class CourseController extends ActionController
             }
         }
         // write export
-        $domtree->save($exportPath."MBA_ZH_53_".date("U").'.xml');
+        $domtree->save($exportPath . "MBA_ZH_53_" . date("U") . '.xml');
 
         return " xml written. ";
         // file_put_contents($this->backupFilePath().'_mail.json', json_encode($data, JSON_PRETTY_PRINT));
@@ -357,12 +357,12 @@ class CourseController extends ActionController
 
         $ci = curl_init();
         $url = "https://daten.sfgz.ch/?type=90"; // Source file
-      $fp = fopen($this->dataPath().'getxml.xml', "w"); // Destination location
-      curl_setopt_array($ci, array(
-          CURLOPT_URL => $url,
-          CURLOPT_TIMEOUT => 28800, // set this to 8 hours so we dont timeout on big files
-          CURLOPT_FILE => $fp
-      ));
+        $fp = fopen($this->dataPath() . 'getxml.xml', "w"); // Destination location
+        curl_setopt_array($ci, array(
+            CURLOPT_URL => $url,
+            CURLOPT_TIMEOUT => 28800, // set this to 8 hours so we dont timeout on big files
+            CURLOPT_FILE => $fp
+        ));
         $contents = curl_exec($ci); // Returns '1' if successful
         curl_close($ci);
         fclose($fp);
@@ -386,7 +386,7 @@ class CourseController extends ActionController
             $title = $tag['title'];
             $sort = $tag['sort'];
             $type = $tag['type'];
-            $md5Tag=md5($title.$sort.$type);
+            $md5Tag = md5($title . $sort . $type);
             if (!isset($this->tagNodes[$md5Tag])) {
                 $tagNodeType = $this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory');
                 $name = Utility::renderValidNodeName($title);
@@ -443,14 +443,14 @@ class CourseController extends ActionController
         return $this->pluralize($interval->s, 'second') . $suffix;
     }
 
-    protected function log($text, $noDuration=false)
+    protected function log($text, $noDuration = false)
     {
         $time = date("Y-m-d | H:i:s");
         $duration = $this->ago($this->logImportLast);
         if ($noDuration) {
-            $total = $time." | ".$text;
+            $total = $time . " | " . $text;
         } else {
-            $total = $time." | ".$duration." | ".$text;
+            $total = $time . " | " . $duration . " | " . $text;
         }
 
         array_push($this->logImport, $total);
@@ -467,8 +467,8 @@ class CourseController extends ActionController
             return 'Expected course root not found! [uriPathSegment="course"]';
         }
 
-        $path = dirname(getcwd())."/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
-        $xmlString = file_get_contents($this->dataPath().'getxml.xml');
+        $path = dirname(getcwd()) . "/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
+        $xmlString = file_get_contents($this->dataPath() . 'getxml.xml');
 
         $xml = simplexml_load_string($xmlString);
 
@@ -482,18 +482,18 @@ class CourseController extends ActionController
 
         // foreach([$xml->kurse->kurs[0]] as $kurs)
         foreach ($xml->kurse->kurs as $kurs) {
-            $this->log("Start – Import: ".$kurs->{'kurs-code'}, true);
+            $this->log("Start – Import: " . $kurs->{'kurs-code'}, true);
 
 
             foreach ($kurs->versionen->version as $version) {
 
-//              $links = [];
-//
-//              if (!empty($version->links->link)) {
-//                foreach ($version->links->link as $link) {
-//                  $links[] = ['id' => strval($link->nummer), 'titel' => $link->titel, 'url' => $link->url];
-//                }
-//              }
+                //              $links = [];
+                //
+                //              if (!empty($version->links->link)) {
+                //                foreach ($version->links->link as $link) {
+                //                  $links[] = ['id' => strval($link->nummer), 'titel' => $link->titel, 'url' => $link->url];
+                //                }
+                //              }
 
                 $courseNodeTemplate = new NodeTemplate();
                 $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:Course'));
@@ -513,29 +513,29 @@ class CourseController extends ActionController
                 $courseNodeTemplate->setProperty('weitereinfos', $this->linkText($version->{'weitere-infos'}));
                 $courseNodeTemplate->setProperty('zertifikat', $this->linkText($version->zertifikat));
                 $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
-                $courseNodeTemplate->setProperty('sort', sprintf('%09d', $kurs->reihenfolge).'___'.$version->titel);
+                $courseNodeTemplate->setProperty('sort', sprintf('%09d', $kurs->reihenfolge) . '___' . $version->titel);
 
 
                 $courseNodeTemplate->setProperty(
                     'fulltext',
                     strtolower(
-                          strip_tags(
-                            $version->titel.' '.
-                          $version->{'sub-titel'}.' '.
-                          $this->linkText($version->ziel).' '.
-                          $this->linkText($version->inhalt).' '.
-                          $this->linkText($kurs->{'stufe-wb'}).' '.
-                          $this->linkText($version->zielgruppe).' '.
-                          $this->linkText($version->voraussetzungen).' '.
-                          $this->linkText($version->methode).' '.
-                          $this->linkText($version->kursunterlagen).' '.
-                          $this->linkText($version->hinweis).' '.
-                          $this->linkText($version->{'weitere-infos'}).' '.
-                          $this->linkText($version->zertifikat).' '.
-                          $version->{'meta-keywords'}
+                        strip_tags(
+                            $version->titel . ' ' .
+                                $version->{'sub-titel'} . ' ' .
+                                $this->linkText($version->ziel) . ' ' .
+                                $this->linkText($version->inhalt) . ' ' .
+                                $this->linkText($kurs->{'stufe-wb'}) . ' ' .
+                                $this->linkText($version->zielgruppe) . ' ' .
+                                $this->linkText($version->voraussetzungen) . ' ' .
+                                $this->linkText($version->methode) . ' ' .
+                                $this->linkText($version->kursunterlagen) . ' ' .
+                                $this->linkText($version->hinweis) . ' ' .
+                                $this->linkText($version->{'weitere-infos'}) . ' ' .
+                                $this->linkText($version->zertifikat) . ' ' .
+                                $version->{'meta-keywords'}
                         )
-                      )
-                   );
+                    )
+                );
 
 
                 // $this->emitCourseCreated($courseNode);
@@ -547,12 +547,12 @@ class CourseController extends ActionController
 
 
                 if (!empty($version->{'publikation-start'})) {
-                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-start'}.' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-start'} . ' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
                     $courseNode->setHiddenBeforeDateTime($date);
                 }
 
                 if (!empty($version->{'publikation-ende'})) {
-                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-ende'}.' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-ende'} . ' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
                     $courseNode->setHiddenAfterDateTime($date);
                 }
 
@@ -574,32 +574,32 @@ class CourseController extends ActionController
                         // only if anmerkung is empty the course is always on the same weekday
                         if (empty($durchfuehrung->anmerkung) && !empty($durchfuehrung->start)) {
                             $days = [
-                      ['title'=>'Sonntag','sort'=>100,'type'=>'day'],
-                      ['title'=>'Montag','sort'=>200,'type'=>'day'],
-                      ['title'=>'Dienstag','sort'=>300,'type'=>'day'],
-                      ['title'=>'Mittwoch','sort'=>400,'type'=>'day'],
-                      ['title'=>'Donnerstag','sort'=>500,'type'=>'day'],
-                      ['title'=>'Freitag','sort'=>600,'type'=>'day'],
-                      ['title'=>'Samstag','sort'=>700,'type'=>'day']
-                    ];
+                                ['title' => 'Sonntag', 'sort' => 100, 'type' => 'day'],
+                                ['title' => 'Montag', 'sort' => 200, 'type' => 'day'],
+                                ['title' => 'Dienstag', 'sort' => 300, 'type' => 'day'],
+                                ['title' => 'Mittwoch', 'sort' => 400, 'type' => 'day'],
+                                ['title' => 'Donnerstag', 'sort' => 500, 'type' => 'day'],
+                                ['title' => 'Freitag', 'sort' => 600, 'type' => 'day'],
+                                ['title' => 'Samstag', 'sort' => 700, 'type' => 'day']
+                            ];
 
                             $months = [
-                      ['title'=>'Januar','sort'=>100,'type'=>'month'],
-                      ['title'=>'Februar','sort'=>200,'type'=>'month'],
-                      ['title'=>'März','sort'=>300,'type'=>'month'],
-                      ['title'=>'April','sort'=>400,'type'=>'month'],
-                      ['title'=>'Mai','sort'=>500,'type'=>'month'],
-                      ['title'=>'Juni','sort'=>600,'type'=>'month'],
-                      ['title'=>'Juli','sort'=>700,'type'=>'month'],
-                      ['title'=>'August','sort'=>800,'type'=>'month'],
-                      ['title'=>'September','sort'=>900,'type'=>'month'],
-                      ['title'=>'Oktober','sort'=>1000,'type'=>'month'],
-                      ['title'=>'November','sort'=>1100,'type'=>'month'],
-                      ['title'=>'Dezember','sort'=>1200,'type'=>'month']
-                    ];
+                                ['title' => 'Januar', 'sort' => 100, 'type' => 'month'],
+                                ['title' => 'Februar', 'sort' => 200, 'type' => 'month'],
+                                ['title' => 'März', 'sort' => 300, 'type' => 'month'],
+                                ['title' => 'April', 'sort' => 400, 'type' => 'month'],
+                                ['title' => 'Mai', 'sort' => 500, 'type' => 'month'],
+                                ['title' => 'Juni', 'sort' => 600, 'type' => 'month'],
+                                ['title' => 'Juli', 'sort' => 700, 'type' => 'month'],
+                                ['title' => 'August', 'sort' => 800, 'type' => 'month'],
+                                ['title' => 'September', 'sort' => 900, 'type' => 'month'],
+                                ['title' => 'Oktober', 'sort' => 1000, 'type' => 'month'],
+                                ['title' => 'November', 'sort' => 1100, 'type' => 'month'],
+                                ['title' => 'Dezember', 'sort' => 1200, 'type' => 'month']
+                            ];
 
                             $tagsDay[] = $days[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('N')];
-                            $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n')-1];
+                            $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n') - 1];
                         }
 
 
@@ -634,11 +634,11 @@ class CourseController extends ActionController
                         $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
                         if (!empty($durchfuehrung->{'publikation-start'})) {
-                            $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-start'}.' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                            $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-start'} . ' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
                             $durchfuehrungNode->setHiddenBeforeDateTime($date);
                         }
                         if (!empty($durchfuehrung->{'publikation-ende'})) {
-                            $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-ende'}.' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'))  ;
+                            $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-ende'} . ' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
                             $durchfuehrungNode->setHiddenAfterDateTime($date);
                         }
 
@@ -650,12 +650,12 @@ class CourseController extends ActionController
 
                 $tags = [];
                 foreach ($kurs->kategorien->kategorie as $kategorie) {
-                    $tags[] = ['title'=>strval($kategorie),'sort'=>(int)$kategorie["reihenfolge"],'type'=>'category-'.$categories[strval($kategorie)]];
+                    $tags[] = ['title' => strval($kategorie), 'sort' => (int)$kategorie["reihenfolge"], 'type' => 'category-' . $categories[strval($kategorie)]];
                 }
 
                 $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
             } // end version
-            $this->log("End – Import: ".$kurs->{'kurs-code'});
+            $this->log("End – Import: " . $kurs->{'kurs-code'});
         } // end kurs
 
         $this->log("Start – persist", true);
@@ -677,18 +677,18 @@ class CourseController extends ActionController
 
         $this->response->setStatus(201);
         $this->log("End – import", true);
-        return $msg."<pre style='font-size: 0.5em;'>\n".join("\n", $this->logImport)."\n</pre>"; // 'Import all done. ';
+        return $msg . "<pre style='font-size: 0.5em;'>\n" . join("\n", $this->logImport) . "\n</pre>"; // 'Import all done. ';
     }
 
 
     public function enrollAction()
     {
-        $path = dirname(getcwd())."/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
+        $path = dirname(getcwd()) . "/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
 
         if (!empty($_POST["data"])) {
             $data = $_POST['data'];
         } else {
-            $postData = file_get_contents($path ."/mail.json");
+            $postData = file_get_contents($path . "/mail.json");
             $data = json_decode($postData)->data;
         }
 
@@ -698,7 +698,7 @@ class CourseController extends ActionController
                 die('Failed to create mail (save)...');
             }
         }
-        file_put_contents($this->backupFilePath().'_data.json', json_encode($data, JSON_PRETTY_PRINT));
+        file_put_contents($this->backupFilePath() . '_data.json', json_encode($data, JSON_PRETTY_PRINT));
 
         // it can be --contact-form[agb  or --contact-form[agb]
         $pattern = '/--contact-form\[([^\]]*)(\])?$/';
