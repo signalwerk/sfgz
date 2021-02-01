@@ -1,0 +1,50 @@
+
+
+##
+# A "JobWidget" content element
+#
+'signalwerk.sfgz:Content.JobWidget':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: JobWidget
+    icon: 'icon-list'
+    # inspector:
+    #   groups:
+    #     'video':
+    #       label: 'Film'
+    #       icon: 'icon-film'
+    #       position: 50
+    help:
+      message: 'Einbinden eines JobWidget'
+  # properties:
+  #   'video':
+  #     type: string
+  #     defaultValue: ''
+  #     ui:
+  #       label: 'Video ID'
+  #       reloadIfChanged: TRUE
+  #       inspector:
+  #         group: 'video'
+  #       help:
+  #         message: |
+  #           Die Video-ID ist sichtbar in der URL vom youtube video
+  #           z.B. in der URL
+  #           `https://youtu.be/G6D1YI-41ao`
+  #           ist `G6D1YI-41ao` die Video-ID.
+  #   'width':
+  #     type: integer
+  #     defaultValue: 400
+  #     ui:
+  #       label: 'Breite'
+  #       reloadIfChanged: TRUE
+  #       inspector:
+  #         group: 'video'
+  #   'height':
+  #     type: integer
+  #     defaultValue: 300
+  #     ui:
+  #       label: 'Höhe'
+  #       reloadIfChanged: TRUE
+  #       inspector:
+  #         group: 'video'

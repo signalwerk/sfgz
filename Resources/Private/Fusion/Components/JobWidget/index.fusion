@@ -1,0 +1,9 @@
+
+prototype(signalwerk.sfgz:Content.JobWidget) < prototype(Neos.Neos:ContentComponent) {
+
+  renderer = afx`
+    <div class="job-widget">
+      <script type="REFLINE/Positions"></script>
+    </div>
+  `
+}
