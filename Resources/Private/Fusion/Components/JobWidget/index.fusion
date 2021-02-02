@@ -3,10 +3,14 @@ prototype(signalwerk.sfgz:Content.JobWidget) < prototype(Neos.Neos:ContentCompon
 
   // DEMO ID
   // id = "100140"
+  inBackend = ${node.context.inBackend}
 
   renderer = afx`
     <div class="job-widget">
-      <script type="REFLINE/Positions" data-locale="de"></script>
+      <h3 @if.has={props.inBackend}>
+          JobWidget
+      </h3>
+      <script @if.has={!props.inBackend} type="REFLINE/Positions" data-locale="de"></script>
     </div>
   `
 }
