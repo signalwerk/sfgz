@@ -32,8 +32,8 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
       sectionName = 'headScripts'
     }
 
-    javascripts.evilJQueryPlugin = "https://pub.refline.ch/100140/refline.js"
-    // javascripts.evilJQueryPlugin.@if.isNeeded = ${q(documentNode).children('main').find('[instanceof signalwerk.sfgz:Content.JobWidget]').is()}
+    javascripts.JobWidget = '<script src="//pub.refline.ch/100140/refline.js"></script>'
+    // javascripts.JobWidget.@if.isNeeded = ${q(documentNode).children('main').find('[instanceof signalwerk.sfgz:Content.JobWidget]').is()}
 
     meta = Neos.Fusion:Template {
       templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
