@@ -6,9 +6,11 @@ Neos:
     transport:
       type: 'Swift_SmtpTransport'
       options:
-        host: 'mta.tam.ch'
-        port: '465'
-        encryption: 'ssl'
-        username: 'weiterbildung@sfgz.ch'
+        host: 'smtp.office365.com'
+        port: '587'
+        encryption: 'tls'
+        authMode: 'LOGIN'
+        username: 'smtpauth.informatik@sfgz.ch'
         password: "%env:MAIL_PASSWORD%"
         localDomain: 'sfgz.ch'
+        sourceIp: '34.65.45.216'

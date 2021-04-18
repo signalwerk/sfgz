@@ -1,0 +1,17 @@
+
+'Neos.Form.Builder:FileUpload':
+  properties:
+    'allowedExtensions':
+      ui:
+        inspector:
+          editorOptions:
+            values:
+              'pdf':
+                label: '.pdf'
+                icon: 'icon-file-pdf-o'
+              'jpg':
+                label: '.jpg'
+                icon: 'icon-file-image-o'
+              'jpeg':
+                label: '.jpeg'
+                icon: 'icon-file-image-o'
