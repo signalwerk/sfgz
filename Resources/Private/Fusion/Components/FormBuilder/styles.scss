@@ -59,3 +59,17 @@
 #anmeldung textarea {
   min-height: 7rem;
 }
+
+#anmeldung [type="checkbox"] {
+  width: 3rem;
+}
+
+#anmeldung ul.inputs-list [type="checkbox"] {
+  display: inline-block;
+  /* transform: translateY(.3rem); */
+  margin-left: -3rem;
+}
+
+#anmeldung ul.inputs-list {
+  margin-left: 3rem;
+}
