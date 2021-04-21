@@ -50,6 +50,9 @@
   a[href^="https://www.instagram.com/"] {
     @include inline-icon('icon_instagram.svg', 82%);
   }
+  a[href^="https://www.linkedin.com/"] {
+    @include inline-icon('icon_linkedin.svg', 80%);
+  }
 
   ul {
     list-style: none;
