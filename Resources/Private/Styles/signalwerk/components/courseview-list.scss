@@ -1,4 +1,3 @@
-
 .courseview-list {
   .noResult.hidden {
     display: none;
@@ -7,7 +6,6 @@
 
 .courseview-listeitem {
   @include container(12);
-
 
   &__nr {
     @include span(2 of 12);
@@ -28,6 +26,6 @@
   }
 
   &--root.hidden {
-      display: none;
+    display: none;
   }
 }

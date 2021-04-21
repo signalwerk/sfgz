@@ -1,11 +1,10 @@
-@import '../variables';
+@import "../variables";
 
 .column {
   @include container(12);
 }
 
 .columns-masonry {
-
   .news-item__gutter {
     width: gutter(12);
   }

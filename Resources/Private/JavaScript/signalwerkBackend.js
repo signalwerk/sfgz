@@ -15,6 +15,6 @@
 //     $grid.masonry('layout');
 //     $(image.img).closest('.news-item').addClass('news-item--image-loaded');
 //   });
-// 
+//
 //   }, false);
 // }

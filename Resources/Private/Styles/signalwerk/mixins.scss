@@ -1,19 +1,20 @@
 // usage: @include font;
 // check https://google-webfonts-helper.herokuapp.com/
-@mixin fontdef($fontPath, $fontVersion:"1.0.0") {
-  src:  url('#{$fontPath}.eot?v=#{$fontVersion}');
-  src:  url('#{$fontPath}.eot?#iefix&v=#{$fontVersion}') format('embedded-opentype'),
-  url('#{$fontPath}.woff2?v=#{$fontVersion}') format('woff2'),
-  url('#{$fontPath}.woff?v=#{$fontVersion}') format('woff')
+@mixin fontdef($fontPath, $fontVersion: "1.0.0") {
+  src: url("#{$fontPath}.eot?v=#{$fontVersion}");
+  src: url("#{$fontPath}.eot?#iefix&v=#{$fontVersion}")
+      format("embedded-opentype"),
+    url("#{$fontPath}.woff2?v=#{$fontVersion}") format("woff2"),
+    url("#{$fontPath}.woff?v=#{$fontVersion}") format("woff");
 }
 
-@mixin font($font:sans) {
+@mixin font($font: sans) {
   font-family: map-get($font-family, $font);
   font-weight: normal;
   font-style: normal;
 }
 
-@mixin font-bold($font:sans) {
+@mixin font-bold($font: sans) {
   font-family: map-get($font-family, $font);
   font-weight: map-get($font-weight-bold, $font);
 }
@@ -27,18 +28,16 @@
   background-image: linear-gradient(to right, #{$values});
 }
 
-
 @function gradient-stops($grid-columns) {
-  $transparent: rgba(0,0,0,0);
-  $color: rgba(255,0,0,0.07);
+  $transparent: rgba(0, 0, 0, 0);
+  $color: rgba(255, 0, 0, 0.07);
 
   $column-offset: 0;
 
   $values: ($color 0);
 
   @for $i from 1 through $grid-columns {
-
-    @if $i != $grid-columns  {
+    @if $i != $grid-columns {
       $column-offset: $column-offset + span(1);
       $values: append($values, $color $column-offset, comma);
       $values: append($values, $transparent $column-offset, comma);
@@ -55,8 +54,6 @@
   @return $values;
 }
 
-
-
 @mixin clearfix() {
   &:after {
     content: "";
@@ -66,7 +63,6 @@
 }
 
 @mixin shContainer($arg...) {
-
   @include container($arg);
 
   @if $debug == true {
@@ -76,31 +72,31 @@
 }
 
 @mixin arrow-general($innerselector, $size) {
-  height: $size*2;
-  width: $size*2;
+  height: $size * 2;
+  width: $size * 2;
   transform: translateY(-50%);
   // top:50%;
   cursor: pointer;
   position: relative;
 
   .#{$innerselector} {
-    position: absolute;;
+    position: absolute;
     height: $size;
     width: $size;
     border-radius: 50%;
     background-color: mix($cCorporateBlue, transparent, 75);
-    &:hover{
+    &:hover {
       background-color: mix($cThemeGreen, transparent, 75);
     }
 
-    margin-top: ($size/2)*.9; // a little bit highter
+    margin-top: ($size/2) * 0.9; // a little bit highter
 
     &::after {
       content: "";
       position: absolute;
       height: $size;
       width: $size;
-      background-image: url('../images/slider-arrow-sh.svg');
+      background-image: url("../images/slider-arrow-sh.svg");
     }
   }
 }
@@ -119,7 +115,7 @@
   .#{$innerselector} {
     right: 0;
     &::after {
-      transform: rotate(180deg);;
+      transform: rotate(180deg);
     }
   }
 }

@@ -1,8 +1,8 @@
 // http://stackoverflow.com/questions/1184624/convert-form-data-to-js-object-with-jquery
-$.fn.serializeObject = function() {
+$.fn.serializeObject = function () {
   var o = {};
   var a = this.serializeArray();
-  $.each(a, function() {
+  $.each(a, function () {
     if (o[this.name] !== undefined) {
       if (!o[this.name].push) {
         o[this.name] = [o[this.name]];
@@ -35,11 +35,11 @@ jQuery.validator.addMethod(
 );
 
 // Wait for the DOM to be ready
-$(function() {
+$(function () {
   // form restore
   $("#contact-form").squirrel("init", {
     clear_on_submit: false,
-    storage_key: "squirrel"
+    storage_key: "squirrel",
   });
 
   if ($('input[name="--contact-form[bill_separate]"]').is(":checked")) {
@@ -47,7 +47,7 @@ $(function() {
   } else {
     $(".contact-form-bill").hide();
   }
-  $('input[name="--contact-form[bill_separate]"]').change(function(e) {
+  $('input[name="--contact-form[bill_separate]"]').change(function (e) {
     if ($(this).is(":checked")) {
       $(".contact-form-bill").show();
       $(this).attr("checked", "checked");
@@ -62,7 +62,7 @@ $(function() {
   } else {
     $(".contact-form-onSfGZ-group").hide();
   }
-  $('input[name="--contact-form[ausbildung]"]').change(function(e) {
+  $('input[name="--contact-form[ausbildung]"]').change(function (e) {
     if ($(this).is(":checked")) {
       $(".contact-form-onSfGZ-group").show();
       $(this).attr("checked", "checked");
@@ -90,43 +90,43 @@ $(function() {
         required: true,
         // Specify that email should be validated
         // by the built-in "email" rule
-        email: true
+        email: true,
       },
       "--contact-form[Geburtsdatum]": {
         required: true,
-        chDate: true
+        chDate: true,
       },
       "--contact-form[Berufstatigkeit]": "required",
 
       "--contact-form[bill_Strasse]": {
         required: {
-          depends: function(element) {
+          depends: function (element) {
             return $("#contact-form-bill-separate").is(":checked");
-          }
-        }
+          },
+        },
       },
       "--contact-form[bill_Postleitzahl]": {
         required: {
-          depends: function(element) {
+          depends: function (element) {
             return $("#contact-form-bill-separate").is(":checked");
-          }
-        }
+          },
+        },
       },
       "--contact-form[bill_Ort]": {
         required: {
-          depends: function(element) {
+          depends: function (element) {
             return $("#contact-form-bill-separate").is(":checked");
-          }
-        }
+          },
+        },
       },
       "--contact-form[onSfGZ]": {
         required: {
-          depends: function(element) {
+          depends: function (element) {
             return $("#contact-form-ausbildung").is(":checked");
-          }
-        }
+          },
+        },
       },
-      "--contact-form[agb]": "required"
+      "--contact-form[agb]": "required",
     },
     // Specify validation error messages
     messages: {
@@ -144,26 +144,26 @@ $(function() {
       "--contact-form[bill_Ort]": "Bitte ausfüllen.",
       "--contact-form[onSfGZ]": "Bitte Ausbildungsart wählen.",
       "--contact-form[agb]":
-        "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren"
+        "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren",
     },
 
     // Make sure the form is submitted to the destination defined
     // in the "action" attribute of the form when valid
-    submitHandler: function(form) {
+    submitHandler: function (form) {
       $.ajax({
         type: "POST",
         url: "/signalwerk/course/enroll",
         data: {
-          data: $(".form-control").serializeObject()
+          data: $(".form-control").serializeObject(),
         },
-        success: function(msg) {
+        success: function (msg) {
           window.location.href = "./anmeldung/danke.html";
         },
-        error: function(returnval) {
+        error: function (returnval) {
           // window.location.href = './anmeldung/danke.html';
           window.location.href = "./anmeldung/error.html";
-        }
+        },
       });
-    }
+    },
   });
 });

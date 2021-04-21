@@ -2,30 +2,69 @@ body {
   background-repeat: repeat-y;
   background-size: 100% auto;
 
-  &.random01 {background-image: url('../Assets/Images/logo/generated/anim/background01.svg')};
-  &.random02 {background-image: url('../Assets/Images/logo/generated/anim/background02.svg')};
-  &.random03 {background-image: url('../Assets/Images/logo/generated/anim/background03.svg')};
-  &.random04 {background-image: url('../Assets/Images/logo/generated/anim/background04.svg')};
-  &.random05 {background-image: url('../Assets/Images/logo/generated/anim/background05.svg')};
-  &.random06 {background-image: url('../Assets/Images/logo/generated/anim/background06.svg')};
-  &.random07 {background-image: url('../Assets/Images/logo/generated/anim/background07.svg')};
-  &.random08 {background-image: url('../Assets/Images/logo/generated/anim/background08.svg')};
-  &.random09 {background-image: url('../Assets/Images/logo/generated/anim/background09.svg')};
-  &.random10 {background-image: url('../Assets/Images/logo/generated/anim/background10.svg')};
-  &.random11 {background-image: url('../Assets/Images/logo/generated/anim/background11.svg')};
-  &.random12 {background-image: url('../Assets/Images/logo/generated/anim/background12.svg')};
-  &.random13 {background-image: url('../Assets/Images/logo/generated/anim/background13.svg')};
-  &.random14 {background-image: url('../Assets/Images/logo/generated/anim/background14.svg')};
-  &.random15 {background-image: url('../Assets/Images/logo/generated/anim/background15.svg')};
-  &.random16 {background-image: url('../Assets/Images/logo/generated/anim/background16.svg')};
-  &.random17 {background-image: url('../Assets/Images/logo/generated/anim/background17.svg')};
-  &.random18 {background-image: url('../Assets/Images/logo/generated/anim/background18.svg')};
-  &.random19 {background-image: url('../Assets/Images/logo/generated/anim/background19.svg')};
-  &.random20 {background-image: url('../Assets/Images/logo/generated/anim/background20.svg')};
+  &.random01 {
+    background-image: url("../Assets/Images/logo/generated/anim/background01.svg");
+  }
+  &.random02 {
+    background-image: url("../Assets/Images/logo/generated/anim/background02.svg");
+  }
+  &.random03 {
+    background-image: url("../Assets/Images/logo/generated/anim/background03.svg");
+  }
+  &.random04 {
+    background-image: url("../Assets/Images/logo/generated/anim/background04.svg");
+  }
+  &.random05 {
+    background-image: url("../Assets/Images/logo/generated/anim/background05.svg");
+  }
+  &.random06 {
+    background-image: url("../Assets/Images/logo/generated/anim/background06.svg");
+  }
+  &.random07 {
+    background-image: url("../Assets/Images/logo/generated/anim/background07.svg");
+  }
+  &.random08 {
+    background-image: url("../Assets/Images/logo/generated/anim/background08.svg");
+  }
+  &.random09 {
+    background-image: url("../Assets/Images/logo/generated/anim/background09.svg");
+  }
+  &.random10 {
+    background-image: url("../Assets/Images/logo/generated/anim/background10.svg");
+  }
+  &.random11 {
+    background-image: url("../Assets/Images/logo/generated/anim/background11.svg");
+  }
+  &.random12 {
+    background-image: url("../Assets/Images/logo/generated/anim/background12.svg");
+  }
+  &.random13 {
+    background-image: url("../Assets/Images/logo/generated/anim/background13.svg");
+  }
+  &.random14 {
+    background-image: url("../Assets/Images/logo/generated/anim/background14.svg");
+  }
+  &.random15 {
+    background-image: url("../Assets/Images/logo/generated/anim/background15.svg");
+  }
+  &.random16 {
+    background-image: url("../Assets/Images/logo/generated/anim/background16.svg");
+  }
+  &.random17 {
+    background-image: url("../Assets/Images/logo/generated/anim/background17.svg");
+  }
+  &.random18 {
+    background-image: url("../Assets/Images/logo/generated/anim/background18.svg");
+  }
+  &.random19 {
+    background-image: url("../Assets/Images/logo/generated/anim/background19.svg");
+  }
+  &.random20 {
+    background-image: url("../Assets/Images/logo/generated/anim/background20.svg");
+  }
 }
 
 body.noBackground {
-
   &:not(.no-animation) {
     position: relative;
     background: none;
@@ -44,28 +83,69 @@ body.noBackground {
 
   &.no-animation {
     background: none;
-    &:after { content: none; }
+    &:after {
+      content: none;
+    }
   }
 }
 
-
-body.noBackground.random01:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background01_d.svg')};
-body.noBackground.random02:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background02_d.svg')};
-body.noBackground.random03:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background03_d.svg')};
-body.noBackground.random04:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background04_d.svg')};
-body.noBackground.random05:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background05_d.svg')};
-body.noBackground.random06:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background06_d.svg')};
-body.noBackground.random07:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background07_d.svg')};
-body.noBackground.random08:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background08_d.svg')};
-body.noBackground.random09:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background09_d.svg')};
-body.noBackground.random10:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background10_d.svg')};
-body.noBackground.random11:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background11_d.svg')};
-body.noBackground.random12:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background12_d.svg')};
-body.noBackground.random13:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background13_d.svg')};
-body.noBackground.random14:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background14_d.svg')};
-body.noBackground.random15:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background15_d.svg')};
-body.noBackground.random16:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background16_d.svg')};
-body.noBackground.random17:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background17_d.svg')};
-body.noBackground.random18:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background18_d.svg')};
-body.noBackground.random19:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background19_d.svg')};
-body.noBackground.random20:not(.no-animation):after {background-image: url('../Assets/Images/logo/generated/disappear/background20_d.svg')};
+body.noBackground.random01:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background01_d.svg");
+}
+body.noBackground.random02:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background02_d.svg");
+}
+body.noBackground.random03:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background03_d.svg");
+}
+body.noBackground.random04:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background04_d.svg");
+}
+body.noBackground.random05:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background05_d.svg");
+}
+body.noBackground.random06:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background06_d.svg");
+}
+body.noBackground.random07:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background07_d.svg");
+}
+body.noBackground.random08:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background08_d.svg");
+}
+body.noBackground.random09:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background09_d.svg");
+}
+body.noBackground.random10:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background10_d.svg");
+}
+body.noBackground.random11:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background11_d.svg");
+}
+body.noBackground.random12:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background12_d.svg");
+}
+body.noBackground.random13:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background13_d.svg");
+}
+body.noBackground.random14:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background14_d.svg");
+}
+body.noBackground.random15:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background15_d.svg");
+}
+body.noBackground.random16:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background16_d.svg");
+}
+body.noBackground.random17:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background17_d.svg");
+}
+body.noBackground.random18:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background18_d.svg");
+}
+body.noBackground.random19:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background19_d.svg");
+}
+body.noBackground.random20:not(.no-animation):after {
+  background-image: url("../Assets/Images/logo/generated/disappear/background20_d.svg");
+}

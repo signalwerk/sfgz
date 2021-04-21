@@ -1,5 +1,4 @@
 .courseview-filter {
-
   @include filterHeader();
 
   .category {
@@ -24,6 +23,4 @@
 
   @include filterCategory();
   @include filterSubmit();
-
-
 }

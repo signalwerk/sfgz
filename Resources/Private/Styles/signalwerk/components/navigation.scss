@@ -3,7 +3,7 @@ $mobile-nav--height: 70px;
 $mobile-nav--logo-width: 85px;
 $font-size--large: 22px;
 $color--light: $cWhite;
-$color--gray: rgb(172,172,172);
+$color--gray: rgb(172, 172, 172);
 $color--dark: black;
 
 .navigation {
@@ -26,7 +26,7 @@ $color--dark: black;
     transition: transform 200ms ease;
     @include mediaQuery($max, $tablet) {
       transform: translateY(100%);
-    };
+    }
   }
 
   &__logos {
@@ -148,7 +148,7 @@ $color--dark: black;
     font-size: map-get($fontFactorsMenuMobile, L2);
     line-height: 1.6;
     display: none;
-    @include mediaQuery ($max, $tablet) {
+    @include mediaQuery($max, $tablet) {
       display: block;
     }
 
@@ -188,7 +188,7 @@ $color--dark: black;
     // background: white;
     // padding-top: 0.5rem;
     // margin-top: 2vw;
-  };
+  }
 }
 
 .menuSiblings {
