@@ -191,8 +191,8 @@ class CourseController extends ActionController
 
         $mail = new PHPMailer;
         $mail->CharSet = 'UTF-8';
-        $mail->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
-        $mail->addReplyTo('weiterbildung@sfgz.ch');
+        $mail->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mail->addReplyTo('kurse@sfgz.ch');
         $mail->addAddress($data->{'E-Mail'});
         // $mail->addBCC('sh@signalwerk.ch');
 
@@ -205,7 +205,7 @@ class CourseController extends ActionController
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth   = true;
         // $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-        $mail->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
+        $mail->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
         $mail->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
 
         $mail->Subject = 'Ihre Anmeldung - ' . $data->title;
@@ -227,9 +227,9 @@ class CourseController extends ActionController
 
         $mailVerwaltung = new PHPMailer;
         $mailVerwaltung->CharSet = 'UTF-8';
-        $mailVerwaltung->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
-        $mailVerwaltung->addReplyTo('weiterbildung@sfgz.ch');
-        $mailVerwaltung->addAddress('weiterbildung@sfgz.zh.ch');
+        $mailVerwaltung->setFrom('weiterbildung@sfgz.ch', 'SfGZ – Weiterbildung');
+        $mailVerwaltung->addReplyTo('kurse@sfgz.ch');
+        $mailVerwaltung->addAddress('anmeldung@sfgz.ch');
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
         // Server settings
@@ -240,7 +240,7 @@ class CourseController extends ActionController
         $mailVerwaltung->SMTPSecure = 'tls';
         $mailVerwaltung->SMTPAuth   = true;
         // $mailVerwaltung->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-        $mailVerwaltung->Username   = 'smtpauth.informatik@sfgz.ch';                     // SMTP username
+        $mailVerwaltung->Username   = 'weiterbildung@sfgz.ch';                     // SMTP username
         $mailVerwaltung->Password   = getenv("MAIL_PASSWORD");                               // SMTP password
 
 
