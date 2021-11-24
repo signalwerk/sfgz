@@ -10,7 +10,7 @@ Neos:
         port: '587'
         encryption: 'tls'
         authMode: 'LOGIN'
-        username: 'weiterbildung@sfgz.ch'
+        username: 'smtpauth.informatik@sfgz.ch'
         password: "%env:MAIL_PASSWORD%"
         localDomain: 'sfgz.ch'
         sourceIp: '34.65.45.216'
