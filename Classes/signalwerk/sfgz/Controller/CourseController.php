@@ -229,7 +229,7 @@ class CourseController extends ActionController
         $mailVerwaltung->CharSet = 'UTF-8';
         $mailVerwaltung->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
         $mailVerwaltung->addReplyTo('kurse@sfgz.ch');
-        $mailVerwaltung->addAddress('anmeldung@sfgz.ch');
+        $mailVerwaltung->addAddress('anmeldungen@sfgz.ch');
         // $mailVerwaltung->addBCC('sh@signalwerk.ch');
 
         // Server settings
