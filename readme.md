@@ -16,7 +16,10 @@ php -d memory_limit=3024M /usr/local/bin/composer require networkteam/neos-mailo
 php -d memory_limit=3024M /usr/local/bin/composer require breadlesscode/neos-blog 2.0.5
 ```
 
-
+### Clear cache
+```bash
+FLOW_CONTEXT=Production php flow flow:cache:flush --force
+```
 
 ### Update Version 4 to Version 5
 ```bash
