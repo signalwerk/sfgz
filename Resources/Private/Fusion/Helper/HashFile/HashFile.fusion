@@ -1,0 +1,6 @@
+prototype(signalwerk.sfgz:Helper.Fusion.HashFile.Process) {
+    @class = 'signalwerk\\sfgz\\Fusion\\HashFileImplementation'
+
+    algo = 'md5'
+    uri = ${this.uri}
+}

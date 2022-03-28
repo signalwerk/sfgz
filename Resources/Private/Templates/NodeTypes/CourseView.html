@@ -20,9 +20,7 @@
   </f:if>
 
   <f:if condition="{view} == categories">
-    <div class="courseview-filter">
-      <f:render partial="./CourseView/filter" arguments="{_all}"/>
-    </div>
+    {filter -> f:format.raw()}
   </f:if>
 
 

@@ -19,6 +19,8 @@ use PHPMailer\PHPMailer\Exception;
 use \stdClass;
 use \DOMDocument;
 use DateTime;
+use Parsedown;
+
 
 /**
  * Courses controller for the site package
@@ -171,7 +173,7 @@ class CourseController extends ActionController
     {
         $engine = new Handlebars;
 
-        $path = dirname(getcwd()) . "/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
+        $path = dirname(getcwd()) . "/DistributionPackages/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
         $templateMail = file_get_contents($path . "/mail.hbs") . file_get_contents($path . "/mail__facts.hbs");
 
 
@@ -322,25 +324,25 @@ class CourseController extends ActionController
     }
 
 
-    protected function dlCourseXML()
-    {
-        $this->log("Start – Import", true);
+    // protected function dlCourseXML()
+    // {
+    //     $this->log("Start – Import", true);
 
-        set_time_limit(0); // unlimited max execution time
+    //     set_time_limit(0); // unlimited max execution time
 
-        $ci = curl_init();
-        $url = "https://daten.sfgz.ch/?type=90"; // Source file
-        $fp = fopen($this->dataPath() . 'getxml.xml', "w"); // Destination location
-        curl_setopt_array($ci, array(
-            CURLOPT_URL => $url,
-            CURLOPT_TIMEOUT => 28800, // set this to 8 hours so we dont timeout on big files
-            CURLOPT_FILE => $fp
-        ));
-        $contents = curl_exec($ci); // Returns '1' if successful
-        curl_close($ci);
-        fclose($fp);
-        $this->log("End – Import");
-    }
+    //     $ci = curl_init();
+    //     $url = "https://daten.sfgz.ch/?type=90"; // Source file
+    //     $fp = fopen($this->dataPath() . 'getxml.xml', "w"); // Destination location
+    //     curl_setopt_array($ci, array(
+    //         CURLOPT_URL => $url,
+    //         CURLOPT_TIMEOUT => 28800, // set this to 8 hours so we dont timeout on big files
+    //         CURLOPT_FILE => $fp
+    //     ));
+    //     $contents = curl_exec($ci); // Returns '1' if successful
+    //     curl_close($ci);
+    //     fclose($fp);
+    //     $this->log("End – Import");
+    // }
 
     /**
      * @var array
@@ -432,7 +434,7 @@ class CourseController extends ActionController
 
     protected function importCourse()
     {
-        $this->dlCourseXML();
+        // $this->dlCourseXML();
 
         $rootNode = $this->getRootOfImport();
 
@@ -440,203 +442,208 @@ class CourseController extends ActionController
             return 'Expected course root not found! [uriPathSegment="course"]';
         }
 
-        $path = dirname(getcwd()) . "/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
-        $xmlString = file_get_contents($this->dataPath() . 'getxml.xml');
+        $handle = fopen($this->dataPath() . 'kurse.csv','r');
 
-        $xml = simplexml_load_string($xmlString);
+        function parseText( $str ) {
+            return iconv( "Windows-1252", "UTF-8", $str );
+        }
 
-        // build up an array to late look up kategoriegruppe by kategoriename
-        $categories = [];
-        foreach ($xml->kategorien->kategorie as $kategoriegruppe) {
-            foreach ($kategoriegruppe->kategorie as $kategorie) {
-                $categories[strval($kategorie)] = strval($kategoriegruppe['name']);
+        function parseMD( $str ) {
+            $Parsedown = new Parsedown();
+            $txt = preg_replace("/^•([\t])*/im", "* ", $str);
+            return $Parsedown->text($txt);
+        }
+
+        function parseData( $format, $str ) {
+            return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich'))/*->setTimezone(new \DateTimeZone('UTC'))*/;
+        }
+
+        $handle = fopen($this->dataPath() . 'kurse.csv','r');
+        $assocData = array();
+        if ($handle) {
+            $headerRecord = array();
+            $rowCounter = 0;
+            while (($rowData = fgetcsv($handle, 0, ";")) !== FALSE) {
+                if( 0 === $rowCounter) {
+                    $headerRecord = $rowData;
+                } else {
+                    $assocData[ $rowCounter - 1] = array();
+
+                    foreach( $rowData as $key => $value) {
+                        $assocData[ $rowCounter - 1][ $headerRecord[ $key] ] = parseText($value);  
+                    }
+                }
+                $rowCounter++;
+
+            }
+            fclose($handle);
+        }
+
+
+        $courses = array();
+        $now = new DateTime;
+        $buildingToStreet = array(
+            "lp" => "Ausstellungsstrasse 104, CH-8005 Zürich",
+            "ba" => "Ausstellungsstrasse 100, CH-8005 Zürich",
+            "fi" => "Ausstellungsstrasse 90, CH-8005 Zürich",
+            "jo" => "Josefstrasse 53, 6. Stock, CH-8005 Zürich",
+        );
+            
+        foreach ($assocData as $kurs) {
+            
+            // combine to one course based on Kurs_Code
+            $CourseID = $kurs["Kurs_Code"];
+            if(empty($courses[$CourseID])) {
+
+
+                $importCourse = array(
+                    "type" => array("value" => $kurs["Mandant_Id"] === "38" ? "apprentice" : "course", "index" => false), 
+                    "coursid" => array("value" => $kurs["Kurs_Code"], "index" => false), 
+
+                    "ecoAngebotId" => array("value" => $kurs["Angebot_Id"], "index" => false), 
+                    "ecoFachId" => array("value" => $kurs["Fach_Id"], "index" => false), 
+                    
+                    "title" => array("value" => $kurs["Kurs_Titel"], "index" => true),
+                    "subtitle" => array("value" => $kurs["Kurs_Beschreibung"], "index" => true),
+                    "ziel" => array("value" => parseMD($kurs["Text_Kursbeschreibung"]), "index" => true),
+                    "inhalt" => array("value" => parseMD($kurs["Text_Inhalt_Schwerpunkte"]), "index" => true),
+                    "stufe" => array("value" => $kurs["Text_Anspruchsniveau"], "index" => true),
+                    "zielgruppe" => array("value" => $kurs["Text_Zielgruppe"], "index" => true),
+                    "voraussetzungen" => array("value" => $kurs["Text_Voraussetzungen"], "index" => true),
+                    "methode" => array("value" => $kurs["Text_Arbeitsweise"], "index" => true),
+                    "kursmittel" => array("value" => $kurs["Text_Unterlagen"], "index" => true),
+                    "hinweis" => array("value" => $kurs["Text_Hinweis_Bemerkungen"], "index" => true),
+                    // "weitereinfos" => array("value" => $kurs["xxxxx"], "index" => true), // not used anymore?
+                    "zertifikat" => array("value" => $kurs["Text_Abschluss"], "index" => true),
+                    // "keywords" => array("value" => $kurs["xxxxx"], "index" => true), // not used anymore?
+                    "sort" => array("value" => $kurs["Kurs_Titel"], "index" => false),
+                );
+
+
+                $courses[$CourseID] = array("course" => $importCourse, "executions" => array(), "hiddenBeforeDateTime" => $now, "hiddenAfterDateTime" => $now);
+            }
+            
+
+            // handle executions
+            $ExecutionID = $kurs["Angebot_Id"];
+            if(empty($courses[$CourseID]['executions'][$ExecutionID])) {
+
+                $hiddenBeforeDateTime =  parseData('d.m.y H:i', $kurs["Publikation_Beginn"] . ' 00:00');
+                
+                // set visibility of course
+                if ($courses[$CourseID]["hiddenBeforeDateTime"] > $hiddenBeforeDateTime) {
+                    $courses[$CourseID]["hiddenBeforeDateTime"] = $hiddenBeforeDateTime;
+                }
+
+                $hiddenAfterDateTime = parseData('d.m.y H:i', $kurs["Publikation_Ende"] . ' 00:00');
+                
+                // set visibility of course
+                if ($courses[$CourseID]["hiddenAfterDateTime"] < $hiddenAfterDateTime) {
+                    $courses[$CourseID]["hiddenAfterDateTime"] = $hiddenAfterDateTime;
+                }
+                
+                $start = parseData('Y-m-d H:i:s', $kurs["Angebot_Beginn"]);
+                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseData('Y-m-d H:i:s', $kurs["Anmeldeschluss"]) : $start;
+
+        //                 // add Unicode Zero Width Space (U+200B) after slash
+        //                 // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
+        //                 $durchfuehrungNodeTemplate->setProperty('anmerkung', $this->linkText($durchfuehrung->anmerkung));
+
+                $importExecution = array(
+                    "code" => $kurs["Kurs_Code"] . " " . $kurs["Zusatz1"],
+                    "start" => $start,
+                    "end" => parseData('Y-m-d H:i:s', $kurs["Angebot_Ende"]),
+
+                    "anmerkung" => $kurs["Text_Daten"], 
+                    "terminausblenden" => "FALSE", 
+
+
+                    "ort" => $kurs["Gebaeude"] ? $buildingToStreet[strtolower($kurs["Gebaeude"])] : "", 
+
+                    "priceZH" => (int)$kurs["Kurskosten"], 
+                    "priceNotZH" => (int)$kurs["Kurskosten_AK_Kurse"], 
+                    "priceSfGZ" => (int)$kurs["Kurskosten_Lernende"], 
+
+                    "maxTeilnehmer" => (int)$kurs["Max_Teilnehmer"], 
+                    "anmeldeschluss" => $anmeldeschluss,
+                    "lektionen" => (int)$kurs["Anzahl Wochenlektionen"] * (int)$kurs["Anzahl_Veranstaltungen"], 
+                    "veranstaltungen" => (int)$kurs["Anzahl_Veranstaltungen"], 
+                    "von" => $kurs["Zeit_von"], 
+                    "bis" => $kurs["Zeit_bis"], 
+
+                    "teacher" => $kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]
+                );
+
+                $courses[$CourseID]['executions'][$ExecutionID] = array("execution" => $importExecution, "hiddenBeforeDateTime" => $hiddenBeforeDateTime, "hiddenAfterDateTime" => $hiddenAfterDateTime);
+            } else {
+                // if we have multiple teachers there are multiple lines
+                // all the rest is the same
+                $courses[$CourseID]['executions'][$ExecutionID]["teacher"] = $kurs["Text_Mehrere_Kursleiter"];
             }
         }
 
-        // foreach([$xml->kurse->kurs[0]] as $kurs)
-        foreach ($xml->kurse->kurs as $kurs) {
-            $this->log("Start – Import: " . $kurs->{'kurs-code'}, true);
 
+        foreach ($courses as $course) {
+            $this->log("Start – Import: " . $course["course"]["coursid"]["value"], true);
 
-            foreach ($kurs->versionen->version as $version) {
-
-                //              $links = [];
-                //
-                //              if (!empty($version->links->link)) {
-                //                foreach ($version->links->link as $link) {
-                //                  $links[] = ['id' => strval($link->nummer), 'titel' => $link->titel, 'url' => $link->url];
-                //                }
-                //              }
-
+           
                 $courseNodeTemplate = new NodeTemplate();
                 $courseNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:Course'));
 
-                $courseNodeTemplate->setProperty('coursid', $kurs->{'kurs-code'});
-                $courseNodeTemplate->setProperty('title', $version->titel);
-                $courseNodeTemplate->setProperty('subtitle', $version->{'sub-titel'});
+                $fulltext = array();
+                foreach ($course["course"] as $key => $value) {
+                    $courseNodeTemplate->setProperty($key, $value["value"]);
+                    if($value["index"]) {
+                        $fulltext[] = $value["value"];
+                    }
+                }
 
-                $courseNodeTemplate->setProperty('ziel', $this->linkText($version->ziel));
-                $courseNodeTemplate->setProperty('inhalt', $this->linkText($version->inhalt));
-                $courseNodeTemplate->setProperty('stufe', $this->linkText($kurs->{'stufe-wb'}));
-                $courseNodeTemplate->setProperty('zielgruppe', $this->linkText($version->zielgruppe));
-                $courseNodeTemplate->setProperty('voraussetzungen', $this->linkText($version->voraussetzungen));
-                $courseNodeTemplate->setProperty('methode', $this->linkText($version->methode));
-                $courseNodeTemplate->setProperty('kursmittel', $this->linkText($version->kursunterlagen));
-                $courseNodeTemplate->setProperty('hinweis', $this->linkText($version->hinweis));
-                $courseNodeTemplate->setProperty('weitereinfos', $this->linkText($version->{'weitere-infos'}));
-                $courseNodeTemplate->setProperty('zertifikat', $this->linkText($version->zertifikat));
-                $courseNodeTemplate->setProperty('keywords', $version->{'meta-keywords'});
-                $courseNodeTemplate->setProperty('sort', sprintf('%09d', $kurs->reihenfolge) . '___' . $version->titel);
-
-
-                $courseNodeTemplate->setProperty(
-                    'fulltext',
+                $courseNodeTemplate->setProperty('fulltext', 
                     strtolower(
                         strip_tags(
-                            $version->titel . ' ' .
-                                $version->{'sub-titel'} . ' ' .
-                                $this->linkText($version->ziel) . ' ' .
-                                $this->linkText($version->inhalt) . ' ' .
-                                $this->linkText($kurs->{'stufe-wb'}) . ' ' .
-                                $this->linkText($version->zielgruppe) . ' ' .
-                                $this->linkText($version->voraussetzungen) . ' ' .
-                                $this->linkText($version->methode) . ' ' .
-                                $this->linkText($version->kursunterlagen) . ' ' .
-                                $this->linkText($version->hinweis) . ' ' .
-                                $this->linkText($version->{'weitere-infos'}) . ' ' .
-                                $this->linkText($version->zertifikat) . ' ' .
-                                $version->{'meta-keywords'}
+                            implode(" ", $fulltext)
                         )
                     )
                 );
 
-
-                // $this->emitCourseCreated($courseNode);
-
-
-
-
                 $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
+                $courseNode->setHiddenBeforeDateTime($course["hiddenBeforeDateTime"]);
+                $courseNode->setHiddenAfterDateTime($course["hiddenAfterDateTime"]);
 
-
-                if (!empty($version->{'publikation-start'})) {
-                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-start'} . ' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
-                    $courseNode->setHiddenBeforeDateTime($date);
+                $startDate = $now;
+                if (!empty($course["course"]["Publikation_Beginn"])) {
+                    $startDate = parseData('d.m.y H:i', $course["course"]["Publikation_Beginn"] . ' 00:00');
                 }
 
-                if (!empty($version->{'publikation-ende'})) {
-                    $date = \DateTime::createFromFormat('Y-m-d H:i', $version->{'publikation-ende'} . ' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
-                    $courseNode->setHiddenAfterDateTime($date);
+                $dateEnd = $now;
+                if (!empty($course["course"]["Publikation_Ende"])) {
+                    $dateEnd = parseData('d.m.y H:i', $course["course"]["Publikation_Ende"] . ' 23:59');
                 }
 
+                foreach ($course["executions"] as $execution) {
 
-                $tagsMonth = [];
-                $tagsDay = [];
+                    $durchfuehrungNodeTemplate = new NodeTemplate();
+                    $durchfuehrungNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseExecution'));
 
-                if (!empty($version->durchfuehrungen->durchfuehrung)) {
-                    foreach ($version->durchfuehrungen->durchfuehrung as $durchfuehrung) {
-                        $durchfuehrungNodeTemplate = new NodeTemplate();
-                        $durchfuehrungNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseExecution'));
+                    foreach ($execution["execution"] as $key => $value) {
+                        $durchfuehrungNodeTemplate->setProperty($key, $value);
+                    }
 
-                        $durchfuehrungNodeTemplate->setProperty('code', $durchfuehrung->code);
+                    $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
-                        $durchfuehrungNodeTemplate->setProperty('start', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->start));
-                        $durchfuehrungNodeTemplate->setProperty('end', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->ende));
-
-
-                        // only if anmerkung is empty the course is always on the same weekday
-                        if (empty($durchfuehrung->anmerkung) && !empty($durchfuehrung->start)) {
-                            $days = [
-                                ['title' => 'Sonntag', 'sort' => 100, 'type' => 'day'],
-                                ['title' => 'Montag', 'sort' => 200, 'type' => 'day'],
-                                ['title' => 'Dienstag', 'sort' => 300, 'type' => 'day'],
-                                ['title' => 'Mittwoch', 'sort' => 400, 'type' => 'day'],
-                                ['title' => 'Donnerstag', 'sort' => 500, 'type' => 'day'],
-                                ['title' => 'Freitag', 'sort' => 600, 'type' => 'day'],
-                                ['title' => 'Samstag', 'sort' => 700, 'type' => 'day']
-                            ];
-
-                            $months = [
-                                ['title' => 'Januar', 'sort' => 100, 'type' => 'month'],
-                                ['title' => 'Februar', 'sort' => 200, 'type' => 'month'],
-                                ['title' => 'März', 'sort' => 300, 'type' => 'month'],
-                                ['title' => 'April', 'sort' => 400, 'type' => 'month'],
-                                ['title' => 'Mai', 'sort' => 500, 'type' => 'month'],
-                                ['title' => 'Juni', 'sort' => 600, 'type' => 'month'],
-                                ['title' => 'Juli', 'sort' => 700, 'type' => 'month'],
-                                ['title' => 'August', 'sort' => 800, 'type' => 'month'],
-                                ['title' => 'September', 'sort' => 900, 'type' => 'month'],
-                                ['title' => 'Oktober', 'sort' => 1000, 'type' => 'month'],
-                                ['title' => 'November', 'sort' => 1100, 'type' => 'month'],
-                                ['title' => 'Dezember', 'sort' => 1200, 'type' => 'month']
-                            ];
-
-                            $tagsDay[] = $days[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('N')];
-                            $tagsMonth[] = $months[\DateTime::createFromFormat('Y-m-d', $durchfuehrung->start)->format('n') - 1];
-                        }
-
-
-
-                        // add Unicode Zero Width Space (U+200B) after slash
-                        // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
-                        $durchfuehrungNodeTemplate->setProperty('anmerkung', $this->linkText($durchfuehrung->anmerkung));
-
-                        $durchfuehrungNodeTemplate->setProperty('terminausblenden', $durchfuehrung->{'termin-ausblenden'});
-
-                        $durchfuehrungNodeTemplate->setProperty('priceZH', $durchfuehrung->kosten);
-                        $durchfuehrungNodeTemplate->setProperty('priceNotZH', $durchfuehrung->{'kosten-extern'});
-                        $durchfuehrungNodeTemplate->setProperty('priceSfGZ', $durchfuehrung->{'kosten-lernende'});
-
-                        $durchfuehrungNodeTemplate->setProperty('maxTeilnehmer', $durchfuehrung->maxteilnehmer);
-                        $durchfuehrungNodeTemplate->setProperty('anmeldeschluss', \DateTime::createFromFormat('Y-m-d', $durchfuehrung->anmeldeschluss));
-
-                        $durchfuehrungNodeTemplate->setProperty('ecoMandant', $durchfuehrung->{'eco_mandant'});
-                        $durchfuehrungNodeTemplate->setProperty('ecoAngebotId', $durchfuehrung->{'eco_angebot_id'});
-                        $durchfuehrungNodeTemplate->setProperty('ecoFachId', $durchfuehrung->{'eco_fach_id'});
-                        $durchfuehrungNodeTemplate->setProperty('status', $durchfuehrung->status);
-                        $durchfuehrungNodeTemplate->setProperty('lektionen', (int)$durchfuehrung->lektionen);
-
-
-                        $durchfuehrungNodeTemplate->setProperty('ort', $durchfuehrung->ort);
-                        $durchfuehrungNodeTemplate->setProperty('teacher', $durchfuehrung->{'lehrperson-text'});
-                        $durchfuehrungNodeTemplate->setProperty('von', $durchfuehrung->{'zeit-von'});
-                        $durchfuehrungNodeTemplate->setProperty('bis', $durchfuehrung->{'zeit-bis'});
-                        $durchfuehrungNodeTemplate->setProperty('veranstaltungen', (int)$durchfuehrung->veranstaltungen);
-
-
-                        $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
-
-                        if (!empty($durchfuehrung->{'publikation-start'})) {
-                            $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-start'} . ' 00:00', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
-                            $durchfuehrungNode->setHiddenBeforeDateTime($date);
-                        }
-                        if (!empty($durchfuehrung->{'publikation-ende'})) {
-                            $date = \DateTime::createFromFormat('Y-m-d H:i', $durchfuehrung->{'publikation-ende'} . ' 23:59', new \DateTimeZone('Europe/Zurich'))->setTimezone(new \DateTimeZone('UTC'));
-                            $durchfuehrungNode->setHiddenAfterDateTime($date);
-                        }
-
-
-                        $this->emitCourseCreated($durchfuehrungNode, $courseNode);
-                    } // end $durchfuehrung
+                    $durchfuehrungNode->setHiddenBeforeDateTime($execution["hiddenBeforeDateTime"]);
+                    $durchfuehrungNode->setHiddenAfterDateTime($execution["hiddenAfterDateTime"]);
                 }
 
+            $this->log("End – Import: " . $course["course"]["coursid"]["value"], true);
 
-                $tags = [];
-                foreach ($kurs->kategorien->kategorie as $kategorie) {
-                    $tags[] = ['title' => strval($kategorie), 'sort' => (int)$kategorie["reihenfolge"], 'type' => 'category-' . $categories[strval($kategorie)]];
-                }
+        }
 
-                $courseNode->setProperty('categories', $this->getTagNodes(array_merge($tags, $tagsMonth, $tagsDay), $rootNode));
-            } // end version
-            $this->log("End – Import: " . $kurs->{'kurs-code'});
-        } // end kurs
 
         $this->log("Start – persist", true);
-
         $this->persistenceManager->persistAll();
         $this->log("End – persist");
-
-
+        
         return '<h3>Neuer Import abgeschlossen.</h3>';
     }
 
@@ -650,13 +657,13 @@ class CourseController extends ActionController
 
         $this->response->setStatus(201);
         $this->log("End – import", true);
-        return $msg . "<pre style='font-size: 0.5em;'>\n" . join("\n", $this->logImport) . "\n</pre>"; // 'Import all done. ';
+        return $msg . "<pre style='font-size: 0.9em;'>\n" . join("\n", $this->logImport) . "\n</pre>"; // 'Import all done. ';
     }
 
 
     public function enrollAction()
     {
-        $path = dirname(getcwd()) . "/Packages/Sites/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
+        $path = dirname(getcwd()) . "/DistributionPackages/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
 
         if (!empty($_POST["data"])) {
             $data = $_POST['data'];

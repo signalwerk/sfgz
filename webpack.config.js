@@ -148,10 +148,10 @@ module.exports = {
     // open: config.get("open")
 
     // public: 'blog.sfgz.local:8080', // That solved it
-    public: "sfgz.local:8080", // That solved it
+    public: "sfgz.local.signalwerk.ch:8080", // That solved it
 
     port: 8080,
-    allowedHosts: ["sfgz.local", "blog.sfgz.local"],
+    allowedHosts: ["sfgz.local", "blog.sfgz.local", "sfgz.local.signalwerk.ch"],
     proxy: {
       "*": "http://localhost:80"
     }

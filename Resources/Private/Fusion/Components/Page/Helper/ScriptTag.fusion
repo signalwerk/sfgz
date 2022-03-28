@@ -1,0 +1,19 @@
+prototype(signalwerk.sfgz:Helper.ScriptTag) < prototype(Neos.Fusion:Component) {
+    path = null
+
+    cacheBusting = true
+    @context.cacheBusting = ${this.cacheBusting}
+
+    renderer = Neos.Fusion:Tag {
+        tagName = 'script'
+        attributes {
+          @context.hash = signalwerk.sfgz:Helper.Fusion.HashFile.Process {
+            uri = ${props.path}
+          }
+          src = Neos.Fusion:ResourceUri {
+              path = ${props.path}
+              @process.cacheBusting = ${cacheBusting ? value + '?bust=' + hash : value}
+          }
+        }
+    }
+}

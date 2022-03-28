@@ -195,6 +195,21 @@
     executions:
       type: 'Neos.Neos:ContentCollection'
   properties:
+    type:
+      type: string
+      defaultValue: 'course'
+      ui:
+        label: 'Type'
+        inspector:
+          group: 'course'
+          editor: Content/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            values:
+              'course':
+                label: 'Abendkurs'
+              'apprentice':
+                label: 'Kurs für Lernende'
+        reloadIfChanged: TRUE
     coursid:
       type: string
       ui:

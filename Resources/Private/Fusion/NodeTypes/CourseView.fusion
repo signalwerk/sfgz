@@ -4,11 +4,6 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
     currentCourse = ${q(site).find('[instanceof signalwerk.sfgz:Course][coursid = "' + request.arguments.kurs +'"]').get(0)}
     currentExecution = ${q(site).find('[instanceof signalwerk.sfgz:CourseExecution][code = "' + request.arguments.durchfuehrung +'"]').get(0)}
 
-    # overview
-    angebote = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="category-Angebotsbereiche"]').sort('sort', 'ASC')}
-    berufe = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="category-Berufe"]').sort('sort', 'ASC')}
-    days = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="day"]').sort('sort', 'ASC')}
-    months = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="month"]').sort('sort', 'ASC')}
 
     # overview Items in list
     courseItemRenderer = Neos.Fusion:Collection {
@@ -67,6 +62,10 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
       }
     }
 
+
+    filter = signalwerk.sfgz:Content.CourseViewFilter {
+        // uri = ${props.imageUri}
+    }
 
     @cache {
         mode = 'uncached'

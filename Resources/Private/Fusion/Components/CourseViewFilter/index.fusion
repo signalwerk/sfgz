@@ -1,0 +1,35 @@
+
+
+prototype(signalwerk.sfgz:Content.CourseViewFilter) < prototype(Neos.Neos:ContentComponent) {
+
+
+  // months = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="month"]').sort('sort', 'ASC')}
+
+  renderer = afx`
+    <div class="courseview-filter">
+
+      <signalwerk.sfgz:Helper.ScriptTag path="resource://signalwerk.sfgz/Public/JavaScript/courseview.js" />
+
+      <form class="filter-form" id="filter-form" method="post" action="">
+
+        <h3>Freitext</h3>
+        <div class="form-group clearfix">
+          <div class="input">
+            <input class="form-control" id="filter-form-text" type="text" name="text" value="" placeholder="Suche nach..." />
+          </div>
+        </div>
+
+        <div class="form-group clearfix">
+          <label for="filter-form-submit">&nbsp;</label>
+          <div class="input">
+            <button id="filter-form-submit" type="submit"><span class="txt">Suchen</span><span class="wait">warten...</span></button>
+          </div>
+        </div>
+        <br />
+        <br />
+      </form>
+    </div>
+  `
+
+}
+

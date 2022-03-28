@@ -10,6 +10,7 @@ steps:
     when:
       branch:
         - master
+        - develop
 
   - name: deploy-ftp
     image: signalwerk/lftp:latest
@@ -21,10 +22,25 @@ steps:
       FTP_PASSWORD:
         from_secret: "FTP_PASSWORD"
       FTP_LOCAL_DIR: .
-      FTP_REMOTE_DIR: /html/Packages/Sites/signalwerk.sfgz/
+      FTP_REMOTE_DIR: /html/DistributionPackages/signalwerk.sfgz/
     when:
       branch:
         - master
+
+  - name: deploy-beta-ftp
+    image: signalwerk/lftp:latest
+    commands:
+      - bash ./ci/lftp.sh push
+    environment:
+      FTP_SERVER: 34.65.45.216
+      FTP_USER: sh@signalwerk.ch
+      FTP_PASSWORD:
+        from_secret: "FTP_PASSWORD"
+      FTP_LOCAL_DIR: .
+      FTP_REMOTE_DIR: /beta-html/DistributionPackages/signalwerk.sfgz/
+    when:
+      branch:
+        - develop
 
   - name: build-cache
     image: pstauffer/curl:latest

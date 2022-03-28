@@ -1,0 +1,5 @@
+.courseview-filter {
+  @include filterHeader();
+  @include filterCategory();
+  @include filterSubmit();
+}

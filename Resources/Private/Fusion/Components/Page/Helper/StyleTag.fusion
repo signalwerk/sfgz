@@ -1,0 +1,26 @@
+prototype(signalwerk.sfgz:Helper.StyleTag) < prototype(Neos.Fusion:Component) {
+    media = null
+    path = null
+    async = false
+
+    cacheBusting = true
+    @context.cacheBusting = ${this.cacheBusting}
+
+    renderer = Neos.Fusion:Tag {
+        tagName = 'link'
+        attributes {
+          @context.hash = signalwerk.sfgz:Helper.Fusion.HashFile.Process {
+            uri = ${props.path}
+          }
+          rel = ${props.async ? 'preload' : 'stylesheet'}
+          as = ${props.async ? 'style' : null}
+          onload = ${props.async ? "this.onload=null;this.rel='stylesheet'" : null }
+          href = Neos.Fusion:ResourceUri {
+              path = ${props.path}
+              package = ${props.package}
+              @process.cacheBusting = ${cacheBusting ? value + '?bust=' + hash : value}
+          }
+          media = ${props.media ? props.media : 'all'}
+        }
+    }
+}
