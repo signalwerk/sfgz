@@ -450,11 +450,25 @@ class CourseController extends ActionController
 
         function parseMD( $str ) {
             $Parsedown = new Parsedown();
-            $txt = preg_replace("/^•([\t])*/im", "* ", $str);
+            $txt = preg_replace("/^•([\t])+/im", "* ", $str);
             return $Parsedown->text($txt);
         }
 
-        function parseData( $format, $str ) {
+
+        function parseManualDate( $str ) {
+            $original_date = $str;
+            $date_part = explode('.', $original_date);
+        
+            if((int)$date_part[2] < 2000) {
+                $date_part[2] = "20" . $date_part[2];
+            }
+
+            $date_part=array_map('trim',$date_part);
+
+            return  parseDate('d.m.Y H:i', implode(".", $date_part)  . ' 00:00');
+        }
+
+        function parseDate( $format, $str ) {
             return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich'))/*->setTimezone(new \DateTimeZone('UTC'))*/;
         }
 
@@ -528,22 +542,22 @@ class CourseController extends ActionController
             $ExecutionID = $kurs["Angebot_Id"];
             if(empty($courses[$CourseID]['executions'][$ExecutionID])) {
 
-                $hiddenBeforeDateTime =  parseData('d.m.y H:i', $kurs["Publikation_Beginn"] . ' 00:00');
+                $hiddenBeforeDateTime =  parseManualDate($kurs["Publikation_Beginn"]);
                 
                 // set visibility of course
                 if ($courses[$CourseID]["hiddenBeforeDateTime"] > $hiddenBeforeDateTime) {
                     $courses[$CourseID]["hiddenBeforeDateTime"] = $hiddenBeforeDateTime;
                 }
 
-                $hiddenAfterDateTime = parseData('d.m.y H:i', $kurs["Publikation_Ende"] . ' 00:00');
+                $hiddenAfterDateTime = parseManualDate($kurs["Publikation_Ende"]);
                 
                 // set visibility of course
                 if ($courses[$CourseID]["hiddenAfterDateTime"] < $hiddenAfterDateTime) {
                     $courses[$CourseID]["hiddenAfterDateTime"] = $hiddenAfterDateTime;
                 }
                 
-                $start = parseData('Y-m-d H:i:s', $kurs["Angebot_Beginn"]);
-                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseData('Y-m-d H:i:s', $kurs["Anmeldeschluss"]) : $start;
+                $start = parseDate('Y-m-d H:i:s', $kurs["Angebot_Beginn"]);
+                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate('Y-m-d H:i:s', $kurs["Anmeldeschluss"]) : $start;
 
         //                 // add Unicode Zero Width Space (U+200B) after slash
         //                 // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
@@ -552,7 +566,7 @@ class CourseController extends ActionController
                 $importExecution = array(
                     "code" => $kurs["Kurs_Code"] . " " . $kurs["Zusatz1"],
                     "start" => $start,
-                    "end" => parseData('Y-m-d H:i:s', $kurs["Angebot_Ende"]),
+                    "end" => parseDate('Y-m-d H:i:s', $kurs["Angebot_Ende"]),
 
                     "anmerkung" => $kurs["Text_Daten"], 
                     "terminausblenden" => "FALSE", 
@@ -612,12 +626,12 @@ class CourseController extends ActionController
 
                 $startDate = $now;
                 if (!empty($course["course"]["Publikation_Beginn"])) {
-                    $startDate = parseData('d.m.y H:i', $course["course"]["Publikation_Beginn"] . ' 00:00');
+                    $startDate = parseDate('d.m.y H:i', $course["course"]["Publikation_Beginn"] . ' 00:00');
                 }
 
                 $dateEnd = $now;
                 if (!empty($course["course"]["Publikation_Ende"])) {
-                    $dateEnd = parseData('d.m.y H:i', $course["course"]["Publikation_Ende"] . ' 23:59');
+                    $dateEnd = parseDate('d.m.y H:i', $course["course"]["Publikation_Ende"] . ' 23:59');
                 }
 
                 foreach ($course["executions"] as $execution) {
