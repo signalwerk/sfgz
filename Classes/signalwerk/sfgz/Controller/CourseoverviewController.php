@@ -57,7 +57,6 @@ class CourseoverviewController extends ActionController
     */
     public function getAjaxDataAction($action)
     {
-        // $this->init();
 
         $stauts="Start";
 
@@ -71,36 +70,30 @@ class CourseoverviewController extends ActionController
             $stauts.="\nfilterTxt:'".$_GET["filterTxt"]."'";
         }
 
-        $filterIDs = [];
-
-        // filter by ids of categories
-        if (!empty($_GET["filterID"])) {
-            $filterIDs = explode(",", $_GET['filterID']);
-
-            // remove empty elements and *
-            $filterIDs = array_filter($filterIDs, function ($value) {
-                return $value !== '';
-            });
-            $filterIDs = array_filter($filterIDs, function ($value) {
-                return $value !== '*';
-            });
-
-            foreach ($filterIDs as $filterID) {
-                $query = $query->filterPropertiesFromArray('[identifier="'.$filterID.'"]', 'categories');
-                $stauts.="\nfilterID:'".$filterID."'";
-            }
-        }
-
         $query = $query->sort('sort', 'ASC');
         $query = $query->get();
 
+        $data = [];
         $ids = [];
         foreach ($query as $course) {
             $ids[] = $course->getIdentifier();
+
+            $executions = [];
+
+            foreach ($course->getNode('executions')->getChildNodes('signalwerk.sfgz:CourseExecution') as $execution) {
+      
+                $executions[] = [
+                    "id" => $course->getIdentifier(),
+                    "start" => $execution->getProperty("start")->format('d.m.Y'),
+                    "end" => $execution->getProperty("end")->format('d.m.Y'),
+                ];
+            }
+
+            $data[] = ["id" => $course->getIdentifier(), "coursid" => $course->getProperty('coursid'), "title" => $course->getProperty('title'), "executions" => $executions];
         }
         $stauts.="\nEnd";
 
-        $data=array("data"=>$ids, "filter"=>$stauts);
+        $data=array("data"=>$ids, "filter"=>$stauts, "hits" => $data );
         return json_encode($data);
     }
 }

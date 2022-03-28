@@ -3,12 +3,6 @@
 <div{attributes -> f:format.raw()}>
 
 
-  <f:if condition="{view} == list">
-    <div class="courseview-list">
-      <f:render partial="./CourseView/list" arguments="{courseItemRenderer: courseItemRenderer}"/>
-    </div>
-  </f:if>
-
   <f:if condition="{view} == show">
     {course -> f:format.raw()}
   </f:if>
