@@ -1,12 +1,11 @@
-// https://2ality.com/2015/01/template-strings-html.html
 function htmlEscape(str) {
   return str
-    .replace(/&/g, "&amp;") // first!
-    .replace(/>/g, "&gt;")
+    .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/`/g, "&#96;");
+    .replace(/`/g, "&#96;")
+    .replace(/'/g, "&#39;");
 }
 
 (function ($) {
@@ -52,7 +51,7 @@ function update() {
     },
   })
     .done(function (data) {
-      console.log("---- ", data);
+      data.hits.sort((a, b) => a.title.localeCompare(b.title));
 
       const html = data.hits.length
         ? data.hits
@@ -74,10 +73,14 @@ function update() {
               <div class="courseview-listeitem__date">
                 <p>
                   ${course.executions
+                    .sort((a, b) => {
+                      console.log({ a, b });
+                      return a.start.sort - b.start.sort;
+                    })
                     .map(
                       (execution) =>
-                        `${htmlEscape(execution.start)} – ${htmlEscape(
-                          execution.end
+                        `${htmlEscape(execution.start.print)} – ${htmlEscape(
+                          execution.end.print
                         )}<br />`
                     )
                     .join("")}
@@ -91,49 +94,11 @@ function update() {
         : `<h3 class="noResult">Keine Treffer.</h3>`;
 
       $("#courseview-result").html(html);
-
-      {
-        /* <div>
-<a data-id="653d4bda-f2de-415b-bd69-662fab2b0f50" class="courseview-listeitem--root noLine" href="./angebot/detail.html?kurs=2570">
-  <div class="courseview-listeitem">
-    <div class="courseview-listeitem__nr">
-      <p>2570&nbsp;</p>
-    </div>
-    <div class="courseview-listeitem__title">
-      <h3>Fördermodul Lernen</h3>
-    </div>
-    <div class="courseview-listeitem__date">
-      <p>
-        
-
-21.02.2022 – 21.08.2022<br>
-
-
-      </p>
-    </div>
-  </div>
-</a>
-</div> */
-      }
-
-      // console.log( "success" );
-      $(".courseview-listeitem--root").addClass("hidden");
-
-      if (!data.data.length) {
-        $(".noResult").removeClass("hidden");
-      }
-
-      data.data.forEach((item) => {
-        $('.courseview-listeitem--root[data-id="' + item + '"]').removeClass(
-          "hidden"
-        );
-      });
     })
     .fail(function () {
       console.log("error");
     })
     .always(function () {
-      // console.log( "complete" );
       submitBtn.removeClass("button-submitting");
     });
 }
@@ -146,9 +111,8 @@ $(function () {
   $("#filter-form").submit(function (event) {
     update();
     return false;
-
-    // event.preventDefault();
   });
 
+  // load on start
   update();
 });

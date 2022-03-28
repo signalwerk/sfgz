@@ -74,9 +74,7 @@ class CourseoverviewController extends ActionController
         $query = $query->get();
 
         $data = [];
-        $ids = [];
         foreach ($query as $course) {
-            $ids[] = $course->getIdentifier();
 
             $executions = [];
 
@@ -84,8 +82,8 @@ class CourseoverviewController extends ActionController
       
                 $executions[] = [
                     "id" => $course->getIdentifier(),
-                    "start" => $execution->getProperty("start")->format('d.m.Y'),
-                    "end" => $execution->getProperty("end")->format('d.m.Y'),
+                    "start" => ["print"=> $execution->getProperty("start")->format('d.m.Y'), "sort" => (int)$execution->getProperty("start")->format('U')],
+                    "end" => ["print"=> $execution->getProperty("end")->format('d.m.Y')],
                 ];
             }
 
@@ -93,7 +91,7 @@ class CourseoverviewController extends ActionController
         }
         $stauts.="\nEnd";
 
-        $data=array("data"=>$ids, "filter"=>$stauts, "hits" => $data );
+        $data=array("filter"=>$stauts, "hits" => $data );
         return json_encode($data);
     }
 }
