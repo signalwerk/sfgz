@@ -24,7 +24,10 @@ module.exports = {
     main: [
       "./Resources/Private/JavaScript/main.js",
       "./Resources/Private/Styles/main.scss"
-    ]
+    ],
+    courseview: [
+      "./Resources/Private/JavaScript/courseview.js",
+    ],
   },
 
   // output file(s) and chunks
