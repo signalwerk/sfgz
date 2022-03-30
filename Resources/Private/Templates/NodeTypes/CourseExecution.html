@@ -89,15 +89,7 @@
   <f:if condition="{node.properties.ort}">
    <p>
      <strong>Ort:</strong>
-     <f:if condition="{node.properties.ort} == Lp">
-       Ausstellungsstrasse 104, CH-8005 Zürich
-     </f:if>
-     <f:if condition="{node.properties.ort} == Jo">
-       Josefstrasse 53-59, CH-8005 Zürich
-     </f:if>
-     <f:if condition="{node.properties.ort} == Extern">
-       Extern
-     </f:if>
+     <span>{node.properties.ort}</span>
    </p>
   </f:if>
 

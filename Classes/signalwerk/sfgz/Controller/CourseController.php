@@ -494,13 +494,17 @@ class CourseController extends ActionController
         }
 
 
+        print '<pre>';
+        print_r($assocData);
+        print '</pre>';
+
         $courses = array();
-        $now = new DateTime;
         $buildingToStreet = array(
             "lp" => "Ausstellungsstrasse 104, CH-8005 Zürich",
             "ba" => "Ausstellungsstrasse 100, CH-8005 Zürich",
             "fi" => "Ausstellungsstrasse 90, CH-8005 Zürich",
             "jo" => "Josefstrasse 53, 6. Stock, CH-8005 Zürich",
+            "extern" => "extern",
         );
             
         foreach ($assocData as $kurs) {
@@ -534,7 +538,7 @@ class CourseController extends ActionController
                 );
 
 
-                $courses[$CourseID] = array("course" => $importCourse, "executions" => array(), "hiddenBeforeDateTime" => $now, "hiddenAfterDateTime" => $now);
+                $courses[$CourseID] = array("course" => $importCourse, "executions" => array(), "hiddenBeforeDateTime" => null, "hiddenAfterDateTime" => null);
             }
             
 
@@ -545,14 +549,14 @@ class CourseController extends ActionController
                 $hiddenBeforeDateTime =  parseManualDate($kurs["Publikation_Beginn"]);
                 
                 // set visibility of course
-                if ($courses[$CourseID]["hiddenBeforeDateTime"] > $hiddenBeforeDateTime) {
+                if ($courses[$CourseID]["hiddenBeforeDateTime"] === null || $courses[$CourseID]["hiddenBeforeDateTime"] > $hiddenBeforeDateTime) {
                     $courses[$CourseID]["hiddenBeforeDateTime"] = $hiddenBeforeDateTime;
                 }
 
                 $hiddenAfterDateTime = parseManualDate($kurs["Publikation_Ende"]);
                 
                 // set visibility of course
-                if ($courses[$CourseID]["hiddenAfterDateTime"] < $hiddenAfterDateTime) {
+                if ($courses[$CourseID]["hiddenAfterDateTime"] === null || $courses[$CourseID]["hiddenAfterDateTime"] < $hiddenAfterDateTime) {
                     $courses[$CourseID]["hiddenAfterDateTime"] = $hiddenAfterDateTime;
                 }
                 
@@ -621,15 +625,15 @@ class CourseController extends ActionController
                 );
 
                 $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
-                $courseNode->setHiddenBeforeDateTime($course["hiddenBeforeDateTime"]);
-                $courseNode->setHiddenAfterDateTime($course["hiddenAfterDateTime"]);
+                // $courseNode->setHiddenBeforeDateTime($course["hiddenBeforeDateTime"]);
+                // $courseNode->setHiddenAfterDateTime($course["hiddenAfterDateTime"]);
 
-                $startDate = $now;
+                $startDate = null;
                 if (!empty($course["course"]["Publikation_Beginn"])) {
                     $startDate = parseDate('d.m.y H:i', $course["course"]["Publikation_Beginn"] . ' 00:00');
                 }
 
-                $dateEnd = $now;
+                $dateEnd = null;
                 if (!empty($course["course"]["Publikation_Ende"])) {
                     $dateEnd = parseDate('d.m.y H:i', $course["course"]["Publikation_Ende"] . ' 23:59');
                 }
@@ -645,8 +649,8 @@ class CourseController extends ActionController
 
                     $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
-                    $durchfuehrungNode->setHiddenBeforeDateTime($execution["hiddenBeforeDateTime"]);
-                    $durchfuehrungNode->setHiddenAfterDateTime($execution["hiddenAfterDateTime"]);
+                    // $durchfuehrungNode->setHiddenBeforeDateTime($execution["hiddenBeforeDateTime"]);
+                    // $durchfuehrungNode->setHiddenAfterDateTime($execution["hiddenAfterDateTime"]);
                 }
 
             $this->log("End – Import: " . $course["course"]["coursid"]["value"], true);
