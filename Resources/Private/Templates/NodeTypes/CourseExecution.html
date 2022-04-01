@@ -1,19 +1,17 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 
-<f:if condition="{node.properties.status} != 4">
 
-  <f:if condition="{node.properties.status} == 3">
-    <f:then>
-      <div class="course-complete">
-        <f:render section="executionRender" arguments="{_all}" />
-      </div>
-    </f:then>
-    <f:else>
-      <div class="course-not-complete">
-        <f:render section="executionRender" arguments="{_all}" />
-      </div>
-    </f:else>
-  </f:if>
+<f:if condition="{node.properties.status} == 'ausgebucht'">
+  <f:then>
+    <div class="course-complete">
+      <f:render section="executionRender" arguments="{_all}" />
+    </div>
+  </f:then>
+  <f:else>
+    <div class="course-not-complete">
+      <f:render section="executionRender" arguments="{_all}" />
+    </div>
+  </f:else>
 </f:if>
 
 
@@ -26,7 +24,7 @@
   </f:if>
 
 
-  <f:if condition="{node.properties.terminausblenden} == 'FALSE'">
+  <f:if condition="{node.properties.anmerkung} == ''">
       <f:if condition="{node.properties.end}">
         <p><strong>Enddatum: </strong><f:format.date format="d.m.Y">{node.properties.end}</f:format.date></p>
       </f:if>
@@ -44,10 +42,10 @@
         </p>
       </f:if>
       <f:if condition="{node.properties.von} && {node.properties.bis}">
-        <p><strong>Zeit: </strong>{node.properties.von}–{node.properties.bis}</p>
+        <p><strong>Zeit: </strong>{node.properties.von} – {node.properties.bis}</p>
       </f:if>
       <f:if condition="{node.properties.veranstaltungen} && {node.properties.lektionen}">
-        <p><strong>Kursumfang: </strong>{node.properties.veranstaltungen} × {lektionenProVeranstaltung} Lektionen</p>
+        <p><strong>Kursumfang: </strong>{node.properties.veranstaltungen} × {node.properties.lektionen}&nbsp;Lektionen</p>
       </f:if>
 
   </f:if>
@@ -100,7 +98,7 @@
     <br>
   </f:if>
 
-  <f:if condition="{node.properties.status} == 3">
+  <f:if condition="{node.properties.status} == 'ausgebucht'">
     <h3>Ausgebucht</h3>
     <br>
   </f:if>

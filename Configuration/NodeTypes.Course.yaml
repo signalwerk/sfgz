@@ -153,6 +153,15 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
+          editor: Content/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            values:
+              '':
+                label: 'default'
+              'buchbar':
+                label: 'buchbar'
+              'ausgebucht':
+                label: 'ausgebucht'
     veranstaltungen:
       type: integer
       defaultValue: ''
@@ -166,14 +175,6 @@
       defaultValue: ''
       ui:
         label: 'Lektionen'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'attr'
-    terminausblenden:
-      type: string
-      defaultValue: false
-      ui:
-        label: 'Termin ausblenden'
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
