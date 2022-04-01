@@ -494,19 +494,19 @@ class CourseController extends ActionController
         }
 
 
-        print '<pre>';
-        print_r($assocData);
-        print '</pre>';
+        // print '<pre>';
+        // print_r($assocData);
+        // print '</pre>';
 
         $courses = array();
         $buildingToStreet = array(
-            "lp" => "Ausstellungsstrasse 104, CH-8005 Zürich",
-            "ba" => "Ausstellungsstrasse 100, CH-8005 Zürich",
-            "fi" => "Ausstellungsstrasse 90, CH-8005 Zürich",
-            "jo" => "Josefstrasse 53, 6. Stock, CH-8005 Zürich",
+            "lp" => "Ausstellungsstrasse 104, CH-8005 Zürich",
+            "ba" => "Ausstellungsstrasse 100, CH-8005 Zürich",
+            "fi" => "Ausstellungsstrasse 90, CH-8005 Zürich",
+            "jo" => "Josefstrasse 53, 6. Stock, CH-8005 Zürich",
             "extern" => "extern",
         );
-            
+        
         foreach ($assocData as $kurs) {
             
             // combine to one course based on Kurs_Code
@@ -520,6 +520,7 @@ class CourseController extends ActionController
 
                     "ecoAngebotId" => array("value" => $kurs["Angebot_Id"], "index" => false), 
                     "ecoFachId" => array("value" => $kurs["Fach_Id"], "index" => false), 
+                    "status" => array("value" => trim($kurs["Text_Buchungsstatus"]), "index" => false), 
                     
                     "title" => array("value" => $kurs["Kurs_Titel"], "index" => true),
                     "subtitle" => array("value" => $kurs["Kurs_Beschreibung"], "index" => true),
@@ -567,14 +568,14 @@ class CourseController extends ActionController
         //                 // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
         //                 $durchfuehrungNodeTemplate->setProperty('anmerkung', $this->linkText($durchfuehrung->anmerkung));
 
+
+                $teacher = $kurs["Text_Mehrere_Kursleiter"] ?: ($kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]);
                 $importExecution = array(
                     "code" => $kurs["Kurs_Code"] . " " . $kurs["Zusatz1"],
                     "start" => $start,
                     "end" => parseDate('Y-m-d H:i:s', $kurs["Angebot_Ende"]),
 
                     "anmerkung" => $kurs["Text_Daten"], 
-                    "terminausblenden" => "FALSE", 
-
 
                     "ort" => $kurs["Gebaeude"] ? $buildingToStreet[strtolower($kurs["Gebaeude"])] : "", 
 
@@ -584,19 +585,25 @@ class CourseController extends ActionController
 
                     "maxTeilnehmer" => (int)$kurs["Max_Teilnehmer"], 
                     "anmeldeschluss" => $anmeldeschluss,
-                    "lektionen" => (int)$kurs["Anzahl Wochenlektionen"] * (int)$kurs["Anzahl_Veranstaltungen"], 
+                    "lektionen" => (int)$kurs["Anzahl Wochenlektionen"], 
                     "veranstaltungen" => (int)$kurs["Anzahl_Veranstaltungen"], 
                     "von" => $kurs["Zeit_von"], 
                     "bis" => $kurs["Zeit_bis"], 
 
-                    "teacher" => $kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]
+                    "teacher" => $teacher,
                 );
 
-                $courses[$CourseID]['executions'][$ExecutionID] = array("execution" => $importExecution, "hiddenBeforeDateTime" => $hiddenBeforeDateTime, "hiddenAfterDateTime" => $hiddenAfterDateTime);
+                $courses[$CourseID]['executions'][$ExecutionID] = array("execution" => $importExecution, "teachers" => [$teacher], "hiddenBeforeDateTime" => $hiddenBeforeDateTime, "hiddenAfterDateTime" => $hiddenAfterDateTime);
             } else {
                 // if we have multiple teachers there are multiple lines
                 // all the rest is the same
-                $courses[$CourseID]['executions'][$ExecutionID]["teacher"] = $kurs["Text_Mehrere_Kursleiter"];
+                if(empty($kurs["Text_Mehrere_Kursleiter"])) {
+                    $teacher = $kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"];
+                    $courses[$CourseID]['executions'][$ExecutionID]['teachers'][] = $teacher;
+                    $courses[$CourseID]['executions'][$ExecutionID]['execution']["teacher"] = implode(", ", $courses[$CourseID]['executions'][$ExecutionID]['teachers']);
+                } else {
+                    $courses[$CourseID]['executions'][$ExecutionID]['execution']['teacher'] = $kurs["Text_Mehrere_Kursleiter"];
+                }
             }
         }
 
