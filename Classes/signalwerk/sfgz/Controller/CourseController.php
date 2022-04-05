@@ -526,14 +526,14 @@ class CourseController extends ActionController
                     "subtitle" => array("value" => $kurs["Kurs_Beschreibung"], "index" => true),
                     "ziel" => array("value" => parseMD($kurs["Text_Kursbeschreibung"]), "index" => true),
                     "inhalt" => array("value" => parseMD($kurs["Text_Inhalt_Schwerpunkte"]), "index" => true),
-                    "stufe" => array("value" => $kurs["Text_Anspruchsniveau"], "index" => true),
-                    "zielgruppe" => array("value" => $kurs["Text_Zielgruppe"], "index" => true),
-                    "voraussetzungen" => array("value" => $kurs["Text_Voraussetzungen"], "index" => true),
-                    "methode" => array("value" => $kurs["Text_Arbeitsweise"], "index" => true),
-                    "kursmittel" => array("value" => $kurs["Text_Unterlagen"], "index" => true),
-                    "hinweis" => array("value" => $kurs["Text_Hinweis_Bemerkungen"], "index" => true),
-                    // "weitereinfos" => array("value" => $kurs["xxxxx"], "index" => true), // not used anymore?
-                    "zertifikat" => array("value" => $kurs["Text_Abschluss"], "index" => true),
+                    "stufe" => array("value" => parseMD($kurs["Text_Anspruchsniveau"]), "index" => true),
+                    "zielgruppe" => array("value" => parseMD($kurs["Text_Zielgruppe"]), "index" => true),
+                    "voraussetzungen" => array("value" => parseMD($kurs["Text_Voraussetzungen"]), "index" => true),
+                    "methode" => array("value" => parseMD($kurs["Text_Arbeitsweise"]), "index" => true),
+                    "kursmittel" => array("value" => parseMD($kurs["Text_Unterlagen"]), "index" => true),
+                    "hinweis" => array("value" => parseMD($kurs["Text_Hinweis_Bemerkungen"]), "index" => true),
+                    // "weitereinfos" => array("value" => parseMD($kurs["xxxxx"]), "index" => true), // not used anymore?
+                    "zertifikat" => array("value" => parseMD($kurs["Text_Abschluss"]), "index" => true),
                     // "keywords" => array("value" => $kurs["xxxxx"], "index" => true), // not used anymore?
                     "sort" => array("value" => $kurs["Kurs_Titel"], "index" => false),
                 );
