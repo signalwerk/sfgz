@@ -327,62 +327,6 @@ class CourseController extends ActionController
         // file_put_contents($this->backupFilePath().'_mail.json', json_encode($data, JSON_PRETTY_PRINT));
     }
 
-
-    // protected function dlCourseXML()
-    // {
-    //     $this->log("Start – Import", true);
-
-    //     set_time_limit(0); // unlimited max execution time
-
-    //     $ci = curl_init();
-    //     $url = "https://daten.sfgz.ch/?type=90"; // Source file
-    //     $fp = fopen($this->dataPath() . 'getxml.xml', "w"); // Destination location
-    //     curl_setopt_array($ci, array(
-    //         CURLOPT_URL => $url,
-    //         CURLOPT_TIMEOUT => 28800, // set this to 8 hours so we dont timeout on big files
-    //         CURLOPT_FILE => $fp
-    //     ));
-    //     $contents = curl_exec($ci); // Returns '1' if successful
-    //     curl_close($ci);
-    //     fclose($fp);
-    //     $this->log("End – Import");
-    // }
-
-    /**
-     * @var array
-     */
-    protected $tagNodes = [];
-
-
-    /**
-     * @param array $tags
-     * @return array<NodeInterface>
-     */
-    protected function getTagNodes(array $tags, $rootNode)
-    {
-        $tagNodes = [];
-        foreach ($tags as $tag) {
-            $title = $tag['title'];
-            $sort = $tag['sort'];
-            $type = $tag['type'];
-            $md5Tag = md5($title . $sort . $type);
-            if (!isset($this->tagNodes[$md5Tag])) {
-                print_r("---- getNodeType" . $title);
-                $tagNodeType = $this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory');
-                $name = Utility::renderValidNodeName($title);
-                //  $name = uniqid('node');
-                $tagNode = $rootNode->createNode($name, $tagNodeType);
-                $tagNode->setProperty('title', $title);
-                $tagNode->setProperty('sort', $sort);
-                $tagNode->setProperty('type', $type);
-                $this->tagNodes[$md5Tag] = $tagNode;
-            }
-            $tagNodes[] = $this->tagNodes[$md5Tag];
-        }
-
-        return $tagNodes;
-    }
-
     // remove text references with the link
     protected function linkText($text)
     {
@@ -635,8 +579,6 @@ class CourseController extends ActionController
             $tagNodeTemplate = new NodeTemplate();
             $tagNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory'));
             $tagNodeTemplate->setProperty('title', $tag['title']);
-            $tagNodeTemplate->setProperty('sort', 1);
-            $tagNodeTemplate->setProperty('type', 'default');
             $tags[$key]['node'] = $rootNode->createNodeFromTemplate($tagNodeTemplate);
         }
   

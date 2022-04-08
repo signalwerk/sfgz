@@ -402,22 +402,6 @@
         reloadIfChanged: TRUE
         inspector:
           group: 'attr'
-    type:
-      type: string
-      defaultValue: ''
-      ui:
-        label: 'Type'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'attr'
-    sort:
-      type: integer
-      defaultValue: 0
-      ui:
-        label: 'Sortierung'
-        reloadIfChanged: TRUE
-        inspector:
-          group: 'attr'
 
 ##
 # Kurs

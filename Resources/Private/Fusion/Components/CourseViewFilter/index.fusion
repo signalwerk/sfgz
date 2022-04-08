@@ -2,9 +2,6 @@
 
 prototype(signalwerk.sfgz:Content.CourseViewFilter) < prototype(Neos.Neos:ContentComponent) {
 
-
-  // months = ${q(site).find('[instanceof signalwerk.sfgz:CourseCategory][type="month"]').sort('sort', 'ASC')}
-
   renderer = afx`
     <div>
       <div class="courseview-filter">

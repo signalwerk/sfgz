@@ -20,8 +20,6 @@ prototype(signalwerk.sfgz:CourseView) < prototype(Neos.Neos:Content) {
             templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseExecution.html'
             node = ${courseExecution}
             course = ${course}
-            // we could save one query if we save that id of the viscom
-            viscom = ${q(course).filterPropertiesFromArray('[identifier="' + q(site).find('[instanceof signalwerk.sfgz:CourseCategory][title*="Viscom-Reduktion"]').get()[0].identifier + '"]','categories')}
           }
         }
       }
