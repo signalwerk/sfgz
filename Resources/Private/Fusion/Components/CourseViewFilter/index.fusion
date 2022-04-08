@@ -13,10 +13,10 @@ prototype(signalwerk.sfgz:Content.CourseViewFilter) < prototype(Neos.Neos:Conten
 
         <form class="filter-form" id="filter-form" method="post" action="">
 
-          <h3>Freitext</h3>
+          <!-- <h3>Freitext</h3> -->
           <div class="form-group clearfix">
             <div class="input">
-              <input class="form-control" id="filter-form-text" type="text" name="text" value="" placeholder="Suche nach..." />
+              <input class="courseview-filter__input form-control" id="filter-form-text" type="text" name="text" value="" placeholder="Suche nach..." />
             </div>
           </div>
 

@@ -4,7 +4,10 @@
 }
 
 .courseview-filter {
-  @include filterHeader();
   @include filterCategory();
   @include filterSubmit();
+}
+
+.courseview-filter__input {
+  margin-top: 0.6rem;
 }
