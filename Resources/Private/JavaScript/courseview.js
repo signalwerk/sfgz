@@ -29,6 +29,46 @@ function htmlEscape(str) {
   };
 })(jQuery);
 
+function renderCourses(courses) {
+  return courses
+    .map(
+      (course) =>
+        `<div>
+<a
+  data-id="${htmlEscape(course.id)}"
+  class="courseview-listeitem--root noLine"
+  href="./angebot/detail.html?kurs=${htmlEscape(course.coursid)}"
+>
+  <div class="courseview-listeitem">
+    <div class="courseview-listeitem__nr">
+      <p>${htmlEscape(course.coursid)}&nbsp;</p>
+    </div>
+    <div class="courseview-listeitem__title">
+      <h3>${htmlEscape(course.title)}</h3>
+    </div>
+    <div class="courseview-listeitem__date">
+      <p>
+        ${course.executions
+          .sort((a, b) => {
+            console.log({ a, b });
+            return a.start.sort - b.start.sort;
+          })
+          .map(
+            (execution) =>
+              `${htmlEscape(execution.start.print)} – ${htmlEscape(
+                execution.end.print
+              )}<br />`
+          )
+          .join("")}
+      </p>
+    </div>
+  </div>
+</a>
+</div>`
+    )
+    .join("");
+}
+
 function update() {
   var submitBtn = $("#filter-form-submit");
   // submitBtn.attr('disabled', 'disabled');
@@ -51,47 +91,36 @@ function update() {
     },
   })
     .done(function (data) {
-      data.hits.sort((a, b) => a.title.localeCompare(b.title));
+      const categories = {};
 
-      const html = data.hits.length
-        ? data.hits
-            .map(
-              (course) =>
-                `<div>
-          <a
-            data-id="${htmlEscape(course.id)}"
-            class="courseview-listeitem--root noLine"
-            href="./angebot/detail.html?kurs=${htmlEscape(course.coursid)}"
-          >
-            <div class="courseview-listeitem">
-              <div class="courseview-listeitem__nr">
-                <p>${htmlEscape(course.coursid)}&nbsp;</p>
-              </div>
-              <div class="courseview-listeitem__title">
-                <h3>${htmlEscape(course.title)}</h3>
-              </div>
-              <div class="courseview-listeitem__date">
-                <p>
-                  ${course.executions
-                    .sort((a, b) => {
-                      console.log({ a, b });
-                      return a.start.sort - b.start.sort;
-                    })
-                    .map(
-                      (execution) =>
-                        `${htmlEscape(execution.start.print)} – ${htmlEscape(
-                          execution.end.print
-                        )}<br />`
-                    )
-                    .join("")}
-                </p>
-              </div>
-            </div>
-          </a>
-        </div>`
-            )
-            .join("")
-        : `<h3 class="noResult">Keine Treffer.</h3>`;
+      // data.hits.sort((a, b) => a.title.localeCompare(b.title));
+
+      data.categories.forEach((category) => {
+        categories[category.id] = { ...category, courses: [] };
+      });
+
+      data.hits.forEach((hit) => {
+        hit.categories.forEach((category) => {
+          categories[category].courses.push(hit);
+        });
+      });
+
+      let html = null;
+
+      if (data.hits.length) {
+        html = [];
+        for (const [key, category] of Object.entries(categories)) {
+          // console.log(`${key}: ${value}`);
+
+          if (category.courses.length) {
+            html.push(`<div class="courseview-category"><h3>${category.title}</h3></div>`);
+            html.push(renderCourses(category.courses));
+          }
+        }
+        html = html.join("\n");
+      } else {
+        html = `<h3 class="noResult">Keine Treffer.</h3>`;
+      }
 
       $("#courseview-result").html(html);
     })

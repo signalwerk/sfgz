@@ -27,7 +27,6 @@ prototype(signalwerk.sfgz:Content.CourseViewFilter) < prototype(Neos.Neos:Conten
             </div>
           </div>
           <br />
-          <br />
         </form>
       </div>
 

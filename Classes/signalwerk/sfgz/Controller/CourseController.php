@@ -53,7 +53,11 @@ class CourseController extends ActionController
      */
     protected function initializeAction()
     {
-        $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
+        $this->context = $this->contextFactory->create(array(
+            'workspaceName' => 'live',
+            'invisibleContentShown' => true,
+            'inaccessableContentShown' => true,
+        ));
         $this->logImportLast = new DateTime;
     }
 
@@ -363,6 +367,7 @@ class CourseController extends ActionController
             $type = $tag['type'];
             $md5Tag = md5($title . $sort . $type);
             if (!isset($this->tagNodes[$md5Tag])) {
+                print_r("---- getNodeType" . $title);
                 $tagNodeType = $this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory');
                 $name = Utility::renderValidNodeName($title);
                 //  $name = uniqid('node');
@@ -498,7 +503,11 @@ class CourseController extends ActionController
         // print_r($assocData);
         // print '</pre>';
 
+
         $courses = array();
+        $tags = array();
+
+
         $buildingToStreet = array(
             "lp" => "Ausstellungsstrasse 104, CH-8005 Zürich",
             "ba" => "Ausstellungsstrasse 100, CH-8005 Zürich",
@@ -538,8 +547,14 @@ class CourseController extends ActionController
                     "sort" => array("value" => $kurs["Kurs_Titel"], "index" => false),
                 );
 
+                $currentTags = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', trim($kurs["Text_Rubrik"]))));
+                foreach ($currentTags as $tag) {
+                    if(empty($tags[$tag])) {
+                        $tags[$tag] = array("title" => $tag, "node" => null);
+                    }
+                }
 
-                $courses[$CourseID] = array("course" => $importCourse, "executions" => array(), "hiddenBeforeDateTime" => null, "hiddenAfterDateTime" => null);
+                $courses[$CourseID] = array("course" => $importCourse, "executions" => array(), "tags" => $currentTags, "hiddenBeforeDateTime" => null, "hiddenAfterDateTime" => null);
             }
             
 
@@ -561,8 +576,12 @@ class CourseController extends ActionController
                     $courses[$CourseID]["hiddenAfterDateTime"] = $hiddenAfterDateTime;
                 }
                 
-                $start = parseDate('Y-m-d H:i:s', $kurs["Angebot_Beginn"]);
-                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate('Y-m-d H:i:s', $kurs["Anmeldeschluss"]) : $start;
+
+                // $dateFormat = 'Y-m-d H:i:s';
+                $dateFormat = 'd.m.Y H:i';
+
+                $start = parseDate($dateFormat, $kurs["Angebot_Beginn"]);
+                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate($dateFormat, $kurs["Anmeldeschluss"]) : $start;
 
         //                 // add Unicode Zero Width Space (U+200B) after slash
         //                 // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
@@ -573,7 +592,7 @@ class CourseController extends ActionController
                 $importExecution = array(
                     "code" => $kurs["Kurs_Code"] . " " . $kurs["Zusatz1"],
                     "start" => $start,
-                    "end" => parseDate('Y-m-d H:i:s', $kurs["Angebot_Ende"]),
+                    "end" => parseDate($dateFormat, $kurs["Angebot_Ende"]),
 
                     "anmerkung" => $kurs["Text_Daten"], 
 
@@ -607,6 +626,21 @@ class CourseController extends ActionController
             }
         }
 
+        // print '<pre>';
+        // print_r($courses);
+        // print '</pre>';
+
+
+        foreach ($tags as $key => $tag) {
+            $tagNodeTemplate = new NodeTemplate();
+            $tagNodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('signalwerk.sfgz:CourseCategory'));
+            $tagNodeTemplate->setProperty('title', $tag['title']);
+            $tagNodeTemplate->setProperty('sort', 1);
+            $tagNodeTemplate->setProperty('type', 'default');
+            $tags[$key]['node'] = $rootNode->createNodeFromTemplate($tagNodeTemplate);
+        }
+  
+        $this->persistenceManager->persistAll();
 
         foreach ($courses as $course) {
             $this->log("Start – Import: " . $course["course"]["coursid"]["value"], true);
@@ -630,6 +664,12 @@ class CourseController extends ActionController
                         )
                     )
                 );
+
+                $currentTags = array_map(function ($tag) use ($tags) {
+                    return $tags[$tag]["node"];
+                }, $course["tags"]);
+
+                $courseNodeTemplate->setProperty('categories', $currentTags);
 
                 $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
                 // $courseNode->setHiddenBeforeDateTime($course["hiddenBeforeDateTime"]);
