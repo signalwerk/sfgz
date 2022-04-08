@@ -30,10 +30,8 @@ prototype(signalwerk.sfgz:Content.CourseViewFilter) < prototype(Neos.Neos:Conten
         </form>
       </div>
 
-      <div class="signalwerk-sfgz-courseview">
-        <div class="courseview-list">
-            <div id="courseview-result"></div>
-        </div>
+      <div class="courseview-list">
+          <div id="courseview-result"></div>
       </div>
     </div>
   `
