@@ -391,7 +391,6 @@ class CourseController extends ActionController
             return 'Expected course root not found! [uriPathSegment="course"]';
         }
 
-        $handle = fopen($this->dataPath() . 'import/ecoopen/kurse.csv','r');
 
         function parseText( $str ) {
             return iconv( "Windows-1252", "UTF-8", $str );
@@ -421,7 +420,7 @@ class CourseController extends ActionController
             return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich'))/*->setTimezone(new \DateTimeZone('UTC'))*/;
         }
 
-        $handle = fopen($this->dataPath() . 'kurse.csv','r');
+        $handle = fopen($this->dataPath() . 'import/ecoopen/kurse.csv','r');
         $assocData = array();
         if ($handle) {
             $headerRecord = array();
