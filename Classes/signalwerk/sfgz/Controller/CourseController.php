@@ -313,7 +313,7 @@ class CourseController extends ActionController
         $domtree->save($this->backupFilePath() . '_export.xml');
 
         // save for export
-        $exportPath = $this->dataPath() . "import/ecoopen/";
+        $exportPath = $this->dataPath() . "export/ecoopen/";
         // To create the nested structure
         if (!file_exists($exportPath)) {
             if (!mkdir($exportPath, 0777, true)) {
@@ -391,7 +391,7 @@ class CourseController extends ActionController
             return 'Expected course root not found! [uriPathSegment="course"]';
         }
 
-        $handle = fopen($this->dataPath() . 'kurse.csv','r');
+        $handle = fopen($this->dataPath() . 'import/ecoopen/kurse.csv','r');
 
         function parseText( $str ) {
             return iconv( "Windows-1252", "UTF-8", $str );
@@ -525,11 +525,7 @@ class CourseController extends ActionController
                 $dateFormat = 'd.m.Y H:i';
 
                 $start = parseDate($dateFormat, $kurs["Angebot_Beginn"]);
-                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate($dateFormat, $kurs["Anmeldeschluss"]) : $start;
-
-        //                 // add Unicode Zero Width Space (U+200B) after slash
-        //                 // $durchfuehrungNodeTemplate->setProperty('anmerkung', str_replace('/', "/\xE2\x80\x8C", $durchfuehrung->anmerkung));
-        //                 $durchfuehrungNodeTemplate->setProperty('anmerkung', $this->linkText($durchfuehrung->anmerkung));
+                $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate($dateFormat, $kurs["Anmeldeschluss"]) : null;
 
 
                 $teacher = $kurs["Text_Mehrere_Kursleiter"] ?: ($kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]);
@@ -538,7 +534,8 @@ class CourseController extends ActionController
                     "start" => $start,
                     "end" => parseDate($dateFormat, $kurs["Angebot_Ende"]),
 
-                    "anmerkung" => $kurs["Text_Daten"], 
+                    // add Unicode Zero Width Space (U+200B) after slash
+                    "anmerkung" => str_replace('/', "/\xE2\x80\x8C", $kurs["Text_Daten"]), 
 
                     "ort" => $kurs["Gebaeude"] ? $buildingToStreet[strtolower($kurs["Gebaeude"])] : "", 
 
