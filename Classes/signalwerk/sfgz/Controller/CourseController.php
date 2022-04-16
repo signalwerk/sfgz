@@ -534,7 +534,8 @@ class CourseController extends ActionController
                     "end" => parseDate($dateFormat, $kurs["Angebot_Ende"]),
 
                     // add Unicode Zero Width Space (U+200B) after slash
-                    "anmerkung" => str_replace('/', "/\xE2\x80\x8C", $kurs["Text_Daten"]), 
+                    // https://unicode-table.com/en/200B/
+                    "anmerkung" => str_replace('/', "/\xE2\x80\x8B", $kurs["Text_Daten"]), 
 
                     "ort" => $kurs["Gebaeude"] ? $buildingToStreet[strtolower($kurs["Gebaeude"])] : "", 
 
