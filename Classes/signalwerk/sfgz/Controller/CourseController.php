@@ -520,8 +520,8 @@ class CourseController extends ActionController
                 }
                 
 
-                // $dateFormat = 'Y-m-d H:i:s';
-                $dateFormat = 'd.m.Y H:i';
+                $dateFormat = 'Y-m-d H:i:s';
+                // $dateFormat = 'd.m.Y H:i';
 
                 $start = parseDate($dateFormat, $kurs["Angebot_Beginn"]);
                 $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate($dateFormat, $kurs["Anmeldeschluss"]) : null;
