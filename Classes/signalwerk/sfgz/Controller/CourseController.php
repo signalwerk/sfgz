@@ -529,7 +529,7 @@ class CourseController extends ActionController
 
                 $teacher = $kurs["Text_Mehrere_Kursleiter"] ?: ($kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]);
                 $importExecution = array(
-                    "code" => $kurs["Kurs_Code"] . " " . $kurs["Zusatz1"],
+                    "code" => trim($kurs["Kurs_Code"] . " " . $kurs["Zusatz1"]),
                     "start" => $start,
                     "end" => parseDate($dateFormat, $kurs["Angebot_Ende"]),
 
