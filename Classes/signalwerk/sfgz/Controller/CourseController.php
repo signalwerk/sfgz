@@ -462,13 +462,13 @@ class CourseController extends ActionController
         foreach ($assocData as $kurs) {
             
             // combine to one course based on Kurs_Code
-            $CourseID = $kurs["Kurs_Code"];
+            $CourseID = trim($kurs["Kurs_Code"]);
             if(empty($courses[$CourseID])) {
 
 
                 $importCourse = array(
                     "type" => array("value" => $kurs["Mandant_Id"] === "38" ? "apprentice" : "course", "index" => false), 
-                    "coursid" => array("value" => $kurs["Kurs_Code"], "index" => false), 
+                    "coursid" => array("value" => trim($kurs["Kurs_Code"]), "index" => false), 
 
                     "ecoAngebotId" => array("value" => $kurs["Angebot_Id"], "index" => false), 
                     "ecoFachId" => array("value" => $kurs["Fach_Id"], "index" => false), 
