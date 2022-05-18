@@ -613,8 +613,8 @@ class CourseController extends ActionController
                 $courseNodeTemplate->setProperty('categories', $currentTags);
 
                 $courseNode = $rootNode->createNodeFromTemplate($courseNodeTemplate);
-                // $courseNode->setHiddenBeforeDateTime($course["hiddenBeforeDateTime"]);
-                // $courseNode->setHiddenAfterDateTime($course["hiddenAfterDateTime"]);
+                $courseNode->setHiddenBeforeDateTime($course["hiddenBeforeDateTime"]);
+                $courseNode->setHiddenAfterDateTime($course["hiddenAfterDateTime"]);
 
                 $startDate = null;
                 if (!empty($course["course"]["Publikation_Beginn"])) {
@@ -637,8 +637,8 @@ class CourseController extends ActionController
 
                     $durchfuehrungNode = $courseNode->getNode('executions')->createNodeFromTemplate($durchfuehrungNodeTemplate, uniqid('courseExecution-'));
 
-                    // $durchfuehrungNode->setHiddenBeforeDateTime($execution["hiddenBeforeDateTime"]);
-                    // $durchfuehrungNode->setHiddenAfterDateTime($execution["hiddenAfterDateTime"]);
+                    $durchfuehrungNode->setHiddenBeforeDateTime($execution["hiddenBeforeDateTime"]);
+                    $durchfuehrungNode->setHiddenAfterDateTime($execution["hiddenAfterDateTime"]);
                 }
 
             $this->log("End – Import: " . $course["course"]["coursid"]["value"], true);
