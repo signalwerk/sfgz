@@ -420,7 +420,7 @@ class CourseController extends ActionController
             return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich'))/*->setTimezone(new \DateTimeZone('UTC'))*/;
         }
 
-        $handle = fopen($this->dataPath() . 'import/ecoopen/kurse.csv','r');
+        $handle = fopen($this->dataPath() . 'import/ecoopen/WB_Kurse.csv','r');
         $assocData = array();
         if ($handle) {
             $headerRecord = array();
