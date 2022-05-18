@@ -470,8 +470,6 @@ class CourseController extends ActionController
                     "type" => array("value" => $kurs["Mandant_Id"] === "38" ? "apprentice" : "course", "index" => false), 
                     "coursid" => array("value" => trim($kurs["Kurs_Code"]), "index" => false), 
 
-                    "ecoAngebotId" => array("value" => $kurs["Angebot_Id"], "index" => false), 
-                    "ecoFachId" => array("value" => $kurs["Fach_Id"], "index" => false), 
                     "status" => array("value" => trim($kurs["Text_Buchungsstatus"]), "index" => false), 
                     
                     "title" => array("value" => $kurs["Kurs_Titel"], "index" => true),
@@ -530,6 +528,10 @@ class CourseController extends ActionController
                 $teacher = $kurs["Text_Mehrere_Kursleiter"] ?: ($kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]);
                 $importExecution = array(
                     "code" => trim($kurs["Kurs_Code"] . " " . $kurs["Zusatz1"]),
+
+                    "ecoAngebotId" => $kurs["Angebot_Id"],
+                    "ecoFachId" => $kurs["Fach_Id"],
+
                     "start" => $start,
                     "end" => parseDate($dateFormat, $kurs["Angebot_Ende"]),
 
