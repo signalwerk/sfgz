@@ -465,13 +465,10 @@ class CourseController extends ActionController
             $CourseID = trim($kurs["Kurs_Code"]);
             if(empty($courses[$CourseID])) {
 
-
                 $importCourse = array(
                     "type" => array("value" => $kurs["Mandant_Id"] === "38" ? "apprentice" : "course", "index" => false), 
                     "coursid" => array("value" => trim($kurs["Kurs_Code"]), "index" => false), 
-
                     "status" => array("value" => trim($kurs["Text_Buchungsstatus"]), "index" => false), 
-                    
                     "title" => array("value" => $kurs["Kurs_Titel"], "index" => true),
                     "subtitle" => array("value" => $kurs["Kurs_Beschreibung"], "index" => true),
                     "ziel" => array("value" => parseMD($kurs["Text_Kursbeschreibung"]), "index" => true),
