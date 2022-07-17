@@ -86,7 +86,7 @@
    </p>
   </f:if>
 
-  <f:if condition="{node.properties.status} == 0 || {node.properties.status} == 1 || {node.properties.status} == 2">
+  <f:if condition="{node.properties.status} !== 'ausgebucht'">
     <a class="noLine" href="./anmeldung.html?kurs={course.properties.coursid}&durchfuehrung={node.properties.code}">
       <h3 class="button">Anmelden</h3>
     </a>
