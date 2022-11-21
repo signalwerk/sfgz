@@ -404,7 +404,7 @@ class CourseController extends ActionController
         }
 
 
-        function parseManualDate( $str ) {
+        function parseManualDate( $str , $time = '00:00') {
             $original_date = $str;
             $date_part = explode('.', $original_date);
         
@@ -414,11 +414,12 @@ class CourseController extends ActionController
 
             $date_part=array_map('trim',$date_part);
 
-            return  parseDate('d.m.Y H:i', implode(".", $date_part)  . ' 00:00');
+            return  parseDate('d.m.Y H:i', implode(".", $date_part) . ' ' . $time)->setTimezone(new \DateTimeZone('UTC'));
         }
 
         function parseDate( $format, $str ) {
-            return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich'))/*->setTimezone(new \DateTimeZone('UTC'))*/;
+            // return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich'))/*->setTimezone(new \DateTimeZone('UTC'))*/;
+            return \DateTime::createFromFormat($format, $str, new \DateTimeZone('Europe/Zurich')) /* ->setTimezone(new \DateTimeZone('UTC')) */;
         }
 
         $handle = fopen($this->dataPath() . 'import/ecoopen/WB_Kurse.csv','r');
@@ -507,16 +508,14 @@ class CourseController extends ActionController
                     $courses[$CourseID]["hiddenBeforeDateTime"] = $hiddenBeforeDateTime;
                 }
 
-                $hiddenAfterDateTime = parseManualDate($kurs["Publikation_Ende"]);
+                $hiddenAfterDateTime = parseManualDate($kurs["Publikation_Ende"], "23:59");
                 
                 // set visibility of course
                 if ($courses[$CourseID]["hiddenAfterDateTime"] === null || $courses[$CourseID]["hiddenAfterDateTime"] < $hiddenAfterDateTime) {
                     $courses[$CourseID]["hiddenAfterDateTime"] = $hiddenAfterDateTime;
                 }
                 
-
                 $dateFormat = 'Y-m-d H:i:s';
-                // $dateFormat = 'd.m.Y H:i';
 
                 $start = parseDate($dateFormat, $kurs["Angebot_Beginn"]);
                 $anmeldeschluss = $kurs["Anmeldeschluss"] ? parseDate($dateFormat, $kurs["Anmeldeschluss"]) : null;
@@ -524,8 +523,8 @@ class CourseController extends ActionController
 
                 $teacher = $kurs["Text_Mehrere_Kursleiter"] ?: ($kurs["Lehrer_Vorname"] . " " . $kurs["Lehrer_Name"]);
                 $importExecution = array(
-                    "code" => trim($kurs["Kurs_Code"] . " " . $kurs["Zusatz1"]),
-
+                    "code" => trim($kurs["Kurs_Code"] . " " . $kurs["Zusatz1"] . "-" . $kurs["Kurs_Periode_Kurzzeichen"]),
+                    
                     "ecoAngebotId" => $kurs["Angebot_Id"],
                     "ecoFachId" => $kurs["Fach_Id"],
 
