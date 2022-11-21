@@ -1,12 +1,14 @@
 ## sfgz.ch – Neos Package
+
 Dieses Repo beinhaltet die NEOS-Daten von [sfgz.ch](https://sfgz.ch/). Basierend auf dem [Kantonalen Styleguide](http://mba.styleguide.digital/)
 
 ### Technics
+
 To get more informations about how to setup the site see `technics.md`
 
 ### Transition
-Diese Website wurde ursprünglich für NEOS 3 erstellt und [afx](https://docs.neos.io/cms/manual/rendering/afx) existierte noch nicht. Alle alten Komponenten sind somit unter `/signalwerk.sfgz/Resources/Private/Fusion/NodeTypes` zu finden. Die neuen Komponenten mit afx sind unter `/signalwerk.sfgz/Resources/Private/Fusion/Components`.
 
+Diese Website wurde ursprünglich für NEOS 3 erstellt und [afx](https://docs.neos.io/cms/manual/rendering/afx) existierte noch nicht. Alle alten Komponenten sind somit unter `/signalwerk.sfgz/Resources/Private/Fusion/NodeTypes` zu finden. Die neuen Komponenten mit afx sind unter `/signalwerk.sfgz/Resources/Private/Fusion/Components`.
 
 ### rebuild package
 
@@ -17,11 +19,13 @@ php -d memory_limit=3024M /usr/local/bin/composer require breadlesscode/neos-blo
 ```
 
 ### Clear cache
+
 ```bash
 FLOW_CONTEXT=Production php flow flow:cache:flush --force
 ```
 
 ### Update Version 4 to Version 5
+
 ```bash
 # https://docs.neos.io/cms/references/upgrade-instructions/upgrade-instructions-4-3-5-0
 cd /installation-root/
@@ -66,10 +70,10 @@ composer require neos/form-builder
 composer require networkteam/neos-mailobfuscator
 ```
 
-
 <!-- generated package -->
 
 ## INFOS used to run Scripts
+
 ```bash
 export DOMAIN="sfgz.ch"
 export PROJECT_IDENTIFIER="sfgz"
@@ -77,15 +81,16 @@ export PROJECT_VENDOR="signalwerk"
 ```
 
 ## BEM-CSS
+
 CSS classes are named after [BEM](https://cssguidelin.es/#bem-like-naming).
-* Elements are separated by two underscores (`__`).
-* modifiers are separated by two hyphens (`--`)
 
-
+- Elements are separated by two underscores (`__`).
+- modifiers are separated by two hyphens (`--`)
 
 ## TODO
-* Right now there are two Elements on the Start-Page «news-items» and blog-items. Need to clean up?
 
+- Right now there are two Elements on the Start-Page «news-items» and blog-items. Need to clean up?
 
 ### Lizenz
+
 Jeglicher Code in [diesem Repository](https://github.com/signalwerk/sfgz/) steht unter [MIT-Lizenzierung](https://opensource.org/licenses/MIT).

@@ -1,4 +1,5 @@
 ## Install
+
 Install a plain Neos 4.0 and add with composer this package to the site.
 
 ## To edit Styles of components
