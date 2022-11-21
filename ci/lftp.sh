@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == "" ]; then
-		echo "Please deploy 'pull' or 'push' as first argument"
+		echo "Please provide 'pull' or 'push' as first argument"
     exit 1
 fi
 

@@ -1,0 +1,43 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[CI SKIP]')"
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: use node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "10.x"
+
+      - name: npm setup
+        run: npm ci
+
+      - name: npm build
+        run: npm run build
+
+      - name: 📦 Get LFTP
+        run: sudo apt install lftp
+
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          bash ./drone/stamp.sh ./Resources/Private/Fusion/Information.fusion
+          bash ./drone/lftp.sh push
+        env:
+          FTP_SERVER: 34.65.45.216
+          FTP_USER: sh@signalwerk.ch
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_LOCAL_DIR: .
+          FTP_REMOTE_DIR: /html/DistributionPackages/signalwerk.sfgz/
