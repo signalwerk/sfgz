@@ -1,31 +1,5 @@
-/Vagrant
 /node_modules
-/__PROD_SRV__
-/__Vagrant_SRV__
-/.vagrant
 
-creat_neos_db\.sh
-
-exportFromVagrant\.sh
-
-neosCopy\.sh
-
-pushSitePackageToBetaServer\.sh
-
-
-*.ai
-/__anmeldung__
-/__GRAFIK__
-/__OLD___Vagrant_SRV__
-/admin_schule_backup.sql
-/DATA
-/pullFromBetaServer.sh
-/web/public/Packages/Sites/schule.signalwerkCh/Classes/schule/signalwerkCh/Controller/getxml.xml
-/Resources/Private/Content/Resources
-/___OLD
-.php_cs.cache
-ci/.ssh/id_rsa
-ci/.ssh/secret.key
 /Resources/Public/JavaScript/signalwerk.js
 /Resources/Public/JavaScript/signalwerk.js.map
 /Resources/Public/JavaScript/signalwerk.min.js
@@ -35,4 +9,3 @@ ci/.ssh/secret.key
 /Resources/Public/Styles
 /Resources/Public/Styles/main.css
 /Resources/Public/Styles/main.css.map
-/___OLD___CI
