@@ -33,6 +33,7 @@ jobs:
       - name: 🚀 deploy
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
+          echo "TMP_DIR=$(date +%Y-%m-%dT%H%M%S)" >> $GITHUB_ENV
           bash ./ci/stamp.sh ./Resources/Private/Fusion/Information.fusion
           bash ./ci/lftp.sh push
         env:
@@ -40,6 +41,6 @@ jobs:
           FTP_SERVER: 34.65.45.216
           FTP_USER: sh@signalwerk.ch
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_POST_CMD: "mv /html/Data/Temporary /html/Data/$GITHUB_SHA__Temporary"
+          FTP_POST_CMD: mv /html/Data/Temporary /html/Data/${{ env.TMP_DIR }}__Temporary
           FTP_LOCAL_DIR: .
           FTP_REMOTE_DIR: /html/DistributionPackages/signalwerk.sfgz/
