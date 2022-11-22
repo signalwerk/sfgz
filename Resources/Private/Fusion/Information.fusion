@@ -9,15 +9,13 @@ prototype(signalwerk.sfgz:Document.Fragment.Information) < prototype(Neos.Fusion
     renderer = afx`
       {props.commentStart}{props.nl}
       ********************************************{props.nl}
-      *  Programming & Interaction               *{props.nl}
-      *  Stefan Huber | signalwerk.ch            *{props.nl}
-      ********************************************{props.nl}
-      *  OpenSource Site-Package                 *{props.nl}
-      *  https://github.com/signalwerk/sfgz      *{props.nl}
-      ********************************************{props.nl}
+      *  Programming & Interaction{props.nl}
+      *  Stefan Huber | signalwerk.ch{props.nl}
+      *  OpenSource: https://github.com/signalwerk/sfgz{props.nl}
       *  CI: $NOW{props.nl}
       *  GIT: $GIT-HASH $GIT-DATE{props.nl}
       *  workspace: {props.workspaceName}{props.nl}
+      *  context: {props.contextName}{props.nl}
       ********************************************{props.nl}
       {props.commentEnd}{props.nl}
     `
