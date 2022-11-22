@@ -7,15 +7,18 @@ prototype(signalwerk.sfgz:Document.Fragment.Information) < prototype(Neos.Fusion
     contextName = ${Configuration.setting('Neos.Flow.core.context')}
 
     renderer = afx`
-	  {props.commentStart}{props.nl}
+      {props.commentStart}{props.nl}
       ********************************************{props.nl}
       *  Programming & Interaction               *{props.nl}
       *  Stefan Huber | signalwerk.ch            *{props.nl}
+      ********************************************{props.nl}
+      *  OpenSource Site-Package                 *{props.nl}
+      *  https://github.com/signalwerk/sfgz      *{props.nl}
       ********************************************{props.nl}
       * CI: $NOW{props.nl}
       * GIT: $GIT-HASH $GIT-DATE{props.nl}
       * workspace: {props.workspaceName}{props.nl}
       ********************************************{props.nl}
-	    {props.commentEnd}{props.nl}
+      {props.commentEnd}{props.nl}
     `
 }

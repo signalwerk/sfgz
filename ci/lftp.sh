@@ -32,6 +32,8 @@ FTP_INIT="$FTP_INIT set ftp:charset UTF-8;"
 FTP_INIT="$FTP_INIT set ssl:verify-certificate no;"
 FTP_INIT="$FTP_INIT set ftp:ssl-allow no;"
 
+FTP_POST_CMD="${FTP_POST_CMD:-}"
+
 FTP_DRY_RUN="${FTP_DRY_RUN:-}"
 if [ "$FTP_DRY_RUN" = true ] ; then
   FTP_DRY_RUN="--dry-run"
