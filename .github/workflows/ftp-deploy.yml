@@ -28,7 +28,9 @@ jobs:
         run: npm run build
 
       - name: 📦 Get LFTP
-        run: sudo apt install lftp
+        run: |
+          sudo apt install lftp
+          echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-8)" >> $GITHUB_ENV
 
       - name: 🚀 deploy
         if: ${{ github.ref == 'refs/heads/main' }}
@@ -40,7 +42,7 @@ jobs:
           FTP_SERVER: 34.65.45.216
           FTP_USER: sh@signalwerk.ch
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_POST_CMD: mv /html/Data/Temporary /html/Data/${{ GITHUB_SHA }}__Temporary;
+          FTP_POST_CMD: mv "/html/Data/Temporary" "/html/Data/${{ env.GITHUB_SHA_SHORT }}__Temporary";
           FTP_LOCAL_DIR: .
           FTP_REMOTE_DIR: /html/DistributionPackages/signalwerk.sfgz/
 
