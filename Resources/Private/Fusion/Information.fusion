@@ -15,9 +15,9 @@ prototype(signalwerk.sfgz:Document.Fragment.Information) < prototype(Neos.Fusion
       *  OpenSource Site-Package                 *{props.nl}
       *  https://github.com/signalwerk/sfgz      *{props.nl}
       ********************************************{props.nl}
-      * CI: $NOW{props.nl}
-      * GIT: $GIT-HASH $GIT-DATE{props.nl}
-      * workspace: {props.workspaceName}{props.nl}
+      *  CI: $NOW{props.nl}
+      *  GIT: $GIT-HASH $GIT-DATE{props.nl}
+      *  workspace: {props.workspaceName}{props.nl}
       ********************************************{props.nl}
       {props.commentEnd}{props.nl}
     `
