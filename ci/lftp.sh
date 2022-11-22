@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ "$1" == "" ]; then
-		echo "Please provide 'pull' or 'push' as first argument"
-    exit 1
+  echo "Please provide 'pull' or 'push' as first argument"
+  exit 1
 fi
 
 FTP_EXCLUDES="${FTP_EXCLUDES:-}"
@@ -15,13 +15,13 @@ FTP_LOCAL_DIR="${FTP_LOCAL_DIR:-/}"
 FTP_REMOTE_DIR="${FTP_REMOTE_DIR:-/}"
 
 if [ "$2" != "" ]; then
-		echo "FTP_LOCAL_DIR set by argument 2"
-		FTP_LOCAL_DIR=$2
+  echo "FTP_LOCAL_DIR set by argument 2"
+  FTP_LOCAL_DIR=$2
 fi
 
 if [ "$3" != "" ]; then
-		echo "FTP_REMOTE_DIR set by argument 3"
-		FTP_REMOTE_DIR=$3
+  echo "FTP_REMOTE_DIR set by argument 3"
+  FTP_REMOTE_DIR=$3
 fi
 
 FTP_PARALLEL="${FTP_PARALLEL:-5}"
@@ -34,9 +34,9 @@ FTP_INIT="$FTP_INIT set ftp:ssl-allow no;"
 
 FTP_DRY_RUN="${FTP_DRY_RUN:-}"
 if [ "$FTP_DRY_RUN" = true ] ; then
-    FTP_DRY_RUN = "--dry-run"
+  FTP_DRY_RUN = "--dry-run"
 else
-    FTP_DRY_RUN = ""
+  FTP_DRY_RUN = ""
 fi
 
 echo "FTP_SERVER: $FTP_SERVER"
@@ -53,35 +53,35 @@ echo "FTP_DRY_RUN: $FTP_DRY_RUN"
 
 # mirror dry run and: --dry-run
 getDir () {
-	mkdir -p ${FTP_LOCAL_DIR}
-	lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
-	$FTP_INIT \
-	lcd '${FTP_LOCAL_DIR}'; \
-	cd '${FTP_REMOTE_DIR}'; \
-	mirror $FTP_DRY_RUN --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES --delete; \
-	quit; \
-	" "${FTP_SERVER}"
+  mkdir -p ${FTP_LOCAL_DIR}
+  lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
+  $FTP_INIT \
+  lcd '${FTP_LOCAL_DIR}'; \
+  cd '${FTP_REMOTE_DIR}'; \
+  mirror $FTP_DRY_RUN --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES --delete; \
+  quit; \
+  " "${FTP_SERVER}"
 }
 
 pushDir () {
-	mkdir -p ${FTP_LOCAL_DIR}
-	lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
-	$FTP_INIT \
-	lcd '${FTP_LOCAL_DIR}'; \
-	cd '${FTP_REMOTE_DIR}'; \
-	mirror $FTP_DRY_RUN --reverse --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES; \
-	quit; \
-	" "${FTP_SERVER}"
+  mkdir -p ${FTP_LOCAL_DIR}
+  lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
+  $FTP_INIT \
+  lcd '${FTP_LOCAL_DIR}'; \
+  cd '${FTP_REMOTE_DIR}'; \
+  mirror $FTP_DRY_RUN --reverse --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES; \
+  quit; \
+  " "${FTP_SERVER}"
 }
 
 if [ "$1" == "pull" ]; then
-		echo "* start pull"
-    getDir
-		echo "* end pull"
+  echo "* start pull"
+  getDir
+  echo "* end pull"
 fi
 
 if [ "$1" == "push" ]; then
-		echo "* start push"
-    pushDir
-		echo "* end push"
+  echo "* start push"
+  pushDir
+  echo "* end push"
 fi

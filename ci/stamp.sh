@@ -6,7 +6,7 @@
 # $GIT-DATE → date of last git-commit
 
 if [ "$1" == "" ]; then
-		echo "Please provide a filename as first argument"
+    echo "Please provide a filename as first argument"
     exit 1
 fi
 
