@@ -49,6 +49,7 @@ echo "FTP_REMOTE_DIR: $FTP_REMOTE_DIR"
 echo "FTP_INIT: $FTP_INIT"
 echo "FTP_PARALLEL: $FTP_PARALLEL"
 echo "FTP_DRY_RUN: $FTP_DRY_RUN"
+echo "FTP_POST_CMD: $FTP_POST_CMD"
 
 
 # mirror dry run and: --dry-run
@@ -59,6 +60,7 @@ getDir () {
   lcd '${FTP_LOCAL_DIR}'; \
   cd '${FTP_REMOTE_DIR}'; \
   mirror $FTP_DRY_RUN --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES --delete; \
+  $FTP_POST_CMD \
   quit; \
   " "${FTP_SERVER}"
 }
@@ -70,6 +72,7 @@ pushDir () {
   lcd '${FTP_LOCAL_DIR}'; \
   cd '${FTP_REMOTE_DIR}'; \
   mirror $FTP_DRY_RUN --reverse --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES; \
+  $FTP_POST_CMD \
   quit; \
   " "${FTP_SERVER}"
 }
