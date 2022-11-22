@@ -34,9 +34,9 @@ FTP_INIT="$FTP_INIT set ftp:ssl-allow no;"
 
 FTP_DRY_RUN="${FTP_DRY_RUN:-}"
 if [ "$FTP_DRY_RUN" = true ] ; then
-  FTP_DRY_RUN = "--dry-run"
+  FTP_DRY_RUN="--dry-run"
 else
-  FTP_DRY_RUN = ""
+  FTP_DRY_RUN=""
 fi
 
 echo "FTP_SERVER: $FTP_SERVER"
