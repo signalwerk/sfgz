@@ -32,6 +32,13 @@ FTP_INIT="$FTP_INIT set ftp:charset UTF-8;"
 FTP_INIT="$FTP_INIT set ssl:verify-certificate no;"
 FTP_INIT="$FTP_INIT set ftp:ssl-allow no;"
 
+FTP_DRY_RUN="${FTP_DRY_RUN:-}"
+if [ "$FTP_DRY_RUN" = true ] ; then
+    FTP_DRY_RUN = "--dry-run"
+else
+    FTP_DRY_RUN = ""
+fi
+
 echo "FTP_SERVER: $FTP_SERVER"
 echo "FTP_USER: $FTP_USER"
 echo "FTP_PASSWORD: {FTP_PASSWORD}"
@@ -41,12 +48,13 @@ echo "FTP_REMOTE_DIR: $FTP_REMOTE_DIR"
 
 echo "FTP_INIT: $FTP_INIT"
 echo "FTP_PARALLEL: $FTP_PARALLEL"
+echo "FTP_DRY_RUN: $FTP_DRY_RUN"
 
 
 # mirror dry run and: --dry-run
 getDir () {
 	mkdir -p ${FTP_LOCAL_DIR}
-	lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
+	lftp -u "${FTP_USER},${FTP_PASSWORD}" $FTP_DRY_RUN -e " \
 	$FTP_INIT \
 	lcd '${FTP_LOCAL_DIR}'; \
 	cd '${FTP_REMOTE_DIR}'; \
@@ -57,7 +65,7 @@ getDir () {
 
 pushDir () {
 	mkdir -p ${FTP_LOCAL_DIR}
-	lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
+	lftp -u "${FTP_USER},${FTP_PASSWORD}" $FTP_DRY_RUN -e " \
 	$FTP_INIT \
 	lcd '${FTP_LOCAL_DIR}'; \
 	cd '${FTP_REMOTE_DIR}'; \

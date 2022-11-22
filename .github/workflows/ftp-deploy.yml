@@ -35,6 +35,7 @@ jobs:
           bash ./ci/stamp.sh ./Resources/Private/Fusion/Information.fusion
           bash ./ci/lftp.sh push
         env:
+          FTP_DRY_RUN: true
           FTP_SERVER: 34.65.45.216
           FTP_USER: sh@signalwerk.ch
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
