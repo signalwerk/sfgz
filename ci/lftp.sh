@@ -54,22 +54,22 @@ echo "FTP_DRY_RUN: $FTP_DRY_RUN"
 # mirror dry run and: --dry-run
 getDir () {
 	mkdir -p ${FTP_LOCAL_DIR}
-	lftp -u "${FTP_USER},${FTP_PASSWORD}" $FTP_DRY_RUN -e " \
+	lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
 	$FTP_INIT \
 	lcd '${FTP_LOCAL_DIR}'; \
 	cd '${FTP_REMOTE_DIR}'; \
-	mirror --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES --delete; \
+	mirror $FTP_DRY_RUN --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES --delete; \
 	quit; \
 	" "${FTP_SERVER}"
 }
 
 pushDir () {
 	mkdir -p ${FTP_LOCAL_DIR}
-	lftp -u "${FTP_USER},${FTP_PASSWORD}" $FTP_DRY_RUN -e " \
+	lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
 	$FTP_INIT \
 	lcd '${FTP_LOCAL_DIR}'; \
 	cd '${FTP_REMOTE_DIR}'; \
-	mirror --reverse --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES; \
+	mirror $FTP_DRY_RUN --reverse --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES; \
 	quit; \
 	" "${FTP_SERVER}"
 }

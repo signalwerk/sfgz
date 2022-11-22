@@ -13,23 +13,24 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v3
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
 
-      - name: use node
+      - name: ⚡ use node
         uses: actions/setup-node@v3
         with:
           node-version: "10.x"
 
-      - name: npm setup
+      - name: ⚙️ npm setup
         run: npm ci
 
-      - name: npm build
+      - name: 🔨 npm build
         run: npm run build
 
       - name: 📦 Get LFTP
         run: sudo apt install lftp
 
-      - name: deploy
+      - name: 🚀 deploy
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           bash ./ci/stamp.sh ./Resources/Private/Fusion/Information.fusion
