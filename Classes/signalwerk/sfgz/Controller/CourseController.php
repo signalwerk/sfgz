@@ -407,6 +407,11 @@ class CourseController extends ActionController
         function parseManualDate( $str , $time = '00:00') {
             $original_date = $str;
             $date_part = explode('.', $original_date);
+
+            // check if the date part is equal 3 (day, month, year) otherwise return today with timezone UTC
+            if(count($date_part) != 3) {
+                return new \DateTime('now', new \DateTimeZone('UTC'));
+            }
         
             if((int)$date_part[2] < 2000) {
                 $date_part[2] = "20" . $date_part[2];
