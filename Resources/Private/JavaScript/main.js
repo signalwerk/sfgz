@@ -24,6 +24,8 @@ jQuery.validator.addMethod(
     var d = matches[1];
     var m = matches[2] - 1;
     var y = matches[3];
+    var currentYear = new Date().getFullYear();
+    if (y < 1900 || y >= currentYear) return false; // checks if the year is greater than 1900 or less than the current year
     var composedDate = new Date(y, m, d);
 
     return (
