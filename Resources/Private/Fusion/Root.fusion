@@ -19,9 +19,20 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
 
   head {
 
-    stylesheets.site = Neos.Fusion:Template {
-      templatePath = 'resource://signalwerk.sfgz/Private/Templates/Page/Default.html'
-      sectionName = 'stylesheets'
+    stylesheets.site = Neos.Fusion:Tag {
+      tagName = 'link'
+      attributes {
+        rel = 'stylesheet'
+        media = 'all'
+        href = Neos.Fusion:Join {
+          resourceUri = Neos.Fusion:ResourceUri {
+              package = 'signalwerk.sfgz'
+              path = 'Styles/main.css'
+            }
+          bust = '?bust=$GIT-HASH'
+          @glue = ''
+        }
+      }
     }
 
     javascripts.site = Neos.Fusion:Template {
@@ -131,9 +142,13 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
     javascripts.main = Neos.Fusion:Tag {
       tagName = 'script'
       attributes {
-        src = Neos.Fusion:ResourceUri {
-          package = 'signalwerk.sfgz'
-          path = 'JavaScript/main.js'
+        src = Neos.Fusion:Join {
+          resourceUri = Neos.Fusion:ResourceUri {
+            package = 'signalwerk.sfgz'
+            path = 'JavaScript/main.js'
+          }
+          bust = '?bust=$GIT-HASH'
+          @glue = ''
         }
         async = null
       }
@@ -142,9 +157,13 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
     javascripts.backend = Neos.Fusion:Tag {
       tagName = 'script'
       attributes {
-        src = Neos.Fusion:ResourceUri {
-          package = 'signalwerk.sfgz'
-          path = 'JavaScript/signalwerkBackend.js'
+        src = Neos.Fusion:Join {
+          resourceUri = Neos.Fusion:ResourceUri {
+            package = 'signalwerk.sfgz'
+            path = 'JavaScript/signalwerkBackend.js'
+          }
+          bust = '?bust=$GIT-HASH'
+          @glue = ''
         }
         async = null
       }
@@ -154,9 +173,13 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
     javascripts.frontend = Neos.Fusion:Tag {
       tagName = 'script'
       attributes {
-        src = Neos.Fusion:ResourceUri {
-          package = 'signalwerk.sfgz'
-          path = 'JavaScript/signalwerkFrontend.js'
+        src = Neos.Fusion:Join {
+          resourceUri = Neos.Fusion:ResourceUri {
+            package = 'signalwerk.sfgz'
+            path = 'JavaScript/signalwerkFrontend.js'
+          }
+          bust = '?bust=$GIT-HASH'
+          @glue = ''
         }
         async = null
       }

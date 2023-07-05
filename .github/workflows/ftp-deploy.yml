@@ -36,6 +36,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           bash ./ci/stamp.sh ./Resources/Private/Fusion/Information.fusion
+          bash ./ci/stamp.sh ./Resources/Private/Fusion/Root.fusion
           bash ./ci/lftp.sh push
         env:
           FTP_DRY_RUN: false
