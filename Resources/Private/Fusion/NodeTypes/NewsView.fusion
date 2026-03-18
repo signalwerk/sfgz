@@ -27,11 +27,11 @@ prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
 
       ifTwoCat {
           condition = ${selectedCat != null && String.indexOf(selectedCat, ',') > -1}
-          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[aggregateId.value="' + String.split(selectedCat, ',')[0] +'"]','categories').filterPropertiesFromArray('[aggregateId.value="' + String.split(selectedCat, ',')[1] +'"]','categories')}
+          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + String.split(selectedCat, ',')[0] +'"]','categories').filterPropertiesFromArray('[identifier="' + String.split(selectedCat, ',')[1] +'"]','categories')}
       }
       ifCat {
-          condition = TRUE
-          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[aggregateId.value="' + selectedCat +'"]','categories')}
+          condition = ${selectedCat != null && selectedCat != ""}
+          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + selectedCat +'"]','categories')}
       }
       else {
           condition = TRUE
