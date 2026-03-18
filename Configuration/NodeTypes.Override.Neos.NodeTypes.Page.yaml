@@ -19,9 +19,9 @@
       constraints:
         nodeTypes:
           'Neos.NodeTypes:TextWithImage': false
-          'Neos.NodeTypes:TwoColumn': false
-          'Neos.NodeTypes:ThreeColumn': false
-          'Neos.NodeTypes:FourColumn': false
+          'Neos.NodeTypes.ColumnLayouts:TwoColumn': false
+          'Neos.NodeTypes.ColumnLayouts:ThreeColumn': false
+          'Neos.NodeTypes.ColumnLayouts:FourColumn': false
     'extra':
       type: 'Neos.Neos:ContentCollection'
       constraints:
@@ -29,11 +29,11 @@
           '*': FALSE
           'signalwerk.sfgz:Space': TRUE
           'signalwerk.sfgz:Upload': TRUE
-          'Neos.NodeTypes:ContentReferences': TRUE
+          'Neos.NodeTypes.ContentReferences:ContentReferences': TRUE
           'Neos.NodeTypes:Headline': TRUE
           'Neos.NodeTypes:Text': TRUE
           'Neos.NodeTypes:Image': TRUE
-          'Neos.NodeTypes:Menu': TRUE
+          'Neos.NodeTypes.Navigation:Navigation': TRUE
   properties:
     'layout':
       ui:

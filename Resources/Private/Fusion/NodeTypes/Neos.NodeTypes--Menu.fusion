@@ -1,5 +1,5 @@
 
-prototype(Neos.NodeTypes:Menu) {
+prototype(Neos.NodeTypes.Navigation:Navigation) {
   attributes {
     class = 'signalwerk-sfgz-menu'
   }
