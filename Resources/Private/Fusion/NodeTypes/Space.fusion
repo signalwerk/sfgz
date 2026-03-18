@@ -1,0 +1,11 @@
+##
+# "Space" element
+#
+
+prototype(signalwerk.sfgz:Space) < prototype(Neos.Neos:Content) {
+    templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Space.html'
+
+    attributes.class = 'space-element'
+
+    space = ${q(node).property('space')}
+}
