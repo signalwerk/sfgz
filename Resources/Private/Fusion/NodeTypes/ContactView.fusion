@@ -10,6 +10,7 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
       }
   }
 
+  view = ${q(node).property('view') ? q(node).property('view') : 'list'}
   organisations = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Organisation"]')}
   functions = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Funktion"]')}
 

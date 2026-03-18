@@ -1,5 +1,11 @@
 prototype(signalwerk.sfgz:ContactItem) < prototype(Neos.Neos:Content) {
   templatePath = 'resource://signalwerk.sfgz/Private/Templates/FusionObjects/ContactItem.html'
+  firstname = ${q(node).property('firstname') ? q(node).property('firstname') : ''}
+  familyname = ${q(node).property('familyname') ? q(node).property('familyname') : ''}
+  function = ${q(node).property('function') ? q(node).property('function') : ''}
+  email = ${q(node).property('email') ? q(node).property('email') : ''}
+  tel = ${q(node).property('tel') ? q(node).property('tel') : ''}
+  categories = ${q(node).property('categories') ? q(node).property('categories') : []}
 
   @cache {
       mode = 'uncached'
