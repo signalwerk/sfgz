@@ -190,6 +190,7 @@ prototype(Neos.NodeTypes:Page) < prototype(Neos.Neos:Page) {
 
 page = Neos.NodeTypes:Page
 
+prototype(signalwerk.sfgz:Root) < prototype(Neos.NodeTypes:Page)
 
 default < page
 

@@ -1,0 +1,18 @@
+prototype(signalwerk.sfgz:NewsCategory) < prototype(Neos.Neos:Content) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/NewsCategory.html'
+  title = ${q(node).property('title')}
+  isEdit = ${renderingMode.isEdit}
+  @if.onlyInEdit = ${renderingMode.isEdit}
+}
+
+prototype(signalwerk.sfgz:ContactCategory) < prototype(Neos.Neos:Content) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/ContactCategory.html'
+  title = ${q(node).property('title')}
+  @if.onlyInEdit = ${renderingMode.isEdit}
+}
+
+prototype(signalwerk.sfgz:CourseCategory) < prototype(Neos.Neos:Content) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseCategory.html'
+  title = ${q(node).property('title')}
+  @if.onlyInEdit = ${renderingMode.isEdit}
+}

@@ -3,9 +3,9 @@ prototype(signalwerk.sfgz:MultiColumn) < prototype(Neos.Neos:Content) {
   templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/MultiColumn.html'
   layout = ${q(node).property('layout')}
   attributes.class = ${'container columns-' + q(node).property('layout')}
-  columns = Neos.Fusion:Collection {
+  columns = Neos.Fusion:Loop {
     @context.columnLayout = ${q(node).property('layout')}
-    collection = ${q(node).children('[instanceof Neos.Neos:ContentCollection]')}
+    items = ${q(node).children('[instanceof Neos.Neos:ContentCollection]')}
     itemRenderer = signalwerk.sfgz:MultiColumnItem
     itemName = 'node'
     iterationName = 'columnIteration'
@@ -15,9 +15,7 @@ prototype(signalwerk.sfgz:MultiColumn) < prototype(Neos.Neos:Content) {
 # Abstract render definition for a single content column in a multi column element
 prototype(signalwerk.sfgz:MultiColumnItem) < prototype(Neos.Neos:ContentCollection) {
   nodePath = '.'
-  attributes = Neos.Fusion:Attributes {
-    class = 'column'
-  }
+  attributes = ' class="column"'
 }
 
 # # Two Column TS Object

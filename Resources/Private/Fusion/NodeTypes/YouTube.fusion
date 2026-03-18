@@ -1,0 +1,13 @@
+##
+# "YouTube" element
+#
+
+prototype(signalwerk.sfgz:YouTube) < prototype(Neos.Neos:Content) {
+    templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/YouTube.html'
+
+    attributes.class = 'youtube'
+
+    video = ${q(node).property('video')}
+    width = ${q(node).property('width')}
+    height = ${q(node).property('height')}
+}

@@ -8,12 +8,19 @@ root.@cache.entryIdentifier.nodeName = ${request.arguments.nodeName}
 
 prototype(signalwerk.sfgz:AjaxView) < prototype(Neos.Neos:Content) {
     templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/AjaxView.html'
+    ajaxNodeName = ${request.arguments.nodeName}
+    ajaxCat = ${request.arguments.cat}
+    ajaxFilterTxt = ${request.arguments.filterTxt}
 
-    collection = Neos.Fusion:Collection {
-      #collection = ${q(site).find('#' + request.arguments.nodeName).children('[instanceof Neos.Neos:ContentCollection]')}
-      collection = ${q(site).find('#' + request.arguments.nodeName).children()}
+    collection = Neos.Fusion:Loop {
+      #items = ${q(site).find('#' + request.arguments.nodeName).children('[instanceof Neos.Neos:ContentCollection]')}
+      items = ${q(site).find('#' + request.arguments.nodeName).children()}
 
-      itemRenderer = signalwerk.sfgz:AjaxViewItem
+      itemRenderer = signalwerk.sfgz:AjaxViewItem {
+        @context.ajaxNodeName = ${request.arguments.nodeName}
+        @context.ajaxCat = ${request.arguments.cat}
+        @context.ajaxFilterTxt = ${request.arguments.filterTxt}
+      }
       itemName = 'node'
       iterationName = 'nodeIteration'
     }
@@ -22,7 +29,5 @@ prototype(signalwerk.sfgz:AjaxView) < prototype(Neos.Neos:Content) {
 
 prototype(signalwerk.sfgz:AjaxViewItem) < prototype(Neos.Neos:ContentCollection) {
   nodePath = '.'
-  attributes = Neos.Fusion:Attributes {
-    class = 'ajax'
-  }
+  attributes = ' class="ajax"'
 }

@@ -2,7 +2,8 @@
 # "Upload" element
 #
 
-prototype(Neos.Demo:Upload) < prototype(Neos.Fusion:Content) {
+prototype(signalwerk.sfgz:Upload) < prototype(Neos.Neos:Content) {
     attributes.class = 'Upload-items'
-    templatePath = 'resource://Neos.Demo/Private/Templates/NodeTypes/Upload.html'
+    templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Upload.html'
+    files = ${q(node).property('files')}
 }

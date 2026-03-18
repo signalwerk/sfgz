@@ -4,8 +4,7 @@
   "type": "neos-site",
   "require": {
     "neos/neos": "*",
-    "neos/nodetypes": "*",
-    "breadlesscode/neos-blog": "^2.0"
+    "neos/nodetypes": "*"
   },
   "suggest": {
     "neos/seo": "*"

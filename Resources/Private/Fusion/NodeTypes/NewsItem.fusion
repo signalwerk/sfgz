@@ -1,5 +1,13 @@
 prototype(signalwerk.sfgz:NewsItem) < prototype(Neos.Neos:Content) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/NewsItem.html'
   attributes.class = 'news-item blog-teaser'
+
+  teaserImage = ${q(node).property('teaserImage')}
+  link = ${q(node).property('link') ? q(node).property('link') : ''}
+  date = ${q(node).property('date') ? q(node).property('date') : ''}
+  title = ${q(node).property('title') ? q(node).property('title') : ''}
+  text = ${q(node).property('text') ? q(node).property('text') : ''}
+
   link.@process.convertUris = Neos.Neos:ConvertUris {
     forceConversion = true
   }
@@ -25,5 +33,5 @@ prototype(signalwerk.sfgz:NewsItem) < prototype(Neos.Neos:Content) {
     'background18',
     'background19',
     'background20'
-  ])
+  ])}
 }

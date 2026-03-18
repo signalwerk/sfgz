@@ -1,0 +1,13 @@
+##
+# "Vimeo" element
+#
+
+prototype(signalwerk.sfgz:Vimeo) < prototype(Neos.Neos:Content) {
+    templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Vimeo.html'
+
+    attributes.class = 'vimeo'
+
+    video = ${q(node).property('video')}
+    width = ${q(node).property('width')}
+    height = ${q(node).property('height')}
+}
