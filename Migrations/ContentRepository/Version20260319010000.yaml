@@ -1,0 +1,24 @@
+up:
+  comments: 'Change layout property value from "blog" to "default" on Neos.NodeTypes:Page nodes'
+  migration:
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Neos.NodeTypes:Page'
+        -
+          type: 'PropertyValue'
+          settings:
+            propertyName: 'layout'
+            propertyValue: 'blog'
+      transformations:
+        -
+          type: 'ChangePropertyValue'
+          settings:
+            property: 'layout'
+            newValue: 'default'
+
+down:
+  comments: 'Cannot be reversed: original "blog" values are no longer distinguishable from "default"'
+  migration: []

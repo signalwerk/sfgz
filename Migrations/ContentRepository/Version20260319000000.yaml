@@ -1,0 +1,88 @@
+up:
+  comments: 'Remove all nodes of Breadlesscode.Blog node types that are no longer in use'
+  migration:
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Component.PostTeaser'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Document.CategoryBlog'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Document.Post'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Component.PostContent'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Component.PostList.Item'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Content.PostListing'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Content.PostListingList'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Component.PostList.Category'
+      transformations:
+        -
+          type: 'RemoveNode'
+    -
+      filters:
+        -
+          type: 'NodeType'
+          settings:
+            nodeType: 'Breadlesscode.Blog:Collection.PostContent'
+      transformations:
+        -
+          type: 'RemoveNode'
+
+down:
+  comments: 'Cannot be reversed: node removal is not reversible'
+  migration: []

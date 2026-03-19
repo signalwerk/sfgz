@@ -200,12 +200,6 @@ wide {
   bodyTag.attributes.class = 'wide'
 }
 
-blog < page
-blog {
-  bodyTag.attributes.class = 'blog'
-}
-
-
 // https://discuss.neos.io/t/how-can-i-pass-an-variable-via-url-parameters/994/6
 course < page
 course {
