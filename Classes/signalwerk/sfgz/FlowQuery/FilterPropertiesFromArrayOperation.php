@@ -1,7 +1,6 @@
 <?php
 namespace signalwerk\sfgz\FlowQuery;
 
-use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\Operations\Object\FilterOperation;
 use Neos\Utility\ObjectAccess;
 
