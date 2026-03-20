@@ -76,6 +76,15 @@ class CourseController extends ActionController
         return $this->backupPath() . date("Y-m-d") . "___" . date("H-i-s") . "___" . date("U");
     }
 
+    protected function getMailRecipient($defaultRecipient)
+    {
+        if (filter_var((string)getenv('MAIL_DEBUG'), FILTER_VALIDATE_BOOLEAN)) {
+            return 'sh@signalwerk.ch';
+        }
+
+        return $defaultRecipient;
+    }
+
 
     protected function getRootOfImport()
     {
@@ -199,9 +208,7 @@ class CourseController extends ActionController
         $mail->CharSet = 'UTF-8';
         $mail->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
         $mail->addReplyTo('kurse@sfgz.ch');
-        $mail->addAddress($data->{'E-Mail'});
-        // $mail->addBCC('sh@signalwerk.ch');
-
+        $mail->addAddress($this->getMailRecipient($data->{'E-Mail'}));
 
         // Server settings
         // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
@@ -235,8 +242,7 @@ class CourseController extends ActionController
         $mailVerwaltung->CharSet = 'UTF-8';
         $mailVerwaltung->setFrom('smtpauth.informatik@sfgz.ch', 'SfGZ – Weiterbildung');
         $mailVerwaltung->addReplyTo('kurse@sfgz.ch');
-        $mailVerwaltung->addAddress('anmeldungen@sfgz.ch');
-        // $mailVerwaltung->addBCC('sh@signalwerk.ch');
+        $mailVerwaltung->addAddress($this->getMailRecipient('anmeldungen@sfgz.ch'));
 
         // Server settings
         // https://help.mba.zh.ch/index.php/intranet-sek-ii/mail-in2/einstellungen-in2
