@@ -16,33 +16,37 @@ prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
 
   events = ${q(site).find('[instanceof signalwerk.sfgz:NewsCategory][type="Event-Typ"]')}
   days = ${q(site).find('[instanceof signalwerk.sfgz:NewsCategory][type="Wochentag"]')}
-  selectedCat = ${request.arguments.cat}
-  selectedFilterTxt = ${request.arguments.filterTxt}
+  selectedCat = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
+  selectedFilterTxt = ${request.arguments.filterTxt != null ? request.arguments.filterTxt : (request.httpRequest.queryParams.filterTxt != null ? request.httpRequest.queryParams.filterTxt : request.httpRequest.parsedBody.filterTxt)}
+  @context.selectedCat = ${selectedCat}
+  @context.selectedFilterTxt = ${selectedFilterTxt}
 
   isAjax = ${selectedCat != null && selectedCat != ""}
 
   parentID = ${q(node).parents().parents().get(0)}
 
-  @context.items = Neos.Fusion:Case {
-
-      ifTwoCat {
-          condition = ${selectedCat != null && String.indexOf(selectedCat, ',') > -1}
-          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + String.split(selectedCat, ',')[0] +'"]','categories').filterPropertiesFromArray('[identifier="' + String.split(selectedCat, ',')[1] +'"]','categories')}
-      }
-      ifCat {
-          condition = ${selectedCat != null && selectedCat != ""}
-          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').filterPropertiesFromArray('[identifier="' + selectedCat +'"]','categories')}
-      }
-      else {
-          condition = TRUE
-          renderer = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]')}
+  @context.filteredItems = Neos.Fusion:RawCollection {
+      collection = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').get()}
+      itemRenderer = Neos.Fusion:Case {
+          ifTwoCat {
+              condition = ${(request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) != null && String.indexOf((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',') > -1}
+              renderer = ${((Array.first(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[0]) || (Array.last(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[0])) && ((Array.first(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[1]) || (Array.last(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[1])) ? item : null}
+          }
+          ifCat {
+              condition = ${(request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) != null && (request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) != ""}
+              renderer = ${Array.first(q(item).property('categories')).identifier == (request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) || Array.last(q(item).property('categories')).identifier == (request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) ? item : null}
+          }
+          else {
+              condition = TRUE
+              renderer = ${item}
+          }
       }
   }
 
-  itemsCount = ${items}
+  itemsCount = ${Array.filter(filteredItems)}
 
   news = Neos.Fusion:Loop {
-    items = ${items}
+    items = ${Array.filter(filteredItems)}
     itemRenderer = signalwerk.sfgz:NewsItem
     itemName = 'node'
     iterationName = 'nodeIteration'

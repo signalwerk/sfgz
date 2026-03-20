@@ -13,8 +13,10 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
   view = ${q(node).property('view') ? q(node).property('view') : 'list'}
   organisations = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Organisation"]')}
   functions = ${q(site).find('[instanceof signalwerk.sfgz:ContactCategory][type="Funktion"]')}
+  selectedCat = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
+  selectedFilterTxt = ${request.arguments.filterTxt != null ? request.arguments.filterTxt : (request.httpRequest.queryParams.filterTxt != null ? request.httpRequest.queryParams.filterTxt : request.httpRequest.parsedBody.filterTxt)}
 
-  isAjax = ${!String.isBlank(request.arguments.cat)}
+  isAjax = ${!String.isBlank(selectedCat)}
 
   parentID = ${q(node).parents().parents().get(0)}
 
@@ -26,16 +28,16 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
           collection = Neos.Fusion:Case {
 
               ifTwoCat {
-                  condition = ${!String.isBlank(String.split(request.arguments.cat, ',')[0]) && String.split(request.arguments.cat, ',')[1]}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[0] +'"]', 'categories').filterPropertiesFromArray('[identifier="' + String.split(request.arguments.cat, ',')[1] +'"]','categories').sort('familyname', 'ASC').get()}
+                  condition = ${!String.isBlank(String.split(props.selectedCat, ',')[0]) && String.split(props.selectedCat, ',')[1]}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + String.split(props.selectedCat, ',')[0] + '"]').filter('[categories *= "' + String.split(props.selectedCat, ',')[1] + '"]').sort('familyname', 'ASC').get()}
               }
               ifCat {
-                  condition = ${!String.isBlank(request.arguments.cat)}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + request.arguments.cat + '"]', 'categories').sort('familyname', 'ASC').get()}
+                  condition = ${!String.isBlank(props.selectedCat)}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + props.selectedCat + '"]').sort('familyname', 'ASC').get()}
               }
               listFilter {
                   condition = ${q(node).property('filterCategory')}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filterPropertiesFromArray('[identifier="' + q(node).property('filterCategory').identifier + '"]', 'categories').sort('familyname', 'ASC').get()}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + q(node).property('filterCategory') + '"]').sort('familyname', 'ASC').get()}
               }
               else {
                   condition = TRUE
@@ -45,8 +47,8 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
 
           itemRenderer = Neos.Fusion:Case {
               if {
-                  condition = ${!String.isBlank(request.arguments.filterTxt)}
-                  renderer = ${String.indexOf(String.toLowerCase(q(item).property('firstname') + ' ' + q(item).property('familyname')), String.toLowerCase( request.arguments.filterTxt )) != -1 ? item : null }
+                  condition = ${!String.isBlank(props.selectedFilterTxt)}
+                  renderer = ${String.indexOf(String.toLowerCase(q(item).property('firstname') + ' ' + q(item).property('familyname')), String.toLowerCase(props.selectedFilterTxt)) != -1 ? item : null }
               }
               else {
                   condition = TRUE

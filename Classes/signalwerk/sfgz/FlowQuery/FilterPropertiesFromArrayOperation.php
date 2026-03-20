@@ -2,12 +2,8 @@
 namespace signalwerk\sfgz\FlowQuery;
 
 use Neos\Eel\FlowQuery\FlowQuery;
-
 use Neos\Eel\FlowQuery\Operations\Object\FilterOperation;
-
-use Neos\Flow\Annotations as Flow;
-use Neos\ContentRepository\Domain\Model\Node;
-use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\Utility\ObjectAccess;
 
 class FilterPropertiesFromArrayOperation extends FilterOperation
 {
@@ -47,9 +43,9 @@ class FilterPropertiesFromArrayOperation extends FilterOperation
         foreach ($context as $element) {
             $elementsFromProperty = $element->getProperty($propertyName);
 
-            if ($elementsFromProperty) {
+            if (is_iterable($elementsFromProperty)) {
                 foreach ($elementsFromProperty as $propertyElement) {
-                    if ($this->matchesFilterGroup($propertyElement, $parsedFilter)) {
+                    if ($this->matchesPropertyElement($propertyElement, $parsedFilter)) {
                         $filteredContext[] = $element;
                         break;
                     }
@@ -57,5 +53,88 @@ class FilterPropertiesFromArrayOperation extends FilterOperation
             }
         }
         $flowQuery->setContext($filteredContext);
+    }
+
+    protected function matchesPropertyElement($propertyElement, array $parsedFilter): bool
+    {
+        $identifierOperand = $this->extractIdentifierOperand($parsedFilter);
+        if ($identifierOperand !== null) {
+            $propertyElementIdentifier = $this->extractIdentifier($propertyElement);
+
+            return $propertyElementIdentifier !== null
+                && strtolower($propertyElementIdentifier) === strtolower($identifierOperand);
+        }
+
+        return $this->matchesFilterGroup($propertyElement, $parsedFilter);
+    }
+
+    protected function extractIdentifierOperand(array $parsedFilter): ?string
+    {
+        foreach ($parsedFilter['Filters'] ?? [] as $filter) {
+            if (isset($filter['IdentifierFilter'])) {
+                return (string)$filter['IdentifierFilter'];
+            }
+
+            foreach ($filter['AttributeFilters'] ?? [] as $attributeFilter) {
+                if (
+                    ($attributeFilter['PropertyPath'] ?? null) === 'identifier'
+                    && in_array((string)($attributeFilter['Operator'] ?? ''), ['=', '=~'], true)
+                    && isset($attributeFilter['Operand'])
+                ) {
+                    return (string)$attributeFilter['Operand'];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    protected function extractIdentifier($propertyElement): ?string
+    {
+        if (is_string($propertyElement)) {
+            return $propertyElement;
+        }
+
+        if (is_array($propertyElement)) {
+            foreach (['identifier', 'nodeAggregateIdentifier', 'aggregateId'] as $key) {
+                if (!empty($propertyElement[$key])) {
+                    return (string)$propertyElement[$key];
+                }
+            }
+
+            return null;
+        }
+
+        if (!is_object($propertyElement)) {
+            return null;
+        }
+
+        foreach (['getIdentifier', 'getNodeAggregateIdentifier', 'getAggregateId'] as $methodName) {
+            if (method_exists($propertyElement, $methodName)) {
+                try {
+                    $identifier = $propertyElement->{$methodName}();
+                    if ($identifier !== null && $identifier !== '') {
+                        return (string)$identifier;
+                    }
+                } catch (\Throwable $exception) {
+                }
+            }
+        }
+
+        foreach (['identifier', 'nodeAggregateIdentifier', 'aggregateId'] as $propertyPath) {
+            try {
+                $identifier = ObjectAccess::getPropertyPath($propertyElement, $propertyPath);
+                if ($identifier !== null && $identifier !== '') {
+                    return (string)$identifier;
+                }
+            } catch (\Throwable $exception) {
+            }
+        }
+
+        if ($propertyElement instanceof \Stringable) {
+            return (string)$propertyElement;
+        }
+
+        return null;
     }
 }

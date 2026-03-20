@@ -206,7 +206,7 @@ course {
   bodyTag.attributes.class = 'course'
   @cache.entryIdentifier.courseId = ${request.arguments.kurs}
   @cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
-  @cache.entryIdentifier.categoryId = ${request.arguments.cat}
+  @cache.entryIdentifier.categoryId = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
 }
 
 
@@ -218,7 +218,7 @@ course {
 #
 root.@cache.entryIdentifier.courseId = ${request.arguments.kurs}
 root.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
-root.@cache.entryIdentifier.categoryId = ${request.arguments.cat}
+root.@cache.entryIdentifier.categoryId = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
 
 // prototype(Neos.Neos:Page) {
 //   @cache.entryIdentifier.courseId = ${request.arguments.kurs}
@@ -227,5 +227,5 @@ root.@cache.entryIdentifier.categoryId = ${request.arguments.cat}
 prototype(Neos.Neos:PrimaryContent).default {
   renderer.@cache.entryIdentifier.courseId = ${request.arguments.kurs}
   renderer.@cache.entryIdentifier.executionId = ${request.arguments.durchfuehrung}
-  renderer.@cache.entryIdentifier.categoryId = ${request.arguments.cat}
+  renderer.@cache.entryIdentifier.categoryId = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
 }

@@ -1,25 +1,28 @@
 root.ajax {
-    condition = ${!String.isBlank(request.arguments.nodeName)}
+    condition = ${!String.isBlank(request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName))}
     renderer = signalwerk.sfgz:AjaxView
 }
 
-root.@cache.entryIdentifier.nodeName = ${request.arguments.nodeName}
+root.@cache.entryIdentifier.nodeName = ${request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName)}
 
 
 prototype(signalwerk.sfgz:AjaxView) < prototype(Neos.Neos:Content) {
     templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/AjaxView.html'
-    ajaxNodeName = ${request.arguments.nodeName}
-    ajaxCat = ${request.arguments.cat}
-    ajaxFilterTxt = ${request.arguments.filterTxt}
+    requestNodeName = ${request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName)}
+    requestCat = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
+    requestFilterTxt = ${request.arguments.filterTxt != null ? request.arguments.filterTxt : (request.httpRequest.queryParams.filterTxt != null ? request.httpRequest.queryParams.filterTxt : request.httpRequest.parsedBody.filterTxt)}
+    ajaxNodeName = ${requestNodeName}
+    ajaxCat = ${requestCat}
+    ajaxFilterTxt = ${requestFilterTxt}
 
     collection = Neos.Fusion:Loop {
-      #items = ${q(site).find('#' + request.arguments.nodeName).children('[instanceof Neos.Neos:ContentCollection]')}
-      items = ${q(site).find('#' + request.arguments.nodeName).children()}
+      #items = ${q(site).find('#' + (request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName))).children('[instanceof Neos.Neos:ContentCollection]')}
+      items = ${q(site).find('#' + (request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName))).children()}
 
       itemRenderer = signalwerk.sfgz:AjaxViewItem {
-        @context.ajaxNodeName = ${request.arguments.nodeName}
-        @context.ajaxCat = ${request.arguments.cat}
-        @context.ajaxFilterTxt = ${request.arguments.filterTxt}
+        @context.ajaxNodeName = ${request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName)}
+        @context.ajaxCat = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
+        @context.ajaxFilterTxt = ${request.arguments.filterTxt != null ? request.arguments.filterTxt : (request.httpRequest.queryParams.filterTxt != null ? request.httpRequest.queryParams.filterTxt : request.httpRequest.parsedBody.filterTxt)}
       }
       itemName = 'node'
       iterationName = 'nodeIteration'
