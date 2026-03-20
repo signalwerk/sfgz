@@ -16,9 +16,7 @@ prototype(signalwerk.sfgz:AjaxView) < prototype(Neos.Neos:Content) {
     ajaxFilterTxt = ${requestFilterTxt}
 
     collection = Neos.Fusion:Loop {
-      #items = ${q(site).find('#' + (request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName))).children('[instanceof Neos.Neos:ContentCollection]')}
       items = ${q(site).find('#' + (request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName))).children()}
-
       itemRenderer = signalwerk.sfgz:AjaxViewItem {
         @context.ajaxNodeName = ${request.arguments.nodeName != null ? request.arguments.nodeName : (request.httpRequest.queryParams.nodeName != null ? request.httpRequest.queryParams.nodeName : request.httpRequest.parsedBody.nodeName)}
         @context.ajaxCat = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}

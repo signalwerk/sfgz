@@ -28,14 +28,15 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
 
 
           collection = Neos.Fusion:Case {
+              @context.selectedCat = ${selectedCat}
 
               ifTwoCat {
-                  condition = ${!String.isBlank(String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[0]) && String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[1]}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[0] + '"]').filter('[categories *= "' + String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[1] + '"]').sort('familyname', 'ASC').get()}
+                  condition = ${!String.isBlank(String.split(selectedCat, ',')[0]) && String.split(selectedCat, ',')[1]}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + String.split(selectedCat, ',')[0] + '"]').filter('[categories *= "' + String.split(selectedCat, ',')[1] + '"]').sort('familyname', 'ASC').get()}
               }
               ifCat {
-                  condition = ${!String.isBlank(ajaxCat != null ? ajaxCat : request.arguments.cat)}
-                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + (ajaxCat != null ? ajaxCat : request.arguments.cat) + '"]').sort('familyname', 'ASC').get()}
+                  condition = ${!String.isBlank(selectedCat)}
+                  renderer = ${q(site).find('[instanceof signalwerk.sfgz:ContactItem]').filter('[categories *= "' + selectedCat + '"]').sort('familyname', 'ASC').get()}
               }
               listFilter {
                   condition = ${q(node).property('filterCategory')}
@@ -48,9 +49,10 @@ prototype(signalwerk.sfgz:ContactView) < prototype(Neos.Neos:Content) {
           }
 
           itemRenderer = Neos.Fusion:Case {
+              @context.selectedFilterTxt = ${selectedFilterTxt}
               if {
-                  condition = ${!String.isBlank(ajaxFilterTxt != null ? ajaxFilterTxt : request.arguments.filterTxt)}
-                  renderer = ${String.indexOf(String.toLowerCase(q(item).property('firstname') + ' ' + q(item).property('familyname')), String.toLowerCase(ajaxFilterTxt != null ? ajaxFilterTxt : request.arguments.filterTxt)) != -1 ? item : null }
+                  condition = ${!String.isBlank(selectedFilterTxt)}
+                  renderer = ${String.indexOf(String.toLowerCase(q(item).property('firstname') + ' ' + q(item).property('familyname')), String.toLowerCase(selectedFilterTxt)) != -1 ? item : null }
               }
               else {
                   condition = TRUE
