@@ -3,7 +3,6 @@ prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
   templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/NewsView.html'
   view = ${q(node).property('view')}
   isAjax = ${isAjax}
-  selectedCatToView = ${Json.stringify(request.arguments.cat) + ' | ' + Json.stringify(request.httpRequest.parsedBody.cat) + ' | ' + Json.stringify(request.httpRequest.queryParams.cat)}
 
   @cache {
       mode = 'uncached'
@@ -16,8 +15,8 @@ prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
 
   events = ${q(site).find('[instanceof signalwerk.sfgz:NewsCategory][type="Event-Typ"]')}
   days = ${q(site).find('[instanceof signalwerk.sfgz:NewsCategory][type="Wochentag"]')}
-  selectedCat = ${request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)}
-  selectedFilterTxt = ${request.arguments.filterTxt != null ? request.arguments.filterTxt : (request.httpRequest.queryParams.filterTxt != null ? request.httpRequest.queryParams.filterTxt : request.httpRequest.parsedBody.filterTxt)}
+  selectedCat = ${ajaxCat != null ? ajaxCat : request.arguments.cat}
+  selectedFilterTxt = ${ajaxFilterTxt != null ? ajaxFilterTxt : request.arguments.filterTxt}
   @context.selectedCat = ${selectedCat}
   @context.selectedFilterTxt = ${selectedFilterTxt}
 
@@ -29,12 +28,12 @@ prototype(signalwerk.sfgz:NewsView) < prototype(Neos.Neos:Content) {
       collection = ${q(node).find('[instanceof signalwerk.sfgz:NewsItem]').get()}
       itemRenderer = Neos.Fusion:Case {
           ifTwoCat {
-              condition = ${(request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) != null && String.indexOf((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',') > -1}
-              renderer = ${((Array.first(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[0]) || (Array.last(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[0])) && ((Array.first(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[1]) || (Array.last(q(item).property('categories')).identifier == String.split((request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)), ',')[1])) ? item : null}
+              condition = ${(ajaxCat != null ? ajaxCat : request.arguments.cat) != null && String.indexOf((ajaxCat != null ? ajaxCat : request.arguments.cat), ',') > -1}
+              renderer = ${((Array.first(q(item).property('categories')).identifier == String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[0]) || (Array.last(q(item).property('categories')).identifier == String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[0])) && ((Array.first(q(item).property('categories')).identifier == String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[1]) || (Array.last(q(item).property('categories')).identifier == String.split((ajaxCat != null ? ajaxCat : request.arguments.cat), ',')[1])) ? item : null}
           }
           ifCat {
-              condition = ${(request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) != null && (request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) != ""}
-              renderer = ${Array.first(q(item).property('categories')).identifier == (request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) || Array.last(q(item).property('categories')).identifier == (request.arguments.cat != null ? request.arguments.cat : (request.httpRequest.queryParams.cat != null ? request.httpRequest.queryParams.cat : request.httpRequest.parsedBody.cat)) ? item : null}
+              condition = ${(ajaxCat != null ? ajaxCat : request.arguments.cat) != null && (ajaxCat != null ? ajaxCat : request.arguments.cat) != ""}
+              renderer = ${Array.first(q(item).property('categories')).identifier == (ajaxCat != null ? ajaxCat : request.arguments.cat) || Array.last(q(item).property('categories')).identifier == (ajaxCat != null ? ajaxCat : request.arguments.cat) ? item : null}
           }
           else {
               condition = TRUE
