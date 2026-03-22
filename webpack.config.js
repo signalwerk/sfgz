@@ -28,6 +28,21 @@ module.exports = {
     courseview: [
       "./Resources/Private/JavaScript/courseview.js",
     ],
+    filterview: [
+      "./Resources/Private/JavaScript/filterview.js",
+    ],
+    signalwerkBackend: [
+      "./Resources/Private/JavaScript/signalwerkBackend.js",
+    ], 
+    signalwerkFrontend: [
+      "./Resources/Private/JavaScript/signalwerkFrontend.js",
+    ],
+    filterview: [
+      "./Resources/Private/JavaScript/filterview.js",
+    ],
+    courseview: [
+      "./Resources/Private/JavaScript/courseview.js",
+    ]
   },
 
   // output file(s) and chunks
