@@ -76,6 +76,88 @@ class CourseController extends ActionController
         return $this->backupPath() . date("Y-m-d") . "___" . date("H-i-s") . "___" . date("U");
     }
 
+    protected function controllerPath()
+    {
+        return __DIR__;
+    }
+
+    protected function escapeFlowQueryLiteral($value)
+    {
+        return addcslashes((string)$value, "\\\"");
+    }
+
+    protected function normalizeLookupValue($value)
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $value = trim($value);
+
+        if ($value === '' || mb_strlen($value) > 200) {
+            return null;
+        }
+
+        if (preg_match('/\A[\pL\pN][\pL\pN .,:_\/()\-]*\z/u', $value) !== 1) {
+            return null;
+        }
+
+        return $value;
+    }
+
+    protected function submittedEnrollmentData()
+    {
+        $parsedBody = $this->request->getHttpRequest()->getParsedBody();
+        if (is_array($parsedBody) && isset($parsedBody['data']) && is_array($parsedBody['data'])) {
+            return $parsedBody['data'];
+        }
+
+        $sampleDataPath = $this->controllerPath() . '/mail.json';
+        if (!file_exists($sampleDataPath)) {
+            return [];
+        }
+
+        $postData = json_decode((string)file_get_contents($sampleDataPath), true);
+        if (!is_array($postData) || !isset($postData['data']) || !is_array($postData['data'])) {
+            return [];
+        }
+
+        return $postData['data'];
+    }
+
+    protected function findCourseByCoursId($courseId)
+    {
+        $query = new FlowQuery(array($this->context->getRootNode()));
+
+        return $query
+            ->find('[instanceof signalwerk.sfgz:Course][coursid = "' . $this->escapeFlowQueryLiteral($courseId) . '"]')
+            ->get(0);
+    }
+
+    protected function findExecutionByCode($executionCode)
+    {
+        $query = new FlowQuery(array($this->context->getRootNode()));
+
+        return $query
+            ->find('[instanceof signalwerk.sfgz:CourseExecution][code = "' . $this->escapeFlowQueryLiteral($executionCode) . '"]')
+            ->get(0);
+    }
+
+    protected function executionBelongsToCourse(NodeInterface $courseNode, NodeInterface $executionNode)
+    {
+        $executionsNode = $executionNode->getParent();
+        if (!$executionsNode instanceof NodeInterface) {
+            return false;
+        }
+
+        $executionCourseNode = $executionsNode->getParent();
+        if (!$executionCourseNode instanceof NodeInterface) {
+            return false;
+        }
+
+        return $executionCourseNode->getIdentifier() === $courseNode->getIdentifier();
+    }
+
     protected function getMailRecipient($defaultRecipient)
     {
         if (filter_var((string)getenv('MAIL_DEBUG'), FILTER_VALIDATE_BOOLEAN)) {
@@ -186,7 +268,7 @@ class CourseController extends ActionController
     {
         $engine = new Handlebars;
 
-        $path = dirname(getcwd()) . "/DistributionPackages/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
+        $path = $this->controllerPath();
         $templateMail = file_get_contents($path . "/mail.hbs") . file_get_contents($path . "/mail__facts.hbs");
 
 
@@ -678,13 +760,10 @@ class CourseController extends ActionController
 
     public function enrollAction()
     {
-        $path = dirname(getcwd()) . "/DistributionPackages/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller";
-
-        if (!empty($_POST["data"])) {
-            $data = $_POST['data'];
-        } else {
-            $postData = file_get_contents($path . "/mail.json");
-            $data = json_decode($postData)->data;
+        $data = $this->submittedEnrollmentData();
+        if ($data === []) {
+            $this->response->setStatusCode(400);
+            return 'Ungültige Anfrage.';
         }
 
         // To create the nested structure
@@ -693,7 +772,7 @@ class CourseController extends ActionController
                 die('Failed to create mail (save)...');
             }
         }
-        file_put_contents($this->backupFilePath() . '_data.json', json_encode($data, JSON_PRETTY_PRINT));
+        file_put_contents($this->backupFilePath() . '_data.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         // it can be --contact-form[agb  or --contact-form[agb]
         $pattern = '/--contact-form\[([^\]]*)(\])?$/';
@@ -707,10 +786,29 @@ class CourseController extends ActionController
             }
         }
 
-        $query = new FlowQuery(array($this->context->getRootNode()));
-        // $query = $query->find('[instanceof signalwerk.sfgz:Course][coursid = "' +  (string)$dataObj->coursid  +'"]');
-        $queryCourse = $query->find(('[instanceof signalwerk.sfgz:Course][coursid = "' .  $dataObj->coursid  . '"]'))->get(0);
-        $queryExecution = $query->find(('[instanceof signalwerk.sfgz:CourseExecution][code = "' .  $dataObj->executionid  . '"]'))->get(0);
+        $courseId = $this->normalizeLookupValue($dataObj->coursid ?? null);
+        $executionId = $this->normalizeLookupValue($dataObj->executionid ?? null);
+
+        if ($courseId === null || $executionId === null) {
+            $this->response->setStatusCode(400);
+            return 'Ungültige Kursanfrage.';
+        }
+
+        $queryCourse = $this->findCourseByCoursId($courseId);
+        $queryExecution = $this->findExecutionByCode($executionId);
+
+        if (!$queryCourse instanceof NodeInterface || !$queryExecution instanceof NodeInterface) {
+            $this->response->setStatusCode(404);
+            return 'Kurs nicht gefunden.';
+        }
+
+        if (!$this->executionBelongsToCourse($queryCourse, $queryExecution)) {
+            $this->response->setStatusCode(400);
+            return 'Ungültige Kursanfrage.';
+        }
+
+        $dataObj->coursid = $courseId;
+        $dataObj->executionid = $executionId;
 
         $dataObj->title = $queryCourse->getProperty('title');
         $dataObj->code = $queryExecution->getProperty('code');

@@ -52,6 +52,27 @@ class CourseoverviewController extends ActionController
         $this->context = $this->contextFactory->create(array('workspaceName' => 'live'));
     }
 
+    protected function escapeFlowQueryLiteral($value)
+    {
+        return addcslashes((string)$value, "\\\"");
+    }
+
+    protected function requestFilterText()
+    {
+        $queryParams = $this->request->getHttpRequest()->getQueryParams();
+        $filterText = isset($queryParams['filterTxt']) && is_string($queryParams['filterTxt']) ? trim($queryParams['filterTxt']) : '';
+
+        if ($filterText === '') {
+            return null;
+        }
+
+        $filterText = mb_substr($filterText, 0, 100);
+        $filterText = preg_replace('/[^\pL\pN\s.,:_\/()\-]/u', '', $filterText);
+        $filterText = trim((string)$filterText);
+
+        return $filterText === '' ? null : $filterText;
+    }
+
     /**
     * @param string $action
     */
@@ -64,8 +85,9 @@ class CourseoverviewController extends ActionController
         $query = $query->find('[instanceof signalwerk.sfgz:Course]');
 
         // filter by freetext
-        if (!empty($_GET["filterTxt"])) {
-            $query = $query->filter('[fulltext*="'.strtolower($_GET["filterTxt"]).'"]');
+        $filterText = $this->requestFilterText();
+        if ($filterText !== null) {
+            $query = $query->filter('[fulltext*="' . $this->escapeFlowQueryLiteral(mb_strtolower($filterText)) . '"]');
             // $stauts.="\nfilterTxt:'".$_GET["filterTxt"]."'";
         }
 
