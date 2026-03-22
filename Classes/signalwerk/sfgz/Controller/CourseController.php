@@ -350,7 +350,7 @@ class CourseController extends ActionController
 
     protected function pluralize($count, $text)
     {
-        return $count . (($count == 1) ? (" $text") : (" ${text}s"));
+        return $count . (($count == 1) ? (" $text") : (" {$text}s"));
     }
     protected function ago($datetime)
     {
@@ -670,7 +670,7 @@ class CourseController extends ActionController
         $msg = $this->deleteAllCourses();
         $msg .= $this->importCourse();
 
-        $this->response->setStatus(201);
+        $this->response->setStatusCode(201);
         $this->log("End – import", true);
         return $msg . "<pre style='font-size: 0.9em;'>\n" . join("\n", $this->logImport) . "\n</pre>"; // 'Import all done. ';
     }
@@ -731,7 +731,7 @@ class CourseController extends ActionController
         $msg = $this->emailCourse($dataObj);
         $msg .= $this->exportCourse($dataObj);
 
-        $this->response->setStatus(201);
+        $this->response->setStatusCode(201);
         return $msg; // 'Import all done. ';
     }
 

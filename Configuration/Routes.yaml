@@ -1,4 +1,12 @@
 -
+ name: 'Legacy import course'
+ uriPattern:    'course/import'
+ defaults:
+   '@package':    'signalwerk.sfgz'
+   '@controller': 'Course'
+   '@format': 'html'
+   '@action': 'import'
+-
  name: 'Import course'
  uriPattern:    'signalwerk/course/import'
  defaults:
@@ -7,7 +15,15 @@
    '@format': 'html'
    '@action': 'import'
 -
- name: 'enroll course'
+ name: 'Legacy enroll course'
+ uriPattern:    'course/enroll'
+ defaults:
+   '@package':    'signalwerk.sfgz'
+   '@controller': 'Course'
+   '@format': 'html'
+   '@action': 'enroll'
+-
+ name: 'Enroll course'
  uriPattern:    'signalwerk/course/enroll'
  defaults:
    '@package':    'signalwerk.sfgz'
