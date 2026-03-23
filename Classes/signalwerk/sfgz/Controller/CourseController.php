@@ -78,7 +78,17 @@ class CourseController extends ActionController
 
     protected function controllerPath()
     {
-        return __DIR__;
+        $runtimePath = __DIR__;
+        if (file_exists($runtimePath . '/mail.hbs')) {
+            return $runtimePath;
+        }
+
+        $sourcePath = FLOW_PATH_ROOT . 'DistributionPackages/signalwerk.sfgz/Classes/signalwerk/sfgz/Controller';
+        if (file_exists($sourcePath . '/mail.hbs')) {
+            return $sourcePath;
+        }
+
+        return $runtimePath;
     }
 
     protected function escapeFlowQueryLiteral($value)
