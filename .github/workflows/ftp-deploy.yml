@@ -40,12 +40,12 @@ jobs:
           bash ./ci/lftp.sh push
         env:
           FTP_DRY_RUN: false
-          FTP_SERVER: sftp://34.65.45.216
+          FTP_SERVER: sftp://34.65.45.216:2222
           FTP_USER: sh@signalwerk.ch
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_POST_CMD: mv "/html/Data/Temporary" "/html/Data/DEL_Temporary__${{ env.GITHUB_SHA_SHORT }}";
+          FTP_POST_CMD: mv "Data/Temporary" "Data/DEL_Temporary__${{ env.GITHUB_SHA_SHORT }}";
           FTP_LOCAL_DIR: .
-          FTP_REMOTE_DIR: /html/DistributionPackages/signalwerk.sfgz/
+          FTP_REMOTE_DIR: DistributionPackages/signalwerk.sfgz/
 
       - name: ☁️ Build Cache
         run: curl -s -I https://sfgz.ch

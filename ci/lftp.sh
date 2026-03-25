@@ -7,7 +7,7 @@ fi
 
 FTP_EXCLUDES="${FTP_EXCLUDES:-}"
 
-FTP_SERVER="${FTP_SERVER:-sftp://}"
+FTP_SERVER="${FTP_SERVER:-sftp://localhost:2222}"
 FTP_USER="${FTP_USER:-anonymous}"
 FTP_PASSWORD="${FTP_PASSWORD:-password}"
 
@@ -55,26 +55,28 @@ echo "FTP_POST_CMD: $FTP_POST_CMD"
 # mirror dry run and: --dry-run
 getDir () {
   mkdir -p ${FTP_LOCAL_DIR}
-  lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
+  lftp -c " \
   $FTP_INIT \
+  open -u '${FTP_USER},${FTP_PASSWORD}' '${FTP_SERVER}'; \
   lcd '${FTP_LOCAL_DIR}'; \
   cd '${FTP_REMOTE_DIR}'; \
   mirror $FTP_DRY_RUN --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES --delete; \
   $FTP_POST_CMD \
   quit; \
-  " "${FTP_SERVER}"
+  "
 }
 
 pushDir () {
   mkdir -p ${FTP_LOCAL_DIR}
-  lftp -u "${FTP_USER},${FTP_PASSWORD}" -e " \
+  lftp -c " \
   $FTP_INIT \
+  open -u '${FTP_USER},${FTP_PASSWORD}' '${FTP_SERVER}'; \
   lcd '${FTP_LOCAL_DIR}'; \
   cd '${FTP_REMOTE_DIR}'; \
   mirror $FTP_DRY_RUN --reverse --verbose=8 --parallel=${FTP_PARALLEL} --exclude-glob node_modules/ --exclude-glob .git/ $FTP_EXCLUDES; \
   $FTP_POST_CMD \
   quit; \
-  " "${FTP_SERVER}"
+  "
 }
 
 if [ "$1" == "pull" ]; then
