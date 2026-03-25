@@ -1,2 +1,20 @@
 /node_modules
 
+/Resources/Public/JavaScript/main.js
+/Resources/Public/JavaScript/main.js.map
+/Resources/Public/JavaScript/courseview.js
+/Resources/Public/JavaScript/courseview.js.map
+/Resources/Public/JavaScript/filterview.js
+/Resources/Public/JavaScript/filterview.js.map
+/Resources/Public/JavaScript/imagesloaded.js
+/Resources/Public/JavaScript/imagesloaded.js.map
+/Resources/Public/JavaScript/jquery.squirrel.js
+/Resources/Public/JavaScript/jquery.squirrel.js.map
+/Resources/Public/JavaScript/masonry.js
+/Resources/Public/JavaScript/masonry.js.map
+/Resources/Public/JavaScript/signalwerkBackend.js
+/Resources/Public/JavaScript/signalwerkBackend.js.map
+/Resources/Public/JavaScript/signalwerkFrontend.js
+/Resources/Public/JavaScript/signalwerkFrontend.js.map
+/Resources/Public/Styles/main.css
+/Resources/Public/Styles/main.css.map

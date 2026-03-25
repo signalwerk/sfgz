@@ -42,6 +42,15 @@ module.exports = {
     ],
     courseview: [
       "./Resources/Private/JavaScript/courseview.js",
+    ],
+    masonry: [
+      "./Resources/Private/JavaScript/masonry.js",
+    ],
+    "jquery.squirrel": [
+      "./Resources/Private/JavaScript/jquery.squirrel.js",
+    ],
+    imagesloaded: [
+      "./Resources/Private/JavaScript/imagesloaded.js",
     ]
   },
 
@@ -159,6 +168,12 @@ module.exports = {
       chunkFilename: "./Styles/[id].css"
     })
   ],
+
+  // externals - treat these as global variables, don't bundle them
+  externals: {
+    jquery: 'jQuery',
+    $: 'jQuery'
+  },
 
   // development server configuration
   devServer: {
