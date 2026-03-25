@@ -311,55 +311,6 @@
           group: 'course'
     fulltext:
       type: string
-    # text:
-    #   validation: ~
-    #   ui:
-    #     inlineEditable: TRUE
-    #     inspector:
-    #       group: ~
-    #     aloha:
-    #       placeholder: 'Text'
-    #       'format':
-    #         'b': TRUE
-    #         'i': TRUE
-    #         'u': TRUE
-    #         'sub': TRUE
-    #         'sup': TRUE
-    #         'p': FALSE
-    #         'h1': FALSE
-    #         'h2': FALSE
-    #         'h3': TRUE
-    #         'pre': FALSE
-    #         'removeFormat': FALSE
-    #       'table': []
-    #       'list': []
-    #       'link':
-    #         'a': TRUE
-    #       'alignment': []
-    #       'formatlesspaste':
-    #         'button': FALSE
-    #         'formatlessPasteOption': TRUE
-    # 'startdate':
-    #   type: DateTime
-    #   ui:
-    #     label: 'Start'
-    #     reloadIfChanged: TRUE
-    #     inspector:
-    #       group: 'course'
-    # 'enddate':
-    #   type: DateTime
-    #   ui:
-    #     label: 'End'
-    #     reloadIfChanged: TRUE
-    #     inspector:
-    #       group: 'course'
-    # 'duration':
-    #   type: string
-    #   ui:
-    #     label: 'Umfang'
-    #     reloadIfChanged: TRUE
-    #     inspector:
-    #       group: 'course'
     'instructor':
       type: string
       ui:

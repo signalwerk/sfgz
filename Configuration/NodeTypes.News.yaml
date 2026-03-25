@@ -35,84 +35,69 @@
         inlineEditable: TRUE
         inspector:
           group: ~
-        aloha:
-          placeholder: 'Enter date here'
-          'format':
-            'b': FALSE
-            'i': FALSE
-            'u': FALSE
-            'sub': FALSE
-            'sup': FALSE
-            'p': FALSE
-            'h1': FALSE
-            'h2': FALSE
-            'h3': FALSE
-            'pre': FALSE
-            'removeFormat': FALSE
-          'table': []
-          'list': []
-          'link':
-            'a': FALSE
-          'alignment': []
-          'formatlesspaste':
-            'button': FALSE
-            'formatlessPasteOption': TRUE
+        inline:
+          editorOptions:
+            placeholder: 'Enter date here'
+            autoparagraph: false
+            formatting:
+              strong: false
+              em: false
+              underline: false
+              sub: false
+              sup: false
+              p: false
+              h1: false
+              h2: false
+              h3: false
+              pre: false
+              removeFormat: false
+              a: false
     title:
       validation: ~
       ui:
         inlineEditable: TRUE
         inspector:
           group: ~
-        aloha:
-          placeholder: 'Enter title here'
-          'format':
-            'b': FALSE
-            'i': FALSE
-            'u': FALSE
-            'sub': FALSE
-            'sup': FALSE
-            'p': FALSE
-            'h1': TRUE
-            'h2': TRUE
-            'h3': FALSE
-            'pre': FALSE
-            'removeFormat': FALSE
-          'table': []
-          'list': []
-          'link':
-            'a': FALSE
-          'alignment': []
-          'formatlesspaste':
-            'button': FALSE
-            'formatlessPasteOption': TRUE
+        inline:
+          editorOptions:
+            placeholder: 'Enter title here'
+            autoparagraph: false
+            formatting:
+              strong: false
+              em: false
+              underline: false
+              sub: false
+              sup: false
+              p: false
+              h1: true
+              h2: true
+              h3: false
+              pre: false
+              removeFormat: false
+              a: false
     text:
       validation: ~
       ui:
         inlineEditable: TRUE
         inspector:
           group: ~
-        aloha:
-          placeholder: 'Enter Text here'
-          'format':
-            'b': TRUE
-            'i': FALSE
-            'u': FALSE
-            'sub': FALSE
-            'sup': FALSE
-            'p': TRUE
-            'h1': FALSE
-            'h2': FALSE
-            'h3': FALSE
-            'pre': FALSE
-            'removeFormat': FALSE
-          'table': []
-          'list': []
-          'link':
-            'a': TRUE
-          'alignment': []
-          'formatlesspaste':
-            'button': FALSE
-            'formatlessPasteOption': TRUE
+        inline:
+          editorOptions:
+            placeholder: 'Enter Text here'
+            autoparagraph: true
+            formatting:
+              strong: true
+              em: false
+              underline: false
+              sub: false
+              sup: false
+              p: true
+              h1: false
+              h2: false
+              h3: false
+              pre: false
+              removeFormat: false
+              a: true
     categories:
       type: references
       ui:
