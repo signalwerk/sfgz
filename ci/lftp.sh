@@ -7,7 +7,7 @@ fi
 
 FTP_EXCLUDES="${FTP_EXCLUDES:-}"
 
-FTP_SERVER="${FTP_SERVER:-ftp://}"
+FTP_SERVER="${FTP_SERVER:-sftp://}"
 FTP_USER="${FTP_USER:-anonymous}"
 FTP_PASSWORD="${FTP_PASSWORD:-password}"
 
@@ -27,10 +27,8 @@ fi
 FTP_PARALLEL="${FTP_PARALLEL:-5}"
 
 FTP_INIT="${FTP_INIT:-}"
-FTP_INIT="$FTP_INIT set ftp:list-options -a;"
-FTP_INIT="$FTP_INIT set ftp:charset UTF-8;"
+FTP_INIT="$FTP_INIT set sftp:auto-confirm yes;"
 FTP_INIT="$FTP_INIT set ssl:verify-certificate no;"
-FTP_INIT="$FTP_INIT set ftp:ssl-allow no;"
 
 FTP_POST_CMD="${FTP_POST_CMD:-}"
 

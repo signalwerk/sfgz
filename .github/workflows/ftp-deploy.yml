@@ -1,4 +1,4 @@
-name: FTP Deploy
+name: SFTP Deploy
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
           bash ./ci/lftp.sh push
         env:
           FTP_DRY_RUN: false
-          FTP_SERVER: 34.65.45.216
+          FTP_SERVER: sftp://34.65.45.216
           FTP_USER: sh@signalwerk.ch
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_POST_CMD: mv "/html/Data/Temporary" "/html/Data/DEL_Temporary__${{ env.GITHUB_SHA_SHORT }}";
