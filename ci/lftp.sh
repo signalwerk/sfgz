@@ -29,6 +29,7 @@ FTP_PARALLEL="${FTP_PARALLEL:-5}"
 FTP_INIT="${FTP_INIT:-}"
 FTP_INIT="$FTP_INIT set sftp:auto-confirm yes;"
 FTP_INIT="$FTP_INIT set ssl:verify-certificate no;"
+FTP_INIT="$FTP_INIT set ftp:use-chmod no;"
 
 FTP_POST_CMD="${FTP_POST_CMD:-}"
 

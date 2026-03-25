@@ -43,7 +43,7 @@ jobs:
           FTP_SERVER: sftp://34.65.45.216:2222
           FTP_USER: sh@signalwerk.ch
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_POST_CMD: mv "Data/Temporary" "Data/DEL_Temporary__${{ env.GITHUB_SHA_SHORT }}";
+          FTP_POST_CMD: mv "/Data/Temporary" "/Data/DEL_Temporary__${{ env.GITHUB_SHA_SHORT }}";
           FTP_LOCAL_DIR: .
           FTP_REMOTE_DIR: DistributionPackages/signalwerk.sfgz/
 
