@@ -152,6 +152,20 @@ $(function () {
     // Make sure the form is submitted to the destination defined
     // in the "action" attribute of the form when valid
     submitHandler: function (form) {
+      var $form = $(form);
+      var $submitButton = $form.find('button[type="submit"]');
+
+      if ($form.data("isSubmitting")) {
+        return false;
+      }
+
+      $form.data("isSubmitting", true);
+      $submitButton
+        .data("original-label", $submitButton.text())
+        .prop("disabled", true)
+        .attr("aria-busy", "true")
+        .text("Wird gesendet...");
+
       $.ajax({
         type: "POST",
         url: "/signalwerk/course/enroll",
