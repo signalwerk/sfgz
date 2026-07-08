@@ -1,4 +1,5 @@
 prototype(signalwerk.sfgz:Course) < prototype(Neos.Neos:Content) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/Course.html'
   node = ${node}
 
   # Render the main ContentCollection of the Post like a page would
@@ -10,4 +11,9 @@ prototype(signalwerk.sfgz:Course) < prototype(Neos.Neos:Content) {
   executions = Neos.Neos:ContentCollection {
     nodePath = 'executions'
   }
+}
+
+prototype(signalwerk.sfgz:CourseExecution) < prototype(Neos.Neos:Content) {
+  templatePath = 'resource://signalwerk.sfgz/Private/Templates/NodeTypes/CourseExecution.html'
+  course = ${q(node).parents('[instanceof signalwerk.sfgz:Course]').get(0)}
 }
