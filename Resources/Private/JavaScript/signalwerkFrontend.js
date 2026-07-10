@@ -56,8 +56,14 @@ function pad(n, width, z) {
     }
     var isTimeToPlay = lastPlayed + delta < Date.now();
 
+    var prefersReducedMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     if ($body.hasClass("noBackground")) {
-      if (isTimeToPlay) {
+      if (prefersReducedMotion) {
+        $body.addClass("no-animation");
+      } else if (isTimeToPlay) {
         store.setItem("animationLastPlayed", Date.now());
       } else {
         $body.addClass("no-animation");
