@@ -39,6 +39,6 @@
     "susy": "^2.2.12",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^4.11.1"
   }
 }
